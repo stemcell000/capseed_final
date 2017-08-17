@@ -1,0 +1,5 @@
+$("#myModalLabel").html("Delete assay")
+$("#myModalButtons").html("<%= escape_javascript( render'components/modal_delete_btn' ) %>")
+
+$("#inner-assay-modal").html("Are you sure you wish to delete this assay?")
+$("#assay-modal").modal("show")

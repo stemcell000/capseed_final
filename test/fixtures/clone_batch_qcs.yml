@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  primer_nb: 1
+  primer_name: MyString
+  date_send: 2016-02-16
+  date_rec: 2016-02-16
+  rec_name: MyString
+  result: MyText
+  op: MyString
+
+two:
+  primer_nb: 1
+  primer_name: MyString
+  date_send: 2016-02-16
+  date_rec: 2016-02-16
+  rec_name: MyString
+  result: MyText
+  op: MyString

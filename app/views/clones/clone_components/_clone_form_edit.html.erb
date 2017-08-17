@@ -1,0 +1,47 @@
+<%= simple_form_for ([@assay,@clone]), url: update_record_assay_clone_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+			<div class="form-group ui-front">
+
+				<div class="row">
+						<div class="col-md-4">
+							 <%= f.input :name, :label => "Name" %>
+					 	</div>
+					 	<div class= "col-md-3">
+					 		<%= f.input :id, :readonly => true, :label => "Clone #"%>
+						</div>
+						<div class="col-md-3">
+							<%= f.input :bbnb, :label => "Backbone #" %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<%= f.association :inserts, :label => "Inserts",
+											:collection => @inserts_all,
+											:label_method => :clone_batch_id.to_s,
+											:placeholder => "Select insert(s)",
+											input_html: { class: 'select2-select' }%>
+						</div>
+						<div class="col-md-12">
+							<%= f.association :enzymes, :label => "Backbone enzymes",
+											:collection => @enzymes_all,
+											:placeholder => "Select enzymes",
+											input_html: { class: 'select2-select' }%>
+						</div>				
+					<div class="row">
+						<div class="col-md-5">
+							<%= f.input :primerinsfor, :label => "Forward primer insert" %>
+						</div>
+						<div class="col-md-5">
+							<%= f.input :primerinsrev, :label => "Forward primer insert" %>
+						</div>
+					</div>
+						<%= f.input :comment, :label => "Comment"%>
+					</div>
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<%end%>
+
+

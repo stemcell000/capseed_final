@@ -1,0 +1,43 @@
+<td class="col-md-1 text-center"><%= cb.name %>
+						
+						<br/ >
+						
+						</td>
+</td>
+						<td class="col-sm-1 text-center"><%= cb.id %></td>
+						<td class="col-md-3">
+							<div class="col-md-12">
+							<% if !cb.strand_as_plasmid.nil?%>
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= Type.find(cb.type_id).name %><br />
+								<strong>Strand: </strong><%= cb.strand_as_plasmid %><br />
+								<strong>Promoter: </strong> <%= cb.promoter_as_plasmid %><br />
+								<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />
+							</div>
+							<div class="col-md-12">
+							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>
+								<% if cb.clone_batch_as_plasmid_attachments.length>1%>
+									<strong>Attached files:</strong><br />
+									<%else%>
+									<strong>Attached file:</strong><br />
+								<%end%>	
+									<% cb.clone_batch_as_plasmid_attachments.each do |a|%>
+										<%mypath= a.attachment.to_s%>
+										<small><%= link_to File.basename(mypath), a.attachment.to_s %></small> <br />
+									<%end%>
+								<%end%>
+							</div>
+					<% else %>						
+						<div class="font-orange"><em>Missing plasmid info </em></div>
+					<% end %>
+						</td>
+						<td class="col-sm-2 text-center">
+							<% if cb.strand_as_plasmid.nil?%>
+								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
+							<%else%>
+								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-success btn-xs", :title=>"Update clone's parameters." ,:remote => true %>
+								<%= link_to "Remove", remove_plasmid_data_clone_batch_path( :assay_id => @assay.id, :clone_id => clone.id, :id => cb.id) , :class =>"btn btn-danger btn-xs", :title=>"Clear plasmid data." ,:remote => true %>
+							<%end%>
+						</td>

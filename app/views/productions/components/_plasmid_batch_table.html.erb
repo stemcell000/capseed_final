@@ -1,0 +1,25 @@
+<% if @plasmid_batches.empty?%>
+			<p>No plasmid batch to display</p>
+<%else%>
+<table class="table table-striped table-bordered" id="plasmid-batch-table">
+			<thead>
+				<th>Name</th>
+				<th>Batch number</th>
+				<th>Actions</th>
+			</thead>
+				<% @plasmid_batches.each do |plasmid_batch| %>
+					<tr>
+						<td class="col-sm-3"><%= plasmid_batch.id %></td>
+						<td class="col-sm-1 text-center"><%= plasmid_batch.id %></td>
+						<td class="col-sm-3 text-center">
+							<%= link_to "Remove batch", 
+										production_plasmid_batch_remove_from_prod_path(@production, :plasmid_batch_id =>plasmid_batch.id),
+										:class =>"btn btn-danger btn-xs",
+										:title=>"Remove clone from list.",
+										:confirm => "Do really want to remove this batch?",
+										:remote => true %>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<% end %>

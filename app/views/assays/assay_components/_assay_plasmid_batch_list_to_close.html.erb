@@ -1,0 +1,22 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <% @clones.each_with_index do |clone, index| %>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading<%=index.to_s%>">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index.to_s%>" aria-expanded="true" aria-controls="collapse<%=index.to_s%>">
+          <%=clone.name%>
+        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+      </h4>
+    </div>
+    <div id="collapse<%=index.to_s%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=index.to_s%>">
+      <div class="panel-body">
+		<div id="info-container<%=clone.id%>" class= "container-fluid" >
+			<div class="col-lg-12">
+					<%= render :partial => "assays/assay_components/assay_plasmid_batch_qc_list_batch_info_close", :locals => {:clone => clone, :assay => @assay} %>
+			</div>	
+		</div>
+	</div>
+	</div>
+	</div>
+	</div>
+<%end%>

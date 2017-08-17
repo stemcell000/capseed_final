@@ -1,0 +1,8 @@
+$("#flash-msg-container").html("");
+$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+$("#assay-modal").modal("hide");
+$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "clone_batches/clone_batch_components/clone_batch_as_plasmid_table", :locals => {:assay => @assay, :clone => @clone, :cb_collection => @cb_collection }) %>");
+//console.log("clone id:"<%=@clone.id%>);
+//console.log("assay id:"<%=@assay.id%>);
+console.log("Refreshing plasmid info.");
+

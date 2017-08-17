@@ -1,0 +1,23 @@
+<%= simple_form_for [ @production,  @plasmid_batch ], remote: true, html: {class: 'form-inline'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	
+  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+<div class="form-group ui-front col-lg-12">
+	
+<div class="row">
+	  <div class="col-md-6 final-name">
+					<%= f.input :number,
+					:inline_label => "Number",
+					:url => autocomplete_plasmid_batch_number_production_plasmid_batches_path,
+					:as => :autocomplete,
+					:placeholder => 'Type a batch number.',
+					:update_elements => {:id => '[id*="_id"]'}
+					%>
+	  				<%= f.input :id, :label => 'Batch#', :as => :hidden %>
+	   
+	  </div>
+ </div>
+<% end %>
+</div>
+

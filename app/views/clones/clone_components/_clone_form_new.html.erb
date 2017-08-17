@@ -1,0 +1,81 @@
+<%= simple_form_for ([@assay,@clone]), remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+			<div class="form-group ui-front">
+				<div class="row">
+						<div class="col-md-4">
+							<% if params[:id]%>
+							 <%= f.input :name, :label => "Name" %>
+							<% else %>
+							<%= f.input :name,
+							:label => "Name",
+							:url => autocomplete_clone_name_clones_path,
+							:as => :autocomplete,
+							:id_element => '[id*="_id"]',
+							:placeholder => 'Type a clone name.',
+							:update_elements => {:id => '[id*="_id"]'}
+							 %>
+							<% end %>
+					 	</div>
+					 	<div class= "col-md-3">
+					 		<%= f.input :id, :label => "Clone #", :readonly => true%>
+						</div>
+						<div class="col-md-4">
+							<%= f.input :bbnb, :label => "Backbone #"%>
+						</div>
+					</div>
+					<div>
+					<div class="row">
+						<div class="col-md-12">
+							<%= f.association :inserts, :label => "Inserts",
+												:label_method => :clone_batch_id.to_s,
+												:value_method => :id,
+												:prompt => 'Select insert(s)',
+												:input_html => {class: "select2-select"} %>
+							<% if @clone.id.present? %>
+							<%= f.association :inserts, :label => "Inserts",
+												:collection => @inserts_all,
+												:label_method => :clone_batch_id.to_s,
+												:placeholder => "Select insert(s).",
+												:as => :hidden %>
+							<% end %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<%= f.association :enzymes, :label => "Backbone enzymes",
+												:label_method => :name,
+												:value_method => :id,
+												:prompt => 'Select enzymes',
+												:input_html => {class: "select2-select"} %>
+							<% if @clone.id.present? %>
+							<%= f.association :enzymes, :label => "Backbone enzymes",
+												:collection => @insert_all,
+												:placeholder => 'Select enzymes',
+												:as => :hidden %>
+							<% end %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<%= f.input :primerinsfor, :label => "Forward primer insert" %>
+						</div>
+						<div class="col-md-4">
+							<%= f.input :primerinsrev, :label => "Forward primer insert" %>
+						</div>
+					</div>
+						<%= f.input :comment, :label => "Comment"%>
+					</div>
+ 		<div class="btn-group" role="group" aria-label="...">
+        	<% if params[:id]%>
+        		<%= link_to "Duplicate", replicate_assay_clones_path(@assay,@clone), :class =>"btn btn-primary btn-md", :title=>"Update clone's parameters." ,:remote => true %>
+        	<% else %>
+        		<%= f.submit("Add", :id => "add_btn", :class => "btn btn-default", :title => "Save the changes to this Assay.") %>
+        	<% end %>
+        	<%= f.submit 'Reset', :type => :reset, :class => "btn btn-default", :id =>"reset" %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<%end%>
+
+

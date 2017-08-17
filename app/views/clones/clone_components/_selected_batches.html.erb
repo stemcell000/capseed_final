@@ -1,0 +1,12 @@
+<table class="table table-bordered" id="clone-batches-table">
+	<thead>
+		<th>Temporary name</th>
+		<th>Comment</th>
+	</thead>
+		<% clone.clone_batches.each do |cb|%>
+			<tr>
+				<td class="col-sm-1"><small>cb.temp_name</small></td>
+				<td class="col-sm-1"><small>cb.comment</small></td>
+			</tr>
+		<%end%>
+		</table>

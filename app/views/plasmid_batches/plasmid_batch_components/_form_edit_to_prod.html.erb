@@ -1,0 +1,215 @@
+<%= simple_form_for [ @production,  @plasmid_batch ],url: add_to_prod_production_plasmid_batch_path(:id => @plasmid_batch.id), remote: true, :html => { :class => 'form-inline' } do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+ 
+  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+<div class="form-group ui-front col-lg-12">
+	<div class="row">
+		  <div class="col-lg-6 final-name">
+						<%= f.input :number,
+						:inline_label => "Number",
+						:url => autocomplete_plasmid_batch_number_production_plasmid_batches_path,
+						:as => :autocomplete,
+						:placeholder => 'Type a batch number.',
+						:update_elements => {:id => '[id*="_id"]'}
+						%>
+		  				<%= f.input :id, :label => 'Batch#', :as => :hidden %>
+		  </div>
+	
+	 	<div class="col-lg-6 green">
+			<%= f.input :name , :inline_label => 'Name' %>
+		</div>
+	</div>
+</div>
+
+<ul class="nav nav-pills">
+  <li class="active"><a data-toggle="pill" href="#plasmidbatch">Plasmid batch</a></li>
+  <li><a data-toggle="pill" href="#cloning">Cloning</a></li>
+  <li><a data-toggle="pill" href="#clonebatch">Clone batch</a></li>
+  <li><a data-toggle="pill" href="#plasmid">Plasmid</a></li>
+</ul>
+
+<div class="tab-content">
+<div id="plasmidbatch" class="tab-pane fade in active">
+	<div class="row">
+		<div class="col-md-6">
+			<strong>Created on: </strong><%=@plasmid_batch.created_at.strftime("%B %e, %Y")%> <br />
+			<strong>Updated on: </strong><%=@plasmid_batch.updated_at.strftime("%B %e, %Y")%><br />
+			<strong>Format: </strong><%=@format.name%><br />
+		</div>
+		<div class="col-md-6">
+	  		<strong>Concentration: </strong><%=@plasmid_batch.concentration%> <%= @unit.name %><br />
+	  		<strong>Location: </strong><% if @box %> 
+	  										<%= @box.name%> <%= @row.name if @column %> <%=@column.name if @column %><br />
+										<%else%>
+											Not documented<br />
+										<%end%>
+			<strong>QC status :</strong> <%= formatQC(@plasmid_batch.qc_validation)%><br />
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12 ">
+					<strong>Comments: </strong>
+						<%= @plasmid_batch.comment ? "No comment" : content_tag(:div, content_tag(@plasmid_batch.comment  ), class: "row")%>
+		</div>
+	</div>
+	<div class="row">
+		<% if @plasmid_batch_attachments.length > 0 %>
+			<div class="col-sm-12">
+				<strong>Files: </strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+										<% @plasmid_batch_attachments.each do |a| %>
+											<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br/> 
+										<%end%>
+										</div>
+		<%else%>
+			<div class="col-sm-12">
+				<strong>Files: </strong>No file
+			</div>
+		<%end%>
+			
+		</div>
+	</div>
+
+
+	<div id="cloning" class="tab-pane fade">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="font-success"><strong><%= @assay.name %></strong></div><br />
+			<strong>Created on: </strong><%= formatDateEN(@assay.created_at)%><br />
+			<strong>Project(s): </strong><br />
+					<% @projects.each do |p|%>
+						- <%=p.name%><br />
+					<%end%>	
+		</div>
+		<div class="col-md-4">
+			<strong>Name: </strong><%= @clone.name %><br /> 
+			<strong>Clone#: </strong> <%= @clone.id %><br />
+			<% puts case @inserts.length %>
+				<% when 0 %>
+					<strong>Insert: </strong> No insert.
+				<% when 1 %>
+					<strong>Insert: </strong> <%= @clone.inserts.map(&:number)[0]%>
+				<% else %>
+					<strong>Inserts: </strong> <%= @clone.inserts.each(&:number)[0] %>
+				<% end %>
+		</div>
+		<div class="col-md-4">
+			<strong>Primer insert foward: </strong> <%= @clone.primerinsfor%><br />
+			<strong>Primer insert reverse: </strong><%= @clone.primerinsrev%><br />
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<strong>Comments: </strong>
+							<%= @clone.comment ? "No comment" : content_tag(:div, content_tag(@clone.comment  ))%>
+		</div>
+	</div>
+	</div>
+	
+	
+	<div id="clonebatch" class="tab-pane fade">
+		<div class="row">
+			<div class="col-md-12">
+				 <div class="font-success"><strong><%= @clone.name %></strong></div><br />
+				<strong>QC status :</strong> <%= formatQC(@clone_batch.qc_validation)%><br />
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<strong>Comments: </strong> <%= @clone_batch.comment ? "No comment" : content_tag(:div, content_tag(@clone_batch.comment  ))%><br />
+			</div>
+		</div>
+		
+		<div class="row">
+		<% if @clone_batch_attachments.length > 0 %>
+				<div class="col-sm-12">
+					<strong>Files: </strong>
+				</div>
+			</div>
+		<div class="row">
+				<div class="col-md-12">
+											<% @clone_batch_attachments.each do |a| %>
+												<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br/> 
+											<%end%>
+											</div>
+			<%else%>
+				<div class="col-sm-12">
+					<strong>Files: </strong>No file
+				</div>
+			<%end%>
+				
+		</div>
+	</div>
+	
+	
+	<div id="plasmid" class="tab-pane fade">
+		<div class="row">
+			
+			<div class="col-md-6">
+				<div class="font-success"><strong><%= @clone_batch.name %></strong></div><br />
+				<strong>Strand: </strong><%=@clone_batch.strand_as_plasmid %><br />
+				<strong>Date: </strong><%=@clone_batch.date_as_plasmid.strftime("%B %e, %Y") %><br />
+				<strong>Glycerol stock: </strong><%=@clone_batch.glyc_stock_box_as_plasmid %><br />
+			</div>
+			
+			<div class="col-md-6">
+				<strong>Origin: </strong><%=@clone_batch.origin_as_plasmid %><br />
+				<strong>Promoter: </strong><%=@clone_batch.promoter_as_plasmid %><br />
+				<strong>Gene: </strong><%=@clone_batch.gene_as_plasmid %><br />
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<strong>Comments: </strong> <%= @clone_batch.comment_as_plasmid ? "No comment" : content_tag(:div, content_tag(@clone_batch.comment_as_plasmid  ))%><br />
+			</div>
+		</div>
+		
+	<div class="row">
+		<% if @clone_batch_as_plasmid_attachments.length > 0 %>
+				<div class="col-sm-12">
+					<strong>Files: </strong>
+				</div>
+			</div>
+		<div class="row">
+				<div class="col-md-12">
+											<% @clone_batch_as_plasmid_attachments.each do |a| %>
+												<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br/> 
+											<%end%>
+											</div>
+			<%else%>
+				<div class="col-sm-12">
+					<strong>Files: </strong>No file
+				</div>
+			<%end%>
+				
+		</div>
+	</div>
+	
+</div>
+
+<div class="row">
+	  <div class="col-md-12 right">
+ 		<div class="btn-group" role="group" aria-label="...">
+ 		<%if !params[:id].nil?%>
+    		<%= f.submit("Add to production", :class => "btn btn-default", :title => "Add this batch to production.") %>
+    	<%else%>
+    		<%= f.submit("Add to production", :class => "btn btn-default", :title => "Add this batch to production.", :disabled => true) %>
+    	<%end%>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+    </div>
+</div>
+
+</small>
+</div>
+<% end %>
+
+

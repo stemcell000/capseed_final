@@ -1,0 +1,5 @@
+  	$("#flash-msg-container").html("")
+  	$('#clone-table-container').html("<%= escape_javascript(render :partial => "clones/clone_components/table", locals: {:clones => @clones}) %>");
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$('#assay-modal').modal("hide");
+console.log("clone created.");

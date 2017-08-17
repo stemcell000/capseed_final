@@ -1,0 +1,19 @@
+//Les donnees dans les champs du formulaire form_clone sont testées d'après les critères de validation
+//definis dans le model. Si ces criteres sont verifies, les donnees sont sauvees. Sinon, le formulaire
+//dans sa fenetre modale reste ouvert et les message d'erreur s'affichent en haut du formulaire.
+	$("#myModalLabel").html("Clone")
+	$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
+	$("#flash-msg-container").html("")
+	$("#inner-assay-modal").html("<%= escape_javascript( render'clones/clone_components/clone_form_new' ) %>")
+	$("#assay-modal").modal("show")
+	$("ul.errors").html("")
+	console.debug("new is loaded => clone_form_new");
+	
+<% if params[:id] %>
+	disableFormInputs(true);
+	console.log("New => form disabled");
+<%else%>
+	disableFormInputs(false);
+	console.log("New => form enabled");
+<% end %>
+

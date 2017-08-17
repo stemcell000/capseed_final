@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Clone Batch Attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clone_batch_attachments.each do |clone_batch_attachment| %>
+      <tr>
+        <td><%= link_to 'Show', clone_batch_attachment %></td>
+        <td><%= link_to 'Edit', edit_clone_batch_attachment_path(clone_batch_attachment) %></td>
+        <td><%= link_to 'Destroy', clone_batch_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Clone batch attachment', new_clone_batch_attachment_path %>

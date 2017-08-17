@@ -1,0 +1,9 @@
+		<% if @assay.locked == true %>
+			<% st = "Cloning locked" %>
+		<%else%>
+			<% st = "Cloning unlocked" %>
+		<%end%>
+		<%= simple_form_for @assay, url: lock_process_assay_path, :remote=> true do |f| %>
+	  	<%= f.label :locked, :label => st %>
+	  	<%= f.input_field :locked, :as => :boolean, :onclick => "$('#assay_locked*').submit();" %>
+		<% end %>

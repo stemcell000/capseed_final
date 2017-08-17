@@ -1,0 +1,2 @@
+module PlasmidBatchQcAttachmentsHelper
+end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dig_smal: 
+  dig_other,: MyString
+  itr: 
+  comments: MyText
+
+two:
+  dig_smal: 
+  dig_other,: MyString
+  itr: 
+  comments: MyText

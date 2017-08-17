@@ -1,0 +1,2 @@
+class EnzymesController < ApplicationController
+end

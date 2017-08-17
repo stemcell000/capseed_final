@@ -1,0 +1,14 @@
+<%= render 'components/prod_process_pills'%>
+	<div class="panel panel-info">
+		<div class="panel-heading"> Production: <%= @production.name %></div>
+		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
+		<div id="plasmid-batch-table-container" >
+						<%= render :partial => "productions/components/plasmid_batch_virus_table" , :locals => {:plasmid_batches => @plasmid_batches}%>
+		</div>
+			<div class="panel-footer row">
+			    <div class="btn-group col-md-7" role="group" aria-label="...">
+					<%= link_to 'Next', "#", :class => "btn btn-default btn-sm" %>
+			  	</div>
+		  	</div>
+		</div>
+	</div>

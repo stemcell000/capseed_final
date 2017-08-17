@@ -1,0 +1,23 @@
+
+<% if clone.clones_batches.empty?%>
+			<p>No clone to display</p>
+<%end%>
+<% if !clone.batches.empty?%>
+<table class="table table-striped table-bordered plasmid-table" id="clone-table">
+			<thead>
+				<th>Name</th>
+				<th>plasmid number</th>
+				<th>Actions</th>
+			</thead>
+				<%clone.batches.each do |cb| %>
+					<tr>
+						<td class="col-md-3"><%= cb.name %></td>
+						<td class="col-sm-2"><%= cb.id %></td>
+						<td class="col-sm-2"></td>
+						<%= link_to "Edit", edit_record_assay_clone_path(@assay, clone), :class =>"btn btn-primary btn-xs", :title=>"Update clone's parameters." ,:remote => true %>
+						<%= link_to "Remove", [@assay,clone], :method => :delete, :class =>"btn btn-danger btn-xs", :title=>"Remove clone from list.", :confirm => "Do really want to remove this clone?", :remote => true %>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<% end %>

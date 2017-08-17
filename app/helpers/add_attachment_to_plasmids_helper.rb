@@ -1,0 +1,2 @@
+module AddAttachmentToPlasmidsHelper
+end

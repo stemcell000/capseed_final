@@ -1,0 +1,13 @@
+  <td class="center"><%= object.name %></td>
+  <td class="center"><%= formatProdStep(object.last_step, object.id)[:step_name] %></td>
+  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="actions center">
+	  <%= smart_listing_item_actions [
+	  { name:   :custom, 
+  		url:  edit_production_path(:id => object.id),
+  		method: :get, 
+  		icon: "fa_icon fa fa-pencil-square-o",
+  		remote: false, 
+  		title:  "Edit production"
+  		}]%>
+</td>

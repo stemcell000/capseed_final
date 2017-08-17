@@ -1,0 +1,48 @@
+<table class="table table-bordered table-striped table-hover" id="sortable">
+  <thead>
+    <tr>
+      <th class="col-name">
+        Name
+      </th>
+      <th  class="col-id">
+        ID
+      </th>
+      <th class="col-startdate">
+        Start date
+      </th>
+      <th  class="col-step">
+        Current step
+      </th>
+       <th  class="col-step">
+        Last validated step
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @assays.each do |assay| %>
+      <tr data-item-id=<%= assay.id %> class="item">
+        <td id="name">
+          <%= assay.name %>
+        </td>
+        <td id="id">
+        	<%= assay.id %>
+        </td>
+      	<td id="startdate"%>
+          <%= assay.created_at.strftime("%d %b %y at %H:%M") %>
+         </td>
+        <td id="step" class=<%= formatStep(assay.step, assay.id)[:step_class] %>>
+          <%= link_to formatStep(assay.step, assay.id)[:step_name], formatStep(assay.step, assay.id)[:step_path] %>
+        </td>
+         <td id="laststep" class=<%= formatStep(assay.last_step, assay.id)[:step_class] %>>
+          <%= link_to formatStep(assay.last_step, assay.id)[:step_name], formatStep(assay.last_step, assay.id)[:step_path] %>
+        </td>
+        <td id="Action">
+          <%= link_to 'Edit', edit_assay_path(assay.id) , class: "btn btn-default" %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

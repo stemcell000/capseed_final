@@ -1,0 +1,16 @@
+<%= render :partial => 'components/process_pills' %>
+	<div class="panel panel-primary">
+			<div class="panel-heading"> Cloning: <%= @assay.name %></div>
+			<div class="panel-body">
+				
+					<div id="clone-list-container">
+							<%= render :partial => "plasmid_batch_qcs/plasmid_batch_qc_components/list" , :locals => {:clones => @clones, :assay => @assay}%>
+					</div>
+			<div class="panel-footer row">
+				    <div class="btn-group col-md-5" role="group" aria-label="...">
+				    	<%= link_to 'Previous', plasmid_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+						<%= link_to 'Next', close_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+				  	</div>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,6 @@
+		<div id= "nav<%=clone.id%>" class="row">
+	      	<ul class="nav nav-tabs" id="ul<%=clone.id%>">
+			  <li role="presentation" class="<%= 'active' if @page_tab == "clone" %>"><%= link_to "Clone", assay_clone_clone_info_path(:assay_id => @assay.id, :clone_id => clone.id), :remote => true%></li>
+			  <li role="presentation" class="<%= 'active' if @page_tab == "plasmid" %>"><%= link_to "Plasmid", plasmid_info_assay_clone_path(:assay_id => @assay.id, :clone_id => clone.id, :clone => @clone), :remote => true %></li>
+			</ul>
+		</div>

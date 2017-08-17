@@ -1,0 +1,7 @@
+  	$("#flash-msg-container").html("")
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$('#assay-modal').modal("hide");
+//Popover
+  $('[data-toggle="popover"]').popover({html:true});
+
+console.log("Back to smart list of plasmid batches.")

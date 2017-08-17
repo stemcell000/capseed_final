@@ -1,0 +1,20 @@
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch]), remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	<div class="container">
+	<small>
+			<div class="row">
+				<div class="col-md-6">
+							<%= f.input :name, :label => "Name: ", :input_html => { :value => f.object.name || @clone.name } %>
+					       	<strong>Temporary name: </strong><%= f.object.temp_name %><br />
+					       	<strong>Notes: </strong><%= f.object.comment.presence || 'no comment' %><br />
+				</div>
+				</div>
+		
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<%end%>
+
+

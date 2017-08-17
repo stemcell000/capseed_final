@@ -1,0 +1,48 @@
+<small><div id="plasmid-table-container" class="container-fluid">
+	<div class="row">
+		<% clone.clone_batches.order(:id).each do |cb| %>
+			<div class="panel panel-default">
+			<div class="panel-body bg-info">
+				<div class="row">
+					<div class="col-md-3">
+							<strong>Name: <span class="text-success"><%= cb.name %></span></strong><br />
+							<strong>Plasmid number: </strong><%= cb.id %><br />
+								<% if !cb.strand_as_plasmid.nil?%>
+									<strong>Brand: </strong><%= cb.strand_as_plasmid %><br />
+									<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
+									<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
+									<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+									<strong>Type: </strong><%= cb.type_as_plasmid %><br />
+									<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
+									<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />
+					</div>
+					<div class="col-md-2">
+									<strong>Attached files: </strong><br />
+									<% if cb.clone_batch_attachments.length>0%>
+										<% cb.clone_batch_attachments.each do |a|%>
+										<%mypath= a.attachment.to_s%>
+											<p class="text-success"><%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%></p><br />
+										<%end%>
+										<%else%>
+										<p class="font-italic">No attachment.</p>
+									<%end%>
+					</div>
+					<div class="col-md-7">
+						<% if cb.plasmid_batches.empty?%>
+						<em>Add plasmid batches</em>
+						<%else%>
+							<strong>Plasmid batches:</strong><br />
+						<%end%>
+					</div>
+					<div class="col-md-7" id="thumb_<%=cb.id %>">
+							<%=render :partial => 'assays/assay_components/assay_complete_list', :locals => {:cb => cb}%>
+					</div>
+							</div>
+							</div>
+				
+		<% end %>
+		
+					<% end %>
+					</div>
+		</div>	
+</div></small>

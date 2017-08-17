@@ -1,0 +1,43 @@
+<%= simple_form_for ([@production, @plasmid_batch]), remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+  <small>
+  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+  	<div class="form-group ui-front">
+	<div class="row">
+				<div class="col-md-2">
+							<%= f.input :name,
+							:label => "Name",
+							:url => autocomplete_plasmid_batch_name_production_plasmid_batches_path,
+							:as => :autocomplete,
+							:id_element => '[id*="_id"]',
+							:placeholder => 'Type a batch name.',
+							:update_elements => {:id => '[id*="_id"]'}
+							%>
+  				</div>
+  				<div class="col-md-1">
+  					<%= f.input :id, :label => 'Batch#' %>
+  				</div>
+  				<div class="col-md-3">
+							<%= f.input :format, :label => "Format: "%>
+  				</div>
+  </div>
+  <div class="row">
+  	<div class="col-md-2">
+  		<%= f.input :concentration, :label => "Concentration: " %>
+  	</div>
+  	<div class="col-md-2">
+  		<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }%>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4">
+		<%= f.input :comment, :label => "Comment:" %>
+	</div>
+	</div>
+</small>
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<% end %>

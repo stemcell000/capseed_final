@@ -1,0 +1,100 @@
+<%= simple_form_for ([@production, @plasmid_batch, @virus_production]), remote: true, html: {class: 'vertical-form'} do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  	<div class="row">
+  		<div class="col-md-2">
+  			<%= f.input :date_order, :label => "Sending date:", :as => :string, :input_html => { :value => (f.object.date_send.strftime("%B %e, %Y") if f.object.date_order), "data-behaviour" => "datepicker" } %>
+    	</div>
+    	<div class="col-md-2">
+    		<%= f.input :date_production, :label => "Sending date:", :as => :string, :input_html => { :value => (f.object.date_send.strftime("%B %e, %Y") if f.object.date_production), "data-behaviour" => "datepicker" } %>
+    	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-9">
+			<%= f.association :user, :label => "User",
+					:collection => @users, :label_method => :full_name, :value_method => :id,
+					:input_html => { class:"select2-select-user" } %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+    		<%= f.input :plate_nb, :label => "Number of plates" %>
+    	</div>
+    </div>
+    <div class="row" >
+    	<div class="col-md-3">
+    		<%= f.input :vol, :label => "volume" %>
+    		</div>
+    	<div class="col-md-4">
+    		<%= f.association :vol_unit, :label => "Units",
+    		:collection => @vol_units,
+    		:input_html => {class:"select2-select-unit"}%>
+    	</div>
+    </div>
+    <div class="row">
+    	<div class="col-md-7 form-inline">
+		    <%= f.input :sterility,
+		    			:label => "Sterility",
+		    			:collection => [[1,'Yes'], [2,'No'],[3, 'Unknown']],
+		    			:label_method => :last,
+		    			:value_method => :first,
+		    			:as => :radio_buttons,
+		    			:item_wrapper_class => 'radio-inline',
+		    			:checked => true %>
+  		</div>
+  		<div class="col-md-3">
+			<%= f.input :plate_id, :inline_label =>"plate ID", :input_html => { :"data-mask" =>("99-9999") } %>
+		</div>
+  	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+			<%= f.input :titer_atcc,:label => "ATTC Titer" %>
+		</div>
+		<div class="col-md-3">
+			<%= f.input :titer, :label => "Titer" %>
+		</div>
+		<div class="col-md-3">
+			<%= f.input :titer_to_atcc%>
+		</div>
+	</div>
+	<div class="row">
+			<div class="col-md-9 form-inline">
+			<%= f.input :gel_prot,
+						:label => "Protein gel",
+					    :collection => [[1,'Yes'], [2,'No'],[3, 'Unknown']],
+		    			:label_method => :last,
+		    			:value_method => :first,
+		    			:as => :radio_buttons,
+		    			:item_wrapper_class => 'radio-inline',
+		    			:checked => true %>
+			</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<%= f.input :invoice, as: :boolean, :checked_value => true, :unchecked_value => false %>
+		</div>
+		<div class="col-md-3">
+			<%= f.input :batch_end, as: :boolean, :checked_value => true, :unchecked_value => false %>
+		</div>
+		<div class="col-md-3">
+			<%= f.input :l2, as: :boolean, :checked_value => true, :unchecked_value => false %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<%= f.input :hek_result%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<%= f.input :comment%>
+		</div>
+	</div>
+  <div class="form-actions row">
+  	<div class="col-md-4">
+    <%= f.button :submit %>
+    </div>
+  </div>
+<% end %>

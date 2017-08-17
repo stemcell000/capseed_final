@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  display: false
+  step: 1
+  comment: MyText
+  row_order: 1
+
+two:
+  name: MyString
+  display: false
+  step: 1
+  comment: MyText
+  row_order: 1

@@ -1,0 +1,12 @@
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="ddm" data-toggle="dropdown" aria-expanded="true">
+    Project
+    <span class="caret"></span>
+  </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="ddm">
+   <li role="presentation" class="dropdown-header"><a role="menuitem" tabindex=-1>Choose a project</a></li>
+  	<% @projects.each do |project|%>
+    <li role="presentation"><a role="menuitem" tabindex=<%= project.id%> href="#"><%= project.name %></a></li>
+      <%end%>
+    </ul>
+</div>

@@ -1,0 +1,66 @@
+<script>
+
+var i = 0, result = [];
+while(i < gon.assays.length){
+    result.push([]);
+    for(var key in gon.assays[i].assay){
+        result[result.length-1].push(gon.assays[i].assay[key]);	
+    }
+    i++;
+}
+function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+   }
+for(var i in result){
+	
+			result[i][3] = new Date(result[i][3]);
+			result[i][4] = new Date(result[i][4]);
+			if(result[i][3] == result[i][4]){
+				result[i][5] = daysToMilliseconds(1);
+			}else{
+				result[i][5] = null;
+			};
+				result[i][7] = null;
+};
+console.log(result);
+google.charts.load('current', {'packages':['gantt']});
+google.charts.setOnLoadCallback(drawChart);
+
+
+function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+	  data.addColumn('string', 'Task Name');
+	  data.addColumn('string', 'Resource');
+	  data.addColumn('date', 'Start Date');
+	  data.addColumn('date', 'End Date');
+	  data.addColumn('number', 'Duration');
+	  data.addColumn('number', 'Percent Complete');
+	  data.addColumn('string', 'Dependencies');
+
+ 	data.addRows(result);
+
+  var options = {
+    height: 300,
+    width: 450,
+    gantt: {
+      trackHeight: 30,
+      labelStyle: {
+      fontName: "Arial"
+  				},
+  	barHeight: 20,
+  	criticalPathEnabled: false,
+  	barCornerRadius: 2,
+  	innerGridTrack: {fill: 'white'},
+    innerGridDarkTrack: {fill: 'white'}
+    }
+  };
+
+  var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+  chart.draw(data, options);
+}
+</script>
+<div id="chart_div"></div>
+

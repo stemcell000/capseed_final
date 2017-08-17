@@ -1,0 +1,20 @@
+  <td class="center"><%= object.number %></td>
+  <td class="center"><%= object.name %></td>
+  <td class="center"><% if object.clone_batch_id.to_i>0 %>
+  						<%= object.clone_batch.name %>
+  						<%else%>
+  							-
+  						<%end%>
+  						</td>
+  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="actions right">
+	  <%= smart_listing_item_actions [
+	  	{ name:   :custom, 
+			url:  edit_from_inventory_plasmid_batch_path( :id => object.id.to_i, :plasmid_batch_id => object.id.to_i, :clone_batch_id => object.clone_batch_id.to_i ),
+			method: :get, 
+			icon: "fa_icon fa fa-pencil-square-o",
+			remote: true, 
+			title:  "Edit plasmid batch"
+		}
+  		]%>
+	</td>

@@ -1,0 +1,7 @@
+  	$("#flash-msg-container").html("")
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "plasmid_batch_qcs/plasmid_batch_qc_components/info", :locals => {:b => @plasmid_batch, :cb => @clone_batch, :clone => @clone, :assay => @assay } ) %>")
+console.log("Refreshing plasmid info.")
+
+//Popover
+  $('[data-toggle="popover"]').popover({html:true});

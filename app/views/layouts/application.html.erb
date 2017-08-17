@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= include_gon(:init => true) %>
+    <%= Gon::Base.render_data({}) %>
+    <%= stylesheet_link_tag 'application', media: 'all','data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+  	
+  	<%= render 'layouts/header' %>
+  	<%= render :partial => 'components/modal_alt' %>
+  	<%= render :partial => 'components/modal' %>
+  	<%= render :partial => 'components/modal_pb' %>
+    <div class="container">
+    	<div id='flash-msg-container'>
+			<%= render partial: "components/flash_messages", :flash => flash %>
+		</div>
+			 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		    </button>
+	<nav class="navbar-default" role="navigation">
+    <div class="collapse navbar-collapse">
+    	<%if params[:controller]== "assays" %>
+		<%= render :partial => 'components/dynamic_menu' %>
+		<% provide(:title, "Cloning Manager") %>
+		<%else if params[:controller]== "productions"%>
+		<%= render :partial => 'components/dynamic_menu_prod' %>
+		<% provide(:title, "Production Manager") %>
+		<%end%>
+		<%end%>
+</nav>
+	<div class="jumbotron cloning-color">
+      <%= yield %>
+ 	</div>
+      <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>

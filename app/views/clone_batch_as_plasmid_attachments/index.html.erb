@@ -1,0 +1,19 @@
+%h1 Listing clone_batch_as_plasmid_attachments
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @clone_batch_as_plasmid_attachments.each do |clone_batch_as_plasmid_attachment|
+      %tr
+        %td= link_to 'Show', clone_batch_as_plasmid_attachment
+        %td= link_to 'Edit', edit_clone_batch_as_plasmid_attachment_path(clone_batch_as_plasmid_attachment)
+        %td= link_to 'Destroy', clone_batch_as_plasmid_attachment, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Clone batch as plasmid attachment', new_clone_batch_as_plasmid_attachment_path

@@ -1,0 +1,4 @@
+  	$("#flash-msg-container").html("")
+  	$('#plasmid-batch-table-container').html("<%= escape_javascript(render :partial => "productions/components/plasmid_batch_table", locals: {:plasmid_batches => @plasmid_batches}) %>");
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$('#pb-modal').modal("hide");

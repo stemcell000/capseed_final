@@ -1,0 +1,17 @@
+<%= render 'components/prod_process_pills'%>
+	<div class="panel panel-info">
+		<div class="panel-heading"> Production: <%= @production.name %></div>
+		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
+		<div class="panel-body">
+		<div id="plasmid-batch-table-container" >
+						<%= render :partial => "productions/components/plasmid_batch_table" , :locals => {:plasmid_batches => @plasmid_batches}%>
+		</div>
+			<div class="panel-footer row">
+			    <div class="btn-group col-md-7" role="group" aria-label="...">
+			    	<%= link_to 'Add Plasmid', select_to_prod_production_plasmid_batches_path(@production, @plasmid_batch), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Previous', edit_production_path(@production.id), :class => "btn btn-default btn-sm" %>
+					<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>
+			  	</div>
+		  	</div>
+		</div>
+	</div>

@@ -1,0 +1,22 @@
+<% provide(:title, "Production Manager") %>
+
+	<div class="center jumbotron production-color" >
+		<div class="row expl">
+		<% if @productions.empty?%>
+			<%else%>
+			<div class= "col-lg-8 pull-left">
+			Drag and drop the rows to rank the priority.
+			</div>
+			<%end%>
+			<div class="col-lg-2 pull-right">
+				<%= link_to 'New Production', new_production_path , :class => "btn info prod_btn" %> 
+			</div>
+		</div>
+		<% if @productions.empty?%>
+			<p>No production to display</p>
+			<%else%>
+		<div class="row" id="production_todo">
+			<%= render :partial => 'components/production_mgr'%>
+		</div>
+		<%end%>
+</div>

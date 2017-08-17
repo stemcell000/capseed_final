@@ -1,0 +1,11 @@
+  	$("#flash-msg-container").html("")
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$("#clone_batch_qc_table_container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "clone_batches/clone_batch_components/clone_batch_qc_table", :locals => {:clone => @clone, :assay => @assay} ) %>");
+  	$('#assay-modal').modal("hide");
+console.log("Refreshing plasmid info.")
+
+//Reload du script des popovers
+  $(function () {
+  $('[data-toggle="popover"]').popover({html:true});
+});
+

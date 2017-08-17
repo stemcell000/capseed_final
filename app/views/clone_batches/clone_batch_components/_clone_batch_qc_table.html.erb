@@ -1,0 +1,110 @@
+<div class="row">
+	<small>
+		<div class="col-lg-12">
+		<strong>Selected Batches:</strong><br />
+		<div id = "clone-batches-table-container">
+				<table class="table table-bordered">
+														<thead>
+															<th>ID</th>
+															<th>Name</th>
+															<th>QC</th>
+															<th>Result</th>
+															<th>Action</th>
+														</thead>
+														<% clone.clone_batches.order(:id).each do |cb|%>
+															<tr>
+																<td class="col-sm-1"><%= cb.id%></td>
+																<td class="col-sm-1 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
+																</td>
+																<td class="col-sm-5 .well">	
+																						<% cb.clone_batch_qcs.each do |qc| %>
+																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
+																							title='
+																							<div class="row">
+																								<div class="col-sm-8 text-left">
+																									QC created on : <%=qc.created_at.strftime("%h %e, %Y ") %>
+																								</div>
+																								<div class="col-sm-3">
+																									<div class="row">
+																										<%= link_to "Edit", edit_clone_batch_clone_batch_qc_path(cb, qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
+																										<%= link_to "Remove", [cb,qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+																									</div>
+																								</div>
+																							</div>'
+																							data-content='
+																							<small>
+																								<div class="col-sm-12 text-left">
+																										<div><strong>Primer#:</strong><%=qc.primer_nb%></div>
+																										<div><strong>Primer name:</strong><%=qc.primer_name%></div>	
+																										<div><strong>Sending date:</strong> <%=qc.date_send.strftime("%h %e, %Y ")%></div>
+																										<div><strong>Contact:</strong> <%=qc.user.firstname%> <%=qc.user.lastname%> </div>
+																										<div><strong>Conclusion:</strong> 
+																											<%if qc.conclusion==true %>
+																											Validated QC
+																											<%else%>
+																											Not validated QC
+																											<%end%>
+																										</div>
+																										<div><strong>Files:</strong></br>
+																											<% if qc.clone_batch_qc_attachments.length>0%>
+																												<% qc.clone_batch_qc_attachments.each do |a|%>
+																													<% mypath= a.attachment.to_s%>
+																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%><br />
+																												<%end%>
+																												<%else%>
+																												<em>No attachment.</em>
+																											<%end%>
+																								</div>
+																							<small>
+																								</div>
+																								'
+																							>
+																								<% if qc.conclusion == true %>
+																										<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%else%>
+																										<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%end%>
+																						<%end%>
+																						</a>
+																</td>
+																
+																
+																<td class="col-sm-2">
+																		<div class="row">
+																			<div class="col-md-2">
+																				<strong>
+																				<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == true} %>
+																						<div class="font-success">Validated</div>
+																				<% else %>
+																						<div class="font-warning">Pending</div>
+																						</strong>
+																				<% end %>
+																			</div>
+																		</div>
+																</td>
+																
+																<td class="col-sm-1">
+																	<div class="row">
+																		<div class="col-xs-2">
+																			<%= link_to "Add QC", new_assay_clone_clone_batch_clone_batch_qc_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-success btn-xs", :remote => true %>
+																		</div>
+																	</div>
+																																	
+																	<div class="row">
+																		<div class="col-xs-2">
+																			<% if false %>
+																				<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == false}%>
+																					<% disable_switch = true %>
+																				<%end%>
+																			<%end%>
+																				<%= link_to "Rename", edit_assay_clone_clone_batch_path(:id => cb.id, :clone_id => clone.id, :assay_id => @assay.id, :clone => clone), :class => "btn btn-primary btn-xs", :remote => true, :disabled => disable_switch %>
+																		</div>
+																	</div>
+																</td>
+															</tr>
+														<%end%>
+						</table>
+			</small>
+		</div>
+	</div>
+	</div>

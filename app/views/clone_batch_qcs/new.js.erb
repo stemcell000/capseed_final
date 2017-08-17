@@ -1,0 +1,8 @@
+		$("#qc-label").html("Clone batch Quality Control")
+		$("#qc-buttons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
+		$("#flash-msg-container").html("")
+		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'clone_batch_qcs/clone_batch_qc_components/clone_batch_qc_form_new', locals: {:clone_batch_id => @clone_batch.id, :clone_id => @clone.id, :assay_id => @assay.id} ) %>")
+		$("ul.errors").html("");
+		$("#qc-modal").modal("show");
+		
+	console.log("new QC");

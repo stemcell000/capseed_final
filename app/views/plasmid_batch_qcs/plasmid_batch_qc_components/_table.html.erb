@@ -1,0 +1,69 @@
+<% if b.plasmid_batch_qcs.empty? %>
+	<div class="center">
+	<em>Add Quality Control</em>
+	</div>
+<%else%>
+	<table class="table table-bordered">
+		<thead>
+			<th>QC</th>
+			<th>Result</th>
+		</thead>
+			<% b.plasmid_batch_qcs.order(:created_at).each do |qc|%>
+				<tr>
+						<td>
+							<a tabindex="0" data-toggle="popover" data-trigger="focus"
+						title=
+						'
+						<div class="row"> 
+							<div class="col-sm-6 text-left">
+									QC: <%=qc.created_at.strftime("%h %e, %Y ")%>
+							</div>
+							<div class="col-sm-6 right">
+									<%= link_to "Edit", edit_plasmid_batch_plasmid_batch_qc_path(:plasmid_batch_id => b.id, :id => qc.id, :clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :remote => true, :class =>"btn btn-success btn-xs" %>
+									<%= link_to "Remove", [b,qc,:assay_id => @assay.id, :clone_id => clone.id, :clone_id => clone.id, :clone_batch_id => cb.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove qc from list.", :remote => true %>
+							</div>	
+						</div>
+						'
+						
+						data-content='
+						<small>
+							<div class="col-md-12 text-left">
+								<strong>PCR Colony: </strong><%=PcrColony.find(qc.pcr_colony_id).name = "pass"? "passed" : PcrColony.find(qc.pcr_colony_id).name %><br />
+								<strong>Dig. SMA1: </strong><%=Sma1.find(qc.sma1_id).name %> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em><br />
+								<strong>Dig. other: </strong><%= qc.dig_other.presence ? qc.dig_other : "no data"%><br />
+								<strong>ITR: </strong><%=qc.itr.presence ? qc.itr : "no data" %><br />
+								<%if qc.conclusion==true %>
+									<div class="font-success">validated QC</div>
+								<%else%>
+									<div class="font-danger">validated QC</div>
+									Not validated QC
+								<%end%>
+								<% if !qc.comments.blank? %>
+									<strong>Comments: </strong><br /><%=qc.comments%></small><br />
+								<%end%>
+								<% if qc.plasmid_batch_qc_attachments.length>0 %>
+									<strong>Attached files: </strong><br />
+										<% qc.plasmid_batch_qc_attachments.each do |a|%>
+											<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+										<%end%>
+								<%end%>
+							</div>
+						</small>
+						'
+					>
+						<%=qc.created_at.strftime("%h %e, %Y ")%>
+					</a><br />
+			</td>
+			<td>
+				<% if qc.conclusion == true %>
+						<span class="font-success">Validated</span>
+				<%else%>
+						<span class="font-grey">Dismissed</span>
+				<%end%>
+			</td>
+			<%end%>
+			</tr>
+			</div>
+	</table>
+												
+												<%end%>

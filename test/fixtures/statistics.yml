@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dimension: 1.5
+  label: MyString
+
+two:
+  dimension: 1.5
+  label: MyString

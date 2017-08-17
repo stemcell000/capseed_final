@@ -1,0 +1,10 @@
+= form_for @insert do |f|
+  - if @insert.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@insert.errors.count, "error")} prohibited this insert from being saved:"
+      %ul
+        - @insert.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

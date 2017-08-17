@@ -1,0 +1,36 @@
+.prod .current >a {
+  background-color: #D9EDF7;
+}
+
+.prod_table>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #D9EDF7; 
+ }
+ 
+.prod_table, .prod_table th, .prod_table td{
+   border-color: 5C8DB8 !important;
+ }
+ 
+.prod_btn { 
+  background-color: #D9EDF7;
+  }
+  
+.production-color {
+  background-color: #EEF6FB;
+}
+
+.project{
+   width: 200px !important;
+}
+
+.fixed-panel {
+  min-height: 300px;
+  overflow-y: scroll;
+}
+
+.simple_form label {
+  margin: 2px 10px;
+}
+
+
+

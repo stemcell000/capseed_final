@@ -1,0 +1,4 @@
+$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "assays/assay_components/assay_plasmid_batch_list_batch_info", :locals => {:clone => @clone, :assay => @assay, :cb_collection => @cb_collection } ) %>");
+console.log("clone id:"<%=@clone.id%>);
+console.log("assay id:"<%=@assay.id%>);
+console.log("Refreshing plasmid info.");

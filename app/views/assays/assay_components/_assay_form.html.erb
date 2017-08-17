@@ -1,0 +1,25 @@
+<div class="panel-body">
+	<h4>Cloning</h4>
+		<%= simple_form_for @assay, html: { class: 'form-vertical' }  do |f| %>
+			<%= f.error_notification %>
+				    <%= f.input :name,
+				    	autofocus: true,
+				    	label: "Name",
+				    	placeholder: 'Enter the name of the assay',
+				    	autocomplete: false
+				    %>
+				    <%= f.input :comment,
+				    	label: "Comment"%>
+					<%= f.association :projects, :label => "Projects",
+					:collection => Project.all.order(:name),
+					:input_html => { class:"select2-select" } %>
+					
+					
+	 				<div class="btn-group" role="group" aria-label="...">
+	      		     	<%= link_to "Cancel", root_path, class: "btn btn-default", :title => "Cancel the changes and return to the Home page." %>
+	  		        	<%= f.submit("Next", class: "btn btn-default", title: "Save the changes to this Assay.") %>
+	  		        </div>
+	  	
+			<% end %>
+			</div>
+	</div>

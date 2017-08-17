@@ -1,0 +1,27 @@
+<% unless smart_listing.empty? %>
+  <table class="table table-striped">
+    <thead>
+      <th class="col-md-3 center">
+        <%= smart_listing.sortable "Name", :name %>
+    </th>
+       <th class="col-md-3 center">
+        <%= smart_listing.sortable "Step", :last_step %>
+    </th>
+      <th class="col-md-3 center">
+		<%= smart_listing.sortable "Date of creation", :created_at %>
+  	</th>
+  	<th class="col-md-1 center"></th>
+    </thead>
+    <tbody>
+	  	<% smart_listing.collection.each do |s| %>
+      		<tr class="editable" data-id = "<%= s.id %>">
+          		<%= smart_listing.render object: s, partial: "productions/smart_listing/production", locals: {object: s} %>
+        	</tr>
+      	<% end %>
+    </tbody>
+  </table>
+  <%= smart_listing.paginate %>
+  <%= smart_listing.pagination_per_page_links %>
+<% else %>
+  <p>No records!</p>
+<% end %>

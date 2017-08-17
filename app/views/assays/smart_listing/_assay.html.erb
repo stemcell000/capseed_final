@@ -1,0 +1,15 @@
+  <td class="center"><%= object.name %></td>
+  <td class="center"><%= object.id %></td>
+  <td class="center"><%= formatStep(object.last_step, object.id)[:step_name] %></td>
+  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="center"><% if object.locked? %><span class="glyphicon glyphicon-lock"><%else%><span class="glyphicon glyphicon-minus"><%end%></td>
+  <td class="actions center">
+	  <%= smart_listing_item_actions [
+	  { name:   :custom, 
+  		url:  edit_assay_path(:id => object.id),
+  		method: :get, 
+  		icon: "fa_icon fa fa-pencil-square-o",
+  		remote: false, 
+  		title:  "Edit cloning"
+  		}]%>
+</td>

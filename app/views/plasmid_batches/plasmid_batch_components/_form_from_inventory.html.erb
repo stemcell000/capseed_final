@@ -1,4 +1,4 @@
-<%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path,  html: {class: 'vertical-form'} do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">
@@ -24,9 +24,18 @@
 		<%= f.input :comment, :label => "Comment:" %>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-5">
+		<%= f.collection_select :clone_batch_id, CloneBatch.all, :id, :name %>
+	</div>
+</div>
+<div class="row">
+	<h6 class="col-xs-2"><strong>Files:</strong></h6>
+</div>
 		<%= f.simple_fields_for :plasmid_batch_attachments do |a| %>
+	
 							<div class="row">	
-									<%= File.basename(a.object.attachment.to_s) %>
+									<%= link_to File.basename(a.object.attachment.to_s), a.object.attachment.to_s %><br />
 									<% if a.object.id.nil? %>
 										<div class="col-xs-4">
 								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>

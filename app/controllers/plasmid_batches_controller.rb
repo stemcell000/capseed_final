@@ -64,10 +64,13 @@ def update_from_inventory
    # @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
+    #respond_to do |format|
+     #   format.js
+    #end
   else
     render :action => 'edit'
    end
-   redirect_to :action => "index"
+   
    
 end 
 

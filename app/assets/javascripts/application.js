@@ -12,7 +12,6 @@
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover
 //= require autocomplete
-//= require jquery.turbolinks
 //= update_assays_row_position
 //= require select2
 //= require multi-select

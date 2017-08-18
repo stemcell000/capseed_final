@@ -8,6 +8,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_action :load_production, only:[ :add_to_prod, :remove_from_prod ]
+  before_filter :index, only: [:update_from_inventory]
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -64,9 +65,9 @@ def update_from_inventory
    # @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
-    #respond_to do |format|
-     #   format.js
-    #end
+    respond_to do |format|
+        format.js
+    end
   else
     render :action => 'edit'
    end

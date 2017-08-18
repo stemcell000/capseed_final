@@ -1,4 +1,4 @@
-<%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path,  html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path, :remote => true,  html: {class: 'vertical-form'} do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">

@@ -1,10 +1,12 @@
 console.log("Back to smart list of plasmid batches.")
   	$('.modal').modal("hide");
 //refresh la recherche (va avec before_action index dans controler) 
-$("#container").html("<%= escape_javascript(render :partial => "plasmid_batches/plasmid_batch_components/index_main") %>")
-
+$("#container").html("<%= escape_javascript(render :partial => "plasmid_batches/plasmid_batch_components/index_main" )%>");
+$("#flash-msg-container").html("")
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
 //Popover
  $('[data-toggle="popover"]').popover({html:true});
   
 console.log("Back to smart list of plasmid batches.")
 
+;

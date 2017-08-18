@@ -163,6 +163,7 @@ Rails.application.routes.draw do
     patch :update_from_inventory, :on => :member 
     get :inventory, :on => :collection
     get :autocomplete_plasmid_batch_number, :on => :collection
+    get :new_from_inventory, :on => :new
     patch :update_and_sort, :on => :member
     delete :remove_box_row_column, :on => :member
       resources :plasmid_batch_qcs

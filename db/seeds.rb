@@ -1,4 +1,6 @@
-     #Mandatory Seeds
+  #Mandatory Seeds
+  Assay.new( name:"import", display: "false", step:0, created_at: "2016-10-10 11:41:03" ).save(:validate => false)
+  
   #Add units
   Unit.create( name:"ng/mL")
   Unit.create( name:"ug/mL")

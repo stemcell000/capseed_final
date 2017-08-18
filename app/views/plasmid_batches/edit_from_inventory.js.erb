@@ -7,3 +7,5 @@
 		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batches/plasmid_batch_components/form_from_inventory') %>")
 		$("#assay-modal").modal("show")
 		$("ul.errors").html("")
+		
+		$("#container").html("<%= escape_javascript(render :partial => "plasmid_batches/plasmid_batch_components/index_main" )%>");

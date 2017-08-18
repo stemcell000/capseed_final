@@ -8,7 +8,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_action :load_production, only:[ :add_to_prod, :remove_from_prod ]
-  before_filter :index, only: [:update_from_inventory]
+  before_filter :listing, only: [:update_from_inventory, :edit_from_inventory]
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -22,6 +22,16 @@ def new
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
     @name = @clone_batch.name+"#"+nb.to_s
+end
+
+def new_from_inventory
+    @plasmid_batch = PlasmidBatch.new
+    @plasmid_batch.plasmid_batch_attachments.build
+    #@clone_batch = CloneBatch.find(params[:clone_batch_id])
+    #@clone = Clone.find(params[:clone_id])
+    #@assay = Assay.find(params[:assay_id])
+    #nb = @clone_batch.plasmid_batches.length+1
+    #@name = @clone_batch.name+"#"+nb.to_s
 end
   
 def create
@@ -61,13 +71,11 @@ end
   
 def update_from_inventory
   @plasmid_batch.update_attributes(set_params)
+  #@old_clone_batch = CloneBatch.find(params[:clone_batch_id])
   if @plasmid_batch.valid?
    # @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
-    respond_to do |format|
-        format.js
-    end
   else
     render :action => 'edit'
    end
@@ -179,8 +187,20 @@ end
     
     #Recherche sur tables multiples.
       @q = PlasmidBatch.ransack(params[:q])
+      
+    #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
+      $p = @q
       @plasmid_batches = @q.result.includes(:clone_batch)
       
+    #Config de l'affichage des résultats.
+    @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
+  
+  end
+  
+   def listing
+    
+    #@q = PlasmidBatch.ransack(params[:q])
+      @plasmid_batches = $p.result.includes(:clone_batch) 
     #Config de l'affichage des résultats.
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
   

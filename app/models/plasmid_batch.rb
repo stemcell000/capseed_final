@@ -24,7 +24,7 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :format
   
   #validations
-    validates :format, :concentration, :unit, :presence => true
+    validates :format, :concentration, :unit, :name, :presence => true
     validates :concentration, numericality: true
     validates :box, :presence => true, :if => :enable_strict_validation?
     
@@ -44,6 +44,11 @@ end
 private
 def enable_strict_validation?
   self.strict_validation == 1
+end
+
+private
+def enable_inventory_validation?
+  self.inventory_validation == 1
 end
 
 

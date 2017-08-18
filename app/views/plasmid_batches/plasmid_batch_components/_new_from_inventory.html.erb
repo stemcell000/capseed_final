@@ -3,10 +3,12 @@
 	<ul class="errors"></ul>
 	<div class="container">
   <small>
+  	<div class="raw">
+  		<div class="col-md-3">
+  			<%=f.input :name%>
+		</div>
+	</div>
 	<div class="row">
-				<div class="col-md-2">
-							<%= f.input :id, :label => "ID: ", :readonly => true %>
-  				</div>
   				<div class="col-md-3">
 							<%= f.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' } %>
   				</div>

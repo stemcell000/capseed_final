@@ -27,11 +27,6 @@ end
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
     @plasmid_batch.plasmid_batch_attachments.build
-    #@clone_batch = CloneBatch.find(params[:clone_batch_id])
-    #@clone = Clone.find(params[:clone_id])
-    #@assay = Assay.find(params[:assay_id])
-    #nb = @clone_batch.plasmid_batches.length+1
-    #@name = @clone_batch.name+"#"+nb.to_s
 end
   
 def create
@@ -42,6 +37,7 @@ def create
         @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
         @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
+        @plasmid_batch.update_columns(:inventory_validation => 0)
     else
         render :action => :new
     end
@@ -56,6 +52,7 @@ end
 def edit_from_inventory
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
+  @plasmid_batch.update_columns(:inventory_validation => 1)
 end
   
 def update
@@ -76,6 +73,7 @@ def update_from_inventory
    # @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
+    @plasmid_batch.update_columns(:inventory_validation => 0)
   else
     render :action => 'edit'
    end
@@ -86,7 +84,6 @@ end
  ##Permettre d'indiquer la boite et les coordonnées du tube 
   def edit_and_sort
       @plasmid_batch = PlasmidBatch.find(params[:id])
-     @plasmid_batch.update_columns(:strict_validation => 1)
   end
   
   def update_and_sort
@@ -199,11 +196,15 @@ end
   
    def listing
     
-    #@q = PlasmidBatch.ransack(params[:q])
-      @plasmid_batches = $p.result.includes(:clone_batch) 
+    @q = PlasmidBatch.ransack(params[:q])
+      if $p
+      @plasmid_batches = $p.result.includes(:clone_batch)
+      else
+        @plasmid_batches = @q.result.includes(:clone_batch)
+      end 
     #Config de l'affichage des résultats.
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
-  
+    @plasmid_batch.update_columns(:inventory_validation => 0)
   end
   
   private

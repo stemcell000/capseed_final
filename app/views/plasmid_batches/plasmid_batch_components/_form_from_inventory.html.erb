@@ -5,7 +5,7 @@
   <small>
 	<div class="row">
 				<div class="col-md-2">
-							<%= f.input :id, :label => "ID: ", :readonly => true %>
+							<%= f.input :name, :label => "Name: " %>
   				</div>
   				<div class="col-md-3">
 							<%= f.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' } %>

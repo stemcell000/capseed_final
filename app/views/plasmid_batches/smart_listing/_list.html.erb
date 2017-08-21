@@ -1,7 +1,7 @@
 <% unless smart_listing.empty? %>
   <table class="table table-striped">
     <thead>
-   		<th class="col-md-3 center">
+   		<th class="col-md-1 center">
         <%= smart_listing.sortable "Number", :number %>
        </th>
       <th class="col-md-3 center">
@@ -13,6 +13,7 @@
       <th class="col-md-3 center">
 		<%= smart_listing.sortable "Date of creation", :created_at %>
   	</th>
+  	<th class="col-md-1 center"></th>
   	<th class="col-md-1 center"></th>
     </thead>
     <tbody>

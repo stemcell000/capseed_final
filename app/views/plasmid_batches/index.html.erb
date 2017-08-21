@@ -1,8 +1,9 @@
 <% provide(:title, "Plasmid batch : Search") %>
-<div class="row pull-right"><%= link_to "Add plasmid", new_from_inventory_new_plasmid_batch_path, :remote => true, :class => "btn btn-success" %></div>
+
 <%= search_form_for @q, :url => plasmid_batches_path, :class=>"form-horizontal", :remote => true do |f| %>
+
 <div class="row">
-	<div class="col-xs-6">
+	<div class="col-sm-6">
 	<h5 class="text-primary"><em>Basic input search : </em></h5>
 		<div class="form-group raw">
 			<%= f.label "Name*", :class=>"control-label col-xs-4" %>
@@ -27,8 +28,8 @@
 	 	<div class="form-group">
  		<span class="help-block"><em>*Enter all or part of the value.</em></span>
  		</div>
-</div>
-<div class="col-xs-6">
+	</div>
+<div class="col-sm-6">
 	<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
 		<div class="form-group" >
 			
@@ -46,12 +47,13 @@
 		<div class="form-group pull-right">
 			<%= f.submit class:"cancel-button btn btn-default" %>
 			<%= link_to "Clear Search", plasmid_batches_path, class:"cancel-button btn btn-default" %>
+			<%= link_to "Add plasmid", new_from_inventory_new_plasmid_batch_path, :remote => true, :class => "btn btn-default" %>
+	</div>
+</div>
 		</div>
 
-</div>
-
-
 <% end %>
+
 <div id="container">
 	<%= render :partial => "plasmid_batches/plasmid_batch_components/index_main" %>
 </div>

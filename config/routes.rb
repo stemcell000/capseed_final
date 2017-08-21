@@ -164,6 +164,9 @@ Rails.application.routes.draw do
     get :inventory, :on => :collection
     get :autocomplete_plasmid_batch_number, :on => :collection
     get :new_from_inventory, :on => :new
+    post :create_from_inventory, :on => :collection
+    get :destroy_confirm, :on => :member
+    delete :destroy_from_inventory, :on => :member
     patch :update_and_sort, :on => :member
     delete :remove_box_row_column, :on => :member
       resources :plasmid_batch_qcs

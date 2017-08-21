@@ -1,0 +1,8 @@
+<%= simple_nested_form_for @plasmid_batch, url: destroy_from_inventory_plasmid_batch_path, :remote => true,  html: {class: 'vertical-form'} do |f|  %>
+<div class="panel-footer">
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Yes", :class => "btn btn-default", :title => "Confirm destruction.") %>
+        	<%= f.submit 'No', :type => :reset, :class => "btn btn-default", :url => plasmid_batches_path, "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+</div>
+<% end %>

@@ -11,34 +11,34 @@
   <td class="center">
 	  
 	<a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
-		title='
-			<div class="row"> 
-				<div class="col-sm-4 text-left">
-					<%=object.name%>
+			title='
+				<div class="row"> 
+					<div class="col-sm-4 text-left">
+						<%=object.name%>
+					</div>
+				</div>'
+			data-content='
+				<div class="col-sm-12 text-left">
+					<strong>Created on: </strong><%= object.created_at.strftime("%h %e, %Y ") %><br />
+					<strong>Format: </strong><%= Format.find(object.format_id).name %><br />
+					<strong>Concentration: </strong><%= object.concentration %> <%= Unit.find(object.unit_id).name %><br />
+					<% if !object.comment.blank? %>
+						<strong>Comments: </strong><br /><%=object.comment%><br />
+					<%end%>
+					<% if object.plasmid_batch_attachments.length>0 %>
+						<strong>Attached files: </strong><br />
+							<% object.plasmid_batch_attachments.each do |a|%>
+								<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+							<%end%>
+					<%end%>
 				</div>
-			</div>'
-		data-content='
-			<div class="col-sm-12 text-left">
-				<strong>Created on: </strong><%= object.created_at.strftime("%h %e, %Y ") %><br />
-				<strong>Format: </strong><%= Format.find(object.format_id).name %><br />
-				<strong>Concentration: </strong><%= object.concentration %> <%= Unit.find(object.unit_id).name %><br />
-				<% if !object.comment.blank? %>
-					<strong>Comments: </strong><br /><%=object.comment%><br />
-				<%end%>
-				<% if object.plasmid_batch_attachments.length>0 %>
-					<strong>Attached files: </strong><br />
-						<% object.plasmid_batch_attachments.each do |a|%>
-							<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
-						<%end%>
-				<%end%>
-			</div>
-		</small>
-		'
-	>
-		<span class="fa_icon fa fa-eye"></span>
+			</small>
+			'
+		>
+			<span class="fa_icon fa fa-eye"></span>
 	</a>
 </td>
-	<td class="actions">
+<td class="actions">
 	  <%= smart_listing_item_actions [
  
 		{ name:   :custom, 
@@ -46,8 +46,22 @@
 			method: :get, 
 			icon: "fa_icon fa fa-pencil-square-o",
 			remote: true, 
-			title:  "Edit plasmid batch"
+			title:  "Edit"
 		}
 	  	
   		]%>
-	</td>
+</td>
+<td class="actions">
+	  <%= smart_listing_item_actions [
+ 
+		{ name:   :custom, 
+			url:  destroy_from_inventory_plasmid_batch_path(object),
+			method: :delete, 
+			icon: "fa_icon fa fa-trash-o",
+			remote: true, 
+			title:  "Destroy",
+			data: {confirm: "Are you sure?"}
+		}
+	  	
+  		]%>
+</td>

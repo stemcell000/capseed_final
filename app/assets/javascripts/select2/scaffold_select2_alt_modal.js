@@ -7,7 +7,7 @@
 		    theme: "bootstrap",
 		    tag: true,
 		    width: "100%",
-		    placeholder: "wait for value",
+		    placeholder: "Select value",
 		    tokenSeparators: [',', ' ']
 		});
 		

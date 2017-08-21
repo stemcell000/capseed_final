@@ -27,6 +27,7 @@ class PlasmidBatch < ActiveRecord::Base
     validates :format, :concentration, :unit, :name, :presence => true
     validates :concentration, numericality: true
     validates :box, :presence => true, :if => :enable_strict_validation?
+    validates :name, :uniqueness => {message: "This name is already taken."}
     
  #pg_search
  include PgSearch

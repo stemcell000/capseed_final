@@ -2,13 +2,13 @@ class PlasmidBatchesController < ApplicationController
 
 autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_value => :autocomplete_display
 
-  before_action :set_params, only:[:create, :add_to_prod]
-  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
+  before_action :set_params, only:[:create, :add_to_prod, :create_from_inventory]
+  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
   before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_action :load_production, only:[ :add_to_prod, :remove_from_prod ]
-  before_filter :listing, only: [:update_from_inventory, :edit_from_inventory]
+  before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -37,9 +37,27 @@ def create
         @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
         @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
-        @plasmid_batch.update_columns(:inventory_validation => 0)
     else
         render :action => :new
+    end
+end
+
+def create_from_inventory
+  
+    @plasmid_batch = PlasmidBatch.create(set_params)
+    if params[:clone_batch_id]
+      @clone_batch = CloneBatch.find(params[:clone_batch_id])
+    end
+
+    if  @plasmid_batch.valid?
+        @plasmid_batch.update_columns(:strict_validation => 0)
+        @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
+        if @clone_batch
+          @clone_batch.plasmid_batches << @plasmid_batch
+        end
+        flash.keep[:success] = "Task completed!"
+    else
+        render :action => :new_from_inventory
     end
 end
 
@@ -68,12 +86,9 @@ end
   
 def update_from_inventory
   @plasmid_batch.update_attributes(set_params)
-  #@old_clone_batch = CloneBatch.find(params[:clone_batch_id])
   if @plasmid_batch.valid?
-   # @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
-    @plasmid_batch.update_columns(:inventory_validation => 0)
   else
     render :action => 'edit'
    end
@@ -106,6 +121,10 @@ end
     @plasmid_batches = @clone_batch.plasmid_batches.all
     @plasmid_batch = PlasmidBatch.find(params[:id])
     @plasmid_batch.destroy
+  end
+  
+  def destroy_from_inventory
+    @plasmid_batch.delete
   end
   
   #Interaction avec production
@@ -204,7 +223,6 @@ end
       end 
     #Config de l'affichage des résultats.
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
-    @plasmid_batch.update_columns(:inventory_validation => 0)
   end
   
   private

@@ -56,12 +56,12 @@ SmartListing.configure do |config|
     #:id                    => "id",
     #:href                  => "href",
     #:callback_href         => "callback-href",
-    #:max_count             => "max-count",
+    :max_count             => "max-count",
     #:inline_edit_backup    => "smart-listing-edit-backup",
     #:params                => "params",
     #:observed              => "observed",
     #:href                  => "href",
-    #:autoshow              => "autoshow",
+    :autoshow              => "autoshow",
     #:popover               => "slpopover",
   }
 

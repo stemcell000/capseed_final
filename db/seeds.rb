@@ -80,11 +80,6 @@
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
-  #First Plasmid batch to inventory
-  PlasmidBatch.new( name:"test", concentration: 12 ).save(:validate => false)
-  Format.find(1).plasmid_batches << PlasmidBatch.find(1)
-  Unit.find(1).plasmid_batches << PlasmidBatch.find(1)
-  
   #Not Mandatory
   Assay.new( name:"Cloning1", display: "true", step:0, created_at: "2016-10-10 11:41:03" ).save(:validate => false)
   Assay.new( name:"Cloning2", display: "true", step:1, created_at: "2016-10-13 11:41:03").save(:validate => false)

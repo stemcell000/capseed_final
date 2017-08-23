@@ -25,7 +25,7 @@ ActiveAdmin.register PlasmidBatch do
  #Import csv   
  active_admin_import validate: true,
              csv_options: {col_sep: ";" },
-              headers_rewrites: { :'format' => :format_id, :'unit' => :unit_id, :'box' => :box_id, :'plasmid' => :clone_batch_id  },
+              headers_rewrites: { :'format' => :format_id, :'unit' => :unit_id, :'box' => :box_id, :'plasmid' => :clone_batch_id, :'row' => :row_id, :'column' => :column_id  },
               before_batch_import: ->(importer) {
                 
                 PlasmidBatch.delete_all
@@ -54,6 +54,23 @@ ActiveAdmin.register PlasmidBatch do
                 options = Hash[*plasmids.flatten] 
                 importer.batch_replace(:clone_batch_id, options) 
                 
+                plasmid_names = importer.values_at(:clone_batch_id)
+                # replacing unit name with clone batch id
+                plasmids  = CloneBatch.where(name: plasmid_names).pluck(:name, :id)
+                options = Hash[*plasmids.flatten] 
+                importer.batch_replace(:clone_batch_id, options)
+                
+                row = importer.values_at(:row_id)
+                # replacing unit name with row id
+                rows  = Row.where(name: row_names).pluck(:name, :id)
+                options = Hash[*rows.flatten] 
+                importer.batch_replace(:row_id, options) 
+
+                column = importer.values_at(:column_id)
+                # replacing unit name with row id
+                columns  = Column.where(name: column_names).pluck(:name, :id)
+                options = Hash[*columns.flatten] 
+                importer.batch_replace(:column_id, options)                 
                 
               },
               batch_size: 1000

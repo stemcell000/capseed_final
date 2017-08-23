@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170818151001) do
+ActiveRecord::Schema.define(version: 20170823153333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,9 +253,9 @@ ActiveRecord::Schema.define(version: 20170818151001) do
     t.string   "format"
     t.decimal  "concentration"
     t.text     "comment"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.boolean  "qc_validation",        default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "qc_validation",     default: false
     t.integer  "box_id"
     t.integer  "strict_validation"
     t.integer  "production_id"
@@ -266,7 +266,6 @@ ActiveRecord::Schema.define(version: 20170818151001) do
     t.integer  "format_id"
     t.string   "name"
     t.string   "number"
-    t.integer  "inventory_validation"
   end
 
   add_index "plasmid_batches", ["box_id"], name: "index_plasmid_batches_on_box_id", using: :btree

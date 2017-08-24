@@ -60,7 +60,7 @@ ActiveAdmin.register PlasmidBatch do
                 options = Hash[*plasmids.flatten] 
                 importer.batch_replace(:clone_batch_id, options)
                 
-                row = importer.values_at(:row_id)
+                rows = importer.values_at(:row_id)
                 # replacing unit name with row id
                 rows  = Row.where(name: row_names).pluck(:name, :id)
                 options = Hash[*rows.flatten] 

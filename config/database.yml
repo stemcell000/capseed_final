@@ -5,7 +5,7 @@ default: &default
 development:
   adapter: postgresql
   encoding: unicode
-  database: capseed_evo_development
+  database: capseed_development
   pool: 5
   timeout: 5000
   username: marc 
@@ -13,7 +13,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: capseed_evo_test
+  database: capseed_test
   pool: 5
   timeout: 5000
   username: marc
@@ -21,7 +21,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: capseed_evo_production
+  database: capseed_production
   pool: 5
   timeout: 5000
   username: marc

@@ -140,9 +140,6 @@ gem 'coffee-rails', '~> 4.1.0'
   #Recherche multiple et multi-tables
   gem 'ransack'
   
-  gem 'angularjs-rails'
-  gem 'angular_ui_tree_rails'
-  
   gem 'puma'
   
   #nécessaire pour deploiement su Heroku

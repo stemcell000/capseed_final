@@ -47,11 +47,5 @@ def enable_strict_validation?
   self.strict_validation == 1
 end
 
-private
-def enable_inventory_validation?
-  self.inventory_validation == 1
-end
-
-
 
 end

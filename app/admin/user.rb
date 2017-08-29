@@ -24,7 +24,7 @@ permit_params :id, :email, :password, :password_confirmation, :role, :username, 
             f.input :email
             f.input :password
             f.input :password_confirmation
-            f.input :role, as: :radio, collection: {User: "cast_member", Guest: "guest", Administrator: "administrator"}
+            f.input :role, as: :radio, collection: {User: "user", Guest: "guest", Administrator: "administrator"}
         end
         f.actions
     end
@@ -42,11 +42,7 @@ permit_params :id, :email, :password, :password_confirmation, :role, :username, 
       row :role
       row :created_at
       row :last_sign_in_at
-      row 'subteams' do |n|
-        user.subteams.map(&:name).join("<br />").html_safe
-      end
-     end
-      
+     end    
   end
 
 

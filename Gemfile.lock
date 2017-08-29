@@ -100,6 +100,7 @@ GEM
     byebug (9.0.6)
     callsite (0.0.11)
     cancan (1.6.10)
+    cancancan (2.0.0)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -351,6 +352,7 @@ DEPENDENCIES
   bower-rails
   byebug
   cancan
+  cancancan (~> 2.0)
   carrierwave (>= 1.0.0.rc, < 2.0)
   coffee-rails (~> 4.1.0)
   date_validator

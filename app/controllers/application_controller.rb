@@ -57,6 +57,7 @@ class ApplicationController < ActionController::Base
         model.update_columns(:last_step => 0)
      end
   end
+  
     
     protected
     

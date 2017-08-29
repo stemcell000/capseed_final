@@ -2,28 +2,36 @@
 
 	<div class="center jumbotron cloning-color">
 		<div class="row expl">
+		<% if can? :update_row_order, @assays %>
 		<% if @assays.empty?%>
-			<%else%>
+		<%else%>
 			<div class="row">
 				<div class= "col-lg-4 pull-left">
 				Drag and drop the rows to rank the priority.
 				</div>
 			</div>
-			<%end%>
-			<div class="row">
-				<div class="col-lg-6 text-align-left">
-					<%= link_to 'New cloning', new_assay_path , :class => "btn btn-primary" %> 
-				</div>
-				<div class="col-lg-6 text_align-right">
-					<%= link_to 'Push!', users_inform_path , :class => "btn btn-success" %> 
-				</div>
+		<%end%>
+		<div class="row">
+			<div class="col-lg-6 text-align-left">
+				<%= link_to 'New cloning', new_assay_path , :class => "btn btn-primary" %> 
+			</div>
+			<div class="col-lg-6 text_align-right">
+				<% if can? :inform, @user %>
+					<%= link_to 'Push!', users_inform_path , :class => "btn btn-success" %>
+				<% end %>
 			</div>
 		</div>
+		</div> 
+		<%end%>
 		<% if @assays.empty?%>
 			<p>No cloning to display</p>
 			<%else%>
 		<div class="row" id="assay_todo">
-			<%= render :partial => 'components/assay_mgr'%>
+			<% if can? :update_row_order, @assays %>
+				<%= render :partial => 'assays/assay_components/assay_mgr' %>
+			<%else%>
+				<%= render :partial => 'assays/assay_components/assay_mgr_b' %>
+			<%end%>
 		</div>
 		<%end%>
 	</div>

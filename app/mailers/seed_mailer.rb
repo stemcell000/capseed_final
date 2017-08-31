@@ -4,7 +4,7 @@ class SeedMailer < ApplicationMailer
   
   def seed_email(user)
     @user = user
-    mail :to => user.email, :subject => "Message from Capseed!"
+    mail :to => "mlechuga@icloud.com", :subject => "Message from Capseed!"
   end
   
 end

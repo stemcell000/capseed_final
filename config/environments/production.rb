@@ -85,7 +85,7 @@ config.action_mailer.default :charset => "utf-8"
 
 config.action_mailer.default_url_options = { host: 'www.example.com'}
 
-config.action_mailer.smtp_settings = {
+ActionMailer::Base.smtp_settings = {
   :address => 'smtp.sendgrid.net',
   :port =>'587',
   :authentication => :plain,

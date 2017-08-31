@@ -290,9 +290,8 @@ GEM
       rdoc (~> 4.0)
     select2-rails (4.0.3)
       thor (~> 0.14)
-    sendgrid-rails (2.0.5)
-      actionmailer (>= 3.0.0)
-      activesupport (>= 2.1.0)
+    sendgrid (1.2.4)
+      json
     sexp_processor (4.9.0)
     sextant (0.2.4)
       rails (>= 3.2)
@@ -389,7 +388,7 @@ DEPENDENCIES
   sass-rails (>= 3.2)
   sdoc (~> 0.4.0)
   select2-rails
-  sendgrid-rails (~> 2.0)
+  sendgrid
   sextant
   simple_form
   smart_listing

@@ -6,6 +6,7 @@ class ApplicationMailer < ActionMailer::Base
   sendgrid_category :use_subject_lines
   sendgrid_enable   :ganalytics, :opentrack
   sendgrid_unique_args :key1 => "value1", :key2 => "value2"
+  sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
 
   def welcome_message(user)
     @user = user

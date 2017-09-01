@@ -11,8 +11,8 @@ class ApplicationMailer < ActionMailer::Base
   def welcome_message(user)
     @user = user
     sendgrid_category "Welcome"
-    sendgrid_unique_args :key2 => "newvalue2", :key3 => "value3"
-    mail :to => user.email, :subject => "Welcome #{user.firstname} :-)"
+    sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
+    mail :to => sendgrid_recipients, :subject => "Welcome #{user.firstname} :-)"
   end
 
   def goodbye_message(user)

@@ -11,9 +11,15 @@ class ApplicationMailer < ActionMailer::Base
 #Ne peut fonctionner qu'en production sur Heroku
   def notice(user)
     @user = user
+    
     recipients = User.all.where(:role => "user").pluck(:email)
+    firstnames = User.all.where(:role => "user").pluck(:firstname)
+    
     sendgrid_category "Notification"
-    sendgrid_recipients [recipients]
+    
+    sendgrid_recipients recipients
+    sendgrid_substitute "|subme|", firstnames
+    
     mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
   end
 

@@ -12,7 +12,6 @@ class ApplicationMailer < ActionMailer::Base
   def notice(user)
     @user = user
     sendgrid_category "Notification"
-    sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
     mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
   end
 

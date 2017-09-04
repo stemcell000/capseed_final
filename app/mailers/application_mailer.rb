@@ -12,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
     @user = user
     sendgrid_category "Welcome"
     sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
-    mail :to => sendgrid_recipients, :subject => "Welcome #{user.firstname} :-)"
+    mail :from => "capseedmsg@mail.com", :to => "noreply@address.com", :subject => "Welcome #{user.firstname} :-)"
   end
 
   def goodbye_message(user)

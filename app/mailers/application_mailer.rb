@@ -6,7 +6,7 @@ class ApplicationMailer < ActionMailer::Base
   sendgrid_category :use_subject_lines
   sendgrid_enable   :ganalytics, :opentrack
   sendgrid_unique_args :key1 => "value1", :key2 => "value2"
-  sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
+  sendgrid_recipients ["marc.lechuga@inserm.fr", "lechuga@icould.com", "marclechuga@free.fr"]
 
 #Ne peut fonctionner qu'en production sur Heroku
   def notice(user)

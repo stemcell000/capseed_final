@@ -11,8 +11,9 @@ class ApplicationMailer < ActionMailer::Base
 #Ne peut fonctionner qu'en production sur Heroku
   def notice(user)
     @user = user
+    recipients = User.all where(:role => "user").email.to_a
     sendgrid_category "Notification"
-    sendgrid_recipients ["marc.lechuga@inserm.fr", "lechuga@icould.com", "marclechuga@free.fr"]
+    sendgrid_recipients [recipients]
     mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
   end
 

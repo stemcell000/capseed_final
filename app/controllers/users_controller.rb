@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   
   def inform
     @user = User.first
-    UserMailer.welcome_message(@user).deliver
+    UserMailer.notice(@user).deliver
     redirect_to(assays_path)
     flash.keep[:success] = "Mail sent!"
   end

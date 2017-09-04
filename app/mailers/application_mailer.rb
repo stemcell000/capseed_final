@@ -8,15 +8,12 @@ class ApplicationMailer < ActionMailer::Base
   sendgrid_unique_args :key1 => "value1", :key2 => "value2"
   sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
 
-  def welcome_message(user)
+#Ne peut fonctionner qu'en production sur Heroku
+  def notice(user)
     @user = user
-    sendgrid_category "Welcome"
+    sendgrid_category "Notification"
     sendgrid_recipients ["marclechuga@inserm.fr", "mlechuga@icould.com", "marclechuga@free.fr"]
-    mail :from => "capseedmsg@mail.com", :to => "noreply@address.com", :subject => "Welcome #{user.firstname} :-)"
+    mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
   end
 
-  def goodbye_message(user)
-    sendgrid_disable :ganalytics
-    mail :to => user.email, :subject => "Fare thee well :-("
-  end
 end

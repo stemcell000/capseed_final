@@ -18,7 +18,6 @@
 //= require moment
 //= require fetch_clone_data
 //= require fetch_pb_data
-//= require qcControl
 //= require jquery_nested_form
 //= loader
 //= require d3.min

@@ -1,5 +1,4 @@
-ActiveAdmin.register Unit do
-
+ActiveAdmin.register PcrColony do
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name
 
@@ -7,7 +6,6 @@ permit_params :list, :of, :attributes, :on, :model, :id, :name
 action_item do
   link_to "View Site", "/"
 end
-
 
 
 end

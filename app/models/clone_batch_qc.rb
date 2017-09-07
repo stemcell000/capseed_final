@@ -9,7 +9,8 @@ class CloneBatchQc < ActiveRecord::Base
   accepts_nested_attributes_for :user
   
   #validations
-  validates :primer_nb || :primer_name, :presence => true, :message => 'primer name or number must be filled.'
+  validates :pcr_colony, :sequencing, presence: { message: "You must select a status." }
+  #validates :primer_nb, :primer_name, :presence => true
   #validation d'un paramètre boolean (au choix)
   #validates :conclusion, :inclusion => { in: [true, false], :message => 'You must conclude!' }
   #validates :conclusion, exclusion: { in: [nil] }

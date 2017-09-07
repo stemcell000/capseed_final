@@ -68,13 +68,13 @@
   PcrColony.create(name: "ok")
   PcrColony.create(name: "failed")
   PcrColony.create(name: "not done")
-  PcrColony.create(name: "pass")
+  PcrColony.create(name: "passed")
   
   #Sequencing
-  PcrColony.create(name: "ok")
-  PcrColony.create(name: "failed")
-  PcrColony.create(name: "not done")
-  PcrColony.create(name: "pass")
+  Sequencing.create(name: "ok")
+  Sequencing.create(name: "failed")
+  Sequencing.create(name: "not done")
+  Sequencing.create(name: "passed")
   
   #Sma1
   Sma1.create(name: "yes")

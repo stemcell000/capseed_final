@@ -1,5 +1,5 @@
 <%= simple_nested_form_for ([@assay, @clone, @clone_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_qcs_path, remote: true, html: {class: 'horizontal-form'} do |f|  %>
-<%= f.error_notification %>
+<%= f.error_notification message: 'You must select a status for Sequencing and PCR colony.' %>
 <ul class="errors"></ul>
 <small>
 <div class="panel panel-default">
@@ -25,6 +25,11 @@
 					<div class="row" id = "sequencing-port">
 						
 						<div class="col-lg-7">
+							<div class="row">
+						  		<div class="col-md-3">
+									<%=f.association :sequencing, :label => "Sequencing", :collection => Sequencing.all, input_html: { class: 'select2-select'}, :include_blank => true %>
+								</div>
+							</div>
 							
 							<div class="row">
 						

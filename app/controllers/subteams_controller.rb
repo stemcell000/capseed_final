@@ -1,2 +1,0 @@
-class SubteamsController < ApplicationController
-end

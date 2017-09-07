@@ -38,7 +38,7 @@ class Assay < ActiveRecord::Base
   validates :name, :presence => true, :case_sensitive => false
   validates :name, :uniqueness => {message: "Unique name, please!"}
   validates :name, :length =>{in: 2..20, :message => "must be from 2 to 20 char. long"}
-  validates :name, :format => { :with => /\A[a-zA-Z\d\s]*\z/, :message =>"has invalide format" }
+  #validates :name, :format => { :with => /\A[a-zA-Z\d\s]*\z/, :message =>"has invalide format" }
   validates :projects, :presence => true
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"

@@ -153,7 +153,7 @@ class AssaysController < ApplicationController
     @clones = @assay.clones.order(:id)
     if @assay.clones.length > 0
           @assay.update_columns(:step => 1)
-          @assay.update_columns(:percentage => 30)
+          @assay.update_columns(:percentage => 20)
           update_last_step(@assay, 1)
           @assay.clones.update_all(:strict_validation => 0)
           set_plasmid_validation(0, 0, @assay)
@@ -168,29 +168,10 @@ class AssaysController < ApplicationController
       redirect_to :action => :clone_design
     else
       @assay.update_columns(:step => 2)
-      @assay.update_columns(:percentage => 40)
+      @assay.update_columns(:percentage => 30)
       update_last_step(@assay, 2)
       @assay.clones.update_all(:strict_validation => 1)
       set_plasmid_validation(0,0, @assay)
-    end
-  end
-  
- #page clone batch selection
- def clone_batch_select
-    @clones = @assay.clones.order(:id)
-     if @clones.empty?
-      flash[:notice] = "Add a clone please."
-      redirect_to :action => :clone_design
-      else if @clones.any? { |c| c.batch_nb.blank? }
-       flash[:notice] = "Add info please."
-       redirect_to :action => :clone_batch
-          else
-      @assay.update_columns(:step => 3)
-      @assay.update_columns(:percentage => 50)
-      update_last_step(@assay, 3)
-      @assay.clones.update_all(:strict_validation => 1)
-      set_plasmid_validation(0,0, @assay)
-    end
     end
   end
   
@@ -207,9 +188,9 @@ class AssaysController < ApplicationController
          flash.keep[:notice] = "The number of batches does not match the value you entered."
          redirect_to :action => :clone_batch_select
       else
-        @assay.update_columns(:step => 4)
-        @assay.update_columns(:percentage => 60)
-        update_last_step(@assay, 4)
+        @assay.update_columns(:step => 3)
+        @assay.update_columns(:percentage => 40)
+        update_last_step(@assay, 3)
         @assay.clones.update_all(:strict_validation => 1)
         @clones.each do |c|
           set_plasmid_validation(0,0, @assay)
@@ -229,9 +210,9 @@ class AssaysController < ApplicationController
       end
     end
       if @cb_collection.any? {|cb| !cb.name.blank?}
-        @assay.update_columns(:step => 5)
-        @assay.update_columns(:percentage => 70)
-        update_last_step(@assay, 5)
+        @assay.update_columns(:step => 4)
+        @assay.update_columns(:percentage => 50)
+        update_last_step(@assay, 4)
         set_plasmid_validation(1,0, @assay)
         @assay.clones.update_all(:strict_validation => 1)
       else
@@ -252,9 +233,9 @@ class AssaysController < ApplicationController
         redirect_to :action => :plasmid_design
         set_plasmid_validation(0,0, @assay)
     else 
-        @assay.update_columns(:step => 6)
-        @assay.update_columns(:percentage => 80)
-        update_last_step(@assay, 6)
+        @assay.update_columns(:step => 5)
+        @assay.update_columns(:percentage => 60)
+        update_last_step(@assay, 5)
         set_plasmid_validation(0,1, @assay)
         @assay.clones.update_all(:strict_validation => 1)
      end
@@ -269,8 +250,9 @@ class AssaysController < ApplicationController
        end
     
     if @cb_collection.any? {|cb| !cb.plasmid_batches.empty?}
-       @assay.update_columns(:step => 7)
-       update_last_step(@assay, 7)
+       @assay.update_columns(:step => 6)
+       @assay.update_columns(:percentage => 70)
+       update_last_step(@assay, 6)
        @assay.clones.update_all(:strict_validation => 1)
     else 
         flash[:notice] = "Add at least one batch."
@@ -300,17 +282,17 @@ class AssaysController < ApplicationController
          @cb_collection.each do |cb|
             @plasmid_batches = cb.plasmid_batches.where(:qc_validation => true).order(:id) + @plasmid_batches
          end
-          @assay.update_columns(:step => 8)
-          @assay.update_columns(:percentage => 90)
-          update_last_step(@assay, 8)
+          @assay.update_columns(:step => 7)
+          @assay.update_columns(:percentage => 80)
+          update_last_step(@assay, 7)
           @assay.clones.update_all(:strict_validation => 1)
    # end
   end
   
   def complete
-          @assay.update_columns(:step => 9)
+          @assay.update_columns(:step => 8)
           @assay.update_columns(:percentage => 100)
-          update_last_step(@assay, 9)
+          update_last_step(@assay, 8)
           flash[:success] = "Cloning completed!"
   end
   

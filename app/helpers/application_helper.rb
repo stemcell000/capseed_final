@@ -53,8 +53,6 @@ module ApplicationHelper
     s = "Clone design"
   when 2
     s = "Clone batch"
-  when 3
-    s = "Clone batch selection"
   when 4
     s = "Clone batch QC"
   when 5
@@ -70,6 +68,12 @@ module ApplicationHelper
     s = "Completed"
    end 
    return s
+end
+
+def formatDate(d)
+   if d
+    d.strftime("%h %e, %Y ")
+   end
 end
 
  def formatDateToGantt(d)

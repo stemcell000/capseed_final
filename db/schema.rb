@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622131139) do
+ActiveRecord::Schema.define(version: 20170907074708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20170622131139) do
     t.integer "project_id"
   end
 
+  add_index "assays_projects", ["assay_id", "project_id"], name: "index_assays_projects_on_assay_id_and_project_id", unique: true, using: :btree
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
 
@@ -119,9 +120,22 @@ ActiveRecord::Schema.define(version: 20170622131139) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
+    t.integer  "pcr_colony_id"
+    t.string   "primer1"
+    t.string   "primer2"
+    t.date     "date_send2"
+    t.integer  "sequencing_id"
   end
 
   add_index "clone_batch_qcs", ["clone_batch_id"], name: "index_clone_batch_qcs_on_clone_batch_id", using: :btree
+
+  create_table "clone_batch_qcs_batches", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "clone_batch_qc_id"
+  end
+
+  add_index "clone_batch_qcs_batches", ["clone_batch_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_id", using: :btree
+  add_index "clone_batch_qcs_batches", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_qc_id", using: :btree
 
   create_table "clone_batches", force: :cascade do |t|
     t.string   "name"
@@ -318,6 +332,10 @@ ActiveRecord::Schema.define(version: 20170622131139) do
     t.string   "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "table_sequencings", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "taggings", force: :cascade do |t|

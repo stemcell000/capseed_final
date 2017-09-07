@@ -1,11 +1,8 @@
   #Mandatory Seeds
   
   #Add units
-  Unit.create( name:"ng/mL")
-  Unit.create( name:"ug/mL")
-  Unit.create( name:"mM")
-  Unit.create( name:"nM")
-  
+  Unit.create( name:"ng/uL")
+  Unit.create( name:"ug/uL")
    #Add Volume units
   VolUnit.create( name:"mL")
   VolUnit.create( name:"uL")
@@ -68,6 +65,12 @@
   Format.create(name: "giga")
   
   #PCR Colony
+  PcrColony.create(name: "ok")
+  PcrColony.create(name: "failed")
+  PcrColony.create(name: "not done")
+  PcrColony.create(name: "pass")
+  
+  #Sequencing
   PcrColony.create(name: "ok")
   PcrColony.create(name: "failed")
   PcrColony.create(name: "not done")

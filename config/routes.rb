@@ -58,7 +58,6 @@ Rails.application.routes.draw do
       get :clone_design
       get :clone_batch
       get :clone_batch_qc
-      get :clone_batch_select
       patch :clone_batch_nb_update
       get :plasmid_design
       get :plasmid_batch
@@ -83,14 +82,21 @@ Rails.application.routes.draw do
       get :plasmid_info
       get :plasmid_batch_info
       get :plasmid_batch_qc_info
-        resources :clone_batches do
+      resources :clone_batch_qcs do
+           get :new_qc_protocol, :on => :new
+           get :render_sequencing, :on => :new
+           get :render_pcr_colony, :on => :new
+           post :create_qc_protocol_collection, :on => :collection
+      end
+      resources :clone_batches do
            get :autocomplete_clone_batch_name, :on => :collection
            get :show_exist, :on => :member
            get :display, :on => :member
            patch :update_as_plasmid, :on => :member
            get :remove_from_clone_collection, :on => :member
            resources :clone_batch_qcs
-          resources :plasmid_batches do
+           get :new_qc_protocol, :on => :member
+            resources :plasmid_batches do
             get :edit_and_sort, :on => :member
             resources :plasmid_batch_qcs
           end

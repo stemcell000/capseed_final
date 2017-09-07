@@ -45,14 +45,4 @@ $(function () {
   $('[data-toggle="popover"]').popover({html:true});
 });
 
-	
-//Activation du bouton sélectionné/désactivation des autres d'une navbar d'un panel de clone.
-	$('.nav li').click(function(){
-			var containerId = $(this).parent().parent().attr('id');
-			$('#'+containerId+' li').not($(this)).removeClass('active');
-			$(this).addClass('active');
-		}
-	);
-
-
 });

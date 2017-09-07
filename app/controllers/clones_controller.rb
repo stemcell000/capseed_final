@@ -133,16 +133,25 @@ def update_record_batch
       respond_to do |format|
         format.js
       end
+      #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
+      i = 1
+      @clone.batch_nb.times do
+        temp =@assay.name+'_'+@clone.name+'_'+i.to_s
+        cb = CloneBatch.create(:temp_name => temp)
+        @clone.clone_batches << cb
+        i += 1
+      end
     else
       render :action => 'edit_batch'
     end
 end
 
+
 def edit_batch_select
   @clones = @assay.clones.build
   @clones = @assay.clones.order(:id)
   @assay.clones.build
-  #Génère le nombre de champs nécessaire dans le formulaire, sans le dépasser.
+  #Génère le nombre de champs nécessaires dans le formulaire, sans le dépasser.
   if @clone.clone_batches.size < @clone.batch_nb
     (@clone.batch_nb-@clone.clone_batches.size).times do
       @clone.clone_batches.build

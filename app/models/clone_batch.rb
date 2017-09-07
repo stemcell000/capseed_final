@@ -3,14 +3,14 @@ class CloneBatch < ActiveRecord::Base
   include PgSearch
   
   belongs_to :clone
-  has_many :clone_batch_qcs, :dependent => :destroy
+  has_and_belongs_to_many :clone_batch_qcs
   has_many :plasmid_batches, :dependent => :destroy
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
   belongs_to :type
   has_one :insert
   
-  accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true
+  accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_attachments, :allow_destroy => true
   accepts_nested_attributes_for :clone_batch_as_plasmid_attachments, :allow_destroy => true
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true

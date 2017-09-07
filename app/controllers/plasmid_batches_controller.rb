@@ -21,7 +21,7 @@ def new
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
-    @name = @clone_batch.name+"#"+nb.to_s
+    @name = @clone_batch.id+"."+nb.to_s
 end
 
 def new_from_inventory

@@ -42,25 +42,22 @@ def formatStep(st, id)
     s = "Clone batch"
     p = clone_batch_assay_path(id)
   when 3
-    s = "Clone batch selection"
-    p = clone_batch_select_assay_path(id)
-  when 4
     s = "Clone batch QC"
     p = clone_batch_qc_assay_path(id)
-  when 5
+  when 4
     s = "Plasmid design"
     p = plasmid_design_assay_path(id)
-  when 6
+  when 5
     s = "Plasmid batch"
     c= "plasmidbatch"
     p = plasmid_batch_assay_path(id)
-   when 7
+   when 6
     s = "Plasmid batch QC"
     p = p = plasmid_batch_qc_assay_path(id)
-  when 8
+  when 7
     s = "Closing"
     p = close_assay_path(id)
-  when 9
+  when 8
     s = "Completed"
     p = complete_assay_path(id)
    end 

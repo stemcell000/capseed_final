@@ -36,8 +36,11 @@
 																								<div class="col-sm-12 text-left">
 																										<div><strong>Primer#:</strong><%=qc.primer_nb%></div>
 																										<div><strong>Primer name:</strong><%=qc.primer_name%></div>	
-																										<div><strong>Sending date:</strong> <%=qc.date_send.strftime("%h %e, %Y ")%></div>
-																										<div><strong>Contact:</strong> <%=qc.user.firstname%> <%=qc.user.lastname%> </div>
+																										<div><strong>Sending date:</strong> <%=formatDate(qc.date_send)%></div>
+																										<div><strong>Reception date:</strong> <%=formatDate(qc.date_rec)%></div>
+																										<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
+																										<div><strong>PCR colony:</strong> <%= qc.pcr_colony.nil? ? "none" : qc.pcr_colony.name %>
+																										<div><strong>Sending date(PCR):</strong> <%=formatDate(qc.date_send2)%></div>
 																										<div><strong>Conclusion:</strong> 
 																											<%if qc.conclusion==true %>
 																											Validated QC
@@ -86,7 +89,7 @@
 																<td class="col-sm-1">
 																	<div class="row">
 																		<div class="col-xs-2">
-																			<%= link_to "Add QC", new_assay_clone_clone_batch_clone_batch_qc_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-success btn-xs", :remote => true %>
+																			<%= link_to "Add single QC", new_assay_clone_clone_batch_clone_batch_qc_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-success btn-xs", :remote => true %>
 																		</div>
 																	</div>
 																																	
@@ -97,7 +100,7 @@
 																					<% disable_switch = true %>
 																				<%end%>
 																			<%end%>
-																				<%= link_to "Rename", edit_assay_clone_clone_batch_path(:id => cb.id, :clone_id => clone.id, :assay_id => @assay.id, :clone => clone), :class => "btn btn-primary btn-xs", :remote => true, :disabled => disable_switch %>
+																				<%= link_to "Rename batch", edit_assay_clone_clone_batch_path(:id => cb.id, :clone_id => clone.id, :assay_id => @assay.id, :clone => clone), :class => "btn btn-primary btn-xs", :remote => true, :disabled => disable_switch %>
 																		</div>
 																	</div>
 																</td>

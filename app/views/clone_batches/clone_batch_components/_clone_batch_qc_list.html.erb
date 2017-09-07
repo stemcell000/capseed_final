@@ -43,7 +43,12 @@
 		</div>
 		<% if !clone.clone_batches.empty? %>
 		<div id= "clone_batch_qc_table_container<%=clone.id%>">
-			<%assay_id = @assay.id %>
+			<% assay_id = @assay.id %>
+			<div class="row pull-right">
+				<div class="col-md-1">
+					<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_qc_path(@assay, clone), :class => "btn btn-success btn-xs", :remote => true %>
+				</div>
+			</div>
 			<%= render :partial => "clone_batches/clone_batch_components/clone_batch_qc_table", :locals => { :clone => clone, :assay => @assay }%>
 		</div>
 		<%end%>

@@ -87,6 +87,7 @@ Rails.application.routes.draw do
            get :render_sequencing, :on => :new
            get :render_pcr_colony, :on => :new
            post :create_qc_protocol_collection, :on => :collection
+           get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
       end
       resources :clone_batches do
            get :autocomplete_clone_batch_name, :on => :collection
@@ -94,8 +95,10 @@ Rails.application.routes.draw do
            get :display, :on => :member
            patch :update_as_plasmid, :on => :member
            get :remove_from_clone_collection, :on => :member
-           resources :clone_batch_qcs
-           get :new_qc_protocol, :on => :member
+           resources :clone_batch_qcs do
+             get :set_qc_validation, :on => :member
+             get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
+           end 
             resources :plasmid_batches do
             get :edit_and_sort, :on => :member
             resources :plasmid_batch_qcs
@@ -156,7 +159,7 @@ Rails.application.routes.draw do
   end
   
   resources :clone_batches do
-    resources :clone_batch_qcs
+    resources :clone_batch_qcs 
     resources :plasmid_batches
     get :edit_as_plasmid, :on => :member
     patch :update_as_plasmid, :on => :member

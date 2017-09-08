@@ -1,4 +1,4 @@
-<%= simple_nested_form_for ([@assay, @clone, @clone_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_qcs_path, remote: true, html: {class: 'horizontal-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @clone_batch_qc]), remote: true, html: {class: 'horizontal-form'} do |f|  %>
 <%= f.error_notification message: 'You must select a status for Sequencing and PCR colony.' %>
 <ul class="errors"></ul>
 <small>
@@ -30,14 +30,14 @@
 									<%=f.association :sequencing, :label => "Sequencing", :collection => Sequencing.all, input_html: { class: 'select2-select'}, :include_blank => true %>
 								</div>
 							</div>
-					<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->	
+						<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
 						<div class="form-group ui-front col-lg-12">
 							<div class="row">
 								<div class="col-lg-3">
 									<%= f.input :id, :label => "id:", :as =>:hidden %>
 									<%= f.input :primer_nb,
 										:label => "primer#:",
-										:url => autocomplete_clone_batch_qc_primer_nb_assay_clone_clone_batch_qcs_path,
+										:url => autocomplete_clone_batch_qc_primer_nb_assay_clone_clone_batch_clone_batch_qcs_path,
 										:as => :autocomplete,
 										:placeholder => 'Type a number.',
 										:update_elements => {:primer_name => '[id*="_primer_name"]'}
@@ -55,7 +55,7 @@
 								</div>
 							</div>
 						</div>
-					
+						
 						<div class ="row">
 							<div class="col-lg-6">
 								   <%= f.association :user, :label => "Contact name",

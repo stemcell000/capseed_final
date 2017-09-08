@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170907082043) do
+ActiveRecord::Schema.define(version: 20170908083107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20170907082043) do
 
   create_table "clone_batch_qcs", force: :cascade do |t|
     t.integer  "clone_batch_id"
-    t.integer  "primer_nb"
+    t.string   "primer_nb"
     t.string   "primer_name"
     t.date     "date_send"
     t.date     "date_rec"

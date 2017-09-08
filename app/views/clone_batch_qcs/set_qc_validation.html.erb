@@ -2,11 +2,10 @@
   	$("#flash-msg-container").html("")
   	$('#info-container<%=@clone.id%>').html("<%= escape_javascript(render "clone_batches/clone_batch_components/clone_batch_qc_list", locals: {:clone_batch_id => @clone_batch.id, :clone_id => @clone.id, :assay_id => @assay.id}) %>");
   	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-  console.log("Delete QC/Update Clone Batch table");	
+  console.log("Validate QC/Update Clone Batch table");	
   	
 
 //Reload du script des popovers
   $(function () {
   $('[data-toggle="popover"]').popover({html:true});
 });
-

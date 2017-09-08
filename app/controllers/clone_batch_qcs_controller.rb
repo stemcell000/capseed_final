@@ -1,15 +1,21 @@
 class CloneBatchQcsController < InheritedResources::Base
+  #Autocomplete pour le n° de plasmid  + remplissage du nom
+  autocomplete :clone_batch_qc, :primer_nb, :extra_data => [:primer_name], :display_value => :autocomplete_display
+  
   before_action :set_params, only:[:update, :create, :create_qc_protocol_collection]
-  before_action :load_clone_batch, only:[ :edit, :new, :update, :create, :destroy]
-  before_action :load_qc, only:[:update, :destroy, :edit, :load_all]
-  before_action :load_all, only:[:update, :create, :destroy,  :new_qc_protocol, :create_qc_protocol_collection]
+  before_action :load_clone_batch, only:[ :new, :create, :destroy, :set_qc_validation]
+  before_action :load_qc, only:[:update, :destroy, :load_all, :set_qc_validation]
+  before_action :load_all, only:[:create, :update, :destroy,  :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation]
   after_action :batch_qc_validation_checking, only:[:destroy]
   before_filter :load_users, only:[:edit, :new, :update, :create, :new_qc_protocol, :render_sequencing, :render_pcr_colony]
   
   
   def edit
+    @assay = Assay.find(params[:assay_id])
+    @clone_batch_qc = CloneBatchQc.find(params[:id])
     @clone_batch_qc.clone_batch_qc_attachments.build
-    
+    @clone = Clone.find(params[:clone_id])
+    @clone_batch = CloneBatch.find(params[:clone_batch_id])
   end
   
   def new
@@ -32,10 +38,12 @@ class CloneBatchQcsController < InheritedResources::Base
   end
   
   def update
+    #TUTO: Indispensable de placer load_all en before action pour update si on veut passer les instances de variable comme @clone dans le js.erb (n° de balise).
     @clone_batch_qc.update_attributes(set_params)
     if @clone_batch_qc.valid?
       flash.keep[:success] = "Task completed!"
       batch_qc_validation_checking
+      @clone_batch = @clone_batch_qc.clone_batch
     else
       render :action => 'edit'
     end
@@ -65,10 +73,11 @@ class CloneBatchQcsController < InheritedResources::Base
   def create_qc_protocol_collection
     @clone_batch_qc = CloneBatchQc.new(set_params)
     if @clone_batch_qc.valid?
-      @clone_batch_qc.save
        @clones.each do |c|
            c.clone_batches.each do |cb|
-              cb.clone_batch_qcs << @clone_batch_qc
+             cb_qc = @clone_batch_qc.dup
+             cb_qc.save
+              cb.clone_batch_qcs << cb_qc
            end
         end
         flash.keep[:success] = "Task completed!"
@@ -77,6 +86,15 @@ class CloneBatchQcsController < InheritedResources::Base
         @users = User.all.order(:lastname)
         render :action => :new_qc_protocol
       end
+  end
+  
+  def set_qc_validation
+    @clone_batch_qc = CloneBatchQc.find(params[:id])
+    @clone_batch_qc.update_columns(:conclusion => true)
+    #TUTO:indispensable pour exécuter le fichier js.erb correspondant
+    respond_to do |format|
+      format.js
+    end
   end
   
   private

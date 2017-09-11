@@ -1,5 +1,5 @@
 class CloneBatchQc < ActiveRecord::Base
-  has_and_belongs_to_many:clone_batch
+  belongs_to :clone_batch
   belongs_to :user
   has_many :clone_batch_qc_attachments, :dependent => :destroy
   belongs_to :pcr_colony

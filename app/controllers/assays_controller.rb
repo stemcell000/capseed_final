@@ -270,23 +270,24 @@ class AssaysController < ApplicationController
       @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
     end
     ##Collection of plasmid_batches
-    @cb_collection.each do |cb|
+      @cb_collection.each do |cb|
       @pb_collection = cb.plasmid_batches + @pb_collection
     end
-    ##Si au moins un plasmid batch est validé (qc_validation = true si la conclusion du qc)
-   # if !pb_collection.any? {|pb| pb.qc_validation == true}|| pb_collection.empty? || cb_collection.empty?
-          
-   #     flash[:notice] = "Add at least one qc report/plasmid batch."
-   #     redirect_to :action => :plasmid_batch_qc
-   # else 
+    #
          @cb_collection.each do |cb|
             @plasmid_batches = cb.plasmid_batches.where(:qc_validation => true).order(:id) + @plasmid_batches
          end
-          @assay.update_columns(:step => 7)
-          @assay.update_columns(:percentage => 80)
-          update_last_step(@assay, 7)
-          @assay.clones.update_all(:strict_validation => 1)
-   # end
+    # conditions => pas de cloture avant d'avoir au moins créé un plasmide.     
+         if @assay.last_step > 5 
+            @assay.update_columns(:step => 7)
+            @assay.update_columns(:percentage => 80)
+            update_last_step(@assay, 7)
+            @assay.clones.update_all(:strict_validation => 1)
+         else
+            flash[:notice] = "You need to complete the early steps first!."
+            steppath = formatStep(@assay.last_step, @assay.id)[:step_path]
+            redirect_to steppath
+         end
   end
   
   def complete

@@ -95,13 +95,20 @@ Rails.application.routes.draw do
            get :display, :on => :member
            patch :update_as_plasmid, :on => :member
            get :remove_from_clone_collection, :on => :member
+           #Clone Batch QC
            resources :clone_batch_qcs do
              get :set_qc_validation, :on => :member
              get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
            end 
+           #Plasmid Batch QC
+           resources :plasmid_batch_qcs do
+              get :new_qc_protocol, :on => :new
+              post :create_qc_protocol_collection, :on => :collection
+            end
             resources :plasmid_batches do
             get :edit_and_sort, :on => :member
-            resources :plasmid_batch_qcs
+              #Plasmid Batch QC indiv
+              resources :plasmid_batch_qcs
           end
         end
         resources :clone_attachments

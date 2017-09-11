@@ -6,4 +6,5 @@
 		<%= simple_form_for @assay, url: lock_process_assay_path, :remote=> true do |f| %>
 	  	<%= f.label :locked, :label => st %>
 	  	<%= f.input_field :locked, :as => :boolean, :onclick => "$('#assay_locked*').submit();" %>
+	  	<small><em>Lock this assay to prevent any modification</em></small>
 		<% end %>

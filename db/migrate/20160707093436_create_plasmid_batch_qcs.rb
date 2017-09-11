@@ -6,6 +6,7 @@ class CreatePlasmidBatchQcs < ActiveRecord::Migration
       t.string :dig_other
       t.string :itr
       t.text :comments
+      t.integer :user_id
 
       t.timestamps null: false
     end

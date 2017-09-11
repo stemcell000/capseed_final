@@ -1,25 +1,31 @@
 <small>
 <% @cb_collection.each do |cb| %><!--loop1-->
 	<% pbl = cb.plasmid_batches.length %>
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="row" >
-						<div class="col-lg-12">
-							<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
+					<div class="row">
+						<div class="row" >
+							<div class="col-lg-10">
+								<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
+							</div>
 						</div>
-					</div>
-						<div class="col-lg-12">
-							<% puts case pbl %>
-							<% when 0 %>
-								<em>No batch.</em><br />
-							<% when 1%>
-								<strong>Plasmid batch:</strong><br />
-							<%else%>
-								<strong>Plasmid batches:</strong><br />
-							<%end%>
-									
-											<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%><!--loop2-->
-												
+						<div class="row">
+							<div class="col-lg-12">
+								<% puts case pbl %>
+								<% when 0 %>
+									<em>No batch.</em><br />
+								<% when 1%>
+									<strong>Plasmid batch:</strong><br />
+								<%else%>
+									<strong>Plasmid batches:</strong><br />
+								<%end%>
+							</div>
+						</div>
+						<div class="row pull-right">
+								<div class="col-md-1">
+										<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(@assay, clone, cb), :class => "btn btn-success btn-xs", :remote => true %>
+								</div>
+						</div>
+						</div>
+								<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%><!--loop2-->
 												<div class="row">
 													<div class="panel panel-default">
 														<div class="panel-body">
@@ -42,7 +48,5 @@
 										
 
 				</div><!--End of col-lg-12-->
-			</div><!--End of panel-body-->
-		</div><!--End of panel-->
 	<% end %><!--End of loop1-->
 </small>

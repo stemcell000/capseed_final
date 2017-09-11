@@ -3,7 +3,7 @@ class CloneBatch < ActiveRecord::Base
   include PgSearch
   
   belongs_to :clone
-  has_and_belongs_to_many :clone_batch_qcs
+  has_many :clone_batch_qcs
   has_many :plasmid_batches, :dependent => :destroy
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy

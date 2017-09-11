@@ -49,7 +49,6 @@ def formatStep(st, id)
     p = plasmid_design_assay_path(id)
   when 5
     s = "Plasmid batch"
-    c= "plasmidbatch"
     p = plasmid_batch_assay_path(id)
    when 6
     s = "Plasmid batch QC"

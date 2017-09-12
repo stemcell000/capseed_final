@@ -1,4 +1,3 @@
-<% unless smart_listing.empty? %>
   <table class="table table-striped">
     <thead>
    		<th class="col-md-1 center">
@@ -8,7 +7,7 @@
         <%= smart_listing.sortable "Name", :name %>
     </th>
      <th class="col-md-3 center">
-        <%= smart_listing.sortable "Clone batch name", :clone_batch_id %>
+        <%= smart_listing.sortable "Plasmid", :clone_batch_id %>
     </th>
       <th class="col-md-3 center">
 		<%= smart_listing.sortable "Date of creation", :created_at %>
@@ -26,6 +25,3 @@
   </table>
   <%= smart_listing.paginate %>
   <%= smart_listing.pagination_per_page_links %>
-<% else %>
-  <p>No records!</p>
-<% end %>

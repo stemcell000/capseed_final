@@ -6,13 +6,9 @@ permit_params :list, :of, :attributes, :on, :model, :id, :name, :temp_name, :com
 :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid,
 :gene_as_plasmid, :created_at, :updated_at, :type_id, :clone_id
 
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+#Add Button to site
+action_item do
+  link_to "View Site", "/"
+end
 
 end

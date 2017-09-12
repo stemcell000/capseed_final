@@ -177,27 +177,41 @@ class AssaysController < ApplicationController
   
  #page clone batch qc
   def clone_batch_qc
-      @clones = @assay.clones.order(:id)
-      if @clones.empty?
-        flash.keep[:notice] = "Add a clone please."
-        redirect_to :action => :clone_design
-      else if @clones.any? { |c| c.clone_batches.empty? }
-         flash.keep[:notice] = "Add batches, please."
-         redirect_to :action => :clone_batch_select
-      else if @clones.any? { |c| c.clone_batches.count < c.batch_nb}
-         flash.keep[:notice] = "The number of batches does not match the value you entered."
-         redirect_to :action => :clone_batch_select
-      else
-        @assay.update_columns(:step => 3)
-        @assay.update_columns(:percentage => 40)
-        update_last_step(@assay, 3)
-        @assay.clones.update_all(:strict_validation => 1)
-        @clones.each do |c|
-          set_plasmid_validation(0,0, @assay)
-       end
-     end
-     end
-   end
+    
+          @clones = @assay.clones.order(:id)
+          
+          if @clones.empty?
+            flash.keep[:notice] = "Add a clone please."
+            redirect_to :action => :clone_design
+            
+          else if @clones.any? { |c| c.batch_nb.nil? }
+             flash.keep[:notice] = "Add at least one batch, please."
+             redirect_to :action => :clone_batch
+             
+          else
+            @assay.update_columns(:step => 3)
+            @assay.update_columns(:percentage => 40)
+            update_last_step(@assay, 3)
+            @assay.clones.update_all(:strict_validation => 1)
+            @clones.each do |c|
+              set_plasmid_validation(0,0, @assay)
+           end
+           #
+             @cb_collection = []
+       
+            @clones.each do |c|
+              @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
+             c.clone_batches.each do |cb|
+            end
+          
+            if @cb_collection.any? {|cb| !cb.name.blank?}
+              @cb_collection.where.not(:name =>blank).each do |cb|
+                cb.update_columns(:plasmid_validation => 1)
+              end
+            end
+          end
+        end
+      end
   end
   
  #page plasmid_design
@@ -215,8 +229,11 @@ class AssaysController < ApplicationController
         update_last_step(@assay, 4)
         set_plasmid_validation(1,0, @assay)
         @assay.clones.update_all(:strict_validation => 1)
+        @cb_collection.where.not(:name =>blank).each do |cb|
+          cb.update_columns(:plasmid_validation => 1)
+        end
       else
-        flash[:notice] = "Add a final name for validated batch (click 'Rename')."
+        flash[:notice] = "Add a final name for one batch at least (click 'Rename')."
         redirect_to :action => :clone_batch_qc
         set_plasmid_validation(0,1, @assay)
      end

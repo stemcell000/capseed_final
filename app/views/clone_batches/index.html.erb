@@ -1,6 +1,6 @@
-<% provide(:title, "Plasmid batch : Search") %>
+<% provide(:title, "Plasmid : Search") %>
 
-<%= search_form_for @q, :url => plasmid_batches_path, :class=>"form-horizontal", :remote => true do |f| %>
+<%= search_form_for @q, :url =>clone_batches_path, :class=>"form-horizontal", :remote => true do |f| %>
 
 <div class="row">
 	<div class="col-sm-6">
@@ -10,14 +10,9 @@
 			<%= f.search_field :name_cont, :class=>"col-xs-7" %>
 		</div>
 		
-		<div class="form-group row">
-		  	<%= f.label "Number*", :class=>"control-label col-xs-4" %>
-		  	<%= f.search_field :number_cont, :class=>"col-xs-7"  %>
-	 	</div>
-	 	
 	 	<div class="form-group row">
-			<%= f.label "Plasmid name*",:class=>"control-label col-xs-4" %>
-		  	<%= f.search_field :clone_batch_name_cont, :class=>"col-xs-7" %>
+			<%= f.label "Clone name*",:class=>"control-label col-xs-4" %>
+		  	<%= f.search_field :clone_name_cont, :class=>"col-xs-7" %>
 		</div>
 	 	
 	 	<div class="form-group row">
@@ -46,9 +41,9 @@
 <div class="row">	
 		<div class="form-group pull-right">
 			<%= f.submit class:"cancel-button btn btn-default" %>
-			<%= link_to "Clear Search", plasmid_batches_path, class:"cancel-button btn btn-default" %>
-			<%= link_to "Add batch", new_from_inventory_new_plasmid_batch_path, :remote => true, :class => "btn btn-default" %>
-			<%= link_to "Switch to plasmid inventory", clone_batches_path, :class => "btn btn-default" %>
+			<%= link_to "Clear Search", clone_batches_path, class:"cancel-button btn btn-default" %>
+			<%= link_to "Add plasmid", new_from_inventory_new_clone_batch_path, :remote => true, :class => "btn btn-default" %>
+			<%= link_to "Switch to batch inventory", plasmid_batches_path, :class => "btn btn-default" %>
 	</div>
 </div>
 		</div>
@@ -56,6 +51,6 @@
 <% end %>
 
 <div id="container">
-	<%= render :partial => "plasmid_batches/plasmid_batch_components/index_main" %>
+	<%= render :partial => "clone_batches/clone_batch_components/index_main" %>
 </div>
 

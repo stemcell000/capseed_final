@@ -1,3 +1,7 @@
+<% unless @plasmid_batches.empty? %>
 <div id= "smart-list">
 	<%= smart_listing_render(:plasmid_batches) %>
 </div>
+<%else%>
+No record!
+<%end%>

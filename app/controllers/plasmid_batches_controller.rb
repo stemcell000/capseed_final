@@ -90,10 +90,8 @@ def update_from_inventory
     @units = Unit.all
     flash.keep[:success] = "Task completed!"
   else
-    render :action => 'edit'
+    render :action => 'edit_from_inventory'
    end
-   
-   
 end 
 
  ##Permettre d'indiquer la boite et les coordonnées du tube 

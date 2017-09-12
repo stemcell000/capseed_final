@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908140111) do
+ActiveRecord::Schema.define(version: 20170908130712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170908140111) do
     t.text     "comment"
     t.boolean  "qc_validation",             default: false
     t.integer  "strict_validation"
-    t.integer  "plasmid_validation"
+    t.integer  "plasmid_validation",        default: 1
     t.string   "strand_as_plasmid"
     t.date     "date_as_plasmid"
     t.string   "glyc_stock_box_as_plasmid"
@@ -241,6 +241,7 @@ ActiveRecord::Schema.define(version: 20170908140111) do
     t.string   "dig_other"
     t.string   "itr"
     t.text     "comments"
+    t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.boolean  "conclusion"
@@ -249,7 +250,6 @@ ActiveRecord::Schema.define(version: 20170908140111) do
     t.string   "primer1"
     t.string   "primer2"
     t.date     "date_send"
-    t.integer  "user_id"
   end
 
   add_index "plasmid_batch_qcs", ["plasmid_batch_id"], name: "index_plasmid_batch_qcs_on_plasmid_batch_id", using: :btree

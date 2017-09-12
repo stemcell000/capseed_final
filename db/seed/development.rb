@@ -1,6 +1,3 @@
-case Rails.env
-when "development"
- 
  #Mandatory Seeds
   
   #Add units
@@ -149,8 +146,6 @@ when "development"
   Clone.find(2).inserts << Insert.find(3)
   Clone.find(2).inserts << Insert.find(4)
 
-when "production"
-  
  #Mandatory Seeds
   
   #Add units
@@ -235,4 +230,3 @@ when "production"
   Sma1.create(name: "not applicable")
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
-end

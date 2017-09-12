@@ -175,43 +175,46 @@ class AssaysController < ApplicationController
     end
   end
   
+  #page clone batch selection
+ def clone_batch_select
+    @clones = @assay.clones.order(:id)
+     if @clones.empty?
+      flash[:notice] = "Add a clone please."
+      redirect_to :action => :clone_design
+      else if @clones.any? { |c| c.batch_nb.blank? }
+       flash[:notice] = "Add info please."
+       redirect_to :action => :clone_batch
+          else
+      @assay.update_columns(:step => 3)
+      @assay.update_columns(:percentage => 50)
+      update_last_step(@assay, 3)
+      @assay.clones.update_all(:strict_validation => 1)
+      set_plasmid_validation(0,0, @assay)
+    end    
+   end
+  end
+  
  #page clone batch qc
   def clone_batch_qc
     
-          @clones = @assay.clones.order(:id)
-          
-          if @clones.empty?
-            flash.keep[:notice] = "Add a clone please."
-            redirect_to :action => :clone_design
-            
-          else if @clones.any? { |c| c.batch_nb.nil? }
-             flash.keep[:notice] = "Add at least one batch, please."
-             redirect_to :action => :clone_batch
-             
-          else
-            @assay.update_columns(:step => 3)
-            @assay.update_columns(:percentage => 40)
-            update_last_step(@assay, 3)
-            @assay.clones.update_all(:strict_validation => 1)
-            @clones.each do |c|
-              set_plasmid_validation(0,0, @assay)
-           end
-           #
-             @cb_collection = []
-       
-            @clones.each do |c|
-              @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-             c.clone_batches.each do |cb|
-            end
-          
-            if @cb_collection.any? {|cb| !cb.name.blank?}
-              @cb_collection.where.not(:name =>blank).each do |cb|
-                cb.update_columns(:plasmid_validation => 1)
-              end
-            end
-          end
-        end
-      end
+      @clones = @assay.clones.order(:id)
+      
+       if @clones.empty?
+      flash[:notice] = "Add a clone please."
+      redirect_to :action => :clone_design
+      else if @clones.any? { |c| c.batch_nb.blank? }
+       flash[:notice] = "Add info please."
+       redirect_to :action => :clone_batch
+      else
+        @assay.update_columns(:step => 3)
+        @assay.update_columns(:percentage => 40)
+        update_last_step(@assay, 3)
+        @assay.clones.update_all(:strict_validation => 1)
+        @clones.each do |c|
+          set_plasmid_validation(0,0, @assay)
+       end
+     end
+   end
   end
   
  #page plasmid_design
@@ -229,11 +232,8 @@ class AssaysController < ApplicationController
         update_last_step(@assay, 4)
         set_plasmid_validation(1,0, @assay)
         @assay.clones.update_all(:strict_validation => 1)
-        @cb_collection.where.not(:name =>blank).each do |cb|
-          cb.update_columns(:plasmid_validation => 1)
-        end
       else
-        flash[:notice] = "Add a final name for one batch at least (click 'Rename')."
+        flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         redirect_to :action => :clone_batch_qc
         set_plasmid_validation(0,1, @assay)
      end
@@ -320,6 +320,17 @@ class AssaysController < ApplicationController
       @assay.update_columns(:locked => true)
     else
       @assay.update_columns(:locked => false)
+    end
+  end
+  
+  def batch_generator(assay, clone)
+    #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
+    i = 1
+    clone.batch_nb.times do
+      temp =assay.name+'_'+clone.name+'_'+i.to_s
+      cb = CloneBatch.create(:temp_name => temp)
+      clone.clone_batches << cb
+      i += 1
     end
   end
   

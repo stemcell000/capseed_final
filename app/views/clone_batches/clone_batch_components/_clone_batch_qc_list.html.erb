@@ -41,7 +41,9 @@
 			</div>
 			</small>
 		</div>
-		<% if !clone.clone_batches.empty? %>
+		batch_nb: <%= clone.batch_nb %>
+		nb of batch: <%=clone.clone_batches.count%>
+<% if !clone.clone_batches.empty? %>
 		<div id= "clone_batch_qc_table_container<%=clone.id%>">
 			<% assay_id = @assay.id %>
 			<div class="row pull-right">

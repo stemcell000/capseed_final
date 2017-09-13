@@ -232,6 +232,7 @@ class AssaysController < ApplicationController
         update_last_step(@assay, 4)
         set_plasmid_validation(1,0, @assay)
         @assay.clones.update_all(:strict_validation => 1)
+        #
       else
         flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         redirect_to :action => :clone_batch_qc
@@ -246,14 +247,18 @@ class AssaysController < ApplicationController
       @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
     end
     if @cb_collection.empty?
+        flash[:notice] = "Add at least one plasmid."
+        redirect_to :action => :plasmid_design
+        set_plasmid_validation(1,1, @assay)
+    elsif @cb_collection.any? {|cb| cb.strand_as_plasmid.nil?}
         flash[:notice] = "Complete information for each plasmid."
         redirect_to :action => :plasmid_design
-        set_plasmid_validation(0,0, @assay)
-    else 
+        set_plasmid_validation(1,1, @assay)
+    else   
         @assay.update_columns(:step => 5)
         @assay.update_columns(:percentage => 60)
         update_last_step(@assay, 5)
-        set_plasmid_validation(0,1, @assay)
+        set_plasmid_validation(1,1, @assay)
         @assay.clones.update_all(:strict_validation => 1)
      end
   end
@@ -265,12 +270,24 @@ class AssaysController < ApplicationController
       @clones.each do |c|
           @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
        end
+       
+       pb_collection = []
+       
+      @cb_collection.each do |cb|
+        pb_collection = cb.plasmid_batches + pb_collection
+      end
     
-    if @cb_collection.any? {|cb| !cb.plasmid_batches.empty?}
+    if !pb_collection.empty?
        @assay.update_columns(:step => 6)
        @assay.update_columns(:percentage => 70)
        update_last_step(@assay, 6)
        @assay.clones.update_all(:strict_validation => 1)
+       
+    elsif @cb_collection.any? {|pb| !pb.name == ""}
+        flash[:notice] = "Complete information for each plasmid."
+        redirect_to :action => :plasmid_design
+        set_plasmid_validation(1,1, @assay)
+        
     else 
         flash[:notice] = "Add at least one batch."
         redirect_to :action => :plasmid_batch
@@ -294,6 +311,7 @@ class AssaysController < ApplicationController
          @cb_collection.each do |cb|
             @plasmid_batches = cb.plasmid_batches.where(:qc_validation => true).order(:id) + @plasmid_batches
          end
+         
     # conditions => pas de cloture avant d'avoir au moins créé un plasmide.     
          if @assay.last_step > 5 
             @assay.update_columns(:step => 7)
@@ -302,7 +320,7 @@ class AssaysController < ApplicationController
             @assay.clones.update_all(:strict_validation => 1)
          else
             flash[:notice] = "You need to complete the early steps first!."
-            steppath = formatStep(@assay.last_step, @assay.id)[:step_path]
+             steppath = formatStep(@assay.last_step, @assay.id)[:step_path]
             redirect_to steppath
          end
   end
@@ -312,7 +330,8 @@ class AssaysController < ApplicationController
           @assay.update_columns(:percentage => 100)
           update_last_step(@assay, 8)
           flash[:success] = "Cloning completed!"
-  end
+          redirect_to :action => 'close'
+   end
   
   def lock_process
     @assay = Assay.find(params[:id])

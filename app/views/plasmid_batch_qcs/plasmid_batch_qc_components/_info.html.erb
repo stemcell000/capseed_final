@@ -1,6 +1,8 @@
 <small>
 <% @cb_collection.each do |cb| %><!--loop1-->
+
 	<% pbl = cb.plasmid_batches.length %>
+	
 					<div class="row">
 						<div class="row" >
 							<div class="col-lg-10">
@@ -25,6 +27,7 @@
 								</div>
 						</div>
 						</div>
+						
 								<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%><!--loop2-->
 												<div class="row">
 													<div class="panel panel-default">
@@ -42,11 +45,12 @@
 															</div><!--End of batch container-->
 														</div><!--End of panel-body-->
 													</div><!--End of panel-->
-											</div><!--End of row-->
+											
 											<%end%><!--End of loop2-->
+											
+											</div><!--End of row-->
 
 										
 
-				</div><!--End of col-lg-12-->
 	<% end %><!--End of loop1-->
 </small>

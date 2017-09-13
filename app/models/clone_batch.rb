@@ -18,8 +18,8 @@ class CloneBatch < ActiveRecord::Base
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
-  #validates :name , :uniqueness => true, :if => :plasmid_validation?
-  #validates :name, :strand_as_plasmid, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :type, :promoter_as_plasmid, :gene_as_plasmid, :presence => true, :if => :enable_plasmid_validation?
+  validates :name , :uniqueness => true, :if => :plasmid_validation?
+  validates :name, :strand_as_plasmid, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :type, :promoter_as_plasmid, :gene_as_plasmid, :presence => true, :if => :enable_plasmid_validation?
   
   #pg_search
   include PgSearch

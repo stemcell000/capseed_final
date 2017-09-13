@@ -2,7 +2,7 @@ class PlasmidBatchQcsController < InheritedResources::Base
   
   before_action :set_params, only:[:create, :update ]
   before_action :load_plasmid_batch_qc, only:[ :edit, :destroy, :update ]
-  before_action :load_all, only:[ :new, :edit, :create, :update, :destroy, :new_qc_protocol, :create_qc_protocol_collection]
+  before_action :load_all, only:[ :new, :edit, :create, :update, :destroy, :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation]
   before_filter :load_users, only:[:edit, :new, :update, :create, :new_qc_protocol, :create_qc_protocol_collection]
   before_action :load_plasmid_batch, only:[:batch_qc_validation_checking]
 
@@ -17,11 +17,16 @@ def create
   @plasmid_batch_qc = PlasmidBatchQc.create(set_params)
   #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
   @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
-      if @plasmid_batch_qc.valid?
-        batch_qc_validation_checking
-      else
-        render :action => :new
-      end
+       if @plasmid_batch_qc.valid?
+      @plasmid_batch.plasmid_batch_qcs << @plasmid_batch_qc
+       @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
+             pb_qc = @plasmid_batch_qc.dup
+             batch_qc_validation_checking(pb)
+          end
+      flash.keep[:success] = "Task completed!"
+    else
+      render :action => 'new'
+    end
 end
 
 def edit
@@ -32,10 +37,15 @@ end
 
  def update
     @plasmid_batch_qc.update_attributes(set_params)
+    @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
     #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
      @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
     if @plasmid_batch_qc.valid?
-      batch_qc_validation_checking
+      @plasmid_batch.plasmid_batch_qcs << @plasmid_batch_qc
+       @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
+             pb_qc = @plasmid_batch_qc.dup
+             batch_qc_validation_checking(pb)
+          end
       flash.keep[:success] = "Task completed!"
     else
       render :action => 'edit'
@@ -46,13 +56,16 @@ end
    #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
     @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
     @plasmid_batch_qc.destroy
-    batch_qc_validation_checking
+    #Actualisation du statut des clone_patch /plasmides
+           @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
+             pb_qc = @plasmid_batch_qc.dup
+              batch_qc_validation_checking(pb)
+          end
     
   end
   
    def new_qc_protocol
     @plasmid_batch_qc =  PlasmidBatchQc.new
-    
       respond_to do |format|
         format.js
         format.html
@@ -62,25 +75,35 @@ end
    def create_qc_protocol_collection
     @plasmid_batch_qc = PlasmidBatchQc.new(set_params)
     if @plasmid_batch_qc.valid?
-           @clone_batch.plasmid_batches.each do |pb|
+           @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
              pb_qc = @plasmid_batch_qc.dup
              pb_qc.save
               pb.plasmid_batch_qcs << pb_qc
+              batch_qc_validation_checking(pb)
           end
         flash.keep[:success] = "Task completed!"
-        batch_qc_validation_checking
       else
         @users = User.all.order(:lastname)
         render :action => :new_qc_protocol
       end
   end
   
+  
+    def set_qc_validation
+    @plasmid_batch_qc = PlasmidBatchQc.find(params[:id])
+    @plasmid_batch_qc.update_columns(:conclusion => true)
+    #TUTO:indispensable pour exécuter le fichier js.erb correspondant
+    respond_to do |format|
+      format.js
+    end
+    end
+  
 
   private
 
     def set_params
       params.require(:plasmid_batch_qc).permit(:dig_other, :itr, :comments, :conclusion, :plasmid_batch_id , :sma1_id, :user_id, :sma1_display,:_destroy, :primer1, :primer2, :date_send,
-      :plasmid_batch_attributes =>[:clone_batch_id, :id, :format, :concentration, :comment, :unit_id],
+      :plasmid_batch_attributes => [:clone_batch_id, :id, :format, :concentration, :comment, :unit_id],
       :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
@@ -109,11 +132,11 @@ end
       @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
     end
     
-    def batch_qc_validation_checking
-        if @plasmid_batch.plasmid_batch_qcs.any? {|qc| qc.conclusion == true}
-          @plasmid_batch.update_columns(:qc_validation => true)
+    def batch_qc_validation_checking(plasmid_batch)
+        if plasmid_batch.plasmid_batch_qcs.any? {|qc| qc.conclusion == true}
+          plasmid_batch.update_columns(:qc_validation => true)
         else
-          @plasmid_batch.update_columns(:qc_validation => false)
+          plasmid_batch.update_columns(:qc_validation => false)
         end
     end
     

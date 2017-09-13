@@ -104,6 +104,7 @@ Rails.application.routes.draw do
            resources :plasmid_batch_qcs do
               get :new_qc_protocol, :on => :new
               post :create_qc_protocol_collection, :on => :collection
+              get :set_qc_validation, :on => :member
             end
             resources :plasmid_batches do
             get :edit_and_sort, :on => :member

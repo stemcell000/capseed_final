@@ -13,6 +13,9 @@ ActiveAdmin.register Project do
   #   permitted << :other if resource.something?
   #   permitted
   # end
-
+#Add Button to site
+action_item do
+  link_to "View Site", "/"
+end
 
 end

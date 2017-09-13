@@ -21,7 +21,6 @@ def new
   if params[:id]
     @clone = Clone.find(params[:id])
     @@old_id = params[:id]
-    @clone.inserts.build
     @clone_enzymes = @clone.enzymes.build
     @clone_inserts = @clone.inserts.build
     @clone_batches = @clone.clone_batches.build
@@ -263,7 +262,7 @@ def clone_params
   enzyme_ids: [],
   insert_ids: [],
   :enzymes_attributes =>[:id, :clone_id, :name, :category],
-  :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id],
+  :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :assay_attributes => [:id, :name, :step],
   :clone_batches_attributes => [:id, :clone_id, :unit_id, :name, :temp_name, :comment, :_destroy,
   :clone_batch_qcs_attributes => [:id, :primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :op, :_destroy],

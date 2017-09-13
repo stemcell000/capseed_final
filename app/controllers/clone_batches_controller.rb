@@ -51,7 +51,7 @@ class CloneBatchesController < InheritedResources::Base
         flash.keep[:success] = "Task completed!"
          #
          if @clone_batch.insert.nil?
-          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.id)
+          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number.to_i)
           @clone_batch.insert = @insert
          end
          #
@@ -193,7 +193,7 @@ end
     
     def clone_batch_params
       params.require(:clone_batch).permit(:id, :name, :comment, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :plasmid_validation, :_destroy,
-      :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid,
+      :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid, :number,
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],

@@ -32,7 +32,9 @@
 												:label_method => :clone_batch_id.to_s,
 												:value_method => :id,
 												:prompt => 'Select insert(s)',
-												:input_html => {class: "select2-select"} %>
+												:input_html => {class: "select2-select"},
+												include_blank: false,
+												include_hidden: false %>
 							<% if @clone.id.present? %>
 							<%= f.association :inserts, :label => "Inserts",
 												:collection => @inserts_all,

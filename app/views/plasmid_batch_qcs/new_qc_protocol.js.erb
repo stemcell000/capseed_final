@@ -1,7 +1,7 @@
 		$("#qc-label").html("Plasmid batch Quality Control")
 		$("#qc-buttons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/plasmid_batch_qc_components/form_protocol', locals: {:clone_id => @clone.id, :assay_id => @assay.id} ) %>")
+		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/plasmid_batch_qc_components/form_protocol') %>")
 		$("ul.errors").html("");
 		$("#qc-modal").modal("show");
 				

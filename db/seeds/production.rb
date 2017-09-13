@@ -1,4 +1,7 @@
  #Mandatory Seeds
+ 
+  #Add Glogal Project
+  Project.create( name:"Global project")
   
   #Add units
   Unit.create( name:"ng/uL")

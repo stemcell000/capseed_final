@@ -112,10 +112,10 @@
   Clone.new( name: "Gamma", bbnb: 102, primerinsfor: "VR1", primerinsrev: "VR2", comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").save(:validate => false)
   
   #Seed Insert
-  Insert.new( name:"insert1", clone_batch_id: 400).save(:validate => false)
-  Insert.new( name:"insert2", clone_batch_id: 577).save(:validate => false)
-  Insert.new( name:"insert3", clone_batch_id: 687).save(:validate => false)
-  Insert.new( name:"insert4", clone_batch_id: 724).save(:validate => false)
+  Insert.new( name:"insert1", clone_batch_id: 400, number: 650).save(:validate => false)
+  Insert.new( name:"insert2", clone_batch_id: 577, number: 651).save(:validate => false)
+  Insert.new( name:"insert3", clone_batch_id: 687, number: 652).save(:validate => false)
+  Insert.new( name:"insert4", clone_batch_id: 724, number: 653).save(:validate => false)
   
   
   Assay.find(1).projects << Project.find(1)

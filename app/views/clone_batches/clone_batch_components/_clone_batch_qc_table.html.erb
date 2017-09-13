@@ -14,9 +14,9 @@
 														<% clone.clone_batches.order(:id).each do |cb|%>
 															<tr>
 																<td class="col-lg-1"><%= cb.id%></td>
-																<td class="col-lg-1 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
+																<td class="col-lg-3 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
 																</td>
-																<td class="col-lg-6 .well">	
+																<td class="col-lg-4 .well">	
 																						<% cb.clone_batch_qcs.each do |qc| %>
 																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
 																							title='

@@ -21,7 +21,7 @@
 						</div>
 						<div class="row pull-right">
 								<div class="col-md-1">
-										<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(@assay, clone, cb), :class => "btn btn-success btn-xs", :remote => true %>
+										<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id), :class => "btn btn-success btn-xs", :remote => true %>
 								</div>
 						</div>
 						</div>

@@ -5,36 +5,36 @@
 	<small>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
-				<div class = "col-md-3">
-							<%=f.input :strand_as_plasmid, :label => "Strand" %>
+				<div class = "col-lg-3">
+					<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 					</div>
-				<div class = "col-md-2">
+				<div class = "col-lg-2">
 							<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
 				</div>
 		</div>
 		<div class="row">
-			<div class = "col-md-5">
+			<div class = "col-lg-5">
 			 		<%=f.input :origin_as_plasmid, :label => "Origin" %>
 			</div>	
 		</div>
 		<div class="row">
-			<div class="col-md-2">
-				<%=f.input :glyc_stock_box_as_plasmid, :label => "Box ID" %>
+			<div class="col-lg-2">
+				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
-			<div class = "col-md-2">
-			 			<%=f.association :type, :label => "Type", :collection => Type.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
-			</div>
-		</div>
-		<div class="row">
-			<div class = "col-md-3">
-			 			<%=f.input :gene_as_plasmid, :label => "Gene" %>
-			</div>
-			<div class = "col-md-2">
-			 			<%=f.input :promoter_as_plasmid, :label => "Promoter" %>
+			<div class = "col-lg-2">
+			 			<%=f.association :type, :label => "Type", :collection => @types_all, :placeholder => "Select type.", input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-5">
+			<div class = "col-lg-2">
+			 			<%=f.association :promoter, :label => "Promoter", :collection => @promoters_all, input_html: { class: 'select2-select' }%>
+			</div>
+			<div class = "col-lg-3">
+			 			<%=f.association :type, :label => "Gene", :collection => @genes_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-5">
 				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
 		</div>
@@ -48,13 +48,13 @@
 					</div>
 		<% end %>
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-lg-2">
 						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments ,:class => 'btn btn-sm btn-success' %>
 					</div>
 				</div>
 	</small>
 <div class="row">
-	<div class="col-md-2">
+	<div class="col-lg-2">
  		<div class="btn-group" role="group" aria-label="...">
     		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
         	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>

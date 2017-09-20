@@ -8,6 +8,8 @@
 				    	placeholder: 'Enter the name of the assay',
 				    	autocomplete: false
 				    %>
+				    <%= f.input :user_id, :input_html => {:value=> current_user.id}, :as => :hidden %>
+				    
 				    <%= f.input :comment,
 				    	label: "Comment"%>
 					<%= f.association :projects, :label => "Projects",

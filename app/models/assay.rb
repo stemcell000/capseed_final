@@ -13,10 +13,12 @@ class Assay < ActiveRecord::Base
   has_many :clones, -> { uniq }, :dependent => :destroy
   has_many :clone_batches, :through => :clones
   has_and_belongs_to_many :projects
+  belongs_to :user
   
   accepts_nested_attributes_for :clones
   accepts_nested_attributes_for :clone_batches
   accepts_nested_attributes_for :projects
+  accepts_nested_attributes_for :user
   
   #scopes
   scope :completed, -> {where(step: 'completed')} 
@@ -37,7 +39,7 @@ class Assay < ActiveRecord::Base
   #validations
   validates :name, :presence => true, :case_sensitive => false
   validates :name, :uniqueness => {message: "Unique name, please!"}
-  validates :name, :length =>{in: 2..20, :message => "must be from 2 to 20 char. long"}
+  #validates :name, :length =>{in: 2..20, :message => "must be from 2 to 20 char. long"}
   #validates :name, :format => { :with => /\A[a-zA-Z\d\s]*\z/, :message =>"has invalide format" }
   validates :projects, :presence => true
   

@@ -16,6 +16,8 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
+    @nb = CloneBatch.order("created_at").last.number.to_i + 1
+    @nb = @nb.to_s
   end
   
   def new
@@ -28,11 +30,17 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_as_plasmid_attachments.build 
     @units = Unit.all
     @clone = Clone.find(params[:clone_id])
+    @strands_all = Strand.all
+    @types_all = Type.all
+    @genes_all = Gene.all
+    @promoters_all = Promoter.all
     @assay = Assay.find(params[:assay_id])
   end
   
   def update
-    CloneBatch.skip_callback(:update) 
+    #By pass validations
+    CloneBatch.skip_callback(:update)
+    #
     @clone_batch.update_attributes(clone_batch_params)
     @clone = Clone.find(params[:clone_id])
     @clone_batches = @clone.clone_batches
@@ -192,7 +200,7 @@ end
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :comment, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :plasmid_validation, :_destroy,
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :plasmid_validation, :_destroy,
       :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid, :number,
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -205,7 +213,7 @@ end
     end
     
     def plasmid_params
-      params.require(:clone_batch).permit(:id, :name, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :plasmid_validation, :_destroy,
+      params.require(:clone_batch).permit(:id, :name, :number,:qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :gene_id, :promoter_id,:plasmid_validation, :_destroy,
       :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid,
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -213,7 +221,10 @@ end
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
-      :insert_attributes => [:id, :name, :number, :clone_batch_id])
+      :insert_attributes => [:id, :name, :number],
+      :strand_attributes => [:id, :name],
+      :gene_attributes => [:id, :name],
+      :promoter_attributes => [:id, :name])
       
     end
     

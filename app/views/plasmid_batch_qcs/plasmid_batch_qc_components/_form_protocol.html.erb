@@ -13,7 +13,7 @@
 	<div id="alt-container">
 		<div class="row">
 			<div class="col-md-2">
-				<% if Type.find(@clone_batch.type_id).name = "Transgene" %>
+				<% if !Type.find(@clone_batch.type_id).name = "Transgene" || "library" %>
 						<%= f.association :sma1, :label => "SMA1", :collection => Sma1.all, :placeholder => "Select", :selected => 3, input_html: { class: 'select2-select' }, :disabled => true %>
 						<%= f.association :sma1, :collection => Sma1.all, :selected => 3, wrapper_html: { class: 'hide' } %>
 				<%else%>

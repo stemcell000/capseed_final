@@ -5,7 +5,6 @@
 		<div id = "clone-batches-table-container">
 				<table class="table table-bordered">
 														<thead>
-															<th>ID</th>
 															<th>Name</th>
 															<th>QC</th>
 															<th>Result</th>
@@ -13,7 +12,6 @@
 														</thead>
 														<% clone.clone_batches.order(:id).each do |cb|%>
 															<tr>
-																<td class="col-lg-1"><%= cb.id%></td>
 																<td class="col-lg-3 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
 																</td>
 																<td class="col-lg-4 .well">	

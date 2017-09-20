@@ -4,9 +4,11 @@ class CloneBatchQc < ActiveRecord::Base
   has_many :clone_batch_qc_attachments, :dependent => :destroy
   belongs_to :pcr_colony
   belongs_to :sequencing
+  belongs_to :primer
   
   accepts_nested_attributes_for :clone_batch_qc_attachments, :allow_destroy => true
   accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :primer
   
   #validations
   validates :pcr_colony, :sequencing, presence: { message: "You must select a status." }

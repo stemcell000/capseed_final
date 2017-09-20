@@ -1,8 +1,6 @@
 class CloneBatchQcsController < InheritedResources::Base
-  #Autocomplete pour le n° de plasmid  + remplissage du nom
-  autocomplete :clone_batch_qc, :primer_nb, :extra_data => [:primer_name], :display_value => :autocomplete_display
   
-  before_action :set_params, only:[:update, :create, :create_qc_protocol_collection]
+  before_action :set_params, only:[:edit, :update, :create, :create_qc_protocol_collection]
   before_action :load_clone_batch, only:[ :new, :create, :destroy, :set_qc_validation]
   before_action :load_qc, only:[:update, :destroy, :load_all, :set_qc_validation]
   before_action :load_all, only:[:create, :update, :destroy,  :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation]
@@ -16,6 +14,7 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch_qc.clone_batch_qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
+    @primers_all = Primer.all
   end
   
   def new
@@ -24,6 +23,7 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
+    @primers_all = Primer.all
   end
   
   def create
@@ -55,6 +55,7 @@ class CloneBatchQcsController < InheritedResources::Base
   
   def new_qc_protocol
     @clone_batch_qc =  CloneBatchQc.new
+    @primers_all = Primer.all
     
     respond_to do |format|
       format.js
@@ -97,12 +98,14 @@ class CloneBatchQcsController < InheritedResources::Base
   
   private
     def set_params
-      params.require(:clone_batch_qc).permit(:clone_batch_id, :id, :user_id, :pcr_colony_id, :sequencing_id, :primer_nb, :primer_name, :date_send, :date_rec, :result, :conclusion,
+      params.require(:clone_batch_qc).permit(:clone_batch_id, :id, :user_id, :primer_id, :pcr_colony_id, :sequencing_id, :date_send, :date_rec, :result, :conclusion,
       :clone_batch_attributes => [:name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :clone_batch_qc_attachments_attributes =>[:id,:clone_batch_qc_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
       :assay_attributes => [:id, :name, :assay_id],
+      :primer_attributes => [:id, :name, :number],
        users_ids: [],
+       primers_ids: [],
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name],
       :pcr_colony_attributes => [:id, :name],
       :sequencing_attributes => [:id, :name])

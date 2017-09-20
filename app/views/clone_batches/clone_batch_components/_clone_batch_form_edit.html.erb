@@ -8,6 +8,7 @@
 							<%= f.input :name, :label => "Name: ", :input_html => { :value => f.object.name || @clone.name } %>
 					       	<strong>Temporary name: </strong><%= f.object.temp_name %><br />
 					       	<strong>Notes: </strong><%= f.object.comment.presence || 'no comment' %><br />
+					       	<%= f.input :number, :input_html => { :value => @nb }, :as => :hidden %>
 				</div>
 				</div>
 		

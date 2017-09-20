@@ -13,6 +13,8 @@
   #Add Types
   Type.create( name:"Helper")
   Type.create( name:"Transgene")
+  Type.create(name:"capsid")
+  Type.create(name:"library")
   Type.create(name:"none")
   
    #Add boxes
@@ -20,6 +22,13 @@
   Box.create(name: "box2")
   Box.create(name: "box3")
   Box.create(name: "Garbage")
+  
+  #Add cloning methods
+  Cmeth.create(name: "method1")
+  Cmeth.create(name: "method2")
+  Cmeth.create(name: "method3")
+  Cmeth.create(name: "method4")
+  Cmeth.create(name: "unknown") 
  
  
   #Add columns

@@ -10,6 +10,7 @@ class Clone < ActiveRecord::Base
   has_many :clone_attachments, :dependent => :destroy
   has_many :clone_batches, :dependent => :destroy
   has_many :clone_batch_qcs, :through => :clone_batches
+  belongs_to :cmeth
   has_and_belongs_to_many :inserts
   
   accepts_nested_attributes_for :assay
@@ -18,11 +19,12 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :clone_attachments, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batches, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
+  accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
 
 before_validation :downcase_name
 before_save :downcase_name
   #validations
-    validates :name, :bbnb, :primerinsfor, :primerinsrev, :enzymes, :inserts, :presence => true
+    validates :name, :bbnb, :inserts, :presence => true
     validates :bbnb, numericality: { only_integer: true }
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
     validates :bbnb, numericality: true

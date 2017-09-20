@@ -370,9 +370,10 @@ class AssaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assay_params
-      params.require(:assay).permit(:id, :assay_id, :name, :assaynb, :startdate, :created_at , :updated_at , :step, :last_step, :assaynb, :row_order_position, :display , :comment, :locked,
+      params.require(:assay).permit(:id, :assay_id, :user_id, :name, :assaynb, :startdate, :created_at , :updated_at , :step, :last_step, :assaynb, :row_order_position, :display , :comment, :locked,
       project_ids: [], clone_batch_ids: [], clone_batch_qc_ids: [],
       :projects_attributes => [:id, :name],
+      :user_attributes => [:id, :name],
       :clones_attributes => [:id, :name, :primerinsfor, :primerinsrev, :bbnb, :comment, :comment_batch, :batch_nb, :strict_validation,
       :clone_batches_attributes => [:id, :name, :temp_name, :comment, :plasmid_validation, :assay_id, :_destroy, :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid, :qc_validation,
         :unit_attributes =>[:id, :name],

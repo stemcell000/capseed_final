@@ -1,8 +1,10 @@
 ActiveAdmin.register User do
+config.sort_order = 'id_asc'
 
 permit_params :id, :email, :password, :password_confirmation, :role, :username, :firstname, :lastname
  
     index do
+        column :id
         column :username
         column :firstname
         column :lastname

@@ -31,8 +31,10 @@ def new
     @clone_inserts = @clone.inserts.build
     @clone.clone_batches.build
   end
-  #initialisation de la liste des enzymes (Backbone)
-    @enzymes_all = Enzyme.where(:category => 'backbone').all
+  #initialisation de la liste des enzymes
+    @enzymes_all = Enzyme.all
+  #initialisation de la liste des méthodes
+    @cmeths_all = Cmeth.all
   #initialisation de la liste des inserts
     @inserts_all = Insert.all
 end
@@ -58,7 +60,9 @@ def edit
   @assays = @clone.assays.build
   @assays_count = @clone.assays.count
   #initialisation de la liste des enzymes backbones.
-  @enzymes_all = Enzyme.where(:category => 'backbone').all
+  @enzymes_all = Enzyme.all
+  #initialisation de la liste des méthodes
+  @cmeths_all = Cmeth.all
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all
   #
@@ -87,7 +91,9 @@ end
 def edit_record
   @clones = @assay.clones.build
   #initialisation de la liste des enzymes
-  @enzymes_all = Enzyme.where(:category => 'backbone').all
+  @enzymes_all = Enzyme.all
+ #initialisation de la liste des méthodes
+  @cmeths_all = Cmeth.all
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all
   #
@@ -258,10 +264,12 @@ def load_assay
 end
 
 def clone_params
-  params.require(:clone).permit( :id, :assay_id, :name, :bbnb, :primerinsfor, :primerinsrev, :comment, :comment_batch, :batch_nb, :strict_validation,
+  params.require(:clone).permit( :id, :assay_id, :cmeth_id, :name, :bbnb, :primerinsfor, :primerinsrev, :comment, :comment_batch, :batch_nb, :strict_validation,
   enzyme_ids: [],
   insert_ids: [],
-  :enzymes_attributes =>[:id, :clone_id, :name, :category],
+  cmeth_ids: [],
+  :enzymes_attributes =>[:id, :clone_id, :name],
+  :cmeth_attributes =>[:id, :name],
   :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :assay_attributes => [:id, :name, :step],
   :clone_batches_attributes => [:id, :clone_id, :unit_id, :name, :temp_name, :comment, :_destroy,

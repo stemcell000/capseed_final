@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913094141) do
+ActiveRecord::Schema.define(version: 20170920095945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.integer  "last_step",  default: 0
     t.date     "today_date"
     t.float    "percentage", default: 0.0
+    t.integer  "user_id"
   end
 
   create_table "assays_projects", force: :cascade do |t|
@@ -111,8 +112,6 @@ ActiveRecord::Schema.define(version: 20170913094141) do
 
   create_table "clone_batch_qcs", force: :cascade do |t|
     t.integer  "clone_batch_id"
-    t.string   "primer_nb"
-    t.string   "primer_name"
     t.date     "date_send"
     t.date     "date_rec"
     t.text     "result"
@@ -125,6 +124,7 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.string   "primer2"
     t.date     "date_send2"
     t.integer  "sequencing_id"
+    t.integer  "primer_id"
   end
 
   add_index "clone_batch_qcs", ["clone_batch_id"], name: "index_clone_batch_qcs_on_clone_batch_id", using: :btree
@@ -149,12 +149,15 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.integer  "type_id"
     t.integer  "clone_id"
     t.integer  "number"
+    t.integer  "strand_id"
+    t.integer  "gene_id"
+    t.integer  "promoter_id"
   end
 
   create_table "clones", force: :cascade do |t|
     t.integer  "assay_id"
     t.string   "name"
-    t.integer  "bbnb"
+    t.string   "bbnb"
     t.integer  "batch_nb"
     t.string   "primerinsfor"
     t.string   "primerinsrev"
@@ -163,6 +166,7 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.integer  "strict_validation"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "cmeth_id"
   end
 
   add_index "clones", ["assay_id"], name: "index_clones_on_assay_id", using: :btree
@@ -180,6 +184,10 @@ ActiveRecord::Schema.define(version: 20170913094141) do
   add_index "clones_inserts", ["clone_id"], name: "index_clones_inserts_on_clone_id", using: :btree
   add_index "clones_inserts", ["insert_id"], name: "index_clones_inserts_on_insert_id", using: :btree
 
+  create_table "cmeths", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "columns", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -188,7 +196,6 @@ ActiveRecord::Schema.define(version: 20170913094141) do
 
   create_table "enzymes", force: :cascade do |t|
     t.string   "name"
-    t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -197,6 +204,10 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+  end
+
+  create_table "genes", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "inserts", force: :cascade do |t|
@@ -280,6 +291,12 @@ ActiveRecord::Schema.define(version: 20170913094141) do
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree
   add_index "plasmid_batches", ["unit_id"], name: "index_plasmid_batches_on_unit_id", using: :btree
 
+  create_table "primers", force: :cascade do |t|
+    t.string "name"
+    t.string "number"
+    t.text   "sequence"
+  end
+
   create_table "productions", force: :cascade do |t|
     t.string   "name"
     t.boolean  "display"
@@ -309,6 +326,10 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "promoters", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "rows", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -332,6 +353,10 @@ ActiveRecord::Schema.define(version: 20170913094141) do
     t.string   "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "strands", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "taggings", force: :cascade do |t|

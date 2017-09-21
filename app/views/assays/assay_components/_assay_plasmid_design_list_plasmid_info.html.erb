@@ -17,8 +17,8 @@
 						<td class="col-sm-1 text-center"><%= cb.id %></td>
 						<td class="col-md-3">
 							<div class="col-md-12">
-							<% if !cb.strand_as_plasmid.nil?%>
-								<strong>Strand: </strong><%= cb.strand_as_plasmid %><br />
+							<% if !cb.strand_id.nil?%>
+								<strong>Strand: </strong><%= cb.strand_id %><br />
 								<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<strong>stock concentration: </strong> <%= cb.glyc_stock_as_plasmid %> <%= Unit.find(cb.unit_id).name %><br />
 								<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
@@ -47,7 +47,7 @@
 						</td>
 						<td class="col-sm-1 text-center">
 						
-							<% if cb.strand_as_plasmid.nil?%>
+							<% if cb.strand_id.nil?%>
 								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
 							<% else%>
 								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(cb, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-success btn-sm", :title=>"Update clone's parameters." ,:remote => true %>

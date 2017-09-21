@@ -1,7 +1,8 @@
 
-<small>
+
 	<% @cb_collection.each do |cb| %>
 	<% pbl = cb.plasmid_batches.length %>
+	<small>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row" >
@@ -25,11 +26,12 @@
 											data-content='
 												<div class="col-sm-12 text-left">
 													<strong>Created on: </strong><%= b.created_at.strftime("%h %e, %Y ") %><br />
-													<strong>Format: </strong><%= Format.find(b.format_id).name %><br />
+													<strong>Format: </strong><%= b.format.name %><br />
 													<strong>Concentration: </strong><%= b.concentration %> <%= Unit.find(b.unit_id).name %><br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%=b.comment%><br />
 													<%end%>
+													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached files: </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
@@ -37,7 +39,6 @@
 															<%end%>
 													<%end%>
 												</div>
-											</small>
 											'
 										>
 											<%= b.name %>

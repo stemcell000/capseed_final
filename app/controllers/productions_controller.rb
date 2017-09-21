@@ -158,7 +158,7 @@ class ProductionsController < InheritedResources::Base
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :unit_attributes =>[:id, :plasmid_batch_id, :name],
-      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :itr, :comments, :conclusion]]
+      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion]]
       )
     end
     

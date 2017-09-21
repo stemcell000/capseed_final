@@ -9,13 +9,13 @@ ActiveAdmin.register CloneBatch do
                                                      :qc_validation,
                                                      :strict_validation,
                                                      :plasmid_validation,
-                                                     :strand_as_plasmid,
+                                                     :strand,
                                                      :date_as_plasmid,
                                                      :glyc_stock_box_as_plasmid,
                                                      :origin_as_plasmid,
                                                      :comment_as_plasmid,
-                                                     :promoter_as_plasmid,
-                                                     :gene_as_plasmid,
+                                                     :promoter,
+                                                     :gene,
                                                      :created_at,
                                                      :updated_at,
                                                      :type_id,
@@ -26,13 +26,13 @@ ActiveAdmin.register CloneBatch do
      filter :qc_validation
      filter :strict_validation
      filter :plasmid_validation
-     filter :strand_as_plasmid
+     filter :strand
      filter :date_as_plasmid
      filter :glyc_stock_box_as_plasmid
      filter :origin_as_plasmid
      filter :comment_as_plasmid
-     filter :promoter_as_plasmid
-     filter :gene_as_plasmid
+     filter :promoter
+     filter :gene
      filter :created_at
      filter :updated_at
      filter :type_id
@@ -49,13 +49,13 @@ ActiveAdmin.register CloneBatch do
     column :qc_validation
     column :strict_validation
     column :plasmid_validation
-    column :strand_as_plasmid
+    column :strand
     column :date_as_plasmid
     column :glyc_stock_box_as_plasmid
     column :origin_as_plasmid
     column :comment_as_plasmid
-    column :promoter_as_plasmid
-    column :gene_as_plasmid
+    column :promoter
+    column :gene
     column :created_at
     column :updated_at
     column :type_id
@@ -83,8 +83,8 @@ ActiveAdmin.register CloneBatch do
 
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
-:strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid,
-:gene_as_plasmid, :created_at, :updated_at, :type_id, :clone_id
+:strand, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :comment_as_plasmid, :promoter,
+:gene, :created_at, :updated_at, :type_id, :clone_id
 
 #Add Button to site
 action_item do

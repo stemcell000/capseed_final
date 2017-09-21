@@ -16,7 +16,7 @@
   		<%= f.input :concentration, :label => "Concentration: "%>
   	</div>
   	<div class="col-md-3">
-  		<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }%>
+  		<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
 	</div>
 </div>
 <div class="row">
@@ -48,6 +48,14 @@
 							       	</div>
 					       	</div>
 		<% end %>
+		
+		<div class ="row">
+							<div class="col-lg-6">
+								   <%= f.association :user, :label => "Contact name",
+										:collection => @users, :label_method => :full_name, :value_method => :id,
+										:input_html => { class:"select2-select" } %>
+							</div>
+		</div>
 		<div class="row">
 			<div class="col-md-2">
 				<%= f.link_to_add "Add a file", :plasmid_batch_attachments ,:class => 'btn btn-sm btn-success' %>

@@ -273,7 +273,7 @@ def clone_params
   :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :assay_attributes => [:id, :name, :step],
   :clone_batches_attributes => [:id, :clone_id, :unit_id, :name, :temp_name, :comment, :_destroy,
-  :clone_batch_qcs_attributes => [:id, :primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :op, :_destroy],
+  :clone_batch_qcs_attributes => [:id, :primer_id, :date_send, :date_rec, :rec_name, :result, :op, :_destroy],
   :plasmid_batch_attributes => [:id, :clone_batch_id, :name, :format, :concentration, :_destroy],
   :unit_attributes =>[:id, :clone_batch_id, :name]],
   :clone_attachments_attributes =>[:id,:clone_id, :attachment, :remove_attachment, :_destroy])

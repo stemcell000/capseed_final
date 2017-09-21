@@ -22,7 +22,7 @@
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
 			<div class = "col-lg-2">
-			 			<%=f.association :type, :label => "Type", :collection => @types_all, :placeholder => "Select type.", input_html: { class: 'select2-select' }%>
+			 			<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<div class="row">
@@ -30,7 +30,7 @@
 			 			<%=f.association :promoter, :label => "Promoter", :collection => @promoters_all, input_html: { class: 'select2-select' }%>
 			</div>
 			<div class = "col-lg-3">
-			 			<%=f.association :type, :label => "Gene", :collection => @genes_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+			 			<%=f.association :gene, :label => "Gene", :collection => @genes_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<div class="row">

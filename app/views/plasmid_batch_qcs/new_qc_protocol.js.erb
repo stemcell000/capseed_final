@@ -1,8 +1,11 @@
-		$("#qc-label").html("Plasmid batch Quality Control")
-		$("#qc-buttons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
+	//Les donnees dans les champs du formulaire form_clone sont testé d'apres les criteres de validation
+	//definis dans le model. Si ces criteres sont verifies, les donnees sont sauvees. Si non, le formulaire
+	//dans sa fenetre modale reste ouvert et les message d'erreur s'affichent en haut du formulaire.
+		$("#myModalLabel").html("Add a QC for all batches")
+		$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/plasmid_batch_qc_components/form_protocol') %>")
-		$("ul.errors").html("");
-		$("#qc-modal").modal("show");
-				
-	console.log("new QC");
+		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/plasmid_batch_qc_components/form_protocol') %>")
+		$("#assay-modal").modal("show")
+		$("ul.errors").html("")
+
+	console.log("new common QC");

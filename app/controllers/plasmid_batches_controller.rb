@@ -22,11 +22,13 @@ def new
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
     @name = @clone_batch.id.to_s+"."+nb.to_s
+    @users = User.all
 end
 
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
     @plasmid_batch.plasmid_batch_attachments.build
+    @users = User.all
 end
   
 def create
@@ -65,12 +67,14 @@ def edit
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
   @current_url = request.original_url
+  @users = User.all
 end
 
 def edit_from_inventory
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
   @plasmid_batch.update_columns(:inventory_validation => 1)
+  @users = User.all
 end
   
 def update
@@ -225,18 +229,19 @@ end
   
   private
     def set_params
-      params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id, :strict_validation ,:_destroy,
+      params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id, :user_id, :strict_validation ,:_destroy,
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_id],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :vol_unit_attributes =>[:id, :plasmid_batch_id, :name],
-      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :itr, :comments, :conclusion],
+      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion],
       :production_attributes => [:id, :name, :plasmid_batch_id],
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      :format_attributes => [:id, :name])
+      :format_attributes => [:id, :name],
+      :user_attributes => [:id, :firstname, :lastname])
     end
       
     def load_all 

@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
   has_many :virus_productions
   has_many :assays
+  has_many :plasmid_batches
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
+  accepts_nested_attributes_for :plasmid_batches
 
   has_many :clone_batch_qcs
   has_many :plasmid_batch_qcs

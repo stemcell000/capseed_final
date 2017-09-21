@@ -2,11 +2,12 @@ class CloneBatchesController < InheritedResources::Base
   
   autocomplete :clone_batch, :name, :extra_data => [:id], :scopes => [:plasmid_allow]
   
-  before_action :set_params, only:[ :edit, :edit_from_inventory, :update_from_inventory, :show_exist, :select, :destroy, :destroy_from_inventory, :add_plasmid_batch, :update, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
+  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :update, :edit_from_inventory, :update_from_inventory, :destroy_from_inventory, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
   before_action :index, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
+  before_action :load_lists, only: [:edit_as_plasmid, :edit_from_inventory, :update_from_inventory, :update_as_plasmid]
   
   #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -28,12 +29,7 @@ class CloneBatchesController < InheritedResources::Base
   
   def edit_as_plasmid
     @clone_batch.clone_batch_as_plasmid_attachments.build 
-    @units = Unit.all
     @clone = Clone.find(params[:clone_id])
-    @strands_all = Strand.all
-    @types_all = Type.all
-    @genes_all = Gene.all
-    @promoters_all = Promoter.all
     @assay = Assay.find(params[:assay_id])
   end
   
@@ -53,7 +49,7 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def update_as_plasmid
-      @clone_batch.update_attributes(clone_batch_params)
+      @clone_batch.update_attributes(plasmid_params)
       @units = Unit.all
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
@@ -64,7 +60,6 @@ class CloneBatchesController < InheritedResources::Base
          end
          #
         else
-        @units = Unit.all
         render :action => 'edit_as_plasmid'
       end
   end
@@ -105,16 +100,15 @@ class CloneBatchesController < InheritedResources::Base
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
     #effacement des données de plasmide uniquement
-    @clone_batch.update_columns(:strand_as_plasmid =>nil , :date_as_plasmid=>nil,
+    @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
                                 :glyc_stock_box_as_plasmid=>nil, :origin_as_plasmid=>nil, :type_id=>nil, 
-                                :comment_as_plasmid=>nil, :promoter_as_plasmid=>nil, :gene_as_plasmid=>nil)
+                                :comment_as_plasmid=>nil, :promoter_id=>nil, :gene_id=>nil)
     #destruction des documents associés
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
       cba.update_columns(:attachment => nil)
     end
     #destruction de l'insert correspondant
-    @insert = Insert.where(:clone_batch_id => params[:id])
-    @insert.destroy
+    @clone_batch.insert.destroy
   end
   
   
@@ -156,7 +150,7 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def update_from_inventory
-   @clone_batch.update_attributes(clone_batch_params)
+   @clone_batch.update_attributes(plasmid_params)
     if @clone_batch.valid?
       flash.keep[:success] = "Task completed!"
     else
@@ -177,7 +171,7 @@ class CloneBatchesController < InheritedResources::Base
    
    def create_from_inventory
   
-    @clone_batch = CloneBatch.create(clone_batch_params)
+    @clone_batch = CloneBatch.create(plasmid_params)
     if params[:clone_id]
       @clone_batch = CloneBatch.find(params[:clone_id])
     end
@@ -200,8 +194,7 @@ end
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :plasmid_validation, :_destroy,
-      :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid, :number,
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_batch_id, :clone_id, :assay_id, :plasmid_validation, :_destroy, :number,
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -210,12 +203,13 @@ end
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
       :insert_attributes => [:id, :name, :number, :clone_batch_id])
+      
     end
     
     def plasmid_params
       params.require(:clone_batch).permit(:id, :name, :number,:qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :gene_id, :promoter_id,:plasmid_validation, :_destroy,
-      :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid,
-      :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid,
+      :clone_batch_qc_attributes => [:date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name]],
       :clone_attributes => [:id, :name, :assay_id],
@@ -245,6 +239,13 @@ end
     
     def load_clone
       @clone = Clone.find(params[:clone_id])
+    end
+    
+    def load_lists
+      @strands_all = Strand.all
+      @types_all = Type.all
+      @genes_all = Gene.all
+      @promoters_all = Promoter.all
     end
    
 end

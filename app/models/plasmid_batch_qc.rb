@@ -11,7 +11,7 @@ class PlasmidBatchQc < ActiveRecord::Base
   
   
   #validations
-  validates :sma1, :itr, :date_send, :presence => true
+  validates :sma1, :date_send, :user, :presence => true
     
 end
 

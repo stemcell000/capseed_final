@@ -2,7 +2,7 @@ class PlasmidBatchQcsController < InheritedResources::Base
   
   before_action :set_params, only:[:create, :update ]
   before_action :load_plasmid_batch_qc, only:[ :edit, :destroy, :update ]
-  before_action :load_all, only:[ :new, :edit, :create, :update, :destroy, :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation]
+  before_action :load_all, only:[ :new, :edit, :create, :update, :destroy, :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation, :set_qc_unvalidation]
   before_filter :load_users, only:[:edit, :new, :update, :create, :new_qc_protocol, :create_qc_protocol_collection]
   before_action :load_plasmid_batch, only:[:batch_qc_validation_checking]
 
@@ -90,19 +90,28 @@ end
   
   
     def set_qc_validation
-    @plasmid_batch_qc = PlasmidBatchQc.find(params[:id])
-    @plasmid_batch_qc.update_columns(:conclusion => true)
-    #TUTO:indispensable pour exécuter le fichier js.erb correspondant
-    respond_to do |format|
-      format.js
+      @plasmid_batch_qc = PlasmidBatchQc.find(params[:id])
+      @plasmid_batch_qc.update_columns(:conclusion => true)
+      #TUTO:indispensable pour exécuter le fichier js.erb correspondant
+      respond_to do |format|
+        format.js
+      end 
     end
+    
+     def set_qc_unvalidation
+      @plasmid_batch_qc = PlasmidBatchQc.find(params[:id])
+      @plasmid_batch_qc.update_columns(:conclusion => false)
+      #TUTO:indispensable pour exécuter le fichier js.erb correspondant
+      respond_to do |format|
+        format.js {render :set_qc_validation}
+      end
     end
   
 
   private
 
     def set_params
-      params.require(:plasmid_batch_qc).permit(:dig_other, :itr, :comments, :conclusion, :plasmid_batch_id , :sma1_id, :user_id, :sma1_display,:_destroy, :primer1, :primer2, :date_send,
+      params.require(:plasmid_batch_qc).permit(:dig_other, :comments, :conclusion, :plasmid_batch_id , :sma1_id, :user_id, :sma1_display,:_destroy, :primer1, :primer2, :date_send,
       :plasmid_batch_attributes => [:clone_batch_id, :id, :format, :concentration, :comment, :unit_id],
       :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :clone_attributes => [:id, :name, :assay_id],

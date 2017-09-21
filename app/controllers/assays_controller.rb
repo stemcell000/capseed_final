@@ -17,7 +17,7 @@ class AssaysController < ApplicationController
   def index
     export_stats
     #gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
-    @assays = Assay.where("step<?",9).rank(:row_order).all
+    @assays = Assay.where.not(:last_step => 8).rank(:row_order).all
     ##update des dates de process en cours
     @assays.each do |a|
       if !a.locked
@@ -156,7 +156,8 @@ class AssaysController < ApplicationController
           @assay.update_columns(:percentage => 20)
           update_last_step(@assay, 1)
           @assay.clones.update_all(:strict_validation => 0)
-          set_plasmid_validation(0, 0, @assay)
+          set_plasmid_validation(0, @assay)
+          set_strict_validation(1, @assay)
     end
   end
   
@@ -171,7 +172,8 @@ class AssaysController < ApplicationController
       @assay.update_columns(:percentage => 30)
       update_last_step(@assay, 2)
       @assay.clones.update_all(:strict_validation => 1)
-      set_plasmid_validation(0,0, @assay)
+      set_plasmid_validation(0, @assay)
+      set_strict_validation(1, @assay)
     end
   end
   
@@ -189,7 +191,8 @@ class AssaysController < ApplicationController
       @assay.update_columns(:percentage => 50)
       update_last_step(@assay, 3)
       @assay.clones.update_all(:strict_validation => 1)
-      set_plasmid_validation(0,0, @assay)
+      set_plasmid_validation(0, @assay)
+      set_strict_validation(1, @assay)
     end    
    end
   end
@@ -210,9 +213,8 @@ class AssaysController < ApplicationController
         @assay.update_columns(:percentage => 40)
         update_last_step(@assay, 3)
         @assay.clones.update_all(:strict_validation => 1)
-        @clones.each do |c|
-          set_plasmid_validation(0,0, @assay)
-       end
+        set_plasmid_validation(0, @assay)
+        set_strict_validation(1, @assay)
      end
    end
   end
@@ -230,13 +232,16 @@ class AssaysController < ApplicationController
         @assay.update_columns(:step => 4)
         @assay.update_columns(:percentage => 50)
         update_last_step(@assay, 4)
-        set_plasmid_validation(1,0, @assay)
-        @assay.clones.update_all(:strict_validation => 1)
+        set_plasmid_validation(1, @assay)
+        set_strict_validation(0, @assay)
+        @assay.clones.update_all(:strict_validation => 0)
         #
       else
         flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         redirect_to :action => :clone_batch_qc
-        set_plasmid_validation(0,1, @assay)
+        set_plasmid_validation(0, @assay)
+        set_strict_validation(1, @assay)
+        @assay.clones.update_all(:strict_validation => 1)
      end
   end
   
@@ -250,15 +255,17 @@ class AssaysController < ApplicationController
         flash[:notice] = "Add at least one plasmid."
         redirect_to :action => :plasmid_design
         set_plasmid_validation(1,1, @assay)
-    elsif @cb_collection.any? {|cb| cb.strand_as_plasmid.nil?}
+    elsif @cb_collection.any? {|cb| cb.strand.nil?}
         flash[:notice] = "Complete information for each plasmid."
         redirect_to :action => :plasmid_design
-        set_plasmid_validation(1,1, @assay)
+        set_plasmid_validation(1, @assay)
+        set_strict_validation(0, @assay)
     else   
         @assay.update_columns(:step => 5)
         @assay.update_columns(:percentage => 60)
         update_last_step(@assay, 5)
-        set_plasmid_validation(1,1, @assay)
+        set_plasmid_validation(0, @assay)
+        set_strict_validation(1, @assay)
         @assay.clones.update_all(:strict_validation => 1)
      end
   end
@@ -281,12 +288,15 @@ class AssaysController < ApplicationController
        @assay.update_columns(:step => 6)
        @assay.update_columns(:percentage => 70)
        update_last_step(@assay, 6)
+       set_plasmid_validation(1, @assay)
+       set_strict_validation(0, @assay)
        @assay.clones.update_all(:strict_validation => 1)
        
     elsif @cb_collection.any? {|pb| !pb.name == ""}
         flash[:notice] = "Complete information for each plasmid."
         redirect_to :action => :plasmid_design
-        set_plasmid_validation(1,1, @assay)
+            set_plasmid_validation(1, @assay)
+            set_strict_validation(0, @assay)
         
     else 
         flash[:notice] = "Add at least one batch."
@@ -317,6 +327,8 @@ class AssaysController < ApplicationController
             @assay.update_columns(:step => 7)
             @assay.update_columns(:percentage => 80)
             update_last_step(@assay, 7)
+            set_plasmid_validation(1, @assay)
+            set_strict_validation(0, @assay)
             @assay.clones.update_all(:strict_validation => 1)
          else
             flash[:notice] = "You need to complete the early steps first!."
@@ -331,6 +343,9 @@ class AssaysController < ApplicationController
           update_last_step(@assay, 8)
           flash[:success] = "Cloning completed!"
           redirect_to :action => 'close'
+          set_plasmid_validation(1, @assay)
+          set_strict_validation(0, @assay)
+        @assay.clones.update_all(:strict_validation => 1)
    end
   
   def lock_process
@@ -341,6 +356,18 @@ class AssaysController < ApplicationController
       @assay.update_columns(:locked => false)
     end
   end
+  
+    def set_plasmid_validation(i, assay)
+        assay.clones.each do |c|
+          c.clone_batches.where.not(:name => nil).update_all(:plasmid_validation => i)
+        end
+     end
+        
+    def set_strict_validation(i, assay)
+      assay.clones.each do |c|
+          c.clone_batches.where.not(:name => nil).update_all(:strict_validation => i)
+        end 
+    end
   
   def batch_generator(assay, clone)
     #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
@@ -375,10 +402,14 @@ class AssaysController < ApplicationController
       :projects_attributes => [:id, :name],
       :user_attributes => [:id, :name],
       :clones_attributes => [:id, :name, :primerinsfor, :primerinsrev, :bbnb, :comment, :comment_batch, :batch_nb, :strict_validation,
-      :clone_batches_attributes => [:id, :name, :temp_name, :comment, :plasmid_validation, :assay_id, :_destroy, :strand_as_plasmid, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid, :qc_validation,
+      :clone_batches_attributes => [:id, :name, :temp_name, :comment, :plasmid_validation, :strict_validation, :assay_id, :_destroy, :strand_id, :gene_id, :promoter_id, :type_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :qc_validation,
         :unit_attributes =>[:id, :name],
+        :strand_attributes =>[:id, :name],
+        :type_attributes =>[:id, :name],
+        :promoter_attributes =>[:id, :name],
+        :gene_attributes =>[:id, :name],
         :clone_batch_qcs_attributes =>[:id, :clone_batch_id, :conclusion],
-        :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :itr, :comments, :conclusion]
+        :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion]
         ],
       :clone_attachments_attributes =>[:id,:clone_id, :attachment, :_destroy, :remove_attachment]])
        end
@@ -400,12 +431,6 @@ class AssaysController < ApplicationController
      will_paginate(collection, options)
   end
   
-  def set_plasmid_validation(i, j, assay)
-        assay.clones.each do |c|
-          c.clone_batches.update_all(:plasmid_validation => i)
-          c.clone_batches.update_all(:strict_validation => j)
-        end
-  end
     
   def sort_column
     Assay.column_names.include?(params[:sort]) ? params[:sort] : "name"

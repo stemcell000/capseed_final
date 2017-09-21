@@ -9,6 +9,7 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :production
   belongs_to :vol_unit
   belongs_to :format
+  belongs_to :user
   has_many :virus_productions
 
  #
@@ -22,9 +23,10 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :vol_unit
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :format
+  accepts_nested_attributes_for :user
   
   #validations
-  validates :format, :concentration, :unit, :name, :presence => true
+  validates :format, :concentration, :unit, :name, :user, :presence => true
   validates :concentration, numericality: true
   validates :box, :presence => true, :if => :enable_strict_validation?
   validates :name, :uniqueness => {message: "This name is already taken."}

@@ -7,12 +7,12 @@
 					<div class="col-md-3">
 							<strong>Name: <span class="text-success"><%= cb.name %></span></strong><br />
 							<strong>Plasmid number: </strong><%= cb.id %><br />
-								<% if !cb.strand_as_plasmid.nil?%>
-									<strong>Brand: </strong><%= cb.strand_as_plasmid %><br />
+								<% if !cb.strand_id.nil?%>
+									<strong>Brand: </strong><%= cb.strand.nil? ? "NA" : cb.strand.name %><br />
 									<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 									<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
 									<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
-									<strong>Type: </strong><%= cb.type_as_plasmid %><br />
+									<strong>Type: </strong><%= cb.type.name %><br />
 									<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
 									<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />
 					</div>

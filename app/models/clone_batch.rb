@@ -21,18 +21,20 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :strand
   accepts_nested_attributes_for :gene
   accepts_nested_attributes_for :promoter
+  accepts_nested_attributes_for :type
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
-  validates :name , :uniqueness => true, :if => :plasmid_validation?
-  validates :name, :strand_as_plasmid, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :type,  :gene, :promoter, :presence => true, :if => :enable_plasmid_validation?
+  validates :name , :uniqueness => true
+  validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :presence => true, :if => :enable_plasmid_validation?
+  validates_associated :promoter, :gene, :strand, :type, :if =>:enable_plasmid_validation?
   
   #pg_search
   include PgSearch
   multisearchable :against => [:name, :id, :comment, :comment_as_plasmid, :gene_as_plasmid, :temp_name]
  
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
-  scope :plasmid_allow,-> {where.not(:strand_as_plasmid => nil)}
+  scope :plasmid_allow,-> {where.not(:strand_id=> nil)}
    
   private
   def enable_strict_validation?

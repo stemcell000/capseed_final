@@ -18,18 +18,23 @@
 							<div class="col-lg-6 text-left">
 									QC: <%=qc.created_at.strftime("%h %e, %Y ")%>
 							</div>
-							<div class="col-lg-5 right">
-								<div class="row">
-									<div class="col-lg-3">									
+						</div>
+						<div class="row">
+									<div class="col-lg-1 text-center">									
 										<%= link_to "Edit", edit_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
 									</div>
-									<div class="col-lg-4">
-										<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
-									</div>
-									<div class="col-lg-4">
+									<% unless qc.conclusion %>
+										<div class="col-lg-2 text-center">
+											<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
+										</div>
+									<%else%>
+										<div class="col-lg-2 text-center">
+											<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true %>
+										</div>
+									<%end%>
+									<div class="col-lg-1 text-center">
 										<%= link_to "Remove", [b,qc,:assay_id => @assay.id, :clone_id => clone.id, :clone_id => clone.id, :clone_batch_id => cb.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove qc from list.", :remote => true %>
 									</div>
-								</div>	
 							</div>
 						'
 						
@@ -38,7 +43,6 @@
 							<div class="col-md-12 text-left">
 								<div><strong>Dig. SMA1: </strong><%=Sma1.find(qc.sma1_id).name %> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em></div>
 								<div><strong>Dig. other: </strong><%= qc.dig_other.presence ? qc.dig_other : "no data"%></div>
-								<div><strong>ITR: </strong><%=qc.itr.presence ? qc.itr : "no data" %></div>
 								<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
 								<%if qc.conclusion==true %>
 									<div class="font-success">validated QC</div>

@@ -41,8 +41,8 @@
 																								<div class="col-sm-12 text-left">
 																										<div><strong>Sequencing:</strong> <%= qc.sequencing.name %></div>
 																										<% if qc.sequencing_id < 3 %>
-																										<div><strong>Primer#:</strong> <%=qc.primer_nb%></div>
-																										<div><strong>Primer name:</strong> <%=qc.primer_name%></div>	
+																										<div><strong>Primer#:</strong> <%= qc.primer_id.nil? ? "NA" : Primer.find(qc.primer_id).number%></div>
+																										<div><strong>Primer name:</strong> <%= qc.primer_id.nil? ? "NA" : Primer.find(qc.primer_id).name%></div>	
 																										<div><strong>Sending date:</strong> <%=formatDate(qc.date_send)%></div>
 																										<div><strong>Reception date:</strong> <%=formatDate(qc.date_rec)%></div>
 																										<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>

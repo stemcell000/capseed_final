@@ -98,6 +98,7 @@ Rails.application.routes.draw do
            #Clone Batch QC
            resources :clone_batch_qcs do
              get :set_qc_validation, :on => :member
+             get :set_qc_unvalidation, :on => :member
              get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
            end 
            #Plasmid Batch QC
@@ -195,11 +196,14 @@ Rails.application.routes.draw do
       resources :plasmid_batch_qcs
   end
   
-     resources :constructions do
-        get :remove, :on => :member
-     end
-  
-  
+   resources :promoter do
+     get :autocomplete_promoter_name, :on => :collection
+   end
+   
+   resources :gene do
+     get :autocomplete_gene_name, :on => :collection
+   end
+   
   #Home
   root 'assays#index'
 end

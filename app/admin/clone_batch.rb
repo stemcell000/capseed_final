@@ -14,8 +14,8 @@ ActiveAdmin.register CloneBatch do
                                                      :glyc_stock_box_as_plasmid,
                                                      :origin_as_plasmid,
                                                      :comment_as_plasmid,
-                                                     :promoter,
-                                                     :gene,
+                                                     :promoters,
+                                                     :genes,
                                                      :created_at,
                                                      :updated_at,
                                                      :type_id,
@@ -31,8 +31,8 @@ ActiveAdmin.register CloneBatch do
      filter :glyc_stock_box_as_plasmid
      filter :origin_as_plasmid
      filter :comment_as_plasmid
-     filter :promoter
-     filter :gene
+     filter :promoters
+     filter :genes
      filter :created_at
      filter :updated_at
      filter :type_id
@@ -55,7 +55,7 @@ ActiveAdmin.register CloneBatch do
     column :origin_as_plasmid
     column :comment_as_plasmid
     column :promoter
-    column :gene
+    column :genes
     column :created_at
     column :updated_at
     column :type_id
@@ -83,8 +83,8 @@ ActiveAdmin.register CloneBatch do
 
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
-:strand, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :comment_as_plasmid, :promoter,
-:gene, :created_at, :updated_at, :type_id, :clone_id
+:strand, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :comment_as_plasmid, :promoters,
+:genes, :created_at, :updated_at, :type_id, :clone_id
 
 #Add Button to site
 action_item do

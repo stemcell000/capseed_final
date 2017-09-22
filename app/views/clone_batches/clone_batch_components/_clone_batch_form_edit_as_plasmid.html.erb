@@ -22,15 +22,70 @@
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
 			<div class = "col-lg-2">
-			 			<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
+			 	<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
+		<!--Add Promoter-->
 		<div class="row">
-			<div class = "col-lg-2">
-			 			<%=f.association :promoter, :label => "Promoter", :collection => @promoters_all, input_html: { class: 'select2-select' }%>
+			<div class="col-lg-6 well">
+				<div id="promoter_container" class="col-lg-6">
+				<%=f.simple_fields_for :promoters do |ff|%>
+					<div class="row">
+						<div class = "col-lg-7 vcenter">
+							<div class="form-group ui-front">
+							<%= ff.input :name,
+								:label => "Promoter",
+								:url => autocomplete_promoter_name_promoter_index_path,
+								:as => :autocomplete
+							%>
+							</div>
+						</div>
+						<div class="col-lg-1 vcenter">
+								<%= ff.link_to_remove "X" %>	
+						</div>
+					</div>			
+				<%end%>
+						
+								<%= f.link_to_add "Add promoter", :promoters %>
+				</div>
+			
+		<!--Add gene-->
+			<div id="gene_container" class="col-lg-6">
+			<%=f.simple_fields_for :genes do |ff|%>
+				<div class="row">
+					<div class = "col-lg-7 vcenter">
+						<div class="form-group ui-front">
+						<%= ff.input :name,
+							:label => "Gene",
+							:url => autocomplete_gene_name_gene_index_path,
+							:as => :autocomplete
+						%>
+						</div>
+					</div>
+					<div class="col-lg-1 vcenter">
+							<%= ff.link_to_remove "X" %>	
+					</div>
+				</div>			
+			<%end%>
+					
+							<%= f.link_to_add "Add gene", :genes %>
 			</div>
-			<div class = "col-lg-3">
-			 			<%=f.association :gene, :label => "Gene", :collection => @genes_all, input_html: { class: 'select2-select' }%>
+		</div>
+	</div>
+		<div class="row">
+			<div id="file_container" class="col-lg-5 well">
+				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
+					<div class="row">	
+						<div class="col-lg-7 vcenter">
+							<%= File.basename(a.object.attachment.to_s) %>
+					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+						</div>
+						<div class="col-lg-1 vcenter">
+							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
+						</div>
+					</div>
+		<% end %>
+						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments %>
 			</div>
 		</div>
 		<div class="row">
@@ -38,20 +93,7 @@
 				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
 		</div>
-		<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
-					<div class="row">	
-						<div class="col-sm-5">
-							<%= File.basename(a.object.attachment.to_s) %>
-					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-								<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
-						</div>
-					</div>
-		<% end %>
-				<div class="row">
-					<div class="col-lg-2">
-						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments ,:class => 'btn btn-sm btn-success' %>
-					</div>
-				</div>
+			</div>
 	</small>
 <div class="row">
 	<div class="col-lg-2">

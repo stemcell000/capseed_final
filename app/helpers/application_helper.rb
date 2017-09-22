@@ -54,17 +54,14 @@ module ApplicationHelper
   when 2
     s = "Clone batch"
   when 4
-    s = "Clone batch QC"
-  when 5
     s = "Plasmid design"
-  when 6
+  when 5
     s = "Plasmid batch"
-    c= "plasmidbatch"
-   when 7
+   when 6
     s = "Plasmid batch QC"
-  when 8
+  when 7
     s = "Closing"
-  when 9
+  when 8
     s = "Completed"
    end 
    return s

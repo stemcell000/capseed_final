@@ -28,7 +28,7 @@ class CloneBatchesController < InheritedResources::Base
   
   
   def edit_as_plasmid
-    @clone_batch.clone_batch_as_plasmid_attachments.build 
+   # @clone_batch.clone_batch_as_plasmid_attachments.build 
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
   end
@@ -102,7 +102,7 @@ class CloneBatchesController < InheritedResources::Base
     #effacement des données de plasmide uniquement
     @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
                                 :glyc_stock_box_as_plasmid=>nil, :origin_as_plasmid=>nil, :type_id=>nil, 
-                                :comment_as_plasmid=>nil, :promoter_id=>nil, :gene_id=>nil)
+                                :comment_as_plasmid=>nil)
     #destruction des documents associés
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
       cba.update_columns(:attachment => nil)
@@ -207,8 +207,8 @@ end
     end
     
     def plasmid_params
-      params.require(:clone_batch).permit(:id, :name, :number,:qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :gene_id, :promoter_id,:plasmid_validation, :_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :promoter_as_plasmid, :gene_as_plasmid,
+      params.require(:clone_batch).permit(:id, :name, :number,:qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :_destroy,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid,
       :clone_batch_qc_attributes => [:date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name]],
@@ -217,8 +217,10 @@ end
       :type_attributes => [:id, :name],
       :insert_attributes => [:id, :name, :number],
       :strand_attributes => [:id, :name],
-      :gene_attributes => [:id, :name],
-      :promoter_attributes => [:id, :name])
+      :promoters_attributes => [:id, :name, :_destroy],
+      promoter_ids: [],
+      :genes_attributes => [:id, :name, :_destroy],
+      gene_ids: [])
       
     end
     
@@ -244,8 +246,6 @@ end
     def load_lists
       @strands_all = Strand.all
       @types_all = Type.all
-      @genes_all = Gene.all
-      @promoters_all = Promoter.all
     end
    
 end

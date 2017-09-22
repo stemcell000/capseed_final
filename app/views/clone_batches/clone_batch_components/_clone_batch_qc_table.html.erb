@@ -14,31 +14,38 @@
 															<tr>
 																<td class="col-lg-3 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
 																</td>
-																<td class="col-lg-4 .well">	
+																<td class="col-lg-12 .well">	
 																						<% cb.clone_batch_qcs.each do |qc| %>
 																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
 																							title='
 																							<div class="row">
-																								<div class="col-lg-7 text-left">
+																								<div class="col-lg-12 text-left">
 																									QC created on : <%=qc.created_at.strftime("%h %e, %Y ") %>
 																								</div>
-																								<div class="col-lg-5">
-																									<div class="row">
-																										<div class="col-lg-3">
-																											<%= link_to "Edit", edit_assay_clone_clone_batch_clone_batch_qc_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
-																										</div>
-																										<div class="col-lg-4">
-																											<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
-																										</div>
-																										<div class="col-lg-4">
-																											<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
-																										</div>
+																							</div>
+																							<div class="row">
+																								<div class="col-lg-12">
+																									<div class="btn-group" role="group" aria-label="Edit">
+																												<%= link_to "Edit", edit_assay_clone_clone_batch_clone_batch_qc_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
+																									</div>		
+																											<% unless qc.conclusion %>
+																									<div class="btn-group" role="group" aria-label="Validate">
+																												<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
+																									</div>
+																											<%else%>
+																									<div class="btn-group" role="group" aria-label="Unvalidate">	
+																												<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true %>
+																									</div>		
+																											<%end%>
+																									<div class="btn-group" role="group" aria-label="remove">	
+																												<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
 																									</div>
 																								</div>
-																							</div>'
+																							</div>
+																							'
 																							data-content='
 																							<small>
-																								<div class="col-sm-12 text-left">
+																								<div class="col-lg-12 text-left">
 																										<div><strong>Sequencing:</strong> <%= qc.sequencing.name %></div>
 																										<% if qc.sequencing_id < 3 %>
 																										<div><strong>Primer#:</strong> <%= qc.primer_id.nil? ? "NA" : Primer.find(qc.primer_id).number%></div>
@@ -80,9 +87,7 @@
 																						<%end%>
 																						</a>
 																</td>
-																
-																
-																<td class="col-sm-2">
+																<td class="col-lg-2">
 																		<div class="row">
 																			<div class="col-md-2">
 																				<strong>

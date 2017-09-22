@@ -1,8 +1,4 @@
- #Mandatory Seeds
- 
-  #Add Glogal Project
-  Project.create( name:"Global project")
-  
+#Mandatory Seeds
   #Add units
   Unit.create( name:"ng/uL")
   Unit.create( name:"ug/uL")
@@ -17,6 +13,14 @@
   Type.create(name:"library")
   Type.create(name:"none")
   
+  #Add Strands
+  Strand.create( name:"sc")
+  Strand.create( name:"ss")
+  Strand.create( name:"nc")
+  Strand.create( name:"irrelevant")
+  Strand.create( name:"unknown")
+
+  
    #Add boxes
   Box.create(name: "box1")
   Box.create(name: "box2")
@@ -29,7 +33,6 @@
   Cmeth.create(name: "method3")
   Cmeth.create(name: "method4")
   Cmeth.create(name: "unknown") 
- 
  
   #Add columns
   Column.create( name:"1")
@@ -57,18 +60,18 @@
   Row.create(name: "None")
   
   #Add Enzymes 
-  Enzyme.create(name: "Eco RI", category: "backbone")
-  Enzyme.create(name: "BamHI", category: "backbone")
-  Enzyme.create(name: "HindIII", category: "backbone")
-  Enzyme.create(name: "MstII", category: "backbone")
-  Enzyme.create(name: "TaqI", category: "backbone")
-  Enzyme.create(name: "NotI", category: "backbone")
-  Enzyme.create(name: "HinfI", category: "backbone")
-  Enzyme.create(name: "Alul", category: "backbone")
-  Enzyme.create(name: "BgIIII", category: "backbone")
-  Enzyme.create(name: "HaelII", category: "backbone")
-  Enzyme.create(name: "Hhal", category: "backbone")
-  Enzyme.create(name: "PsrI", category: "qc")
+  Enzyme.create(name: "Eco RI")
+  Enzyme.create(name: "BamHI")
+  Enzyme.create(name: "HindIII")
+  Enzyme.create(name: "MstII")
+  Enzyme.create(name: "TaqI")
+  Enzyme.create(name: "NotI")
+  Enzyme.create(name: "HinfI")
+  Enzyme.create(name: "Alul")
+  Enzyme.create(name: "BgIIII")
+  Enzyme.create(name: "HaelII")
+  Enzyme.create(name: "Hhal")
+  Enzyme.create(name: "PsrI")
   
   #Formats
   Format.create(name: "mini")
@@ -93,4 +96,9 @@
   Sma1.create(name: "no")
   Sma1.create(name: "not applicable")
   
+  #First project
+  Project.create( name:"Global project")
+  
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+  
+ 

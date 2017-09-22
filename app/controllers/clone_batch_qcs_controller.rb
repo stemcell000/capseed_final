@@ -1,12 +1,11 @@
 class CloneBatchQcsController < InheritedResources::Base
   
-  before_action :set_params, only:[:edit, :update, :create, :create_qc_protocol_collection]
-  before_action :load_clone_batch, only:[ :new, :create, :destroy, :set_qc_validation]
-  before_action :load_qc, only:[:update, :destroy, :load_all, :set_qc_validation]
-  before_action :load_all, only:[:create, :update, :destroy,  :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation]
+  before_action :set_params, only:[:update, :create, :create_qc_protocol_collection]
+  before_action :load_clone_batch, only:[ :new, :create, :destroy, :set_qc_validation, :set_qc_unvalidation]
+  before_action :load_qc, only:[:update, :destroy, :load_all, :set_qc_validation, :set_qc_unvalidation]
+  before_action :load_all, only:[:create, :update, :destroy,  :new_qc_protocol, :create_qc_protocol_collection, :set_qc_validation, :set_qc_unvalidation]
   after_action :batch_qc_validation_checking, only:[:destroy]
   before_filter :load_users, only:[:edit, :new, :update, :create, :new_qc_protocol, :render_sequencing, :render_pcr_colony]
-  
   
   def edit
     @assay = Assay.find(params[:assay_id])
@@ -93,6 +92,15 @@ class CloneBatchQcsController < InheritedResources::Base
     #TUTO:indispensable pour exécuter le fichier js.erb correspondant
     respond_to do |format|
       format.js
+    end
+  end
+  
+   def set_qc_unvalidation
+    @clone_batch_qc = CloneBatchQc.find(params[:id])
+    @clone_batch_qc.update_columns(:conclusion => false)
+    #TUTO:indispensable pour exécuter le fichier js.erb correspondant
+    respond_to do |format|
+      format.js {render :set_qc_validation}
     end
   end
   

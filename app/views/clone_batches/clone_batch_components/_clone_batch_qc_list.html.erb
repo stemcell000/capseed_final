@@ -12,37 +12,6 @@
 	    </div>
 	    <div id="collapse<%=index.to_s%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=index.to_s%>">
 	      <div class="panel-body">
-		<div class="row">
-			<small>
-			<div class="col-md-2">
-					<strong>Clone name: </strong><%= clone.name %><br />
-					<strong>Clone#: </strong><%= clone.id %><br />
-					<strong>Backbone nb:</strong> <%= clone.bbnb%><br />
-										<strong>Primer ins.fwd:</strong> <%= clone.primerinsfor%><br />
-										<strong>Primer ins.rev:</strong> <%= clone.primerinsrev%><br />
-			</div>
-			<div class="col-md-6 text-justify">		
-					<strong>Comments:</strong>
-										<%= clone.comment.presence || 'no comment' %><br />
-			</div>
-			<div class="col-md-4">
-					<strong>Total batches: </strong>
-										<%= clone.batch_nb.presence || 'none' %><br />
-					<strong>Notes: </strong>
-										<%= clone.comment_batch.presence || 'none'%><br />
-										<% if clone.clone_attachments.empty? %>
-											<strong>Attached files: </strong>none<br />
-										<% else %>
-										<strong>Attached files: </strong><br />	
-											<% clone.clone_attachments.each do |clone_attachment|%>
-													<%= link_to File.basename(clone_attachment.attachment.to_s), clone_attachment.attachment.to_s%><br />
-										<%end%>
-										<%end%>
-			</div>
-			</small>
-		</div>
-		batch_nb: <%= clone.batch_nb %>
-		nb of batch: <%=clone.clone_batches.count%>
 <% if !clone.clone_batches.empty? %>
 		<div id= "clone_batch_qc_table_container<%=clone.id%>">
 			<% assay_id = @assay.id %>
@@ -52,7 +21,6 @@
 				</div>
 			</div>
 			<%= render :partial => "clone_batches/clone_batch_components/clone_batch_qc_table", :locals => { :clone => clone, :assay => @assay }%>
-		</div>
 		<%end%>
 		</div>
 		</div>

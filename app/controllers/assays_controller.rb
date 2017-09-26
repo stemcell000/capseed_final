@@ -174,27 +174,8 @@ class AssaysController < ApplicationController
       @assay.clones.update_all(:strict_validation => 1)
       set_plasmid_validation(0, @assay)
       set_strict_validation(1, @assay)
+      
     end
-  end
-  
-  #page clone batch selection
- def clone_batch_select
-    @clones = @assay.clones.order(:id)
-     if @clones.empty?
-      flash[:notice] = "Add a clone please."
-      redirect_to :action => :clone_design
-      else if @clones.any? { |c| c.batch_nb.blank? }
-       flash[:notice] = "Add info please."
-       redirect_to :action => :clone_batch
-          else
-      @assay.update_columns(:step => 3)
-      @assay.update_columns(:percentage => 50)
-      update_last_step(@assay, 3)
-      @assay.clones.update_all(:strict_validation => 1)
-      set_plasmid_validation(0, @assay)
-      set_strict_validation(1, @assay)
-    end    
-   end
   end
   
  #page clone batch qc
@@ -215,6 +196,7 @@ class AssaysController < ApplicationController
         @assay.clones.update_all(:strict_validation => 1)
         set_plasmid_validation(0, @assay)
         set_strict_validation(1, @assay)
+        
      end
    end
   end
@@ -254,7 +236,8 @@ class AssaysController < ApplicationController
     if @cb_collection.empty?
         flash[:notice] = "Add at least one plasmid."
         redirect_to :action => :plasmid_design
-        set_plasmid_validation(1,1, @assay)
+        set_plasmid_validation(0, @assay)
+        set_strict_validation(1, @assay)
     elsif @cb_collection.any? {|cb| cb.strand.nil?}
         flash[:notice] = "Complete information for each plasmid."
         redirect_to :action => :plasmid_design
@@ -369,17 +352,6 @@ class AssaysController < ApplicationController
         end 
     end
   
-  def batch_generator(assay, clone)
-    #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
-    i = 1
-    clone.batch_nb.times do
-      temp =assay.name+'_'+clone.name+'_'+i.to_s
-      cb = CloneBatch.create(:temp_name => temp)
-      clone.clone_batches << cb
-      i += 1
-    end
-  end
-  
   private
     
     # Default values for table sorting.
@@ -439,5 +411,22 @@ class AssaysController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+  
+  def cb_generator(c)
+    if c.changed
+      #Suppression de touts les batches avant recréation
+      if !c.clone_batches.empty?
+        c.clone_batches.delete_all
+      end
+      #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
+      i = 1
+      c.batch_nb.times do
+        temp =c.name+'_'+i.to_s
+        cb = CloneBatch.create(:temp_name => temp)
+        c.clone_batches << cb
+        i += 1
+      end
+    end
+end
    
   end

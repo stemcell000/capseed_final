@@ -6,7 +6,7 @@ include SmartListing::Helper::ControllerExtensions
 helper  SmartListing::Helper
 
 before_action :load_assay, only:[:edit, :new, :edit_record, :edit_batch, :edit_batch_select, :update, :create, :autocm, :destroy, :replicate, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc, :clone_info]
-before_action :set_param, only: [:update, :edit, :edit_record, :edit_batch, :edit_batch_select, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc]
+before_action :set_param, only: [:update, :edit, :cb_generator, :edit_record, :edit_batch_select, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc]
 before_action :clone_params, only: [:update, :update_clone, :create, :edit, :update_record_batch]
 skip_before_filter :verify_authenticity_token, :only => :update_record_batch
 
@@ -127,28 +127,28 @@ def edit_batch
   @clones = @assay.clones.build
   @clones = @assay.clones.order(:id)
   @assay.clones.build
+  @clone = Clone.find(params[:id])
   @clone.clone_attachments.build
 end
 
 def update_record_batch
   @clones = @assay.clones.order(:id)
-  @clone.update_attributes(clone_params)
-   if @clone.valid?
-      flash.keep[:success] = "Task completed!"
-      respond_to do |format|
-        format.js
+  
+ #TUTO: Ici on doit pouvoir changer le parametre batch_nb pour générer le nombre de batches correspondant.
+ #Si par la suite on ajoute des données aux batches générés (p. ex des clone_batch_qcs),
+ #Il faut donc utiliser le module Dirty pour tracer si oui ou non il ya eu changement de valeurs pour batch_nb.
+ #Si oui, on génére de nouveau batches (et on efface toutes les données associées), si non, on ne fait rien.
+ #si on utilise: @clone.update_attributes(clone_params), Dirty ne fonctionne pas car update_attributes réinitialise le modèle
+ #Il faut donc utiliser assign_attributes + save
+ 
+  @clone.assign_attributes(clone_params)
+  cb_generator
+     if @clone.valid?
+       flash.keep[:success] = "Task completed!"
+       @clone.save
+      else
+        render :action => 'edit_batch'
       end
-      #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
-      i = 1
-      @clone.batch_nb.times do
-        temp =@assay.name+'_'+@clone.name+'_'+i.to_s
-        cb = CloneBatch.create(:temp_name => temp)
-        @clone.clone_batches << cb
-        i += 1
-      end
-    else
-      render :action => 'edit_batch'
-    end
 end
 
 
@@ -253,6 +253,23 @@ def plasmid_batch_qc_info
 end
 
 private
+
+def cb_generator
+if @clone.changed?
+      #Suppression de touts les batches avant recréation
+      if !@clone.clone_batches.empty?
+        @clone.clone_batches.delete_all
+      end
+      #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
+      i = 1
+      @clone.batch_nb.times do
+        temp =@assay.name+'_'+@clone.name+'_'+i.to_s
+        cb = CloneBatch.create(:temp_name => temp)
+        @clone.clone_batches << cb
+        i += 1
+      end
+  end
+end
 
 def set_param
   @clone = Clone.find(params[:id])

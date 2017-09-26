@@ -1,9 +1,11 @@
 class CloneBatch < ActiveRecord::Base
   #pg_search
   include PgSearch
+  #ActiveModel Dirty to track changes
+  include ActiveModel::Dirty
   
   belongs_to :clone
-  has_many :clone_batch_qcs
+  has_many :clone_batch_qcs, :dependent => :destroy
   has_many :plasmid_batches, :dependent => :destroy
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
@@ -25,7 +27,7 @@ class CloneBatch < ActiveRecord::Base
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
-  validates :name , :uniqueness => true
+  validates :name , :uniqueness => true, :if => :enable_plasmid_validation?
   validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :presence => true, :if => :enable_plasmid_validation?
   validates_associated :promoters, :genes, :strand, :type, :if =>:enable_plasmid_validation?
   

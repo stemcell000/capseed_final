@@ -1,9 +1,19 @@
 <%= simple_nested_form_for (@clone_batch), remote: true, html: {class: 'vertical-form'} do |f|  %>
+	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">
 	<small>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
+		<div class="row">
+			<div class="col-lg-2">
+				<%= f.input :name%>
+			</div>
+			<div class="col-lg-2">
+				<%= f.input :temp_name%>
+			</div>
+			<%f.input :clone_id, :as => :hidden%>
+		</div>
 		<div class="row">
 				<div class = "col-lg-3">
 					<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
@@ -31,7 +41,7 @@
 				<div id="promoter_container" class="col-lg-6">
 				<%=f.simple_fields_for :promoters do |ff|%>
 					<div class="row">
-						<div class = "col-lg-7 vcenter">
+						<div class = "col-lg-9 vcenter">
 							<div class="form-group ui-front">
 							<%= ff.input :name,
 								:label => "Promoter",
@@ -53,7 +63,7 @@
 			<div id="gene_container" class="col-lg-6">
 			<%=f.simple_fields_for :genes do |ff|%>
 				<div class="row">
-					<div class = "col-lg-7 vcenter">
+					<div class = "col-lg-9 vcenter">
 						<div class="form-group ui-front">
 						<%= ff.input :name,
 							:label => "Gene",
@@ -96,7 +106,7 @@
 			</div>
 	</small>
 <div class="row">
-	<div class="col-lg-2">
+	<div class="col-lg-4">
  		<div class="btn-group" role="group" aria-label="...">
     		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
         	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>

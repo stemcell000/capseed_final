@@ -1,6 +1,6 @@
   <td class="center"><%= object.name %></td>
-  <td class="center"><%= object.gene_as_plasmid %></td>
-  <td class="center"><%= object.promoter_as_plasmid %></td>
+  <td class="center"><%= object.genes.collect{|gene| gene.name}.to_sentence%></td>
+  <td class="center"><%= object.promoters.collect{|promoter| promoter.name}.to_sentence%></td>
   <td class="center"><% if object.clone_id.to_i>0 %>
   						<%= object.clone.name %>
   						<%else%>

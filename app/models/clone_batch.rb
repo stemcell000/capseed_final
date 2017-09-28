@@ -1,4 +1,5 @@
 class CloneBatch < ActiveRecord::Base
+    
   #pg_search
   include PgSearch
   #ActiveModel Dirty to track changes
@@ -12,8 +13,8 @@ class CloneBatch < ActiveRecord::Base
   belongs_to :type
   has_one :insert
   belongs_to :strand
-  has_and_belongs_to_many :promoters
-  has_and_belongs_to_many :genes
+  has_many :genes, -> { uniq }, :dependent => :destroy
+  has_many :promoters, -> { uniq }, :dependent => :destroy
   
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_attachments, :allow_destroy => true
@@ -21,15 +22,16 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
   accepts_nested_attributes_for :insert
   accepts_nested_attributes_for :strand
-  accepts_nested_attributes_for :genes, :allow_destroy => true, reject_if: :all_blank
-  accepts_nested_attributes_for :promoters, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :type
+  accepts_nested_attributes_for :genes, :allow_destroy => true
+  accepts_nested_attributes_for :promoters, :allow_destroy => true
+  
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
-  validates :name , :uniqueness => true
-  validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :presence => true, :if => :enable_plasmid_validation?
-  validates_associated :promoters, :genes, :strand, :type, :if =>:enable_plasmid_validation?
+  validates :name, :uniqueness => true, :if => :enable_strict_validation?
+  validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :strand, :type, :genes, :promoters, :presence => true, :if => :enable_plasmid_validation?
+  validates_associated :genes, :promoters, :if => :enable_plasmid_validation?
   
   #pg_search
   include PgSearch
@@ -37,7 +39,7 @@ class CloneBatch < ActiveRecord::Base
  
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}
-   
+
   private
   def enable_strict_validation?
     self.strict_validation == 1
@@ -48,9 +50,8 @@ class CloneBatch < ActiveRecord::Base
   end
   
   def pb_count
-    sel.plasmid_batches.count
+    self.plasmid_batches.count
   end
   
 
-  
 end

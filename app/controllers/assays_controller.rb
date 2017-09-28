@@ -2,7 +2,7 @@ class AssaysController < ApplicationController
    
     autocomplete :clone, :name, :extra_data => [:id]
    
-    before_filter :authenticate_user!, :except => [:message =>'Access Denied!']
+    before_filter :authenticate_user!
     before_action :assay_params, only:[:create, :update_row_order, :update, :add_clone]
     before_action :set_params, only:[:get_line, :update, :mask_line, :show, :clone_design, :clone_batch, :clone_batch_nb_update, :clone_batch_select, :clone_batch_qc, :plasmid_design, :plasmid_batch, :plasmid_batch_qc, :edit, :watch, :destroy, :clone_info, :plasmid_info, :close, :complete]
     before_action :ranked_assays, only: :index
@@ -171,9 +171,9 @@ class AssaysController < ApplicationController
       @assay.update_columns(:step => 2)
       @assay.update_columns(:percentage => 30)
       update_last_step(@assay, 2)
-      @assay.clones.update_all(:strict_validation => 1)
+      #@assay.clones.update_all(:strict_validation => 1)
       set_plasmid_validation(0, @assay)
-      set_strict_validation(1, @assay)
+      set_strict_validation(0, @assay)
       
     end
   end

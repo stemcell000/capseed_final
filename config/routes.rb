@@ -196,14 +196,6 @@ Rails.application.routes.draw do
       resources :plasmid_batch_qcs
   end
   
-   resources :promoter do
-     get :autocomplete_promoter_name, :on => :collection
-   end
-   
-   resources :gene do
-     get :autocomplete_gene_name, :on => :collection
-   end
-   
   #Home
   root 'assays#index'
 end

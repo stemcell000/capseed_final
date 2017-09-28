@@ -1,5 +1,6 @@
 class ProductionsController < InheritedResources::Base
   
+  before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update]
   before_action :set_production, only:[:edit, :update, :add_plasmid_batch, :virus_production]

@@ -155,18 +155,6 @@
   Clone.find(3).enzymes << Enzyme.find(6)
   Clone.find(3).enzymes << Enzyme.find(1)
   
-  #Add Genes
-  Gene.create(name: "GPF1")
-  Gene.create(name: "GPF2")
-  Gene.create(name: "GPF3")
-  Gene.create(name: "GPF4")
-  Gene.create(name: "GPF5")
-  
-  #Add Promoters
-  Promoter.create(name: "CAG1")
-  Promoter.create(name: "CAG2")
-  Promoter.create(name: "CAG3")
-  
   #
   Clone.find(1).inserts << Insert.find(1)
   Clone.find(1).inserts << Insert.find(2)

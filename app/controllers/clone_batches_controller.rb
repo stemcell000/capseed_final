@@ -2,6 +2,7 @@ class CloneBatchesController < InheritedResources::Base
   
   autocomplete :clone_batch, :name, :extra_data => [:id], :scopes => [:plasmid_allow]
   
+  before_filter :authenticate_user!
   before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :update, :edit_from_inventory, :update_from_inventory, :destroy_from_inventory, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
@@ -28,9 +29,16 @@ class CloneBatchesController < InheritedResources::Base
   
   
   def edit_as_plasmid
-   # @clone_batch.clone_batch_as_plasmid_attachments.build 
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
+ 
+    if @clone_batch.genes.empty?
+      @clone_batch.genes.build
+    end
+    if @clone_batch.promoters.empty?
+      @clone_batch.promoters.build
+    end
+    
   end
   
   def update
@@ -50,7 +58,6 @@ class CloneBatchesController < InheritedResources::Base
   
   def update_as_plasmid
       @clone_batch.update_attributes(plasmid_params)
-      @units = Unit.all
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
          #
@@ -60,6 +67,12 @@ class CloneBatchesController < InheritedResources::Base
          end
          #
         else
+          if @clone_batch.genes.empty?
+            @clone_batch.genes.build
+          end
+          if @clone_batch.promoters.empty?
+            @clone_batch.promoters.build
+          end
         render :action => 'edit_as_plasmid'
       end
   end
@@ -99,14 +112,17 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-    #effacement des données de plasmide uniquement
+    #effacement des données de plasmid uniquement
     @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
                                 :glyc_stock_box_as_plasmid=>nil, :origin_as_plasmid=>nil, :type_id=>nil, 
                                 :comment_as_plasmid=>nil)
-    #destruction des documents associés
+    #destruction des associations
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
       cba.update_columns(:attachment => nil)
     end
+    @clone_batch.clone_batch_attachments.destroy_all
+    @clone_batch.genes.destroy_all
+    @clone_batch.promoter.destroy_all
     #destruction de l'insert correspondant
     @clone_batch.insert.destroy
   end
@@ -147,10 +163,14 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def edit_from_inventory
+    if @clone_batch.genes.empty?
+      @clone_batch.genes.build
+      @clone_batch.promoters.build
+   end
   end
   
   def update_from_inventory
-   @clone_batch.update_attributes(plasmid_params)
+    @clone_batch.update_attributes(plasmid_params)
     if @clone_batch.valid?
       flash.keep[:success] = "Task completed!"
     else
@@ -167,15 +187,17 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
+    @clone_batch.genes.build
+    @clone_batch.promoters.build
    end
    
    def create_from_inventory
-  
     @clone_batch = CloneBatch.create(plasmid_params)
+    
     if params[:clone_id]
       @clone_batch = CloneBatch.find(params[:clone_id])
     end
-
+    #
     if  @clone_batch.valid?
         @clone_batch.update_columns(:strict_validation => 0)
         if @clone
@@ -217,13 +239,12 @@ end
       :type_attributes => [:id, :name],
       :insert_attributes => [:id, :name, :number],
       :strand_attributes => [:id, :name],
-      :promoters_attributes => [:id, :name, :_destroy],
-      promoter_ids: [],
-      :genes_attributes => [:id, :name, :_destroy],
-      gene_ids: [])
-      
+      :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      gene_ids: [], promoter_ids: [])
     end
     
+      
     def load_all
         @clone_batch = CloneBatch.find(params[:id])
         @clone = Clone.find(params[:clone_id])

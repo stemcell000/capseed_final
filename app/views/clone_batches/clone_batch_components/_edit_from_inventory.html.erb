@@ -1,68 +1,112 @@
 <%= simple_nested_form_for [@clone_batch], url: update_from_inventory_clone_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">
 	<small>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
-				<div class = "col-md-3">
-							<%=f.input :name, :label => "Name" %>
-				</div>
-				<div class = "col-md-2">
-			 			<%=f.association :clone, :label => "Clone", :collection => Clone.all, :placeholder => "Select clone.", input_html: { class: 'select2-select' }%>
-				</div>
+			<div class="col-lg-2">
+				<%= f.input :name%>
+			</div>
+			<div class="col-lg-2">
+				<%= f.input :temp_name%>
+			</div>
+			<%f.input :clone_id, :as => :hidden%>
 		</div>
 		<div class="row">
-				<div class = "col-md-3">
-							<%=f.input :strand_as_plasmid, :label => "Strand" %>
+				<div class = "col-lg-3">
+					<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 					</div>
-				<div class = "col-md-2">
+				<div class = "col-lg-2">
 							<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
 				</div>
 		</div>
 		<div class="row">
-			<div class = "col-md-5">
+			<div class = "col-lg-5">
 			 		<%=f.input :origin_as_plasmid, :label => "Origin" %>
 			</div>	
 		</div>
 		<div class="row">
-			<div class="col-md-2">
-				<%=f.input :glyc_stock_box_as_plasmid, :label => "Box ID" %>
+			<div class="col-lg-2">
+				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
-			<div class = "col-md-2">
-			 			<%=f.association :type, :label => "Type", :collection => Type.all, :placeholder => "Select type.", input_html: { class: 'select2-select' }%>
+			<div class = "col-lg-2">
+			 	<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
+		<!--Add Promoter-->
 		<div class="row">
-			<div class = "col-md-3">
-			 			<%=f.input :gene_as_plasmid, :label => "Gene" %>
-			</div>
-			<div class = "col-md-2">
-			 			<%=f.input :promoter_as_plasmid, :label => "Promoter" %>
+			<div class="col-lg-5 well">
+				<div id="promoter_container" class="col-lg-6">
+				<%=f.simple_fields_for :promoters do |ff|%>
+					<div class="row">
+						<div class = "col-lg-9 vcenter">
+							<div class="form-group ui-front">
+								<%= ff.input :name,
+									:label => "Promoter",
+									:url => autocomplete_promoter_name_promoter_index_path,
+									:as => :autocomplete
+								%>
+							</div>
+						</div>
+						<div class="col-lg-1 vcenter">
+								<%= ff.link_to_remove "X" %>	
+						</div>
+					</div>			
+				<%end%>
+						
+								<%= f.link_to_add "Add promoter", :promoters %>
+				</div>
+			
+		<!--Add gene-->
+			<div id="gene_container" class="col-lg-6">
+			<%=f.simple_fields_for :genes do |ff|%>
+				<div class="row">
+					<div class = "col-lg-9 vcenter">
+						<div class="form-group ui-front">
+						<%= ff.input :name,
+							:label => "Gene",
+							:url => autocomplete_gene_name_gene_index_path,
+							:as => :autocomplete
+						%>
+						</div>
+					</div>
+					<div class="col-lg-1 vcenter">
+							<%= ff.link_to_remove "X" %>	
+					</div>
+				</div>			
+			<%end%>
+					
+							<%= f.link_to_add "Add gene", :genes %>
 			</div>
 		</div>
+	</div>
 		<div class="row">
-			<div class="col-md-5">
-				<%=f.input :comment_as_plasmid, :label => "Comment" %>
-			</div>
-		</div>
-		<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
+			<div id="file_container" class="col-lg-5 well">
+				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
 					<div class="row">	
-						<div class="col-sm-5">
+						<div class="col-lg-7 vcenter">
 							<%= File.basename(a.object.attachment.to_s) %>
 					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-								<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
+						</div>
+						<div class="col-lg-1 vcenter">
+							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
 						</div>
 					</div>
 		<% end %>
-				<div class="row">
-					<div class="col-md-2">
-						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments ,:class => 'btn btn-sm btn-success' %>
-					</div>
-				</div>
+						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-5">
+				<%=f.input :comment_as_plasmid, :label => "Comment" %>
+			</div>
+		</div>
+			</div>
 	</small>
 <div class="row">
-	<div class="col-md-2">
+	<div class="col-lg-4">
  		<div class="btn-group" role="group" aria-label="...">
     		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
         	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>

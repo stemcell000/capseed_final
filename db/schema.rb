@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170922142729) do
+ActiveRecord::Schema.define(version: 20170928071524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,38 +136,17 @@ ActiveRecord::Schema.define(version: 20170922142729) do
     t.boolean  "qc_validation",             default: false
     t.integer  "strict_validation"
     t.integer  "plasmid_validation"
-    t.string   "strand_as_plasmid"
     t.date     "date_as_plasmid"
     t.string   "glyc_stock_box_as_plasmid"
     t.string   "origin_as_plasmid"
     t.text     "comment_as_plasmid"
-    t.string   "promoter_as_plasmid"
-    t.string   "gene_as_plasmid"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.integer  "type_id"
     t.integer  "clone_id"
     t.integer  "number"
     t.integer  "strand_id"
-    t.integer  "gene_id"
-    t.integer  "promoter_id"
   end
-
-  create_table "clone_batches_genes", force: :cascade do |t|
-    t.integer "clone_batch_id"
-    t.integer "gene_id"
-  end
-
-  add_index "clone_batches_genes", ["clone_batch_id"], name: "index_clone_batches_genes_on_clone_batch_id", using: :btree
-  add_index "clone_batches_genes", ["gene_id"], name: "index_clone_batches_genes_on_gene_id", using: :btree
-
-  create_table "clone_batches_promoters", force: :cascade do |t|
-    t.integer "clone_batch_id"
-    t.integer "promoter_id"
-  end
-
-  add_index "clone_batches_promoters", ["clone_batch_id"], name: "index_clone_batches_promoters_on_clone_batch_id", using: :btree
-  add_index "clone_batches_promoters", ["promoter_id"], name: "index_clone_batches_promoters_on_promoter_id", using: :btree
 
   create_table "clones", force: :cascade do |t|
     t.integer  "assay_id"
@@ -222,7 +201,8 @@ ActiveRecord::Schema.define(version: 20170922142729) do
   end
 
   create_table "genes", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "inserts", force: :cascade do |t|
@@ -342,7 +322,8 @@ ActiveRecord::Schema.define(version: 20170922142729) do
   end
 
   create_table "promoters", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "rows", force: :cascade do |t|

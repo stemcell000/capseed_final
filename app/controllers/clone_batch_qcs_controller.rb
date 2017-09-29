@@ -31,6 +31,7 @@ class CloneBatchQcsController < InheritedResources::Base
         @clone_batch.clone_batch_qcs << @clone_batch_qc
         flash.keep[:success] = "Task completed!"
         batch_qc_validation_checking
+        @clone_batch = @clone_batch_qc.clone_batch
       else
         render :action => :new
       end

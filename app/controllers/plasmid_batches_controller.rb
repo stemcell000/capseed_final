@@ -9,6 +9,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_action :load_production, only:[ :add_to_prod, :remove_from_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
+  before_action :load_users, only: [:new, :new_from_inventory, :edit, :create, :update] 
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -22,7 +23,6 @@ def new
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
     @name = @clone_batch.id.to_s+"."+nb.to_s
-    @users = User.all
 end
 
 def new_from_inventory
@@ -67,7 +67,6 @@ def edit
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
   @current_url = request.original_url
-  @users = User.all
 end
 
 def edit_from_inventory
@@ -241,7 +240,7 @@ end
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
       :format_attributes => [:id, :name],
-      :user_attributes => [:id, :firstname, :lastname])
+      :user_attributes => [:id, :username, :firstname, :lastname, :full_name])
     end
       
     def load_all 
@@ -294,6 +293,10 @@ end
    def set_search
     @search=PlasmidBatch.search(params[:q])
    end
+   
+    def load_users
+      @users = User.all.order(:lastname)
+    end
 
 end
 

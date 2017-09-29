@@ -80,9 +80,9 @@
 																								'
 																							>
 																								<% if qc.conclusion == true %>
-																										<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %></span>
+																										<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %>  </span>
 																								<%else%>
-																										<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %></span>
+																										<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %>  </span>
 																								<%end%>
 																						<%end%>
 																						</a>

@@ -1,28 +1,12 @@
 <%= simple_nested_form_for ([@assay, @clone, @clone_batch, @clone_batch_qc]), remote: true, html: {class: 'horizontal-form'} do |f|  %>
-<<%= f.error_notification message: 'You must select a status for Sequencing and PCR colony.' %>
+<%= f.error_notification message: 'You must select a status for Sequencing and PCR colony.' %>
 <ul class="errors"></ul>
 <small>
 <div class="panel panel-default">
 	<div class="panel-body">
-		
-		<nav class="navbar navbar-default">
-			
-  			<div class="container">
-  				
-  				<div class="collapse navbar-collapse" id="navbar-collapsable">
-  					
-				<div class="row">
-					<ul class="nav navbar-nav">
-        				<li class="active">
-        					<%= link_to "Sequencing", render_sequencing_new_assay_clone_clone_batch_qc_path, :remote => true %>
-        				</li>
-        				<li>
-							<%= link_to "PCR colony", render_pcr_colony_new_assay_clone_clone_batch_qc_path, :remote => true %>						
-						</li>
-        			</ul>
-        		</div>	
+		<div class="container">	
         			
-					<div class="row" id = "sequencing-port">
+					<div class="row" id = "sequencing">
 						
 						<div class="col-lg-7">
 							<div class="row">
@@ -62,7 +46,7 @@
 			</div>
 			
 			
-				<div class="row" id = "pcr-colony-port">
+				<div class="row" id = "pcr-colony">
 					
 					<div class="col-lg-7">
 					

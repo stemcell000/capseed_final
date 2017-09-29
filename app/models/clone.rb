@@ -24,7 +24,7 @@ class Clone < ActiveRecord::Base
 before_validation :downcase_name
 before_save :downcase_name
   #validations
-    validates :name, :bbnb, :inserts, :presence => true
+    validates :name, :bbnb, :presence => true
     validates :bbnb, numericality: { only_integer: true }
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
     validates :bbnb, numericality: true

@@ -1,7 +1,1 @@
-  	$("#flash-msg-container").html("")
-	$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "plasmid_batches/plasmid_batch_components/plasmid_batch_list", :locals => {:cb => @clone_batch, :clone_id => @clone.id, :assay => @assay } ) %>")
-  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-console.log("Update Clone Batch table");
-
-//Popover
-  $('[data-toggle="popover"]').popover({html:true});
+<%= render "save_script"%>

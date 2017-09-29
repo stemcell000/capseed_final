@@ -11,6 +11,12 @@ class User < ActiveRecord::Base
   has_many :plasmid_batch_qcs
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :clone_batch_qcs
+  
+  validates :username, :firstname, :lastname,
+  :presence => true,
+  :uniqueness => {
+    :case_sensitive => false
+  }
 
   
   # Include default devise modules. Others available are:
@@ -46,10 +52,4 @@ class User < ActiveRecord::Base
      "#{firstname} #{lastname}"
    end
    
-   validates :username,
-  :presence => true,
-  :uniqueness => {
-    :case_sensitive => false
-  }
-           
 end

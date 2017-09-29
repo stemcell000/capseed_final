@@ -1,15 +1,13 @@
-
-
-	<% @cb_collection.each do |cb| %>
+<% @cb_collection.each do |cb| %>
 	<% pbl = cb.plasmid_batches.length %>
 	<small>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row" >
-						<div class="col-md-3">
+						<div class="col-lg-3">
 							<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
 						</div>
-						<div class="col-md-9">
+						<div class="col-lg-6">
 							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
 									<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%>
 										<a tabindex="0" data-toggle="popover" data-trigger="focus"
@@ -41,13 +39,13 @@
 												</div>
 											'
 										>
-											<%= b.name %>
+											<i class="glyphicon glyphicon-star"></i> <%= b.name %>
 										</a>	
 										<%if pbl-(index+1) > 0 %>,<%end%>		
 								<%end%>
-						</div><!--End of col-md-3-->
+						</div><!--End of col-lg-3-->
 						<div class="row">
-							<div class="col-md-11 right">
+							<div class="col-lg-11 right">
 									<%= link_to "Add plasmid batch", new_assay_clone_clone_batch_plasmid_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id), :class =>"btn btn-danger btn-xs", :remote => true %>
 							</div><!--End of Btn_col-->
 						</div><!--End of row-->

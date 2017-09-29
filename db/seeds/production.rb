@@ -28,10 +28,11 @@
   Box.create(name: "Garbage")
   
   #Add cloning methods
-  Cmeth.create(name: "method1")
-  Cmeth.create(name: "method2")
-  Cmeth.create(name: "method3")
-  Cmeth.create(name: "method4")
+  Cmeth.create(name: "InFusion")
+  Cmeth.create(name: "Directed mutagenesis")
+  Cmeth.create(name: "Classic")
+  Cmeth.create(name: "Gibson")
+  Cmeth.create(name: "other")
   Cmeth.create(name: "unknown") 
  
   #Add columns

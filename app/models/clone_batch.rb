@@ -35,7 +35,7 @@ class CloneBatch < ActiveRecord::Base
   
   #pg_search
   include PgSearch
-  multisearchable :against => [:name, :id, :comment, :comment_as_plasmid, :temp_name]
+  multisearchable :against => [:name, :id, :comment, :comment_as_plasmid, :temp_name, :genes]
  
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}

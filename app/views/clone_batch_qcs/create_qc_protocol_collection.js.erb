@@ -1,15 +1,1 @@
-  <% @clone %>
-  //$('#clone-list-container').html("")
-  	$("#flash-msg-container").html("")
-  	$('#info-container<%=@clone.id%>').html("<%= escape_javascript(render "clone_batches/clone_batch_components/clone_batch_qc_list", locals: {:clone_batch_qc => @clone_batch_qc, :clone_batch => @clone_batch, :clone => @clone, :assay => @assay}) %>");
-  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-  console.log("Update Clone Batch table");	
-  	
-
-//Reload du script des popovers
-  $(function () {
-  $('[data-toggle="popover"]').popover({html:true});
-});
-
-//
-$('.modal').modal("hide");
+<%= render "save_script"%>

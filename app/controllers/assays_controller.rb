@@ -207,8 +207,6 @@ class AssaysController < ApplicationController
       @cb_collection = []
     @clones.each do |c|
       @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-      c.clone_batches.each do |cb|
-      end
     end
       if @cb_collection.any? {|cb| !cb.name.blank?}
         @assay.update_columns(:step => 4)
@@ -219,11 +217,13 @@ class AssaysController < ApplicationController
         @assay.clones.update_all(:strict_validation => 0)
         #
       else
+        #
         flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         redirect_to :action => :clone_batch_qc
         set_plasmid_validation(0, @assay)
         set_strict_validation(1, @assay)
         @assay.clones.update_all(:strict_validation => 1)
+        #
      end
   end
   

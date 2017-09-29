@@ -1,9 +1,4 @@
-<td class="col-md-1 text-center"><%= cb.name %>
-						
-						<br/ >
-						
-						</td>
-</td>
+<td class="col-md-1 text-center"><%= cb.name %></td>
 						<td class="col-sm-1 text-center"><%= cb.id %></td>
 						<td class="col-md-3">
 							<div class="col-md-12">
@@ -15,7 +10,6 @@
 								<strong>Strand: </strong><%= cb.strand.nil? ? "NA" : cb.strand.name %><br />
 								<strong>Promoter: </strong><%= cb.promoters.empty? ? "NA" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
 								<strong>Gene: </strong><%= cb.genes.empty? ? "NA" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
-								
 							</div>
 							<div class="col-md-12">
 							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>

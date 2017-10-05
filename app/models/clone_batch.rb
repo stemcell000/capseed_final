@@ -1,7 +1,5 @@
 class CloneBatch < ActiveRecord::Base
     
-  #pg_search
-  include PgSearch
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
   
@@ -16,6 +14,7 @@ class CloneBatch < ActiveRecord::Base
   has_many :genes, -> { uniq }, :dependent => :destroy
   has_many :promoters, -> { uniq }, :dependent => :destroy
   
+  accepts_nested_attributes_for :clone
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_attachments, :allow_destroy => true
   accepts_nested_attributes_for :clone_batch_as_plasmid_attachments, :allow_destroy => true
@@ -35,7 +34,7 @@ class CloneBatch < ActiveRecord::Base
   
   #pg_search
   include PgSearch
-  multisearchable :against => [:name, :id, :comment, :comment_as_plasmid, :temp_name, :genes]
+  multisearchable :against => [:name, :id, :comment_as_plasmid]
  
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}

@@ -1,6 +1,5 @@
-<%= simple_nested_form_for [@clone_batch], url: update_from_inventory_clone_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
-	
-	<
+<td colspan="6">
+<%= simple_nested_form_for @clone_batch, url: update_from_inventory_clone_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
 	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
@@ -105,11 +104,11 @@
 <div class="row">
 	<div class="col-lg-4">
  		<div class="btn-group" role="group" aria-label="...">
-    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
-        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+    		<%= f.submit "Save", :class => "btn btn-primary" %>
+        	<button class="btn btn-default cancel">Cancel</button>
         </div>
       </div>
 </div>
 <%end%>
-
+</td>
 

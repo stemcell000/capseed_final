@@ -128,6 +128,7 @@ gem 'coffee-rails', '~> 4.1.0'
   #Sortable table
   gem "smart_listing"
   
+  
   #recherche
   gem 'acts-as-taggable-on', '~> 3.4'
   

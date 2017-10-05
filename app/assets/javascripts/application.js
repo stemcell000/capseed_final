@@ -5,8 +5,9 @@
 //= require jquery.ui.all
 //= require jquery-fileupload
 //= require jquery.iframe-transport
-//= require bootstrap-sprockets
+//= require jquery_nested_form
 //= require smart_listing
+//= require bootstrap-sprockets
 //= require bootstrap/modal
 //= require bootstrap-datepicker
 //= require bootstrap/bootstrap-rails-tooltip
@@ -18,7 +19,6 @@
 //= require moment
 //= require fetch_clone_data
 //= require fetch_pb_data
-//= require jquery_nested_form
 //= loader
 //= require d3.min
 //= require d3pie.min

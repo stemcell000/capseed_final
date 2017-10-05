@@ -1,17 +1,17 @@
-<td class="col-md-1 text-center"><%= cb.name %></td>
-						<td class="col-sm-1 text-center"><%= cb.id %></td>
-						<td class="col-md-3">
-							<div class="col-md-12">
+<td class="col-lg-1 text-center"><%= cb.name %></td>
+						<td class="col-lg-1 text-center"><%= cb.id %></td>
+						<td class="col-lg-3">
+							<div class="col-lg-12">
 							<% if !cb.strand_id.nil?%>
 								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
 								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "NA" : cb.type.name %><br />
-								<strong>Strand: </strong><%= cb.strand.nil? ? "NA" : cb.strand.name %><br />
-								<strong>Promoter: </strong><%= cb.promoters.empty? ? "NA" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
-								<strong>Gene: </strong><%= cb.genes.empty? ? "NA" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "N/A" : cb.type.name %><br />
+								<strong>Strand: </strong><%= cb.strand.nil? ? "N/A" : cb.strand.name %><br />
+								<strong>Promoter: </strong><%= cb.promoters.empty? ? "N/A" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= cb.genes.empty? ? "N/A" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
 							</div>
-							<div class="col-md-12">
+							<div class="col-lg-12">
 							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>
 								<% if cb.clone_batch_as_plasmid_attachments.length>1%>
 									<strong>Attached files:</strong><br />
@@ -28,7 +28,7 @@
 						<div class="font-orange"><em>Missing plasmid info </em></div>
 					<% end %>
 						</td>
-						<td class="col-sm-2 text-center">
+						<td class="col-lg-2 text-center">
 							<% if cb.strand_id.nil?%>
 								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
 							<%else%>

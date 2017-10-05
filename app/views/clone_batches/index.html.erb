@@ -2,6 +2,7 @@
 
 <%= search_form_for @q, :url =>clone_batches_path, :class=>"form-horizontal", :remote => true do |f| %>
 
+<h3><i class="fa_icon fa fa-search"></i> Plasmid Inventory</h3>
 <div class="row">
 	<div class="col-sm-6">
 	<h5 class="text-primary"><em>Basic input search : </em></h5>
@@ -22,7 +23,7 @@
 	 	
 	 	<div class="form-group row">
 		  	<%= f.label "Comment*", :class=>"control-label col-xs-4" %>
-		  	<%= f.search_field :comment_cont, :class=>"col-xs-7" %>
+		  	<%= f.search_field :comment_as_plasmid_cont, :class=>"col-xs-7" %>
 	 	</div>
 	 	
 	 	<div class="form-group">
@@ -56,6 +57,6 @@
 <% end %>
 
 <div id="container">
-	<%= render :partial => "clone_batches/clone_batch_components/index_main" %>
+	<%= smart_listing_render :clone_batches %>
 </div>
 

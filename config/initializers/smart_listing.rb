@@ -12,6 +12,7 @@ SmartListing.configure do |config|
     #:memorize_per_page              => false,                       # save per page settings in the cookie
     #:page_sizes                     => DEFAULT_PAGE_SIZES,          # set available page sizes array
     #:kaminari_options               => {:theme => "smart_listing"}, # Kaminari's paginate helper options
+    #:sort_dirs                      => [nil, "asc", "desc"],        # Default sorting directions cycle of sortables
   })
 
   config.constants :classes, {
@@ -27,8 +28,9 @@ SmartListing.configure do |config|
     #:hidden                => "hidden",
     #:autoselect            => "autoselect",
     #:callback              => "callback",
+    #:pagination_wrapper    => "text-center",
+    #:pagination_container  => "pagination",
     #:pagination_per_page   => "pagination-per-page text-center",
-    #:pagination_count      => "count",
     #:inline_editing        => "info",
     #:no_records            => "no-records",
     #:limit                 => "smart-listing-limit",
@@ -48,20 +50,23 @@ SmartListing.configure do |config|
     #:icon_sort_none        => "glyphicon glyphicon-resize-vertical",
     #:icon_sort_up          => "glyphicon glyphicon-chevron-up",
     #:icon_sort_down        => "glyphicon glyphicon-chevron-down",
+    #:muted                 => "text-muted",
   }
 
   config.constants :data_attributes, {
     #:main                  => "smart-listing",
+    #:controls_initialized  => "smart-listing-controls-initialized",
     #:confirmation          => "confirmation",
     #:id                    => "id",
     #:href                  => "href",
     #:callback_href         => "callback-href",
-    :max_count             => "max-count",
+    #:max_count             => "max-count",
+    #:item_count            => "item-count",
     #:inline_edit_backup    => "smart-listing-edit-backup",
     #:params                => "params",
     #:observed              => "observed",
     #:href                  => "href",
-    :autoshow              => "autoshow",
+    #:autoshow              => "autoshow",
     #:popover               => "slpopover",
   }
 
@@ -71,5 +76,13 @@ SmartListing.configure do |config|
     #:row                   => "tr",
     #:head                  => "thead",
     #:filtering_icon        => "i"
+    #:filtering_button      => "button",
+    #:filtering_icon        => "button span",
+    #:filtering_input       => ".filter input",
+    #:pagination_count      => ".pagination-per-page .count",
+  }
+
+  config.constants :element_templates, {
+    #:row => "<tr />",
   }
 end

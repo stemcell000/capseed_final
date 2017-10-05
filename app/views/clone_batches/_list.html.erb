@@ -30,7 +30,7 @@
     <tbody>
 	  	<% smart_listing.collection.each do |s| %>
       		<tr class="editable" data-id = "<%= s.id %>">
-          		<%= smart_listing.render partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
+          		<%= smart_listing.render partial: "clone_batches/clone_batch", locals: {object: s} %>
         	</tr>
       	<% end %>
       	<%= smart_listing.item_new colspan: 7, link: edit_from_inventory_clone_batch_path(:object) %>

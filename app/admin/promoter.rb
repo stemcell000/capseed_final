@@ -1,15 +1,33 @@
 ActiveAdmin.register Promoter do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+ index do
+    column :id
+    column :name
+    column :clone_batch
+   end
+
+  
+##Import csv   
+ active_admin_import validate: false,
+              csv_options: {col_sep: ";" },
+              headers_rewrites: { 'plasmid' => :clone_batch_id},
+              before_batch_import: ->(importer) {
+                
+                Promoter.where(id: importer.values_at('id')).delete_all
+                
+                clone_batch_names = importer.values_at(:clone_batch_id)
+                clone_batches   = CloneBatch.where(name: clone_batch_names).pluck(:name, :id)
+                options = Hash[*clone_batches.flatten]
+                importer.batch_replace(:clone_batch_id, options)
+                
+              },
+              batch_size: 1000
+
+
+permit_params :list, :of, :attributes, :on, :model, :id, :name, :clone_batch_id
+
+#Add Button to site
+action_item do
+  link_to "View Site", "/"
+end
 
 end

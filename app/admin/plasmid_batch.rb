@@ -56,10 +56,9 @@ ActiveAdmin.register PlasmidBatch do
                 PlasmidBatch.where(id: importer.values_at('id')).delete_all
                 
                 format_names = importer.values_at(:format_id)
-                # replacing format name with format id
                 formats   = Format.where(name: format_names).pluck(:name, :id)
-                options = Hash[*formats.flatten] # #{"midi" => 2, "mini" => 1}
-                importer.batch_replace(:format_id, options) #replacing "mini" with 1, etc
+                options = Hash[*formats.flatten]
+                importer.batch_replace(:format_id, options)
                 
                 unit_names = importer.values_at(:unit_id)
                 # replacing unit name with unit id
@@ -91,7 +90,6 @@ ActiveAdmin.register PlasmidBatch do
                 columns  = Column.where(name: column_names).pluck(:name, :id)
                 options = Hash[*columns.flatten] 
                 importer.batch_replace(:column_id, options)                 
-                
               },
               batch_size: 1000
 
@@ -99,6 +97,4 @@ ActiveAdmin.register PlasmidBatch do
   action_item do
     link_to "View Site", "/"
   end
-
-
 end

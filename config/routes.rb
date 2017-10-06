@@ -177,8 +177,10 @@ Rails.application.routes.draw do
     post :create_from_inventory, :on => :collection
     delete :destroy_from_inventory, :on => :member
     patch :update_from_inventory, :on => :member
+    patch :update_pb_from_inventory, :on => :member 
     patch :update_as_plasmid, :on => :member
     get :remove_plasmid_data, :on => :member
+    get :add_pb_from_inventory, :on => :member
   end
   
   resources :plasmid_batches do
@@ -197,5 +199,5 @@ Rails.application.routes.draw do
   end
   
   #Home
-  root 'assays#index'
+  root 'clone_batches#index'
 end

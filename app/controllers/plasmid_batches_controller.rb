@@ -25,11 +25,13 @@ def new
     @name = @clone_batch.id.to_s+"."+nb.to_s
 end
 
+
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
     @plasmid_batch.plasmid_batch_attachments.build
     @users = User.all
 end
+
   
 def create
     @plasmid_batch = PlasmidBatch.create(set_params)

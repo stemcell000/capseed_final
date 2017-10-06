@@ -7,8 +7,8 @@ class CreateCloneBatches < ActiveRecord::Migration
       t.string :temp_name
       t.text :comment
       t.boolean :qc_validation, default: false
-      t.integer :strict_validation
-      t.integer :plasmid_validation
+      t.integer :strict_validation, :default =>0
+      t.integer :plasmid_validation, :default =>1
       t.string :strand_as_plasmid
       t.date :date_as_plasmid
       t.decimal :glyc_stock_as_plasmid

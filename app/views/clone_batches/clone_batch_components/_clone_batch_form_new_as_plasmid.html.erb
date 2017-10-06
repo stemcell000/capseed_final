@@ -12,6 +12,9 @@
 			<div class="col-lg-2">
 				<%= f.input :temp_name%>
 			</div>
+			<div class="col-lg-2">
+				<%= f.input :number, :input_html => { :value => @clone_batch.number || number_generator }, :readonly => true%>
+			</div>
 			<%f.input :clone_id, :as => :hidden%>
 		</div>
 		<div class="row">

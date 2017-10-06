@@ -218,8 +218,8 @@ class AssaysController < ApplicationController
         #
       else
         #
-        flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         redirect_to :action => :clone_batch_qc
+        flash[:notice] = "Add a final name for validated batch (click 'Rename')."
         set_plasmid_validation(0, @assay)
         set_strict_validation(1, @assay)
         @assay.clones.update_all(:strict_validation => 1)

@@ -2,7 +2,7 @@ module AssaysHelper
   #Dynamic menu
   def top_menu
     [
-      "Cloning" , root_path,
+      "Cloning" , assays_path,
       "Search" , display_all_assays_path,
       "Scheduler", scheduler_assays_path
     ].each_slice(2).map do |name, path| content_tag(:li, link_to(name, path), :class =>(cp(path)))

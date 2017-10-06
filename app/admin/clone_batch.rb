@@ -1,82 +1,61 @@
 ActiveAdmin.register CloneBatch do
- config.sort_order = 'id_asc'
+ config.sort_order = 'number_asc'
 
-  #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :id, 
-                                                     :name, 
-                                                     :temp_name,
-                                                     :comment,
-                                                     :qc_validation,
-                                                     :strict_validation,
-                                                     :plasmid_validation,
-                                                     :strand,
-                                                     :date_as_plasmid,
-                                                     :glyc_stock_box_as_plasmid,
-                                                     :origin_as_plasmid,
-                                                     :comment_as_plasmid,
-                                                     :promoters,
-                                                     :genes,
-                                                     :created_at,
-                                                     :updated_at,
-                                                     :type_id,
-                                                     :clone_id
-  #filter
-     filter :temp_name
-     filter :comment
-     filter :qc_validation
-     filter :strict_validation
-     filter :plasmid_validation
-     filter :strand
-     filter :date_as_plasmid
-     filter :glyc_stock_box_as_plasmid
-     filter :origin_as_plasmid
-     filter :comment_as_plasmid
-     filter :promoters
-     filter :genes
-     filter :created_at
-     filter :updated_at
-     filter :type_id
-     filter :clone_id
-  
    #index columns
   index do
-    selectable_column
-    column :name, sortable: :name do |p|
-    link_to p.name, admin_clone_batch_path(p)
-  end
+    column :number, sortable: :number do |cb|
+      link_to cb.number, admin_clone_batch_path(cb)
+    end
+    column :name
+    column :id
     column :temp_name
     column :comment
-    column :qc_validation
-    column :strict_validation
-    column :plasmid_validation
-    column :strand
     column :date_as_plasmid
     column :glyc_stock_box_as_plasmid
     column :origin_as_plasmid
     column :comment_as_plasmid
-    column :promoter
-    column :genes
     column :created_at
     column :updated_at
-    column :type_id
-    column :clone_id
-   
+    column :strand
+    column :type
+    column :clone
+    column :qc_validation
+    column :strict_validation
+    column :plasmid_validation
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_clone_batch_path(p)
   end
-   
- end
+end
+
  
  #Import csv   
- active_admin_import validate: true,
-             csv_options: {col_sep: ";" },
-              headers_rewrites: { },
+ active_admin_import validate: false,
+              csv_options: {col_sep: ";" },
+              headers_rewrites: { 'clone' => :clone_id,  'type' => :type_id, 'strand' => :strand_id, 'comment' => :comment_as_plasmid },
               before_batch_import: ->(importer) {
                 
                 CloneBatch.where(id: importer.values_at('id')).delete_all
                 
-                           
+                clone_names = importer.values_at(:clone_id)
+                clones   = Clone.where(name: clone_names).pluck(:name, :id)
+                options = Hash[*clones.flatten]
+                importer.batch_replace(:clone_id, options)
+                
+                type_names = importer.values_at(:type_id)
+                types   = Type.where(name: type_names).pluck(:name, :id)
+                options = Hash[*types.flatten]
+                importer.batch_replace(:type_id, options)
+                
+                strand_names = importer.values_at(:strand_id)
+                strands   = Strand.where(name: strand_names).pluck(:name, :id)
+                options = Hash[*strands.flatten]
+                importer.batch_replace(:strand_id, options)
+                
+                 strand_names = importer.values_at(:strand_id)
+                strands   = Strand.where(name: strand_names).pluck(:name, :id)
+                options = Hash[*strands.flatten]
+                importer.batch_replace(:strand_id, options)
                 
               },
               batch_size: 1000

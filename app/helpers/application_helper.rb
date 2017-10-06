@@ -1,12 +1,24 @@
 module ApplicationHelper
   # Returns the full title on a per-page basis.
   def full_title(page_title = '')
-    base_title = "capSeed"
+    base_title = "Capseed"
     if page_title.empty?
       base_title
     else
       "#{page_title} | #{base_title}"
     end
+  end
+  
+  # Change class from page title
+  def jumboclass(page_title ='')
+    color_class = ''
+    case page_title
+    when "Plasmid : Search"
+     color_class = "plasmid-inv-color"
+    else
+      color_class= "cloning-color"
+   end
+   return color_class
   end
   
   # Replace 

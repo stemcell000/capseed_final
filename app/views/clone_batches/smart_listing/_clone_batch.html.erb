@@ -8,27 +8,30 @@
 	<td class="center"><%= object.promoters.empty? ? "N/A" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
   <td class="center"><%= object.genes.empty? ? "N/A" : object.genes.map {|gene| gene.name}.to_sentence %></td>
   <td class="center"><%= object.plasmid_batches.length %></td>
-  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="center"><small><%= object.created_at.strftime("%B %e, %Y") %></small></td>
 <td class="actions">
 		 
 	<a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='
 				<div class="row"> 
-					<div class="col-lg-4 text-left primary">
-						<%=object.name%>
+					<div class="col-lg-6 text-left primary">
+						<strong><%=object.name%></strong>
 					</div>
 				</div>'
-			data-content='
-				<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.strftime("%B %e, %Y") %><br />
+			data-content='		<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "NA" : object.number %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid %><br />
 								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin_as_plasmid %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "NA" : object.type.name %><br />
+								<i class="glyphicon glyphicon-th"></i> <strong>number of batches: </strong><%= object.plasmid_batches.length %><br />
 								<strong>Strand: </strong><%= object.strand.nil? ? "NA" : object.strand.name %><br />
 								<strong>Promoter: </strong><%= object.promoters.empty? ? "NA" : object.promoters.map {|promoter| promoter.name}.to_sentence %><br />
 								<strong>Gene: </strong><%= object.genes.empty? ? "NA" : object.genes.map {|gene| gene.name}.to_sentence %><br />
-							</div>
-							<div class="col-lg-12">
-							<% if !object.clone_batch_as_plasmid_attachments.empty? %>
+								<% if !object.comment_as_plasmid.blank? %>
+									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
+								<%end%>
+								<div class="col-lg-12">
+								<% if !object.clone_batch_as_plasmid_attachments.empty? %>
 								<% if object.clone_batch_as_plasmid_attachments.length>1%>
 									<strong>Attached files:</strong><br />
 									<%else%>
@@ -46,14 +49,14 @@
 			<span class="fa_icon fa fa-eye"></span>
 	</a>
 	  <%= smart_listing_item_actions [
-	  	{name: :edit,    url: edit_from_inventory_clone_batch_path(object)},
-	  	{ name:   :custom, 
-			url:  destroy_from_inventory_clone_batch_path(object),
-			method: :delete, 
-			icon: "fa_icon fa fa-trash-o",
-			remote: true, 
-			title:  "Destroy",
-			data: {confirm: "Are you sure?"}
-		}]
+	  	{name: :edit,    url: edit_from_inventory_clone_batch_path(object),
+	  		title: "Edit"},
+	  	{name: :custom,    url: add_pb_from_inventory_clone_batch_path(object),
+	  		method: :get, 
+  			icon: "glyphicon glyphicon-th", remote: true,
+  			title: "Add batches"},
+		{name: :destroy, url: destroy_from_inventory_clone_batch_path(object),
+			title: "Destroy",
+			confirmation: "Are you sure you want to delete this?"}]
   		%>
 </td>

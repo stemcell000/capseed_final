@@ -2,9 +2,9 @@ class Gene < ActiveRecord::Base
 #pg_search
 include PgSearch
   
-has_many :clone_batches, :autosave => true
+belongs_to :clone_batch
 
-accepts_nested_attributes_for :clone_batches
+accepts_nested_attributes_for :clone_batch
 
 #after_save { |gene| gene if gene.blank? }
 

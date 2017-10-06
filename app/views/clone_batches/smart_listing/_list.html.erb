@@ -1,20 +1,20 @@
   <% unless smart_listing.empty? %>
-  <table class="table table-striped">
+  <table class="table table-striped plasmid-inv-color">
     <thead>
       
     <th class="col-lg-1 center">
         <%= smart_listing.sortable "Name", :name %>
     </th>
     
-     <th class="col-lg-2 center">
+     <th class="col-lg-1 center">
         <%= smart_listing.sortable "Clone", :clone_id %>
     </th>
     
-    <th class="col-lg-2 center">
+    <th class="col-lg-1 center">
         				 promoter(s)
     </th>
     
-     <th class="col-lg-2 center">
+     <th class="col-lg-1 center">
         				 gene(s)
     </th>
     
@@ -22,7 +22,7 @@
     					number of batch(es)
 	</th>
     
-    <th class="col-lg-2 center">
+    <th class="col-lg-1 center">
 		<%= smart_listing.sortable "Created at:", :created_at %>
   	</th>
   	<th class="col-lg-1 center"></th>
@@ -33,11 +33,11 @@
           		<%= smart_listing.render partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
         	</tr>
       	<% end %>
-      	<%= smart_listing.item_new colspan: 7, link: edit_from_inventory_clone_batch_path(:object) %>
+      	<%= smart_listing.item_new colspan: 7, link: new_from_inventory_new_clone_batch_path(:object) %>
     </tbody>
   </table>
   <%= smart_listing.paginate %>
   <%= smart_listing.pagination_per_page_links %>
   <%else%>
-  No Record!
+ <h4> No Record! </h4>
   <%end%>

@@ -6,7 +6,7 @@ class CloneBatchesController < InheritedResources::Base
   autocomplete :clone_batch, :name, :extra_data => [:id], :scopes => [:plasmid_allow]
   
   before_filter :authenticate_user!
-  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :update, :edit_from_inventory, :update_from_inventory, :destroy_from_inventory, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
+  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update, :edit_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
@@ -129,6 +129,7 @@ class CloneBatchesController < InheritedResources::Base
   #Inventaire
   
    def index
+
     #Formattage des dates
       start_time = params[:created_at_gteq].to_date rescue Date.current
       start_time = start_time.beginning_of_day # sets to 00:00:00
@@ -142,7 +143,11 @@ class CloneBatchesController < InheritedResources::Base
       @clone_batches = @q.result.where.not(:name => nil).includes(:clone)
       
     #Config de l'affichage des résultats.
-      @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
+      @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
+  respond_to do |format|
+    format.js
+    format.html
+  end
   end
   
   def edit_from_inventory
@@ -155,7 +160,22 @@ class CloneBatchesController < InheritedResources::Base
   def update_from_inventory
     @clone_batch.update_attributes(plasmid_params)
   end
-   
+  
+  def add_pb_from_inventory
+    @units = Unit.all
+    #@clone_batch.plasmid_batches.build
+    nb = @clone_batch.plasmid_batches.length + 1
+    @name = @clone_batch.id.to_s+"."+nb.to_s
+    @users = User.all
+  end
+  
+
+  
+  def update_pb_from_inventory
+    @clone_batch.update_attributes(plasmid_params)
+    @users = User.all
+  end
+  
    def destroy_from_inventory
      @clone_batch = CloneBatch.find(params[:id])
      @clone_batches = CloneBatch.all
@@ -211,7 +231,8 @@ end
       :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid,
       :clone_batch_qc_attributes => [:date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
-      :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name]],
+      :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :user_id, :format_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name],
+      ],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
@@ -219,6 +240,7 @@ end
       :strand_attributes => [:id, :name],
       :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      :user_attributes => [:id, :username, :firstname, :lastname, :full_name],
       gene_ids: [], promoter_ids: [])
     end
     

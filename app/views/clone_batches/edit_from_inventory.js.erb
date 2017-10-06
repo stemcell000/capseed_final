@@ -1,2 +1,10 @@
 <%= smart_listing_item :clone_batches, :edit, @clone_batch, "clone_batches/clone_batch_components/edit_from_inventory" %>
 
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+

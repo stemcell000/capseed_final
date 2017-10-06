@@ -12,6 +12,7 @@
   Type.create(name:"capsid")
   Type.create(name:"library")
   Type.create(name:"none")
+  Type.create(name:"unknown")
   
   #Add Strands
   Strand.create( name:"sc")

@@ -4,6 +4,6 @@
 		$("#myModalLabel").html("Clone batch : Add/change name.")
 		$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'clone_batches/components/clone_batch_form_edit') %>")
+		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'clone_batches/components/form_edit') %>")
 		$("#assay-modal").modal("show")
 		$("ul.errors").html("")

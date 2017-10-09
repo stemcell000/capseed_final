@@ -16,7 +16,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-    @nb = CloneBatch.order("created_at").last.number.to_i + 1
+    @nb = n = CloneBatch.where.not(:name =>"").last[:number].to_i+1
     @nb = @nb.to_s
   end
   
@@ -36,7 +36,6 @@ class CloneBatchesController < InheritedResources::Base
     if @clone_batch.promoters.empty?
       @clone_batch.promoters.build
     end
-    
   end
   
   def update
@@ -113,14 +112,14 @@ class CloneBatchesController < InheritedResources::Base
     #effacement des données de plasmid uniquement
     @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
                                 :glyc_stock_box_as_plasmid=>nil, :origin_as_plasmid=>nil, :type_id=>nil, 
-                                :comment_as_plasmid=>nil)
+                                :comment_as_plasmid=>nil, :number => nil)
     #destruction des associations
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
       cba.update_columns(:attachment => nil)
     end
     @clone_batch.clone_batch_attachments.destroy_all
     @clone_batch.genes.destroy_all
-    @clone_batch.promoter.destroy_all
+    @clone_batch.promoters.destroy_all
     #destruction de l'insert correspondant
     @clone_batch.insert.destroy
   end

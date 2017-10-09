@@ -1,4 +1,5 @@
-<%= simple_nested_form_for (@clone_batch), remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch]), url: update_as_plasmid_assay_clone_clone_batch_path(:id => @clone_batch.id, :assay_id => @assay.id, :clone_id => @clone.id), remote: true, html: {class: 'vertical-form'} do |f|  %>
+	
 	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
@@ -13,7 +14,7 @@
 				<%= f.input :temp_name%>
 			</div>
 			<div class="col-lg-2">
-				<%= f.input :number, :input_html => { :value => @clone_batch.number || number_generator }, :readonly => true%>
+				<%= f.input :number, :readonly => true%>
 			</div>
 			<%f.input :clone_id, :as => :hidden%>
 		</div>
@@ -46,11 +47,10 @@
 					<div class="row">
 						<div class = "col-lg-9 vcenter">
 							<div class="form-group ui-front">
-							<%= ff.input :name,
-								:label => "Promoter",
-								:url => autocomplete_promoter_name_promoter_index_path,
-								:as => :autocomplete
-							%>
+								<%= ff.input :name,
+									:label => "Promoter"
+								%>
+								<%= ff.input :id, :as => :hidden %>
 							</div>
 						</div>
 						<div class="col-lg-1 vcenter">
@@ -58,7 +58,6 @@
 						</div>
 					</div>			
 				<%end%>
-						
 								<%= f.link_to_add "Add promoter", :promoters %>
 				</div>
 			
@@ -69,9 +68,7 @@
 					<div class = "col-lg-9 vcenter">
 						<div class="form-group ui-front">
 						<%= ff.input :name,
-							:label => "Gene",
-							:url => autocomplete_gene_name_gene_index_path,
-							:as => :autocomplete
+							:label => "Gene"
 						%>
 						</div>
 					</div>
@@ -80,7 +77,6 @@
 					</div>
 				</div>			
 			<%end%>
-					
 							<%= f.link_to_add "Add gene", :genes %>
 			</div>
 		</div>
@@ -116,6 +112,7 @@
         </div>
       </div>
 </div>
+
 <%end%>
 
 

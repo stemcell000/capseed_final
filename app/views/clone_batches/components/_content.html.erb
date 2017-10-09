@@ -1,15 +1,16 @@
 <td class="col-lg-1 text-center"><%= cb.name %></td>
-						<td class="col-lg-1 text-center"><%= cb.id %></td>
+						<td class="col-lg-1 text-center"><%= cb.number %></td>
 						<td class="col-lg-3">
 							<div class="col-lg-12">
 							<% if !cb.strand_id.nil?%>
-								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
-								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "N/A" : cb.type.name %><br />
-								<strong>Strand: </strong><%= cb.strand.nil? ? "N/A" : cb.strand.name %><br />
-								<strong>Promoter: </strong><%= cb.promoters.empty? ? "N/A" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
-								<strong>Gene: </strong><%= cb.genes.empty? ? "N/A" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
+								<i class="glyphicon glyphicon-barcode"></i> <strong>Number: </strong> <%= cb.number.blank? ? "None" : cb.number %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.blank? ? "None" : cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid.blank? ? "None" : cb.glyc_stock_box_as_plasmid %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin_as_plasmid.blank? ? "None" : cb.origin_as_plasmid %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "None" : cb.type.name %><br />
+								<strong>Strand: </strong><%= cb.strand.nil? ? "None" : cb.strand.name %><br />
+								<strong>Promoter: </strong><%= cb.promoters.empty? ? "None" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= cb.genes.empty? ? "None" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
 							</div>
 							<div class="col-lg-12">
 							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>

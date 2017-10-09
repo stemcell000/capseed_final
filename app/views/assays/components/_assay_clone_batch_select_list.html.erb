@@ -51,7 +51,7 @@
 	</div>
 	<div id="clone_batch_select_table">
 	<% if !clone.clone_batches.empty? %>
-	<%= render :partial => "assays/assay_components/clone_batch_select_table", :locals => {:clone => clone}%>
+	<%= render :partial => "assays/components/clone_batch_select_table", :locals => {:clone => clone}%>
 	<%else%>
 	 <em>No Batch yet.</em>
 	<%end%>

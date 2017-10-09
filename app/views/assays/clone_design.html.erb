@@ -3,7 +3,7 @@
 		<div class="panel-heading"> Cloning: <%= @assay.name %></div>
 		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
 		<div id="clone-table-container" class="col-md-6">
-						<%= render :partial => "clones/clone_components/table" , :locals => {:clones => @clones}%>
+						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>
 		</div>
 			<div class="panel-footer row">
 			    <div class="btn-group col-md-7" role="group" aria-label="...">

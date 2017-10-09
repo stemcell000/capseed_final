@@ -132,15 +132,10 @@ class AssaysController < ApplicationController
     redirect_to :action => "index"
   end
   
-   def destroy
-    @clone = Clone.find(params[:id])
-    @assay.clones.destroy(@clone)
-    redirect_to @assay
-      if @assay.clones.length == 0
-        @assay.update_columns(:step => 0)
-        @assay.update_columns(:percentage => 10)
-      end
-  end
+ def destroy
+  @assay.destroy
+end
+ # end
   
  def get_id
       @assay = Assay.find(params[:id])

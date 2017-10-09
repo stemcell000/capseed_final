@@ -24,13 +24,13 @@
 		</div> 
 		<%end%>
 		<% if @assays.empty?%>
-			<p>No cloning to display</p>
+			<p>No cloning to display!</p>
 			<%else%>
-		<div class="row" id="assay_todo">
+		<div class="row" id="mgr_info">
 			<% if can? :update_row_order, @assays %>
-				<%= render :partial => 'assays/assay_components/assay_mgr' %>
+				<%= render :partial => 'assays/components/assay_mgr' %>
 			<%else%>
-				<%= render :partial => 'assays/assay_components/assay_mgr_b' %>
+				<%= render :partial => 'assays/components/assay_mgr_b' %>
 			<%end%>
 		</div>
 		<%end%>

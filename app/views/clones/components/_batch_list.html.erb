@@ -15,6 +15,7 @@
     <small> 
     <div class="panel-body">
 	<div class="row">
+		
 			<div class="col-lg-2">
 				<strong>Clone name: </strong><%= clone.name %><br />
 				<strong>Clone#: </strong><%= clone.id %><br />
@@ -25,7 +26,6 @@
 				<strong>Primer ins.rev:</strong> <%= clone.primerinsrev%><br />
 				<strong>Enzymes: </strong><br />
 				<%= clone.enzymes.empty? ? "NA" : clone.enzymes.map { |enzyme| enzyme.name }.to_sentence %>
-				
 			</div>
 		
 			<div class="col-lg-6 text-justify">		
@@ -40,7 +40,7 @@
 									<% if clone.clone_attachments.empty? %>
 										<strong>Attached files: </strong>none<br />
 									<% else %>
-									<strong>Attached files: </strong><br />	
+										<strong>Attached files: </strong><br />	
 										<% clone.clone_attachments.each do |clone_attachment|%>
 												<%= link_to File.basename(clone_attachment.attachment.to_s), clone_attachment.attachment.to_s%><br />
 										<%end%>
@@ -50,9 +50,9 @@
 	<div class="row">
 		<div class="col-lg-12 right">
 				<% if clone.batch_nb.nil? %>
-					<%= link_to "Add info", edit_batch_assay_clone_path(@assay, clone), :class =>"btn btn-danger btn-xs", :title=>"Update clone's parameters." ,:remote => true %>		
+					<%= link_to "Spawn batches", edit_batch_assay_clone_path(@assay, clone), :class =>"btn btn-danger btn-xs", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked  %>		
 				<% else %>
-					<%= link_to "Modify info", edit_batch_assay_clone_path(@assay, clone), :class =>"btn btn-primary btn-xs", :title=>"Update clone's parameters." ,:remote => true %>		
+					<%= link_to "Modify spawned batches", edit_batch_assay_clone_path(@assay, clone), :class =>"btn btn-primary btn-xs", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked  %>		
 				<% end %>
 		</div>
 	</div>

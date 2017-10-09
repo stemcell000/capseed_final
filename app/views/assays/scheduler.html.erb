@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-5">
 		<h6>Distribution by task</h6>
-			<%= render :partial => "assays/assay_components/cloning_pie_chart" %>
+			<%= render :partial => "assays/components/cloning_pie_chart" %>
 	</div>
 	<div class="col-md-7">
 		<h6>Cloning Gantt-chart:</h6>
@@ -25,7 +25,7 @@
 		</div>
 		<div id='gantt-container' class="row">
 				<div class="col-md-12">
-					<%= render :partial => "assays/assay_components/cloning_gantt_chart", :locals => {:assays => @assays}  %>
+					<%= render :partial => "assays/components/cloning_gantt_chart", :locals => {:assays => @assays}  %>
 				</div>
 		</div>
 	</div>

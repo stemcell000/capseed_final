@@ -1,0 +1,69 @@
+<small>
+<div id="plasmid-table-container" class="col-md-12">
+<% if clone.clone_batches.empty?%>
+			<p>No plasmid to display</p>
+<%end%>
+<% if !clone.clone_batches.where.not(:name=>nil).empty?%>
+<table class="table table-striped table-bordered table-condensed" id="clone-table">
+			<thead>
+				<th class="text-center">Name</th>
+				<th class="text-center">plasmid number</th>
+				<th class="text-center">Info</th>
+				<th class="text-center">Action</th>
+			</thead>
+				<% clone.clone_batches.where.not(:name=>nil).each do |cb| %>
+					<tr>
+						<td class="col-md-1 text-center"><%= cb.name %></td>
+						<td class="col-sm-1 text-center"><%= cb.id %></td>
+						<td class="col-md-3">
+							<div class="col-md-12">
+							<% if !cb.strand_id.nil?%>
+								<strong>Strand: </strong><%= cb.strand_id %><br />
+								<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
+								<strong>stock concentration: </strong> <%= cb.glyc_stock_as_plasmid %> <%= Unit.find(cb.unit_id).name %><br />
+								<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
+								<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+								<strong>Type: </strong>: <%= Type.find(cb.type_id).name %><br />
+								<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
+								<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />
+							</div>
+							<div class="col-md-6">
+							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>
+								<% if cb.clone_batch_as_plasmid_attachments.length>1%>
+									<strong>Attached files:</strong><br />
+									<%else%>
+									<strong>Attached file:</strong><br />
+									<%end%>	
+									<% cb.clone_batch_as_plasmid_attachments.each do |a|%>
+										<%mypath= a.attachment.to_s%>
+										<small><%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %></small> <br />
+									<%end%>
+								<%end%>
+							</div>
+							</div>
+					<% else %>						
+						<div class="font-orange"><em>Missing plasmid info </em></div>
+					<% end %>
+						</td>
+						<td class="col-sm-1 text-center">
+						
+							<% if cb.strand_id.nil?%>
+								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
+							<% else%>
+								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(cb, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-success btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
+								<%= link_to "Remove", remove_plasmid_data_clone_batch_path(:id => cb.id) , :class =>"btn btn-danger btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
+							<%end%>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<% end %>
+<div>
+	<%= link_to "Combine with an existing plasmid",new_assay_clone_clone_batch_path(:assay_id => @assay.id, :clone_id=>clone.id), :class =>"btn btn-default btn-sm", :title=>"Update clone's parameters." ,:remote => true %>	
+</div>
+		</div>
+		</small>
+		
+<div id='plasmid' class='SeqViewerApp'>
+<a href='?embedded=true&id=…'><a>
+</div>

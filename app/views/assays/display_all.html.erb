@@ -1,4 +1,5 @@
 <% provide(:title, "Cloning : Search") %>
-<%= render :partial => 'assays/assay_components/assay_searchbar' %>
-<%= smart_listing_render(:assays) %>
-
+	<%= render :partial => 'assays/components/searchbar' %>
+		<div id= "info-container">
+			<%= smart_listing_render(:assays) %>
+		</div>

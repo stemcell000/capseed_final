@@ -13,8 +13,8 @@ module ApplicationHelper
   def jumboclass(page_title ='')
     color_class = ''
     case page_title
-    when "Plasmid : Search"
-     color_class = "plasmid-inv-color"
+    when "Production"
+     color_class = "prod-bg-color"
     else
       color_class= "cloning-color"
    end

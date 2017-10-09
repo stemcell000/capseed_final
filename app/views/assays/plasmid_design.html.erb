@@ -5,7 +5,7 @@
 		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
 			
 				<div id="clone-list-container">
-						<%= render :partial => "clone_batches/clone_batch_components/plasmid_design_list" , :locals => {:clones => @clones, :assay => @assay}%>
+						<%= render :partial => "clone_batches/components/plasmid_design_list" , :locals => {:clones => @clones, :assay => @assay}%>
 				
 		
 		<div class="panel-footer row">

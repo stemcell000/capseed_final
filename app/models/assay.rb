@@ -62,6 +62,12 @@ class Assay < ActiveRecord::Base
     self.created_at.strftime("%Y, %-m, %-d")
   end
   
+  def self.enable_link
+    if self.locked
+      self.locked
+    end
+  end
+  
   private
   def enable_strict_validation?
     self.strict_validation == 1

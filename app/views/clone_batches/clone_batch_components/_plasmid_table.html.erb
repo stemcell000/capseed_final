@@ -11,7 +11,7 @@
 				<% clone.clone_batches.where.not(:name=>nil).order(:id).each do |cb| %>
 				<%= content_tag "div", id: "clone_batch_data_id", data:{clone_batch_data_id: cb.id} do %><%end%>
 					<tr id = "clone-batch-info-container<%=cb.id%>">
-						<%= render :partial => "clone_batches/clone_batch_components/content", :locals => {:cb => cb, :clone => clone, :clone_id => clone.id, :clones => @clones, :assay => @assay, :cb_collection => @cb_collection} %>
+						<%= render :partial => "clone_batches/components/content", :locals => {:cb => cb, :clone => clone, :clone_id => clone.id, :clones => @clones, :assay => @assay, :cb_collection => @cb_collection} %>
 					</tr>
 				<% end %>
 </table>

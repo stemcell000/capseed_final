@@ -14,7 +14,7 @@
   			<%= content_tag "div", id: "clone_data_id", data:{clone_data_id: clone.id} do %><%end%>
 			<small>
 				<div id="info-container<%=clone.id%>" class="col-md-12">
-					<%= render :partial => "clone_batches/clone_batch_components/plasmid_table", :locals => {:clone => clone, :clone_id => clone.id, :clones => @clones, :assay => @assay, :cb_collection => @cb_collection} %>
+					<%= render :partial => "clone_batches/components/plasmid_table", :locals => {:clone => clone, :clone_id => clone.id, :clones => @clones, :assay => @assay, :cb_collection => @cb_collection} %>
 				</div>
 				
 				</small>

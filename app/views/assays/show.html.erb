@@ -2,7 +2,7 @@
 	<div class="panel-heading"> Cloning: <%= @assay.name %></div>
 	<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
 		<div id="clone-table-container">
-				<%= render :partial => "assays/assay_components/assay_clone_table" , :locals => {:clones => @clones}%>
+				<%= render :partial => "assays/components/assay_clone_table" , :locals => {:clones => @clones}%>
 		</div>
 	    <div class="btn-group" role="group" aria-label="...">
 	    	<%= link_to 'Add Clone',new_assay_clone_path(@assay), :class => 'btn btn-default btn-sm', :remote => true %>

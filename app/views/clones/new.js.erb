@@ -4,7 +4,7 @@
 	$("#myModalLabel").html("Clone design")
 	$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 	$("#flash-msg-container").html("")
-	$("#inner-assay-modal").html("<%= escape_javascript( render'clones/clone_components/clone_form_new' ) %>")
+	$("#inner-assay-modal").html("<%= escape_javascript( render'clones/components/clone_form_new' ) %>")
 	$("#assay-modal").modal("show")
 	$("ul.errors").html("")
 	console.debug("new is loaded => clone_form_new");

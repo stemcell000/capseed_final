@@ -10,7 +10,7 @@ class CreateClones < ActiveRecord::Migration
       t.string :primerinsrev
       t.text :comment
       t.text :comment_batch
-      t.integer :strict_validation
+      t.integer :strict_validation, default: 0
       t.timestamps null: false
     end
   end

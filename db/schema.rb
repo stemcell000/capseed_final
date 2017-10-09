@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(version: 20170928071524) do
     t.string   "temp_name"
     t.text     "comment"
     t.boolean  "qc_validation",             default: false
-    t.integer  "strict_validation"
-    t.integer  "plasmid_validation"
+    t.integer  "strict_validation",         default: 0
+    t.integer  "plasmid_validation",        default: 1
     t.date     "date_as_plasmid"
     t.string   "glyc_stock_box_as_plasmid"
     t.string   "origin_as_plasmid"
@@ -157,9 +157,9 @@ ActiveRecord::Schema.define(version: 20170928071524) do
     t.string   "primerinsrev"
     t.text     "comment"
     t.text     "comment_batch"
-    t.integer  "strict_validation"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "strict_validation", default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "cmeth_id"
   end
 

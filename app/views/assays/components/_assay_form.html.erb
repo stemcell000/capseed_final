@@ -6,16 +6,19 @@
 				    	autofocus: true,
 				    	label: "Name",
 				    	placeholder: 'Enter the name of the assay',
-				    	autocomplete: false
+				    	autocomplete: false,
+				    	:readonly => @assay.locked
 				    %>
 				    <%= f.input :user_id, :input_html => {:value=> current_user.id}, :as => :hidden %>
 				    
 				    <%= f.input :comment,
-				    	label: "Comment"%>
+				    	label: "Comment",
+				    	:readonly => @assay.locked%>
 					<%= f.association :projects, :label => "Projects",
 					:collection => Project.all.order(:name),
 					:selected => 1,
-					:input_html => { class:"select2-select" } %>
+					:input_html => { class:"select2-select" },
+				   	:disabled => @assay.locked %>
 					
 					
 	 				<div class="btn-group" role="group" aria-label="...">

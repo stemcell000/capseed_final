@@ -1,5 +1,5 @@
   	$("#flash-msg-container").html("")
   	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-  	$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "assays/assay_components/assay_plasmid_batch_list_batch_info", :locals => {:clone => @clone, :assay => @assay, :cb_collection => @cb_collection } ) %>")
+  	$("#info-container<%=@clone.id%>").html("<%= escape_javascript( render :partial => "assays/components/assay_plasmid_batch_list_batch_info", :locals => {:clone => @clone, :assay => @assay, :cb_collection => @cb_collection } ) %>")
   	$('#assay-modal').modal("hide");
 console.log("Refreshing plasmid info.")

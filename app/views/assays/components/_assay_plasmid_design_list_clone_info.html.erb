@@ -27,6 +27,6 @@
 		</small>
 			<% if !clone.clone_batches.empty? %>
 	<div id= "clone_batch_qc_table_container" class="col-md-12">
-		<%= render :partial => "assays/assay_components/clone_batch_qc_table_light", :locals => { :clone => clone, :assay => @assay }%>
+		<%= render :partial => "assays/components/clone_batch_qc_table_light", :locals => { :clone => clone, :assay => @assay }%>
 	</div>
 	<%end%>

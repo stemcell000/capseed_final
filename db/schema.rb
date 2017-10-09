@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170928071524) do
     t.text     "comment"
     t.boolean  "qc_validation",             default: false
     t.integer  "strict_validation",         default: 0
-    t.integer  "plasmid_validation",        default: 1
+    t.integer  "plasmid_validation",        default: 0
     t.date     "date_as_plasmid"
     t.string   "glyc_stock_box_as_plasmid"
     t.string   "origin_as_plasmid"

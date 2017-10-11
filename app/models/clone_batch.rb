@@ -6,7 +6,6 @@ class CloneBatch < ActiveRecord::Base
   belongs_to :clone
   has_many :clone_batch_qcs, :dependent => :destroy
   has_many :plasmid_batches, :dependent => :destroy
-  has_many :foos, :dependent => :destroy
       
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
@@ -27,7 +26,6 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :genes, :allow_destroy => true
   accepts_nested_attributes_for :promoters, :allow_destroy => true
   
-  accepts_nested_attributes_for :foos, :allow_destroy => true
   
   
   #Validations

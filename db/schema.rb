@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171011052808) do
+ActiveRecord::Schema.define(version: 20170928071524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,13 +194,6 @@ ActiveRecord::Schema.define(version: 20171011052808) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "foos", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "clone_batch_id"
-  end
-
   create_table "formats", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -276,7 +269,6 @@ ActiveRecord::Schema.define(version: 20171011052808) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.boolean  "qc_validation",     default: false
-    t.integer  "box_id"
     t.integer  "strict_validation"
     t.integer  "production_id"
     t.decimal  "volume"
@@ -289,7 +281,6 @@ ActiveRecord::Schema.define(version: 20171011052808) do
     t.integer  "user_id"
   end
 
-  add_index "plasmid_batches", ["box_id"], name: "index_plasmid_batches_on_box_id", using: :btree
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree
   add_index "plasmid_batches", ["unit_id"], name: "index_plasmid_batches_on_unit_id", using: :btree
 
@@ -445,5 +436,4 @@ ActiveRecord::Schema.define(version: 20171011052808) do
     t.string   "name"
   end
 
-  add_foreign_key "plasmid_batches", "boxes"
 end

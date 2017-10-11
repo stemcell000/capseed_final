@@ -6,10 +6,10 @@
 	<small>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
-			<div class="col-lg-2">
+			<div class="col-lg-3">
 				<%= f.input :name%>
 			</div>
-			<div class="col-lg-2">
+			<div class="col-lg-3">
 				<%= f.input :temp_name%>
 			</div>
 			<div class="col-lg-2">
@@ -38,18 +38,18 @@
 		<div class="row">
 			<div class="col-lg-4 well">
 				<div id="promoter_container" class="col-lg-6">
-				<%=f.simple_fields_for :promoters do |ff|%>
+				<%=f.simple_fields_for :promoters do |r|%>
 					<div class="row">
 						<div class = "col-lg-9 vcenter">
 							<div class="form-group ui-front">
-								<%= ff.input :name,
+								<%= r.input :name,
 									:label => "Promoter"
 								%>
-								<%= ff.input :id, :as => :hidden %>
+								<%= r.input :id, :as => :hidden %>
 							</div>
 						</div>
 						<div class="col-lg-1 vcenter">
-								<%= ff.link_to_remove "X" %>	
+								<%= r.link_to_remove "X" %>	
 						</div>
 					</div>			
 				<%end%>
@@ -58,17 +58,17 @@
 			
 		<!--Add gene-->
 			<div id="gene_container" class="col-lg-6">
-			<%=f.simple_fields_for :genes do |ff|%>
+			<%=f.simple_fields_for :genes do |g|%>
 				<div class="row">
 					<div class = "col-lg-9 vcenter">
 						<div class="form-group ui-front">
-						<%= ff.input :name,
+						<%= g.input :name,
 							:label => "Gene"
 						%>
 						</div>
 					</div>
 					<div class="col-lg-1 vcenter">
-							<%= ff.link_to_remove "X" %>	
+							<%= g.link_to_remove "X" %>	
 					</div>
 				</div>			
 			<%end%>
@@ -76,18 +76,23 @@
 			</div>
 		</div>
 		<div class="col-lg-1"></div>
-			<div id="file_container" class="col-lg-4 well">
+			<div id="file_container" class="col-lg-6 well">
 				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
-					<div class="row">	
+					<div class="row">
 						<div class="col-lg-7 vcenter">
-							<%= File.basename(a.object.attachment.to_s) %>
-					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+							
+							<%if a.object.attachment.present?%>
+									<%= link_to File.basename(a.object.attachment.to_s), a.object.attachment.to_s%><br />
+							<%else%>
+								<%= File.basename(a.object.attachment.to_s) %>
+						       	<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+						<%end%>
 						</div>
 						<div class="col-lg-1 vcenter">
 							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
 						</div>
 					</div>
-		<% end %>
+				<% end %>
 						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments %>
 			</div>
 		</div>
@@ -96,6 +101,7 @@
 				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
 		</div>
+		
 	</small>
 	<div class="row">
 		<div class="col-lg-4">

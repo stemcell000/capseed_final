@@ -3,87 +3,94 @@
 	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
-		<%= f.input :id, :label =>"id", :as => :hidden %>
-		<%= f.input :name, :label =>"id" %>
+		<%= f.input :id, :as => :hidden %>
+		<%= f.input :name, :as => :hidden %>
 		<div class="row">
-			<div class="col-lg-4 primary" ><strong>Plasmid: </strong><%= f.object.name %></div>
-			<div class="col-lg-2 primary"><strong>#: </strong><%= f.object.number %></div>
+			<div class="col-lg-7" > <h4> Plasmid:<mark> <strong><%= f.object.name %></strong> </mark></h4></div>
+			<div class="col-lg-2"><h4>Number: <mark> <strong><%= f.object.number %></strong> </mark></h4></div>
 		</div>
 	<small>
-				<!--Main-->
-				<%=f.simple_fields_for :plasmid_batches do |ff|%>
-				<div class="form-group well">
-					<div class="row">
-						<div class="col-lg-2">
-							<%=ff.input :name, :label => "Batch name"%>
-						</div>
-						<div class="col-lg-2">
-							<%=ff.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
-						</div>
-		  				<div class="col-lg-2">
-		  					<%= ff.input :concentration, :label => "Concentration: " %>
-		  				</div>
-		  				<div class="col-lg-2">
-		  					<%=ff.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }%>
-						</div>
-						<div class="col-lg-3">
-								   <%= ff.association :user, :label => "Contact name",
-										:collection => @users, :label_method => :full_name, :value_method => :id,
-										:input_html => { class:"select2-select" } %>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-3">
-							<%= ff.input :comment, :label => "Comment:" %>
-						</div>
-				<div class="col-lg-2">
-  					<%=ff.association :box, :label => "Box# :", :collection => Box.all, :placeholder => "Select box#.", input_html: { class: 'select2-select', id: 'box' }%>
-  				</div>
-				<div class="col-lg-2">
-					<%=ff.association :row, :label => "Row :", :collection => Row.all, :placeholder => "Select column.", input_html: { class: 'select2-select', id: 'row' }%>
-  				</div>
-				<div class="col-lg-2">
-					<%=ff.association :column, :label => "Column :", :collection => Column.all, :placeholder => "Select row.", input_html: { class: 'select2-select', id: 'column' }%>
-  				</div>
-  				
-  				<div class="col-lg-3">
-						<%= ff.simple_fields_for :plasmid_batch_attachments do |a| %>
-						<div class="row">
-							<div class="col-lg-3">	
-								<%= File.basename(a.object.attachment.to_s) %>
-								<% if a.object.id.nil? %>
-							       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-						       	<%end%>
-						 	</div>
-						 </div>
-						 
-					
-						 <div class="row">
-						       	<div class="col-lg-2">
-						       		<%= a.link_to_remove "Remove file", :class => "btn btn-xs btn-danger"%>
-						       	</div>
-				       	</div>
-				
-						<%end%>
-					<div class="row">
-							<%= ff.link_to_add "Add a file",:plasmid_batch_attachments,  :class => "btn btn-sm btn-default" %>
-					</div>
-				</div>
-			</div>
+	<div class="row">
 		
-		<div class="row">
-				<div class="col-lg-1"
-					<%= ff.link_to_remove "Remove batch ", :class => "btn btn-xs  btn-warning" %>
+			<div class="col-lg-12">
+				
+				<div id="batch_container">
+						
+						<%=f.simple_fields_for :plasmid_batches do |b|%>
+							<div class="row">
+								<div class = "col-lg-12 vcenter well">
+									<div class="form-group ui-front">
+										<div class = "row">
+												<div class="col-lg-2">
+													<%= b.input :name	%>
+												</div>
+													<%= b.input :id, :as => :hidden %>
+												<div class="col-lg-2">
+													<%= b.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+												</div>
+												<div class="col-lg-2">
+													<%= b.input :concentration, :label => "Concentration: " %>
+												</div>
+												<div class="col-lg-2">
+													<%= b.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }%>
+												</div>
+												<div class="col-lg-3">
+													<%= b.association :user, :label => "Contact name", :collection => User.all, :label_method => :full_name, :value_method => :id, :input_html => { class:"select2-select" } %>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-2">
+													<%= b.association :box, :label => "Box# :", :collection => Box.all, :placeholder => "Select box#.", input_html: { class: 'select2-select', id: 'box' }%>
+												</div>
+												<div class="col-lg-2">
+													<%= b.association :row, :label => "Row :", :collection => Row.all, :placeholder => "Select column.", input_html: { class: 'select2-select', id: 'row' }%>
+												</div>
+												<div class="col-lg-2">
+													<%= b.association :column, :label => "Column :", :collection => Column.all, :placeholder => "Select row.", input_html: { class: 'select2-select', id: 'column' }%>
+												</div>
+												<div class="col-lg-2">
+													<%= b.input :comment, :label => "Comment:" %>
+												</div>
+											<!---->
+												<div class="col-lg-3">
+													<div class="row">
+														<%= b.simple_fields_for :plasmid_batch_attachments do |pba| %>
+															<%= File.basename(pba.object.attachment.to_s) %>
+															<% if pba.object.id.nil? %>
+													       		<%= pba.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+												       		<%end%>
+												       		<%= pba.link_to_remove "X" %>
+														<%end%>
+													</div>
+													<div class="row">
+														<%= b.link_to_add "Add a file",:plasmid_batch_attachments,  :class => "btn btn-sm btn-default" %>
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-lg-2">
+													<%= b.link_to_remove "Remove batch", :class => "btn btn-sm btn-danger" %>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<%end%>
+						</div>
+						
+					
+				
+						<%= f.link_to_add "Add batch", :plasmid_batches, :class => "btn btn-sm btn-success" %>
+					</div>
 				</div>
-			</div>
-		</div><!--END of Form-group-->
-		<%end%><!--END of fields_for-->
-<div class="row">
-	<div class="col-lg-12">
-		<%= f.link_to_add "Add batch", :plasmid_batches, :class => "btn btn-md btn-info" %>
-	</div>
-</div>
-</small>
+
+			<!---->
+
+
+
+
+
+	</small>
 	<div class="row">
 		<div class="col-lg-4">
 	 		<div class="btn-group" role="group" aria-label="...">

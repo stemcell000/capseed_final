@@ -1,5 +1,5 @@
 class AddPlasmidBatchToBox < ActiveRecord::Migration
   def change
-    add_reference :plasmid_batches, :box, index: true, foreign_key: true
+    add_column :plasmid_batches, :clone_batch_id, :integer
   end
 end

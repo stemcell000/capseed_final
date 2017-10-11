@@ -153,10 +153,13 @@ class CloneBatchesController < InheritedResources::Base
     if @clone_batch.genes.empty?
       @clone_batch.genes.build
       @clone_batch.promoters.build
+      @units = Unit.all
+      @users = User.all
    end
   end
   
   def update_from_inventory
+    #@clone_batch.update_attributes(plasmid_params)
     @clone_batch.update_attributes(plasmid_params)
   end
   
@@ -187,20 +190,21 @@ class CloneBatchesController < InheritedResources::Base
    def create_from_inventory
     @clone_batch = CloneBatch.create(plasmid_params)
     
-    if params[:clone_id]
-      @clone_batch = CloneBatch.find(params[:clone_id])
-    end
-    #
-    if  @clone_batch.valid?
-        @clone_batch.update_columns(:strict_validation => 0)
-        if @clone
-          @clone.clone_batches << @clone_batch
-        end
-        flash.keep[:success] = "Task completed!"
-    else
-        render :action => :new_from_inventory
-    end
-end
+      if params[:clone_id]
+        @clone_batch = CloneBatch.find(params[:clone_id])
+      end
+      #
+      if  @clone_batch.valid?
+          @clone_batch.update_columns(:strict_validation => 0)
+          if @clone
+            @clone.clone_batches << @clone_batch
+          end
+          flash.keep[:success] = "Task completed!"
+      else
+          render :action => :new_from_inventory
+      end
+      
+  end
   
   private
   
@@ -232,8 +236,8 @@ end
       
       :clone_batch_qc_attributes => [:date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
-      
-      :plasmid_batches_attributes => [:id, :name, :format, :concentration, :clone_batch_id, :user_id, :box_id, :row_id, :comment, :column_id, :format_id, :unit_id, :_destroy,
+     
+      :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
       
       :clone_attributes => [:id, :name, :assay_id],
@@ -247,12 +251,16 @@ end
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      gene_ids: [], promoter_ids: [])
+      :foos_attributes=>[:name, :id, :clone_batch_id, :_destroy],
+      gene_ids: [], promoter_ids: [], foo_ids: [])
     end
     
-      def plasmid_pb_params
-      
-      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :_destroy])
+    def plasmid_pb_params
+      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy])
+    end
+       
+    def footest
+      params.require(:clone_batch).permit(:id, :foos_attributes=>[:name, :id, :clone_batch_id, :_destroy])
     end
     
       

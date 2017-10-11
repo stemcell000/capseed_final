@@ -6,6 +6,7 @@ class CloneBatch < ActiveRecord::Base
   belongs_to :clone
   has_many :clone_batch_qcs, :dependent => :destroy
   has_many :plasmid_batches, :dependent => :destroy
+  has_many :foos, :dependent => :destroy
       
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
@@ -26,13 +27,15 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :genes, :allow_destroy => true
   accepts_nested_attributes_for :promoters, :allow_destroy => true
   
+  accepts_nested_attributes_for :foos, :allow_destroy => true
+  
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
   validates :name, :presence => true, :if => :enable_strict_validation?
   validates :name, :uniqueness => true, :if => :enable_strict_validation?
   validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :strand, :type, :genes, :promoters, :presence => true, :if => :enable_plasmid_validation?
-  validates_associated :genes, :promoters, :if => :enable_plasmid_validation?
+  validates_associated :genes, :promoters, :plasmid_batches, :if => :enable_plasmid_validation?
   
   #pg_search
   include PgSearch

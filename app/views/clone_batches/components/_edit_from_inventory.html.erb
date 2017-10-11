@@ -86,14 +86,17 @@
 							<%else%>
 								<%= File.basename(a.object.attachment.to_s) %>
 						       	<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-						<%end%>
+							<%end%>
+
 						</div>
+					</div>
+					<div class="row">
 						<div class="col-lg-1 vcenter">
-							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
+							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-default" %>
 						</div>
 					</div>
 				<% end %>
-						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments %>
+						<%= f.link_to_add "Add a file", :clone_batch_as_plasmid_attachments, :class => "btn btn-xs btn-default" %>
 			</div>
 		</div>
 		<div class="row">

@@ -52,27 +52,35 @@
 													<%= b.input :comment, :label => "Comment:" %>
 												</div>
 											<!---->
-												<div class="col-lg-3">
-													<div class="row">
-														<%= b.simple_fields_for :plasmid_batch_attachments do |pba| %>
-															<%= File.basename(pba.object.attachment.to_s) %>
-															<% if pba.object.id.nil? %>
-													       		<%= pba.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-												       		<%end%>
-												       		<%= pba.link_to_remove "X" %>
-														<%end%>
-													</div>
-													<div class="row">
-														<%= b.link_to_add "Add a file",:plasmid_batch_attachments,  :class => "btn btn-sm btn-default" %>
-													</div>
+												<div class="col-lg-4">
+													<%= b.simple_fields_for :plasmid_batch_attachments do |pba| %>
+														<div class="row">
+															<div class="col-lg-7">
+																
+																	<%if pba.object.attachment.present?%>
+																		<%= link_to File.basename(pba.object.attachment.to_s), pba.object.attachment.to_s%><br />
+																	<%else%>
+																		<%= File.basename(pba.object.attachment.to_s) %>
+																       		<%= pba.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+																    <%end%>
+																    
+															</div>
+														</div>
+														<div class="row">
+									           				<div class="col-lg-1 vcenter">
+																	<%= pba.link_to_remove "remove", :class => "btn btn-xs btn-default"%>
+														    </div>
+														</div>
+													<%end%>
+																<%= b.link_to_add "Add a file",:plasmid_batch_attachments,  :class => "btn btn-xs btn-default" %>
 												</div>
 											</div>
+													
 											<div class="row">
 												<div class="col-lg-2">
 													<%= b.link_to_remove "Remove batch", :class => "btn btn-sm btn-danger" %>
 												</div>
 											</div>
-										</div>
 									</div>
 								</div>
 							<%end%>
@@ -83,7 +91,7 @@
 						<%= f.link_to_add "Add batch", :plasmid_batches, :class => "btn btn-sm btn-success" %>
 					</div>
 				</div>
-
+</div>
 			<!---->
 
 

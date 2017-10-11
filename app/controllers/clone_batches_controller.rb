@@ -251,18 +251,14 @@ class CloneBatchesController < InheritedResources::Base
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      :foos_attributes=>[:name, :id, :clone_batch_id, :_destroy],
-      gene_ids: [], promoter_ids: [], foo_ids: [])
+      gene_ids: [], promoter_ids: [])
     end
     
     def plasmid_pb_params
-      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy])
+      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
+        :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]])
     end
        
-    def footest
-      params.require(:clone_batch).permit(:id, :foos_attributes=>[:name, :id, :clone_batch_id, :_destroy])
-    end
-    
       
     def load_all
         @clone_batch = CloneBatch.find(params[:id])

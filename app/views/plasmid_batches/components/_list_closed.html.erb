@@ -22,7 +22,7 @@
 							</td>
 						<%end%>
 						<td class="col-sm-2 text-center">
-						<%= link_to "Set Location", edit_and_sort_assay_clone_clone_batch_plasmid_batch_path(:assay_id=> @assay.id, :clone_id => cb.clone_id, :clone_batch_id => pb.clone_batch_id, :id => pb.id), :class =>"btn btn-primary btn-xs" ,:remote => true  %>
+						<%= link_to "Set Location", edit_and_sort_assay_clone_clone_batch_plasmid_batch_path(:assay_id=> @assay.id, :clone_id => cb.clone_id, :clone_batch_id => pb.clone_batch_id, :id => pb.id), :class =>"btn btn-primary btn-xs" ,:remote => true, :disabled => @assay.locked  %>
 						</td>
 					</tr>
 				<% end %>

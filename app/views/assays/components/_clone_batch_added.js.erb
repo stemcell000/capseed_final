@@ -1,4 +1,0 @@
-  	$("#flash-msg-container").html("")
-  	$('#info-container<%=@clone.id%>').html("<%= escape_javascript(render :partial => "clone_batches/components/clone_batch_list", locals: {:clones => @clones, :assay=> @assay}) %>");
-  	$('#flash-msg-container').html("<%= escape_javascript(render :partial => "components/flash_messages", :flash => flash ) %>" );
-  	$('#assay-modal').modal("hide");

@@ -1,5 +1,6 @@
 class PlasmidBatch < ActiveRecord::Base
-  belongs_to :clone_batch
+  belongs_to :clone_batch, :dependent => :destroy
+  default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fiels_for)
   has_many :plasmid_batch_attachments, :dependent => :destroy
   has_many :plasmid_batch_qcs, :dependent => :destroy
   belongs_to :unit
@@ -14,22 +15,22 @@ class PlasmidBatch < ActiveRecord::Base
 
  #
 
-  accepts_nested_attributes_for :clone_batch
+  accepts_nested_attributes_for :clone_batch, :allow_destroy => true
   accepts_nested_attributes_for :plasmid_batch_attachments, :allow_destroy => true
   accepts_nested_attributes_for :plasmid_batch_qcs, :allow_destroy => true
-  accepts_nested_attributes_for :box
-  accepts_nested_attributes_for :row
-  accepts_nested_attributes_for :column
-  accepts_nested_attributes_for :vol_unit
-  accepts_nested_attributes_for :virus_productions
-  accepts_nested_attributes_for :format
-  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :box, :allow_destroy => true
+  accepts_nested_attributes_for :row, :allow_destroy => true
+  accepts_nested_attributes_for :column, :allow_destroy => true
+  accepts_nested_attributes_for :vol_unit, :allow_destroy => true
+  accepts_nested_attributes_for :virus_productions, :allow_destroy => true
+  accepts_nested_attributes_for :format, :allow_destroy => true
+  accepts_nested_attributes_for :user, :allow_destroy => true
   
   #validations
-  validates :format, :concentration, :unit, :name, :user, :presence => true
+  validates :format, :concentration, :unit, :user, :presence => true
   validates :concentration, numericality: true
   validates :box, :presence => true, :if => :enable_strict_validation?
-  validates :name, :uniqueness => {message: "This name is already taken."}
+  #validates :name, :uniqueness => {message: "This name is already taken."}
     
  #pg_search
  include PgSearch

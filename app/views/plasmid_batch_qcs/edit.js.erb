@@ -4,6 +4,6 @@
 		$("#myModalLabel").html("Edit Quality control")
 		$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/plasmid_batch_qc_components/form') %>")
+		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batch_qcs/components/form') %>")
 		$("#assay-modal").modal("show")
 		$("ul.errors").html("")

@@ -162,16 +162,12 @@ class CloneBatchesController < InheritedResources::Base
   
   def add_pb_from_inventory
     @units = Unit.all
-    #@clone_batch.plasmid_batches.build
-    nb = @clone_batch.plasmid_batches.length + 1
-    @name = @clone_batch.id.to_s+"."+nb.to_s
     @users = User.all
   end
   
-
   
   def update_pb_from_inventory
-    @clone_batch.update_attributes(plasmid_params)
+    @clone_batch.update_attributes(plasmid_pb_params)
     @users = User.all
   end
   
@@ -213,11 +209,15 @@ end
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_batch_id, :clone_id, :assay_id, :plasmid_validation, :_destroy, :number,
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation,
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
-      :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name]],
+      
+      :plasmid_batches_attributes => [:id, :clone_batch_id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id,
+      :user_id, :strict_validation, :_destroy,
+      :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
+      
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
@@ -226,12 +226,16 @@ end
     end
     
     def plasmid_params
-      params.require(:clone_batch).permit(:id, :name, :number,:qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :_destroy,
+      
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :_destroy,
       :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid,
+      
       :clone_batch_qc_attributes => [:date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
-      :plasmid_batches_attributes => [:name, :format, :concentration, :_destroy, :id, :clone_batch_id, :user_id, :format_id, :unit_id, :unit_attributes =>[:id, :plasmid_batch_id, :name],
-      ],
+      
+      :plasmid_batches_attributes => [:id, :name, :format, :concentration, :clone_batch_id, :user_id, :box_id, :row_id, :comment, :column_id, :format_id, :unit_id, :_destroy,
+      :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
+      
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
@@ -239,8 +243,16 @@ end
       :strand_attributes => [:id, :name],
       :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
-      :user_attributes => [:id, :username, :firstname, :lastname, :full_name],
+      :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
+      :box_attributes => [:id, :name],
+      :row_attributes => [:id, :name],
+      :column_attributes => [:id, :name],
       gene_ids: [], promoter_ids: [])
+    end
+    
+      def plasmid_pb_params
+      
+      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :_destroy])
     end
     
       

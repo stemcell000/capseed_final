@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
-  accepts_nested_attributes_for :plasmid_batches
+  accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
 
   has_many :clone_batch_qcs
   has_many :plasmid_batch_qcs

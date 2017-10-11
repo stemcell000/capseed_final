@@ -4,6 +4,6 @@
 		$("#myModalLabel").html("Plasmid: Add a batch.")
 		$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batches/plasmid_batch_components/form') %>")
+		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'plasmid_batches/components/form') %>")
 		$("#assay-modal").modal("show")
 		$("ul.errors").html("")

@@ -31,9 +31,9 @@
 						</td>
 						<td class="col-lg-2 text-center">
 							<% if cb.strand_id.nil?%>
-								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true %>
+								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked %>
 							<%else%>
-								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-success btn-xs", :title=>"Update clone's parameters." ,:remote => true %>
-								<%= link_to "Remove", remove_plasmid_data_clone_batch_path( :assay_id => @assay.id, :clone_id => clone.id, :id => cb.id) , :class =>"btn btn-danger btn-xs", :title=>"Clear plasmid data." ,:remote => true %>
+								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-success btn-xs", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked %>
+								<%= link_to "Remove", remove_plasmid_data_clone_batch_path( :assay_id => @assay.id, :clone_id => clone.id, :id => cb.id) , :class =>"btn btn-danger btn-xs", :title=>"Clear plasmid data." ,:remote => true, :disabled => @assay.locked %>
 							<%end%>
 						</td>

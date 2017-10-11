@@ -11,7 +11,7 @@
     <div id="collapse<%=index.to_s%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=index.to_s%>">
       <div class="panel-body">
 		<div id="info-container<%=clone.id%>" class="col-md-12" >
-					<%= render :partial => "plasmid_batches/plasmid_batch_components/content", :locals => {:clone => clone, :assay => @assay} %>
+					<%= render :partial => "plasmid_batches/components/content", :locals => {:clone => clone, :assay => @assay} %>
 		</div>
 	</div>
 	</div>

@@ -323,7 +323,6 @@ end
           redirect_to :action => 'close'
           set_plasmid_validation(1, @assay)
           set_strict_validation(0, @assay)
-        @assay.clones.update_all(:strict_validation => 1)
    end
   
   def lock_process

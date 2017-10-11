@@ -17,7 +17,7 @@
 			<% assay_id = @assay.id %>
 			<div class="row pull-right">
 				<div class="col-md-1">
-					<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_qc_path(@assay, clone), :class => "btn btn-success btn-xs", :remote => true %>
+					<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_qc_path(@assay, clone), :class => "btn btn-success btn-xs", :remote => true, :disabled => @assay.locked %>
 				</div>
 			</div>
 			<%= render :partial => "clone_batches/components/clone_batch_qc_table", :locals => { :clone => clone, :assay => @assay }%>

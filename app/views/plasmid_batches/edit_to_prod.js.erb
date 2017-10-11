@@ -4,7 +4,7 @@
 	$("#myPblabel").html("Add plasmid batch to production")
 	$("#myPbButtons").html("<%= escape_javascript( render'components/modal_close_btn') %>")
 	$("#flash-msg-container").html("")
-	$("#inner-pb-modal").html("<%= escape_javascript( render :partial =>'/plasmid_batches/plasmid_batch_components/form_edit_to_prod' ) %>")
+	$("#inner-pb-modal").html("<%= escape_javascript( render :partial =>'/plasmid_batches/components/form_edit_to_prod' ) %>")
 	$("#pb-modal").modal("show")
 	$("ul.errors").html("")
 	console.debug("edit_to_prod is loaded => Add plasmid_batch");

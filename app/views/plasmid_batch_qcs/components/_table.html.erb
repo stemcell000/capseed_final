@@ -22,19 +22,19 @@
 						<div class="row">
 							<div class="col-lg-12">
 									<div class="btn-group" role="group" aria-label="Edit">								
-										<%= link_to "Edit", edit_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
+										<%= link_to "Edit", edit_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 									</div>
 									<% unless qc.conclusion %>
 										<div class="btn-group" role="group" aria-label="Validate">
-											<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
+											<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 										</div>
 									<%else%>
 										<div class="btn-group" role="group" aria-label="Unvalidate">
-											<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true %>
+											<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_plasmid_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true, :readonly=>@assay.locked %>
 										</div>
 									<%end%>
 										<div class="btn-group" role="group" aria-label="Remove">
-											<%= link_to "Remove", [b,qc,:assay_id => @assay.id, :clone_id => clone.id, :clone_id => clone.id, :clone_batch_id => cb.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove qc from list.", :remote => true %>
+											<%= link_to "Remove", [b,qc,:assay_id => @assay.id, :clone_id => clone.id, :clone_id => clone.id, :clone_batch_id => cb.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove qc from list.", :remote => true, :disabled=>@assay.locked %>
 										</div>
 							</div>
 						</div>
@@ -64,7 +64,11 @@
 						</small>
 						'
 					>
-						<%=qc.created_at.strftime("%h %e, %Y ")%>
+						<% if qc.conclusion == true %>
+								<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %>  </span>
+						<%else%>
+								<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %>  </span>
+						<%end%>
 					</a><br />
 			</td>
 			<td>

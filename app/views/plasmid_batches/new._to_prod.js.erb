@@ -4,7 +4,7 @@
 	$("#myPblabel").html("Plasmid batch - select for production")
 	$("#myPbButtons").html("<%= escape_javascript( render'components/modal_close_btn') %>")
 	$("#flash-msg-container").html("")
-	$("#inner-pb-modal").html("<%= escape_javascript( render'inventory/plasmid_batches/plasmid_batch_components/form' ) %>")
+	$("#inner-pb-modal").html("<%= escape_javascript( render'inventory/plasmid_batches/components/form' ) %>")
 	$("#pb-modal").modal("show")
 	$("ul.errors").html("")
 	console.debug("inventory/new is loaded => Add plasmid_batch");

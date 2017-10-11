@@ -26,19 +26,19 @@
 																							<div class="row">
 																								<div class="col-lg-12">
 																									<div class="btn-group" role="group" aria-label="Edit">
-																												<%= link_to "Edit", edit_assay_clone_clone_batch_clone_batch_qc_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
+																												<%= link_to "Edit", edit_assay_clone_clone_batch_clone_batch_qc_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 																									</div>		
 																											<% unless qc.conclusion %>
 																									<div class="btn-group" role="group" aria-label="Validate">
-																												<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true %>
+																												<%= link_to "Validate", set_qc_validation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 																									</div>
 																											<%else%>
 																									<div class="btn-group" role="group" aria-label="Unvalidate">	
-																												<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true %>
+																												<%= link_to "Unvalidate", set_qc_unvalidation_assay_clone_clone_batch_clone_batch_qc_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 																									</div>		
 																											<%end%>
 																									<div class="btn-group" role="group" aria-label="remove">	
-																												<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+																												<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true, :disabled => @assay.locked %>
 																									</div>
 																								</div>
 																							</div>
@@ -104,18 +104,13 @@
 																<td class="col-sm-1">
 																	<div class="row">
 																		<div class="col-xs-2">
-																			<%= link_to "Add single QC", new_assay_clone_clone_batch_clone_batch_qc_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-success btn-xs", :remote => true %>
+																			<%= link_to "Add single QC", new_assay_clone_clone_batch_clone_batch_qc_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-success btn-xs", :remote => true, :disabled => @assay.locked %>
 																		</div>
 																	</div>
 																																	
 																	<div class="row">
 																		<div class="col-xs-2">
-																			<% if false %>
-																				<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == false}%>
-																					<% disable_switch = true %>
-																				<%end%>
-																			<%end%>
-																				<%= link_to "Rename batch", edit_assay_clone_clone_batch_path(:id => cb.id, :clone_id => clone.id, :assay_id => @assay.id, :clone => clone), :class => "btn btn-primary btn-xs", :remote => true, :disabled => disable_switch %>
+																				<%= link_to "Rename batch", edit_assay_clone_clone_batch_path(:id => cb.id, :clone_id => clone.id, :assay_id => @assay.id, :clone => clone), :class => "btn btn-primary btn-xs", :remote => true, :disabled => @assay.locked %>
 																		</div>
 																	</div>
 																</td>

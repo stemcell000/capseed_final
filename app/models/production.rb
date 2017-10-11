@@ -13,9 +13,9 @@ class Production < ActiveRecord::Base
   has_many :plasmid_batches, -> { uniq }
   belongs_to :vol_unit
   has_and_belongs_to_many :projects
-  has_many :clone_batches, :through => :plasmid_batches
+  #has_many :clone_batches, :through => :plasmid_batches
   
-  accepts_nested_attributes_for :plasmid_batches
+  accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
   accepts_nested_attributes_for :projects
   
   

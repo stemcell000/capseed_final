@@ -166,6 +166,7 @@ class CloneBatchesController < InheritedResources::Base
   def add_pb_from_inventory
     @units = Unit.all
     @users = User.all
+    @clone_batch.plasmid_batches.build
   end
   
   

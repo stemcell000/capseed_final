@@ -1,7 +1,7 @@
 <td colspan="7">
 <%= simple_nested_form_for @clone_batch, url: update_pb_from_inventory_clone_batch_path, remote: true, html: {class: 'horizontal-form no-overflow'} do |f|  %>
 	
-	<%= f.error_notification %>
+	<%= f.error_notification :message => "Something went wrong: you cannot save an empty form. Add a batch or cancel."%>
 	<ul class="errors"></ul>
 		<%= f.input :id, :as => :hidden %>
 		<%= f.input :name, :as => :hidden %>

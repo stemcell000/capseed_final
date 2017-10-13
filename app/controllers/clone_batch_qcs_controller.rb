@@ -75,10 +75,10 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch_qc = CloneBatchQc.new(set_params)
     if @clone_batch_qc.valid?
            @clone.clone_batches.each do |cb|
-             cb_qc = @clone_batch_qc.dup
-             cb_qc.save
-              cb.clone_batch_qcs << cb_qc
-           end
+             #cb_qc = @clone_batch_qc.dup
+             #cb_qc.save
+              cb.clone_batch_qcs << @clone_batch_qc
+     end
         flash.keep[:success] = "Task completed!"
         batch_qc_validation_checking
       else

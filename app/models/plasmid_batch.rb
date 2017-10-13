@@ -2,7 +2,7 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :clone_batch
   default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fiels_for)
   has_many :plasmid_batch_attachments, :dependent => :destroy
-  has_many :plasmid_batch_qcs, :dependent => :destroy
+  has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
   belongs_to :unit
   belongs_to :column
   belongs_to :row

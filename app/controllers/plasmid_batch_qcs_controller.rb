@@ -17,12 +17,8 @@ def create
   @plasmid_batch_qc = PlasmidBatchQc.create(set_params)
   #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
   @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
-       if @plasmid_batch_qc.valid?
+    if @plasmid_batch_qc.valid?
       @plasmid_batch.plasmid_batch_qcs << @plasmid_batch_qc
-       @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
-             pb_qc = @plasmid_batch_qc.dup
-             batch_qc_validation_checking(pb)
-          end
       flash.keep[:success] = "Task completed!"
     else
       render :action => 'new'
@@ -76,10 +72,7 @@ end
     @plasmid_batch_qc = PlasmidBatchQc.new(set_params)
     if @plasmid_batch_qc.valid?
            @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
-             pb_qc = @plasmid_batch_qc.dup
-             pb_qc.save
-              pb.plasmid_batch_qcs << pb_qc
-              batch_qc_validation_checking(pb)
+              pb.plasmid_batch_qcs << @plasmid_batch_qc
           end
         flash.keep[:success] = "Task completed!"
       else

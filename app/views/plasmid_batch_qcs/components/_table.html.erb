@@ -8,7 +8,7 @@
 			<th>QC</th>
 			<th>Result</th>
 		</thead>
-			<% b.plasmid_batch_qcs.order(:created_at).each do |qc|%>
+			<% b.plasmid_batch_qcs.order(:created_at).each_with_index do |qc, index|%>
 				<tr>
 						<td>
 							<a tabindex="0" data-toggle="popover" data-trigger="focus"
@@ -46,13 +46,8 @@
 								<div><strong>Dig. SMA1: </strong><%=Sma1.find(qc.sma1_id).name %> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em></div>
 								<div><strong>Dig. other: </strong><%= qc.dig_other.presence ? qc.dig_other : "no data"%></div>
 								<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
-								<%if qc.conclusion==true %>
-									<div class="font-success">validated QC</div>
-								<%else%>
-									<div class="font-danger">Not validated QC</div>
-								<%end%>
 								<% if !qc.comments.blank? %>
-									<strong>Comments: </strong><br /><%=qc.comments%></small><br />
+									<strong>Comments: </strong><br /><%=qc.comments%><br />
 								<%end%>
 								<% if qc.plasmid_batch_qc_attachments.length>0 %>
 									<strong>Attached files: </strong><br />
@@ -65,9 +60,11 @@
 						'
 					>
 						<% if qc.conclusion == true %>
-								<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %>  </span>
+								<span class="font-success"><i class="glyphicon glyphicon-map-marker"></i>
+									<%= "#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
 						<%else%>
-								<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %>  </span>
+								<span class="font-grey"><i class="glyphicon glyphicon-map-marker"></i>
+									<%="#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
 						<%end%>
 					</a><br />
 			</td>

@@ -1,18 +1,20 @@
-<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_plasmid_batch_qcs_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch, @plasmid_batch_qc]), remote: true, html: {class: 'vertical-form'} do |f|  %>
   <%= f.error_notification %>
 
 <ul class="errors"></ul>
 	<div class="container">
   <small>
  
-		<div class="row" id = "date-container">	 	
-			 <div class="col-lg-2">
+		<div class="row" id = "date-container">
+			<%= f.input :id, :as => :hidden %>
+			<%= f.input :plasmid_batch_id, :as => :hidden %>	 	
+			 <div class="col-md-2">
 						 <%= f.input :date_send, :label => "Sending date:", :as => :string, :input_html => { :value => (f.object.date_send.strftime("%B %e, %Y") if f.object.date_send), "data-behaviour" => "datepicker" } %>
 			</div>
 		</div>
 	<div id="alt-container">
 		<div class="row">
-			<div class="col-lg-2">
+			<div class="col-md-2">
 				<% if !Type.find(@clone_batch.type_id).name = "Transgene" || "library" %>
 						<%= f.association :sma1, :label => "SMA1", :collection => Sma1.all, :placeholder => "Select", :selected => 3, input_html: { class: 'select2-select' }, :disabled => true %>
 						<%= f.association :sma1, :collection => Sma1.all, :selected => 3, wrapper_html: { class: 'hide' } %>
@@ -20,12 +22,12 @@
 						<%=f.association :sma1, :label => "SMA1", :collection => Sma1.all, :placeholder => "Select", input_html: { class: 'select2-select' }%>
 				<%end%>
 			</div>
-			<div class="col-lg-3">
+			<div class="col-md-3">
 						<%= f.input :dig_other, :label => "Other: " %>
 			</div>
 		</div>
 		  	<div class ="row">
-							<div class="col-lg-5">
+							<div class="col-lg-6">
 								   <%= f.association :user, :label => "Contact name",
 										:collection => @users, :label_method => :full_name, :value_method => :id,
 										:input_html => { class:"select2-select" } %>
@@ -33,7 +35,7 @@
 			</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-5">
+		<div class="col-md-5">
 			<%= f.input :comments, :label => "Comment:" %>
 		</div>
 	</div>
@@ -53,7 +55,7 @@
 					       	</div>
 		<% end %>
 		<div class="row">
-			<div class="col-lg-2">
+			<div class="col-md-2">
 				<%= f.link_to_add "Add a file", :plasmid_batch_qc_attachments ,:class => 'btn btn-sm btn-success' %>
 			</div>
 		</div>

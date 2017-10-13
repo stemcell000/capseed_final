@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013095846) do
+ActiveRecord::Schema.define(version: 20171013103435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,6 +267,14 @@ ActiveRecord::Schema.define(version: 20171013095846) do
   end
 
   add_index "plasmid_batch_qcs", ["plasmid_batch_id"], name: "index_plasmid_batch_qcs_on_plasmid_batch_id", using: :btree
+
+  create_table "plasmid_batch_qcs_batches", force: :cascade do |t|
+    t.integer "plasmid_batch_id"
+    t.integer "plasmid_batch_qc_id"
+  end
+
+  add_index "plasmid_batch_qcs_batches", ["plasmid_batch_id"], name: "index_plasmid_batch_qcs_batches_on_plasmid_batch_id", using: :btree
+  add_index "plasmid_batch_qcs_batches", ["plasmid_batch_qc_id"], name: "index_plasmid_batch_qcs_batches_on_plasmid_batch_qc_id", using: :btree
 
   create_table "plasmid_batches", force: :cascade do |t|
     t.integer  "clone_batch_id"

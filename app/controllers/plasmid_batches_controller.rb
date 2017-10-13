@@ -242,7 +242,7 @@ end
       
       :vol_unit_attributes =>[:id, :plasmid_batch_id, :name],
       
-      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion],
+      :plasmid_batch_qcs_attributes =>[:id, :dig_saml, :dig_other, :comments, :conclusion],
       
       :production_attributes => [:id, :name, :plasmid_batch_id],
       

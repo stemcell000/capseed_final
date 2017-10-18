@@ -9,8 +9,8 @@
 			</thead>
 				<% @plasmid_batches.each do |plasmid_batch| %>
 					<tr>
-						<td class="col-sm-3"><%= plasmid_batch.id %></td>
-						<td class="col-sm-1 text-center"><%= plasmid_batch.id %></td>
+						<td class="col-sm-3"><%= plasmid_batch.name %></td>
+						<td class="col-sm-1 text-center"><%= plasmid_batch.number %></td>
 						<td class="col-sm-3 text-center">
 							<%= link_to "Remove batch", 
 										production_plasmid_batch_remove_from_prod_path(@production, :plasmid_batch_id =>plasmid_batch.id),

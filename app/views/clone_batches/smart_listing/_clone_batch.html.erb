@@ -18,15 +18,15 @@
 						<strong><%=object.name%></strong>
 					</div>
 				</div>'
-			data-content='		<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "NA" : object.number %><br />
+			data-content='		<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "none" : object.number %><br />
 								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid %><br />
 								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin_as_plasmid %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "NA" : object.type.name %><br />
-								<i class="glyphicon glyphicon-th"></i> <strong>number of batches: </strong> <%= object.plasmid_batches.empty? ? "NA" : object.plasmid_batches.length %><br />
-								<strong>Strand: </strong><%= object.strand.nil? ? "NA" : object.strand.name %><br />
-								<strong>Promoter: </strong><%= object.promoters.empty? ? "NA" : object.promoters.map {|promoter| promoter.name}.to_sentence %><br />
-								<strong>Gene: </strong><%= object.genes.empty? ? "NA" : object.genes.map {|gene| gene.name}.to_sentence %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "none" : object.type.name %><br />
+								<i class="glyphicon glyphicon-th"></i> <strong>number of batches: </strong> <%= object.plasmid_batches.empty? ? "none" : object.plasmid_batches.length %><br />
+								<strong>Strand: </strong><%= object.strand.nil? ? "none" : object.strand.name %><br />
+								<strong>Promoter: </strong><%= object.promoters.empty? ? "none" : object.promoters.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= object.genes.empty? ? "none" : object.genes.map {|gene| gene.name}.to_sentence %><br />
 								<% if !object.comment_as_plasmid.blank? %>
 									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
 								<%end%>

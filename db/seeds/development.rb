@@ -9,8 +9,8 @@
   #Add Types
   Type.create( name:"Helper")
   Type.create( name:"Transgene")
-  Type.create(name:"capsid")
-  Type.create(name:"library")
+  Type.create(name:"Capsid")
+  Type.create(name:"Library")
   Type.create(name:"none")
   
   #Add Strands

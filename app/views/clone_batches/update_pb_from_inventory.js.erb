@@ -1,4 +1,14 @@
 <%= smart_listing_item :clone_batches, :update, @clone_batch, @clone_batch.valid? ? "clone_batches/smart_listing/clone_batch" : "clone_batches/components/form_pb_from_inventory" %>
 
-//Popover
- $('[data-toggle="popover"]').popover({html:true});
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+		
+//Reload du script des popovers
+  $(function () {
+  $('[data-toggle="popover"]').popover({html:true});
+});

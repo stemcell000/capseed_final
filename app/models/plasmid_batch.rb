@@ -27,9 +27,8 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :user, :allow_destroy => true
   
   #validations
-  validates :name, :format_id, :user_id, :presence => true
+  validates :name, :format_id, :user_id, :unit_id, :concentration, :presence => true
   validates :concentration, numericality: true
-  #validates :box, :presence => true, :if => :enable_strict_validation?
   validates :name, :uniqueness => {message: "This name is already taken."}
     
  #pg_search

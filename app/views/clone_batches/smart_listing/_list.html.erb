@@ -1,6 +1,10 @@
   <% unless smart_listing.empty? %>
   <table class="table table-striped plasmid-inv-color">
     <thead>
+     
+    <th class="col-lg-1 center">
+        <%= smart_listing.sortable "Number", :number %>
+    </th>
       
     <th class="col-lg-1 center">
         <%= smart_listing.sortable "Name", :name %>

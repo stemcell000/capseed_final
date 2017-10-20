@@ -31,15 +31,15 @@
 			<%= render :partial => 'components/dynamic_menu' %>
 		<% provide(:title, "Cloning Manager") %>
 			<%else if params[:controller]== "productions"%>
-			<%= render :partial => 'components/dynamic_menu_prod' %>
-			<% provide(:title, "Production Manager") %>
+				<%= render :partial => 'components/dynamic_menu_prod' %>
+				<% provide(:title, "Production Manager") %>
 			<%end%>
 		<%end%>
 	</nav>
-	<div class="jumbotron container-fluid <%= jumboclass(yield(:title)) %>" >
-      <%= yield %>
+		<div class="jumbotron container-fluid <%= jumboclass(yield(:title)) %>" >
+	      <%= yield %>
+	 	</div>
  	</div>
       <%= render 'layouts/footer' %>
-    </div>
   </body>
 </html>

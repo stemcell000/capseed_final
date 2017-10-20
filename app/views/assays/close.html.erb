@@ -2,21 +2,21 @@
 	<div class="panel panel-primary">
 			<div class="panel-heading"> Assay: <%= @assay.name %></div>
 			<div class="panel-body">
-				
+				<div class="row">
 					<div id="clone-list-container">
 							<%= render :partial => "plasmid_batches/components/list_to_close" , :locals => {:clones => @clones, :assay => @assay}%>
 					</div>
-					<div class="row">
-						<div id= "lock_container" class="col-lg-12">
-							<%= render :partial => 'assays/components/complete_lock' %>			
-						</div>
+				</div>
+				<div class="row">
+					<div id= "lock_container" class="col-lg-12">
+						<%= render :partial => 'assays/components/complete_lock' %>			
 					</div>
+				</div>
+			</div>
 			<div class="panel-footer row">
 				    <div class="btn-group col-md-5" role="group" aria-label="...">
 				    	<%= link_to 'Previous', plasmid_batch_qc_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 						<%= link_to 'Close', complete_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 				  	</div>
 			</div>
-		</div>
 	</div>
-</div>

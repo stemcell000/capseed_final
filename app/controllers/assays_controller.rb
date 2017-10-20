@@ -327,6 +327,14 @@ end
   
   def lock_process
     @assay = Assay.find(params[:id])
+    @clones = @assay.clones
+    
+    @cb_collection = []
+    ##Collection of clone_batches (= plasmids)
+    @clones.each do |c|
+      @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
+    end
+   
     if(@assay.locked == false)
       @assay.update_columns(:locked => true)
     else

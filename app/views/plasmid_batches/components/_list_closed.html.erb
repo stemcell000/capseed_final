@@ -13,11 +13,13 @@
 				<% cb.plasmid_batches.order(:name).each do |pb| %>
 					<tr>
 						<td class="col-sm-1"><%= pb.name %></td>
-						<% if !cb.plasmid_batches.where(:box_id => nil ).exists? %>
+						<% if pb.box_id? %>
 							<td>
 								<strong>Box# : </strong><%=pb.box.name%>
-								<%if !pb.row_id.nil? && !pb.column_id.nil?%>
-								<strong>Location : </strong><%=pb.row.name%><%=pb.column.name%>
+								<%if !pb.row_id.nil? || !pb.column_id.nil?%>
+									<strong>Location : </strong><%=pb.row.name%><%=pb.column.name%>
+								<%else%>
+									<strong>Location : </strong>unknown
 								<%end%>
 							</td>
 						<%end%>

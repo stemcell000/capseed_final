@@ -1,8 +1,13 @@
 <%= render 'components/process_pills'%>
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		Order
+		<div class="row">
+			<div class="col-lg-6">
+				Order
+			</div>
+		</div>
 	</div>
-<%= render :partial=> "assays/components/assay_form"%>
-</div>
+	<div class="panel-body">
+		<%= render :partial=> "assays/components/form"%>
+	</div>
 

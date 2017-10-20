@@ -37,12 +37,7 @@ end
     #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
      @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
     if @plasmid_batch_qc.valid?
-      @plasmid_batch.plasmid_batch_qcs << @plasmid_batch_qc
-       @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
-             pb_qc = @plasmid_batch_qc.dup
-             batch_qc_validation_checking(pb)
-          end
-      flash.keep[:success] = "Task completed!"
+      batch_qc_validation_checking(@plasmid_batch)
     else
       render :action => 'edit'
     end
@@ -70,11 +65,23 @@ end
   
    def create_qc_protocol_collection
     @plasmid_batch_qc = PlasmidBatchQc.new(set_params)
+
     if @plasmid_batch_qc.valid?
-           @clone_batch.plasmid_batches.where.not(:name => nil).each do |pb|
-              pb.plasmid_batch_qcs << @plasmid_batch_qc
-          end
-        flash.keep[:success] = "Task completed!"
+      
+           @clone_batch.plasmid_batches.each do |pb|
+             
+             #Duplication totale (+association) sauf attachement
+              pbqc = @plasmid_batch_qc.amoeba_dup
+              
+               #association des attachement du QC modèle
+                @plasmid_batch_qc.plasmid_batch_qc_attachments.each do |a|
+                  pbqc.plasmid_batch_qc_attachments << a
+                end
+                
+             pb.plasmid_batch_qcs << pbqc
+            
+            end
+          
       else
         @users = User.all.order(:lastname)
         render :action => :new_qc_protocol

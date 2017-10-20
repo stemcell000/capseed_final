@@ -29,7 +29,6 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch_qc = CloneBatchQc.create(set_params)
     if @clone_batch_qc.valid?
         @clone_batch.clone_batch_qcs << @clone_batch_qc
-        flash.keep[:success] = "Task completed!"
         batch_qc_validation_checking
     else
         render :action => :new
@@ -40,9 +39,8 @@ class CloneBatchQcsController < InheritedResources::Base
     #TUTO: Indispensable de placer load_all en before action pour update si on veut passer les instances de variable comme @clone dans le js.erb (n° de balise).
     @clone_batch_qc.update_attributes(set_params)
     if @clone_batch_qc.valid?
-      flash.keep[:success] = "Task completed!"
       batch_qc_validation_checking
-      @clone_batch = @clone_batch_qc.clone_batch
+      #@clone_batch = @clone_batch_qc.clone_batch
     else
       render :action => 'edit'
     end
@@ -50,16 +48,6 @@ class CloneBatchQcsController < InheritedResources::Base
   
   def destroy
     @clone_batch_qc.destroy
-  end
-  
-  def new_qc_protocol
-    @clone_batch_qc =  CloneBatchQc.new
-    @primers_all = Primer.all
-    
-    respond_to do |format|
-      format.js
-      format.html
-    end
   end
   
   def render_sequencing
@@ -70,11 +58,30 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch_qc =  CloneBatchQc.new
   end
   
+  def new_qc_protocol
+    @clone_batch_qc =  CloneBatchQc.new
+    @primers_all = Primer.all
+    @clone_batch_qc.clone_batch_qc_attachments.build
+    
+    respond_to do |format|
+        format.js
+        format.html
+      end
+  end
+  
   def create_qc_protocol_collection
+    
+   #TUTO:Génération du QC modèle (jamais enregistré)
     @clone_batch_qc = CloneBatchQc.new(set_params)
     if @clone_batch_qc.valid?
            @clone.clone_batches.each do |cb|
-              cb.clone_batch_qcs << @clone_batch_qc
+    #TUTO:Duplication totale (+association) sauf attachement
+              cbqc = @clone_batch_qc.amoeba_dup
+    #TUTO:association des attachement du QC modèle
+              @clone_batch_qc.clone_batch_qc_attachments.each do |a|
+                cbqc.clone_batch_qc_attachments << a
+              end
+              cb.clone_batch_qcs << cbqc
           end
         flash.keep[:success] = "Task completed!"
         batch_qc_validation_checking

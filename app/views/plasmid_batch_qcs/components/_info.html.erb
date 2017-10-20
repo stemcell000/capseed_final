@@ -22,7 +22,7 @@
 							</div>
 						</div>
 						<div class="row pull-right">
-								<div class="col-md-1">
+								<div class="col-lg-1">
 									<%if !cb.plasmid_batches.empty?%>
 										<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id), :class => "btn btn-success btn-xs", :remote => true, :disabled => @assay.locked %>
 									<%end%>
@@ -35,15 +35,15 @@
 													<div class="panel panel-default">
 														<div class="panel-body">
 															<div class="row" id="batch-container">
-																<div class="col-md-2">
+																<div class="col-lg-2">
 																	<span class="text-primary"><strong><%= b.name %></strong></span>
 																</div>
-																<div class="col-md-8">
+																<div class="col-lg-8">
 																	<%= render :partial => "plasmid_batch_qcs/components/table", :locals => {:b => b, :cb => cb, :clone => clone, :assay => @assay}%>
-																</div><!--End of col-md-10-->
-																<div class="col-md-1 pull-right">
-																		<%= link_to "Add QC", new_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id), :class =>"btn btn-primary btn-xs", :remote => true, :disabled => @assay.locked %>
-																</div><!--End of col-md-3-->
+																</div><!--End of col-lg-10-->
+																<div class="col-lg-1">
+																		<%= link_to "Add single QC", new_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id), :class =>"btn btn-success btn-xs", :remote => true, :disabled => @assay.locked %>
+																</div><!--End of col-lg-3-->
 															</div><!--End of batch container-->
 														</div><!--End of panel-body-->
 													</div><!--End of panel-->

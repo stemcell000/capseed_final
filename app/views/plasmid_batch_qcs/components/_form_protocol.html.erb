@@ -1,60 +1,64 @@
-<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_plasmid_batch_qcs_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
-  <%= f.error_notification %>
-
-<ul class="errors"></ul>
+qc_attachments<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_plasmid_batch_qcs_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+ <%= f.error_notification %>
+  <ul class="errors"></ul>
 	<div class="container">
   <small>
  
-		<div class="row" id = "date-container">	 	
+		<div class="row" id = "date-container">
+			<%= f.input :id, :as => :hidden %>
+			<%= f.input :plasmid_batch_id, :as => :hidden %>	 	
 			 <div class="col-lg-2">
-						 <%= f.input :date_send, :label => "Date:", :as => :string, :input_html => { :value => (f.object.date_send.strftime("%B %e, %Y") if f.object.date_send), "data-behaviour" => "datepicker" } %>
+				<%= f.input :date_send, :label => "Sending date:", :as => :string, :input_html => { :value => (f.object.date_send.strftime("%B %e, %Y") if f.object.date_send), "data-behaviour" => "datepicker" } %>
 			</div>
 		</div>
-	<div id="alt-container">
 		<div class="row">
-			<div class="col-lg-2">
-				<% if !Type.find(@clone_batch.type_id).name = "Transgene" || "library" %>
-						<%= f.association :sma1, :label => "SMA1", :collection => Sma1.all, :placeholder => "Select", :selected => 3, input_html: { class: 'select2-select' }, :disabled => true %>
-						<%= f.association :sma1, :collection => Sma1.all, :selected => 3, wrapper_html: { class: 'hide' } %>
+			<div class="col-lg-2" id="sma1">
+				<% if @clone_batch.type_id === 2 || @clone_batch.type_id === 4 %>
+				
+						<%= f.input :sma1, :label => "SMA1", input_html: { :value => f.object.sma1 || "Not applicable" }, :disabled => true %>
+						<%= f.input :sma1, :label => "SMA1", input_html: { :value => f.object.sma1 || "Not applicable" }, :as => :hidden %>
 				<%else%>
-						<%=f.association :sma1, :label => "SMA1", :collection => Sma1.all, :placeholder => "Select", input_html: { class: 'select2-select' }%>
+						<%=f.input :sma1, :label => "SMA1", :collection => ["Yes", "No","Not applicable"], :placeholder => "Select", input_html: { class: 'select2-select' }%>
 				<%end%>
 			</div>
-			<div class="col-lg-3">
+				<div class="hidden" id="tech">
 						<%= f.input :dig_other, :label => "Other: " %>
-			</div>
+				</div>
 		</div>
-		  	<div class ="row">
+		  	<div class ="row" id="contacts">
 							<div class="col-lg-5">
 								   <%= f.association :user, :label => "Contact name",
 										:collection => @users, :label_method => :full_name, :value_method => :id,
 										:input_html => { class:"select2-select" } %>
 							</div>
 			</div>
-	</div>
-	<div class="row">
+	<div class="row" id="comment">
 		<div class="col-lg-5">
 			<%= f.input :comments, :label => "Comment:" %>
 		</div>
 	</div>
-		<%= f.simple_fields_for :plasmid_batch_qc_attachments do |a| %>
-							<div class="row">	
-									<%= File.basename(a.object.attachment.to_s) %>
-									<% if a.object.id.nil? %>
-										<div class="col-xs-4">
-								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-							       		</div>
-							       	<%end%>
-							 </div>
-							 <div class="row">
-							       	<div class="col-xs-2">
-							       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
-							       	</div>
-					       	</div>
-		<% end %>
-		<div class="row">
+	<div class="row" id="files">
+		<div class="col-lg-5">
+			<%= f.simple_fields_for :qc_attachments do |a| %>
+								<div class="row">	
+										<%= File.basename(a.object.attachment.to_s) %>
+										<% if a.object.id.nil? %>
+											<div class="col-xs-4">
+									       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+								       		</div>
+								       	<%end%>
+								 </div>
+								 <div class="row">
+								       	<div class="col-xs-2">
+								       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
+								       	</div>
+						       	</div>
+			<% end %>
+		</div>
+	</div>
+		<div class="row" id"add-file">
 			<div class="col-lg-2">
-				<%= f.link_to_add "Add a file", :plasmid_batch_qc_attachments ,:class => 'btn btn-sm btn-success' %>
+				<%= f.link_to_add "Add a file", :qc_attachments ,:class => 'btn btn-sm btn-success' %>
 			</div>
 		</div>
 </small>

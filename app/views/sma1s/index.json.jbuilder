@@ -1,1 +1,0 @@
-json.array! @sma1s, partial: 'sma1s/sma1', as: :sma1

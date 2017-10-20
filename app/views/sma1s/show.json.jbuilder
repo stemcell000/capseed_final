@@ -1,1 +1,0 @@
-json.partial! "sma1s/sma1", sma1: @sma1

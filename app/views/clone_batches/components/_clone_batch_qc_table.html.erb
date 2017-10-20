@@ -46,16 +46,15 @@
 																							data-content='
 																							<small>
 																								<div class="col-lg-12 text-left">
-																										<div><strong>Sequencing:</strong> <%= qc.sequencing.name %></div>
-																										<% if qc.sequencing_id < 3 %>
+																										<div><strong>QC:</strong> <%= qc.name %></div>
+																										<% if qc.name == "Sequencing" %>
 																										<div><strong>Primer#:</strong> <%= qc.primer_id.nil? ? "none" : Primer.find(qc.primer_id).number%></div>
 																										<div><strong>Primer name:</strong> <%= qc.primer_id.nil? ? "none" : Primer.find(qc.primer_id).name%></div>	
 																										<div><strong>Sending date:</strong> <%=formatDate(qc.date_send)%></div>
 																										<div><strong>Reception date:</strong> <%=formatDate(qc.date_rec)%></div>
 																										<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
 																										<%end%>
-																										<div><strong>PCR colony:</strong> <%= qc.pcr_colony.name %>
-																										<% if qc.pcr_colony_id > 3%>
+																										<% if qc.name == "PCR colony" %>
 																										<div><strong>Sending date(PCR):</strong> <%=formatDate(qc.date_send2)%></div>
 																										<%end%>
 																										<div><strong>Note:</strong> <%= qc.result.blank? ? "none" : qc.result %></div>
@@ -67,8 +66,8 @@
 																											<%end%>
 																										</div>
 																										<div><strong>Files:</strong></br>
-																											<% if qc.clone_batch_qc_attachments.length>0%>
-																												<% qc.clone_batch_qc_attachments.each do |a|%>
+																											<% if qc.qc_attachments.length>0%>
+																												<% qc.qc_attachments.each do |a|%>
 																													<% mypath= a.attachment.to_s%>
 																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%><br />
 																												<%end%>
@@ -82,10 +81,10 @@
 																							>
 																								<% if qc.conclusion == true %>
 																										<span class="font-success"><i class="glyphicon glyphicon-map-marker"></i>
-																											<%= "#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
+																											<%= "#{index+1}-#{qc.name} - (#{qc.created_at.strftime("%h %e, %Y ")})" %>  </span>
 																								<%else%>
 																										<span class="font-grey"><i class="glyphicon glyphicon-map-marker"></i>
-																											<%="#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
+																											<%= "#{index+1}-#{qc.name} - (#{qc.created_at.strftime("%h %e, %Y ")})" %>  </span>
 																								<%end%>
 																						<%end%>
 																						</a>

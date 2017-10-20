@@ -39,7 +39,7 @@ class Ability
         can :manage, :clone_batch
         can :manage, :clone_batch_attachment
         can :manage, :clone_batch_qc
-        can :manage, :clone_batch_qc_attachment
+        can :manage, :qc_attachment
         can :manage, :clone_batch_as_plasmid_attchment
         can :manage, :plasmid_batch
         can :manage, :plasmid_batch_attachment

@@ -8,7 +8,7 @@ class PlasmidBatchQcsController < InheritedResources::Base
 
 def new
     @plasmid_batch_qc = PlasmidBatchQc.new
-    @plasmid_batch_qc.plasmid_batch_qc_attachments.build
+    @plasmid_batch_qc.qc_attachments.build
     #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
     @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
 end
@@ -26,7 +26,7 @@ def create
 end
 
 def edit
-  @plasmid_batch_qc.plasmid_batch_qc_attachments.build
+  @plasmid_batch_qc.qc_attachments.build
   #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
   @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
 end
@@ -57,6 +57,7 @@ end
   
    def new_qc_protocol
     @plasmid_batch_qc =  PlasmidBatchQc.new
+    @plasmid_batch_qc.qc_attachments.build
       respond_to do |format|
         format.js
         format.html
@@ -74,8 +75,8 @@ end
               pbqc = @plasmid_batch_qc.amoeba_dup
               
                #association des attachement du QC modèle
-                @plasmid_batch_qc.plasmid_batch_qc_attachments.each do |a|
-                  pbqc.plasmid_batch_qc_attachments << a
+                @plasmid_batch_qc.qc_attachments.each do |a|
+                  pbqc.qc_attachments << a
                 end
                 
              pb.plasmid_batch_qcs << pbqc
@@ -111,13 +112,12 @@ end
   private
 
     def set_params
-      params.require(:plasmid_batch_qc).permit(:dig_other, :comments, :conclusion, :plasmid_batch_id , :sma1_id, :user_id, :sma1_display,:_destroy, :primer1, :primer2, :date_send,
+      params.require(:plasmid_batch_qc).permit(:dig_other, :comments, :conclusion, :plasmid_batch_id , :sma1, :user_id, :sma1_display,:_destroy, :primer1, :primer2, :date_send,
       :plasmid_batch_attributes => [:clone_batch_id, :id, :format, :concentration, :comment, :unit_id],
       :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
-      :plasmid_batch_qc_attachments_attributes =>[:id,:plasmid_batch_qc_id, :attachment, :remove_attachment, :_destroy],
-      :sma1_attributes => [:id, :name],
+      :qc_attachments_attributes =>[:id,:plasmid_batch_qc_id, :attachment, :remove_attachment, :_destroy],
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name]
       )
     end

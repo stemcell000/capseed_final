@@ -10,7 +10,7 @@ class CloneBatchQcsController < InheritedResources::Base
   def edit
     @assay = Assay.find(params[:assay_id])
     @clone_batch_qc = CloneBatchQc.find(params[:id])
-    @clone_batch_qc.clone_batch_qc_attachments.build
+    @clone_batch_qc.qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @primers_all = Primer.all
@@ -18,11 +18,10 @@ class CloneBatchQcsController < InheritedResources::Base
   
   def new
     @clone_batch_qc = @clone_batch.clone_batch_qcs.new
-    @clone_batch_qc.clone_batch_qc_attachments.build
+    @clone_batch_qc.qc_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-    @primers_all = Primer.all
   end
   
   def create
@@ -60,8 +59,7 @@ class CloneBatchQcsController < InheritedResources::Base
   
   def new_qc_protocol
     @clone_batch_qc =  CloneBatchQc.new
-    @primers_all = Primer.all
-    @clone_batch_qc.clone_batch_qc_attachments.build
+    @clone_batch_qc.qc_attachments.build
     
     respond_to do |format|
         format.js
@@ -78,8 +76,8 @@ class CloneBatchQcsController < InheritedResources::Base
     #TUTO:Duplication totale (+association) sauf attachement
               cbqc = @clone_batch_qc.amoeba_dup
     #TUTO:association des attachement du QC modèle
-              @clone_batch_qc.clone_batch_qc_attachments.each do |a|
-                cbqc.clone_batch_qc_attachments << a
+              @clone_batch_qc.qc_attachments.each do |a|
+                cbqc.qc_attachments << a
               end
               cb.clone_batch_qcs << cbqc
           end
@@ -111,9 +109,9 @@ class CloneBatchQcsController < InheritedResources::Base
   
   private
     def set_params
-      params.require(:clone_batch_qc).permit(:clone_batch_id, :id, :user_id, :primer_id, :pcr_colony_id, :sequencing_id, :date_send, :date_rec, :result, :conclusion,
+      params.require(:clone_batch_qc).permit(:clone_batch_id, :id, :name, :user_id, :primer_id, :pcr_colony_id, :sequencing_id, :date_send, :date_rec, :result, :conclusion,
       :clone_batch_attributes => [:name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
-      :clone_batch_qc_attachments_attributes =>[:id,:clone_batch_qc_id, :attachment, :remove_attachment, :_destroy],
+      :qc_attachments_attributes =>[:id,:clone_batch_qc_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
       :assay_attributes => [:id, :name, :assay_id],
       :primer_attributes => [:id, :name, :number],

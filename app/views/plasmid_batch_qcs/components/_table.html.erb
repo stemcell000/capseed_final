@@ -16,7 +16,7 @@
 						'
 						<div class="row"> 
 							<div class="col-lg-12 text-left">
-									QC: <%=qc.created_at.strftime("%h %e, %Y ")%>
+									QC: <%= qc.sma1 == "yes"? "Sma1":qc.dig_other %><%=qc.created_at.strftime("%h %e, %Y ")%>
 							</div>
 						</div>
 						<div class="row">
@@ -43,28 +43,30 @@
 						data-content='
 						<small>
 							<div class="col-md-12 text-left">
-								<div><strong>Dig. SMA1: </strong><%=Sma1.find(qc.sma1_id).name %> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em></div>
+								<div><strong>Dig. SMA1: </strong><%=qc.sma1%> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em></div>
 								<div><strong>Dig. other: </strong><%= qc.dig_other.presence ? qc.dig_other : "no data"%></div>
 								<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
 								<% if !qc.comments.blank? %>
 									<strong>Comments: </strong><br /><%=qc.comments%><br />
 								<%end%>
-								<% if qc.plasmid_batch_qc_attachments.length>0 %>
+								<% if qc.qc_attachments.length>0 %>
 									<strong>Attached files: </strong><br />
-										<% qc.plasmid_batch_qc_attachments.each do |a|%>
+										<% qc.qc_attachments.each do |a|%>
 											<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
 										<%end%>
 								<%end%>
 							</div>
 						</small>
 						'
-					>
+						<% other = qc.dig_other.blank? ? "Unknown":qc.dig_other  %>
+						<% base_name = "#{index+1}-#{qc.sma1 == "yes"? "Sma1":other}-#{qc.created_at.strftime("%h %e, %Y ")}" %>
+						
 						<% if qc.conclusion == true %>
 								<span class="font-success"><i class="glyphicon glyphicon-map-marker"></i>
-									<%= "#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
+									<%= "#{base_name}" %> </span>
 						<%else%>
 								<span class="font-grey"><i class="glyphicon glyphicon-map-marker"></i>
-									<%="#{index+1}"+"-"+"#{qc.created_at.strftime("%h %e, %Y ")}" %>  </span>
+									<%= "#{base_name}" %>  </span>
 						<%end%>
 					</a><br />
 			</td>

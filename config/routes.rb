@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :inserts
   resources :clone_batch_as_plasmid_attachments
   resources :types
-  resources :sma1s
   resources :formats
   get 'users/inform'
 
@@ -12,7 +11,7 @@ Rails.application.routes.draw do
   resources :rows
   resources :columns
   resources :boxes
-  resources :plasmid_batch_qc_attachments
+  resources :qc_attachments
   resources :plasmid_batch_qcs do
     patch :validation_switch, :on => :collection
   end
@@ -22,7 +21,7 @@ Rails.application.routes.draw do
   resources :units
   resources :clone_batch_attachments
   resources :plasmids
-  resources :clone_batch_qc_attachments
+  resources :qc_attachments
   resources :clone_batch_qcs
   resources :clone_attachments
   resources :clone_batches

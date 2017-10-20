@@ -11,12 +11,12 @@
   </thead>
 
   <tbody>
-    <% @clone_batch_qc_attachments.each do |clone_batch_qc_attachment| %>
+    <% @qc_attachments.each do |qc_attachment| %>
       <tr>
-        <td><%= clone_batch_qc_attachment.attachment %></td>
-        <td><%= link_to 'Show', clone_batch_qc_attachment %></td>
-        <td><%= link_to 'Edit', edit_clone_batch_qc_attachment_path(clone_batch_qc_attachment) %></td>
-        <td><%= link_to 'Destroy', clone_batch_qc_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= qc_attachment.attachment %></td>
+        <td><%= link_to 'Show', qc_attachment %></td>
+        <td><%= link_to 'Edit', edit_qc_attachment_path(qc_attachment) %></td>
+        <td><%= link_to 'Destroy', qc_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Clone batch qc attachment', new_clone_batch_qc_attachment_path %>
+<%= link_to 'New Clone batch qc attachment', new_qc_attachment_path %>

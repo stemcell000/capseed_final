@@ -1,1 +1,1 @@
-json.extract! @clone_batch_qc_attachment, :id, :attachment, :created_at, :updated_at
+json.extract! @qc_attachment, :id, :attachment, :created_at, :updated_at

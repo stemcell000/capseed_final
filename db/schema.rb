@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019100133) do
+ActiveRecord::Schema.define(version: 20171020200119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,13 +103,6 @@ ActiveRecord::Schema.define(version: 20171019100133) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "clone_batch_qc_attachments", force: :cascade do |t|
-    t.integer  "clone_batch_qc_id"
-    t.string   "attachment"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-  end
-
   create_table "clone_batch_qcs", force: :cascade do |t|
     t.integer  "clone_batch_id"
     t.date     "date_send"
@@ -125,6 +118,7 @@ ActiveRecord::Schema.define(version: 20171019100133) do
     t.date     "date_send2"
     t.integer  "sequencing_id"
     t.integer  "primer_id"
+    t.string   "name"
   end
 
   add_index "clone_batch_qcs", ["clone_batch_id"], name: "index_clone_batch_qcs_on_clone_batch_id", using: :btree
@@ -136,6 +130,14 @@ ActiveRecord::Schema.define(version: 20171019100133) do
 
   add_index "clone_batch_qcs_batches", ["clone_batch_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_id", using: :btree
   add_index "clone_batch_qcs_batches", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_qc_id", using: :btree
+
+  create_table "clone_batch_qcs_qc_attachments", force: :cascade do |t|
+    t.integer "clone_batch_qc_id"
+    t.integer "qc_attachment_id"
+  end
+
+  add_index "clone_batch_qcs_qc_attachments", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_qc_attachments_on_clone_batch_qc_id", using: :btree
+  add_index "clone_batch_qcs_qc_attachments", ["qc_attachment_id"], name: "index_clone_batch_qcs_qc_attachments_on_qc_attachment_id", using: :btree
 
   create_table "clone_batches", force: :cascade do |t|
     t.string   "name"
@@ -259,11 +261,11 @@ ActiveRecord::Schema.define(version: 20171019100133) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.boolean  "conclusion"
-    t.integer  "sma1_id"
     t.integer  "pcr_colony_id"
     t.string   "primer1"
     t.string   "primer2"
     t.date     "date_send"
+    t.string   "sma1"
   end
 
   add_index "plasmid_batch_qcs", ["plasmid_batch_id"], name: "index_plasmid_batch_qcs_on_plasmid_batch_id", using: :btree
@@ -275,6 +277,14 @@ ActiveRecord::Schema.define(version: 20171019100133) do
 
   add_index "plasmid_batch_qcs_batches", ["plasmid_batch_id"], name: "index_plasmid_batch_qcs_batches_on_plasmid_batch_id", using: :btree
   add_index "plasmid_batch_qcs_batches", ["plasmid_batch_qc_id"], name: "index_plasmid_batch_qcs_batches_on_plasmid_batch_qc_id", using: :btree
+
+  create_table "plasmid_batch_qcs_qc_attachments", force: :cascade do |t|
+    t.integer "plasmid_batch_qc_id"
+    t.integer "qc_attachment_id"
+  end
+
+  add_index "plasmid_batch_qcs_qc_attachments", ["plasmid_batch_qc_id"], name: "index_plasmid_batch_qcs_qc_attachments_on_plasmid_batch_qc_id", using: :btree
+  add_index "plasmid_batch_qcs_qc_attachments", ["qc_attachment_id"], name: "index_plasmid_batch_qcs_qc_attachments_on_qc_attachment_id", using: :btree
 
   create_table "plasmid_batches", force: :cascade do |t|
     t.integer  "clone_batch_id"
@@ -341,6 +351,13 @@ ActiveRecord::Schema.define(version: 20171019100133) do
     t.integer "clone_batch_id"
   end
 
+  create_table "qc_attachments", force: :cascade do |t|
+    t.integer  "clone_batch_qc_id"
+    t.string   "attachment"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "rows", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -348,12 +365,6 @@ ActiveRecord::Schema.define(version: 20171019100133) do
   end
 
   create_table "sequencings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "name"
-  end
-
-  create_table "sma1s", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"

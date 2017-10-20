@@ -1,4 +1,4 @@
-json.array!(@clone_batch_qc_attachments) do |clone_batch_qc_attachment|
-  json.extract! clone_batch_qc_attachment, :id, :attachment
-  json.url clone_batch_qc_attachment_url(clone_batch_qc_attachment, format: :json)
+json.array!(@qc_attachments) do |qc_attachment|
+  json.extract! qc_attachment, :id, :attachment
+  json.url qc_attachment_url(qc_attachment, format: :json)
 end

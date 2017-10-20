@@ -35,8 +35,8 @@
 																											<%end%>
 																										</div>
 																										<div><strong>Files:</strong></br>
-																											<% if qc.clone_batch_qc_attachments.length>0%>
-																												<% qc.clone_batch_qc_attachments.each do |a|%>
+																											<% if qc.qc_attachments.length>0%>
+																												<% qc.qc_attachments.each do |a|%>
 																													<% mypath= a.attachment.to_s%>
 																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%><br />
 																												<%end%>

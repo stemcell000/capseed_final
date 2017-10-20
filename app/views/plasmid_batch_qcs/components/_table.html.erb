@@ -59,7 +59,8 @@
 						</small>
 						'
 						<% other = qc.dig_other.blank? ? "Unknown":qc.dig_other  %>
-						<% base_name = "#{index+1}-#{qc.sma1 == "yes"? "Sma1":other}-#{qc.created_at.strftime("%h %e, %Y ")}" %>
+						<% tech_name = qc.sma1 == 'Yes'? "sma1":other  %>
+						<% base_name = "#{index+1}-#{tech_name}-#{qc.created_at.strftime("%h %e, %Y ")}" %>
 						
 						<% if qc.conclusion == true %>
 								<span class="font-success"><i class="glyphicon glyphicon-map-marker"></i>

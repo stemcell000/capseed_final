@@ -1,13 +1,6 @@
 <div class="panel-body">
-	<h4>New Production</h4>
 		<%= simple_form_for @production, html: { class: 'form-vertical' }  do |f| %>
 			<%= f.error_notification %>
-				    <%= f.input :name,
-				    	autofocus: true,
-				    	label: "Name",
-				    	placeholder: 'Enter the name of the production.',
-				    	autocomplete: false
-				    %>
 			        <%= f.input :comment %>
 					<%= f.association :projects, :label => "Projects",
 					:collection => Project.all.order(:name),

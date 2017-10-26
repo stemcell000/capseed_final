@@ -4,7 +4,7 @@
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
 		<div class="panel-body">
 		<div id="plasmid-batch-table-container" >
-						<%= render :partial => "productions/components/plasmid_batch_table" , :locals => {:plasmid_batches => @plasmid_batches}%>
+						<%= render :partial => "productions/components/plasmid_table" , :locals => {:clone_batches => @clone_batches}%>
 		</div>
 			<div class="panel-footer row">
 			    <div class="btn-group col-md-7" role="group" aria-label="...">

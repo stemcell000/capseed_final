@@ -10,24 +10,19 @@ class Production < ActiveRecord::Base
    ranks :row_order
   
   #Nested models relationships
-  has_many :plasmid_batches, -> { uniq }
+  has_many :clone_batches, -> { uniq }
   belongs_to :vol_unit
   has_and_belongs_to_many :projects
-  #has_many :clone_batches, :through => :plasmid_batches
+  has_many :clone_batches
   
-  accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
   accepts_nested_attributes_for :projects
-  
+  accepts_nested_attributes_for :clone_batches
   
   #validations
-  validates :name, :presence => true, :case_sensitive => false
-  #validates :name, :uniqueness => true
-  validates :name, :length =>{in: 5..20, :message => "must be from 2 to 20 char. long"}
-  validates :name, :format => { :with => /\A[a-zA-Z\d\s]*\z/, :message =>"has invalide format" }
   validates :projects, :presence => true
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"
-  validates_associated :plasmid_batches
+  validates_associated :clone_batches
     
   def self.count_by_step (label)
     Production.where(:step => label ).count
@@ -41,12 +36,5 @@ class Production < ActiveRecord::Base
     search(query)
   end
   
-  #Recherche par range de date (ou période)
-  #def self.search(start_period, end_period)
-   #return scoped unless search_start_date.present?
-  #start_period = Date.parse(start_period).strftime("%Y-%m-%d")
-  #end_period = Date.parse(end_period).strftime("%Y-%m-%d")
-  #Production.where("created_at >= ? AND created_at <= ?", start_period, end_period)
-  #end
   
 end

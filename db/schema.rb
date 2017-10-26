@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020200119) do
+ActiveRecord::Schema.define(version: 20171025114232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 20171020200119) do
     t.integer  "clone_id"
     t.string   "number"
     t.integer  "strand_id"
+    t.integer  "production_id"
   end
 
   create_table "clones", force: :cascade do |t|
@@ -296,7 +297,6 @@ ActiveRecord::Schema.define(version: 20171020200119) do
     t.datetime "updated_at",                        null: false
     t.boolean  "qc_validation",     default: false
     t.integer  "strict_validation"
-    t.integer  "production_id"
     t.decimal  "volume"
     t.integer  "vol_unit_id"
     t.integer  "row_id"

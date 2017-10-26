@@ -3,7 +3,7 @@ class ProductionsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update]
-  before_action :set_production, only:[:edit, :update, :add_plasmid_batch, :virus_production]
+  before_action :set_production, only:[:edit, :update, :add_plasmid, :virus_production]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -61,7 +61,7 @@ class ProductionsController < InheritedResources::Base
    if @production.valid?
     flash.keep[:success] = "Task completed!"
     #redirect_to @production
-    redirect_to :action => :add_plasmid_batch
+    redirect_to :action => :add_plasmid
           @production.update_columns(:step => 0)
           @production.update_columns(:percentage => 25)
   else
@@ -70,24 +70,31 @@ class ProductionsController < InheritedResources::Base
   end
   
   def show
-    #@plasmid_batches = @production.plasmid_batches.order(:id)
-    redirect_to :action => :add_plasmid_batch
+    redirect_to :action => :add_plasmid
   end
 
-  def add_plasmid_batch
-    @plasmid_batches = @production.plasmid_batches.order(:id)
+  def add_plasmid
+    @clone_batches = @production.clone_batches.order(:id)
+      #
+      @cb_helpers = @production.clone_batches.where(:type_id => 1)
+      @cb_transgene = @production.clone_batches.where(:type_id => 2)
+      @cb_capsids = @production.clone_batches.where(:type_id => 3)
+      @cb_libraries = @production.clone_batches.where(:type_id => 4)
+      @cb_none = @production.clone_batches.where(:type_id => 5)
+      @cb_unknown = @production.clone_batches.where(:type_id => 6)
+      #
     @production.update_columns(:step => 1)
     update_last_step(@production, 1)
     @production.update_columns(:percentage => 50)
   end
  
   def virus_production
-    @plasmid_batches = @production.plasmid_batches.order(:id)
-      if @plasmid_batches.empty?
+    @plasmids = @production.clone_batches.order(:id)
+      if @plasmids.empty?
         flash.keep[:notice] = "Add a plasmid, please."
-        redirect_to :action => :add_plasmid_batch
+        redirect_to :action => :add_plasmid
       else
-        @plasmid_batches = @production.plasmid_batches.order(:id)
+        @plasmids = @production.clone_batches.order(:id)
         @production.update_columns(:step => 2)
         update_last_step(@production, 2)
         @production.update_columns(:percentage => 75)
@@ -150,16 +157,12 @@ class ProductionsController < InheritedResources::Base
   end
 
     def production_params
-      params.require(:production).permit(:id, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :plasmid_batch_id, :locked, :percentage,
-      project_ids: [],  plasmid_ids: [],
+      params.require(:production).permit(:id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage,
+      project_ids: [],
       :projects_attributes => [:id, :name],
-      :plasmid_batches_attributes => [:clone_batch_id, :id, :production_id, :format, :concentration, :comment, :unit_id , :box_id, :row_id, :column_id, :strict_validation ,:_destroy,
-      :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy],
-      :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id],
+      :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :destroy, :production_id],
       :clone_attributes => [:id, :name, :assay_id],
-      :assay_attributes => [:id, :name],
-      :unit_attributes =>[:id, :plasmid_batch_id, :name],
-      :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion]]
+      :assay_attributes => [:id, :name]
       )
     end
     

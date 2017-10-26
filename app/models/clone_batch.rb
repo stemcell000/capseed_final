@@ -4,6 +4,7 @@ class CloneBatch < ActiveRecord::Base
   include ActiveModel::Dirty
   
   belongs_to :clone
+  belongs_to :production
   has_and_belongs_to_many :clone_batch_qcs, :dependent => :destroy
   has_many :plasmid_batches, :dependent => :destroy
       

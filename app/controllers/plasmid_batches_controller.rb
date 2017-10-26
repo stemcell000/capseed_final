@@ -164,41 +164,12 @@ end
        render :action => 'select_to_prod'
     end
   end
-  
-  def add_to_prod
-    @plasmid_batch = PlasmidBatch.find(params[:id])
-    if @plasmid_batch.valid?
-      @plasmid_batches = @production.plasmid_batches
-      @plasmid_batches << @plasmid_batch
-         flash.keep[:success] = "Task completed!"
-     else
-      render :action => 'edit_to_prod'
-     end
-        
-  end
-  
-  def remove_from_prod
-    plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
-    @plasmid_batches = @production.plasmid_batches
-    @plasmid_batches.delete(plasmid_batch)
-    #rendu d'un fichier javascript pour actualiser le tableau des plasmid_batches, une fois la suppression effectué.
-    #(on utilise le même fichier que lorsqu'on ajoute un plasmid batch.)
-    respond_to do |format|
-      format.js { render :action => "add_to_prod" }
-    end
-  end
-  
-  def add_virus_prod
-     plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
-     @plasmid_batches = @production.plasmid_batches
-  end
-  
+    
   def show
-    #@plasmid_batches = @production.plasmid_batches.order(:id)
   end
   
   def index
-    
+
     #Formattage des dates
       start_time = params[:created_at_gteq].to_date rescue Date.current
       start_time = start_time.beginning_of_day # sets to 00:00:00

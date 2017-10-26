@@ -20,7 +20,7 @@ def top_menu_prod
     end
   when 1
     s = "production design"
-    p = add_plasmid_batch_production_path(id)
+    p = add_plasmid_production_path(id)
   when 2
     s = "production of virus"
     p = virus_production_production_path(id)

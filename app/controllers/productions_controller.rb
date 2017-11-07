@@ -2,8 +2,8 @@ class ProductionsController < InheritedResources::Base
   
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
-  before_action :production_params, only:[:create, :update_row_order, :update]
-  before_action :set_production, only:[:edit, :update, :add_plasmid, :virus_production]
+  before_action :production_params, only:[:create, :update_row_order, :update, :add_cbs]
+  before_action :set_production, only:[:edit, :update, :add_plasmid, :virus_production, :select_cbs, :add_cbs]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -58,15 +58,15 @@ class ProductionsController < InheritedResources::Base
  def update
    @projects_all = Project.all
    @production.update_attributes(production_params)
-   if @production.valid?
-    flash.keep[:success] = "Task completed!"
-    #redirect_to @production
-    redirect_to :action => :add_plasmid
-          @production.update_columns(:step => 0)
-          @production.update_columns(:percentage => 25)
-  else
-    render :action => 'edit'
-  end
+    if @production.valid?
+      flash.keep[:success] = "Task completed!"
+      #redirect_to @production
+      redirect_to :action => :add_plasmid
+            @production.update_columns(:step => 0)
+            @production.update_columns(:percentage => 25)
+    else
+      render :action => 'edit'
+    end
   end
   
   def show
@@ -77,16 +77,50 @@ class ProductionsController < InheritedResources::Base
     @clone_batches = @production.clone_batches.order(:id)
       #
       @cb_helpers = @production.clone_batches.where(:type_id => 1)
-      @cb_transgene = @production.clone_batches.where(:type_id => 2)
+      @cb_transgenes = @production.clone_batches.where(:type_id => 2)
       @cb_capsids = @production.clone_batches.where(:type_id => 3)
       @cb_libraries = @production.clone_batches.where(:type_id => 4)
-      @cb_none = @production.clone_batches.where(:type_id => 5)
-      @cb_unknown = @production.clone_batches.where(:type_id => 6)
+      @cb_nones = @production.clone_batches.where(:type_id => 5)
+      @cb_unknowns = @production.clone_batches.where(:type_id => 6)
       #
     @production.update_columns(:step => 1)
     update_last_step(@production, 1)
     @production.update_columns(:percentage => 50)
   end
+ 
+  def select_cbs
+     @production = Production.find(params[:id])
+      #
+      @cb_helpers = CloneBatch.all.where(:type_id => 1)
+      @cb_transgenes = CloneBatch.all.where(:type_id => 2)
+      @cb_capsids = CloneBatch.all.where(:type_id => 3)
+      @cb_libraries = CloneBatch.all.where(:type_id => 4)
+      #
+      @production.update_columns(:strict_validation => 1)
+  end
+  
+  def add_cbs
+    @production.update_attributes(production_params)
+    @clone_batches = @production.clone_batches.order(:type_id)
+     flash.keep[:success] = "Task completed!"
+        @production.update_columns(:step => 0)
+        @production.update_columns(:percentage => 50)
+  end
+  
+   def remove_from_prod
+      @clone_batch = CloneBatch.find(params[:id])
+      @production = Production.find(@clone_batch.production_id)
+      @clone_batches = @production.clone_batches
+      @clone_batches.delete(@clone_batch)
+   end
+   
+   def pool
+     #
+     @production = Production.find(params[:production_id])
+     #
+     @production.update_attributes(production_params)
+   end
+   
  
   def virus_production
     @plasmids = @production.clone_batches.order(:id)
@@ -145,9 +179,7 @@ class ProductionsController < InheritedResources::Base
     end
     
     gon.rabl "app/views/productions/scheduler.json.rabl", as: "productions"
-    
-     
-    
+
   end
   
 
@@ -157,10 +189,11 @@ class ProductionsController < InheritedResources::Base
   end
 
     def production_params
-      params.require(:production).permit(:id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage,
+      params.require(:production).permit(:id, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
       project_ids: [],
       :projects_attributes => [:id, :name],
-      :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :destroy, :production_id],
+      :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :_destroy, :production_id],
+      clone_batch_ids: [],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name]
       )

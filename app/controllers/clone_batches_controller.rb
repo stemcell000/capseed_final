@@ -4,9 +4,12 @@ class CloneBatchesController < InheritedResources::Base
     helper  SmartListing::Helper
     
   autocomplete :clone_batch, :name, :extra_data => [:id], :scopes => [:plasmid_allow]
+ # autocomplete :clone_batch, :number, :extra_data => [:id, :name], :display_value => :autocomplete_display
   
   before_filter :authenticate_user!
-  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update, :edit_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid, :update_as_plasmid, :remove_plasmid_data]
+  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
+    :edit_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid,
+    :update_as_plasmid, :remove_plasmid_data, :edit_from_prod, :remove_from_prod, :select_from_prod, :add_to_prod]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
@@ -125,7 +128,7 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   
-  #Inventaire
+  #INVENTORY
   
    def index
     #Formattage des dates
@@ -209,6 +212,7 @@ class CloneBatchesController < InheritedResources::Base
       
   end
   
+  
   private
   
     def set_params
@@ -235,7 +239,7 @@ class CloneBatchesController < InheritedResources::Base
     def plasmid_params
       
       params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id,
       
       :clone_batch_qc_attributes => [ :name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -254,7 +258,8 @@ class CloneBatchesController < InheritedResources::Base
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      gene_ids: [], promoter_ids: [])
+      gene_ids: [], promoter_ids: [],
+      :production_attributes => [:id])
     end
     
     def plasmid_pb_params

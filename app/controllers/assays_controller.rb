@@ -335,11 +335,12 @@ end
       @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
     end
    
-    if(@assay.locked == false)
-      @assay.update_columns(:locked => true)
-    else
-      @assay.update_columns(:locked => false)
-    end
+      if(@assay.locked == false)
+        @assay.update_columns(:locked => true)
+      else
+        @assay.update_columns(:locked => false)
+      end
+      
   end
   
     def set_plasmid_validation(i, assay)

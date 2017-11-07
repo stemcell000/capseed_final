@@ -7,7 +7,6 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
   before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
-  before_action :load_production, only:[ :add_to_prod, :remove_from_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
   before_action :load_users, only: [:new, :new_from_inventory, :edit, :create, :update] 
   

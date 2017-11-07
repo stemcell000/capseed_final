@@ -2,7 +2,10 @@
   <thead>
     <tr>
       <th class="col-name">
-        Name
+        Plasmids
+      </th>
+      <th class="col-startdate">
+        ID
       </th>
       <th class="col-startdate">
         Start date
@@ -19,9 +22,12 @@
   <tbody>
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
-        <td id="name">
-          <%= p.name %>
+        <td id="plasmid">
+          <%= cb_display(p.clone_batches) %>
         </td>
+        <td>
+        	<%=p.id%>
+    	</td>
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y at %H:%M") %>
          </td>

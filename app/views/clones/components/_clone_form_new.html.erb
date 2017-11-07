@@ -81,7 +81,7 @@
         	<% if params[:id]%>
         		<%= link_to "Duplicate", replicate_assay_clones_path(@assay,@clone), :class =>"btn btn-primary btn-md", :title=>"Update clone's parameters." ,:remote => true %>
         	<% else %>
-        		<%= f.submit("Add", :id => "add_btn", :class => "btn btn-default", :title => "Save the changes to this Assay.") %>
+        		<%= f.submit("Add", :id => "add_btn", :class => "btn btn-default", :title => "Save the changes.") %>
         	<% end %>
         	<%= f.submit 'Reset', :type => :reset, :class => "btn btn-default", :id =>"reset" %>
         	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>

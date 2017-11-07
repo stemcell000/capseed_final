@@ -9,8 +9,8 @@
 					
 					
 	 				<div class="btn-group" role="group" aria-label="...">
-	      		     	<%= link_to "Cancel", @productions, class: "btn btn-default", data: {:confirm => "All the changes will be lost."}, :title => "Cancel the changes and return to the Home page." %>
-	  		        	<%= f.submit("Next", class: "btn btn-default", title: "Save the changes to this Assay.") %>
+	      		     	<%= link_to "Cancel", @productions, class: "btn btn-default", :title => "Cancel the changes." %>
+	  		        	<%= f.submit("Save", class: "btn btn-default", title: "Save the changes.") %>
 	  		        </div>
 	  	
 			<% end %>

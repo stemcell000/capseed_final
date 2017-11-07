@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025114232) do
+ActiveRecord::Schema.define(version: 20171106160343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,16 +320,18 @@ ActiveRecord::Schema.define(version: 20171025114232) do
   create_table "productions", force: :cascade do |t|
     t.string   "name"
     t.boolean  "display"
-    t.integer  "step",           default: 0
+    t.integer  "step",              default: 0
     t.text     "comment"
     t.integer  "row_order"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "clone_batch_id"
-    t.integer  "last_step",      default: 0
+    t.integer  "last_step",         default: 0
     t.date     "today_date"
-    t.float    "percentage",     default: 0.0
-    t.boolean  "locked",         default: false
+    t.float    "percentage",        default: 0.0
+    t.boolean  "locked",            default: false
+    t.integer  "strict_validation"
+    t.boolean  "pool"
   end
 
   create_table "productions_projects", force: :cascade do |t|

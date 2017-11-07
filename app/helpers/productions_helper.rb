@@ -59,10 +59,40 @@ def formatQC(qc_validation)
   end
 end
 
- def formatDateToGantt(d)
+def formatDateToGantt(d)
     if d
     d.strftime("%Y, %-m, %-d")
     end
+end
+
+def cb_display(collection)
+  r = ""
+  if collection
+    r = collection.order(:type_id).map {|c| c.name+cb_flag(c.type_id)}
+  else
+    r=""
+  end
+  return r.to_sentence
+end
+
+def cb_flag(i)
+ flag = ""
+ 
+ case i
+ when i=1
+  flag = "(H)"
+ when i=2
+  flag = "(T)"
+ when i=3
+  flag = "(C)"
+ when i=4
+  flag = "(L)"
+ else
+  flag=""   
  end
+
+end
+  
+     
   
 end

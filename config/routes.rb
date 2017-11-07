@@ -121,20 +121,22 @@ Rails.application.routes.draw do
   
   
   resources :productions do
-  post :update_row_order, :on => :collection
-  get :add_plasmid, :on => :member
-  get :virus_production, :on => :member
-  get :display_all, :on => :collection
-  get :scheduler, :on => :collection
-  post :scheduler, :on => :collection
-
+    post :update_row_order, :on => :collection
+    get :add_plasmid, :on => :member
+    get :virus_production, :on => :member
+    get :display_all, :on => :collection
+    get :scheduler, :on => :collection
+    post :scheduler, :on => :collection
+    get :select_cbs, :on => :member
+    patch :add_cbs, :on => :member
+    get :remove_from_prod, :on => :member
+    patch :pool
+    
     resources :projects
-    resources :plasmid_batches do
-      get :autocomplete_plasmid_batch_number, :on => :collection
-      get :edit_to_prod, :on => :member
-      get :select_to_prod, :on => :collection
-      patch :add_to_prod, :on => :member
-      get :remove_from_prod
+    
+    resources :clone_batches do
+      get :edit_from_prod, :on => :member
+      get :remove_from_prod, :on => :member
       resources :virus_productions
     end
    end

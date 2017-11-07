@@ -19,10 +19,10 @@ class Production < ActiveRecord::Base
   accepts_nested_attributes_for :clone_batches
   
   #validations
-  validates :projects, :presence => true
+  #validates :projects, :presence => true
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"
-  validates_associated :clone_batches
+  #validates_associated :clone_batches, :if => :enable_strict_validation?
     
   def self.count_by_step (label)
     Production.where(:step => label ).count
@@ -34,6 +34,12 @@ class Production < ActiveRecord::Base
   
   def self.text_search(query)
     search(query)
+  end
+  
+  private
+  
+  def enable_strict_validation?
+    self.strict_validation == 1
   end
   
   

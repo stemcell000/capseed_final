@@ -40,10 +40,6 @@ def without_box
   includes(:box).where(box: {plasmid_batch_id: nil})
 end
 
-def autocomplete_display
-  "#{self.number} -> #{self.name}"
-end
- 
 private
 def enable_strict_validation?
   self.strict_validation == 1

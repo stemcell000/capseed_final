@@ -26,6 +26,7 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :type
   accepts_nested_attributes_for :genes, :allow_destroy => true
   accepts_nested_attributes_for :promoters, :allow_destroy => true
+  accepts_nested_attributes_for :production
   
   
   
@@ -44,6 +45,7 @@ class CloneBatch < ActiveRecord::Base
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}
 
   private
+  
   def enable_strict_validation?
     self.strict_validation == 1
   end

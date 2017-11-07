@@ -83,7 +83,7 @@ def update
            render :action => 'edit'
          end
        else
-          flash.keep[:notice] = "This clone is already associated to this assay!"
+          flash.keep[:notice] = "This clone is already associated!"
           redirect_to @assay
    end
 end

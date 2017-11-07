@@ -26,7 +26,7 @@ permit_params :id, :email, :password, :password_confirmation, :role, :username, 
             f.input :email
             f.input :password
             f.input :password_confirmation
-            f.input :role, as: :radio, collection: {User: "user", Guest: "guest", Administrator: "administrator"}
+            f.input :role, as: :radio, collection: {User: "user", Cloning_user: "cloning_user", Production_user: "production_user", Guest: "guest", Administrator: "administrator"}
         end
         f.actions
     end

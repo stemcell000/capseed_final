@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
   include SendGrid
-  default from: "from@example.com"
+  default from: "from@capseed.com"
   layout 'mailer'
   
   sendgrid_category :use_subject_lines
@@ -9,18 +9,19 @@ class ApplicationMailer < ActionMailer::Base
   
 
 #Ne peut fonctionner qu'en production sur Heroku
-  def notice(user)
+  def notice(user, role)
     @user = user
     
-    recipients = User.all.where(:role => "user").pluck(:email)
-    firstnames = User.all.where(:role => "user").pluck(:firstname)
+    recipients = User.all.where(:role => "user").where(:role => role).pluck(:email)
+    firstnames = User.all.where(:role => "user").where(:role => role).pluck(:firstname)
     
     sendgrid_category "Notification"
     
     sendgrid_recipients recipients
     sendgrid_substitute "|subme|", firstnames
     
-    mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
+    mail :from => "notice@capseed.com", :to => "noreply@address.com", :subject => "Notification"
   end
+  
 
 end

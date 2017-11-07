@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :clone_batch_as_plasmid_attachments
   resources :types
   resources :formats
-  get 'users/inform'
+  get 'users/inform_cloning'
+  get 'users/inform_production'
+
 
   resources :virus_productions
   resources :vol_units

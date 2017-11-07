@@ -10,7 +10,7 @@ class ProductionsController < InheritedResources::Base
   helper  SmartListing::Helper 
   
   def index
-    @productions =Production.rank(:row_order).all
+    @productions =Production.where(:locked=>false).rank(:row_order).all
     #update des dates de process en cours
       @productions.each do |p|
         if !p.locked
@@ -123,29 +123,35 @@ class ProductionsController < InheritedResources::Base
    
  
   def virus_production
-    @plasmids = @production.clone_batches.order(:id)
-      if @plasmids.empty?
-        flash.keep[:notice] = "Add a plasmid, please."
-        redirect_to :action => :add_plasmid
-      else
-        @plasmids = @production.clone_batches.order(:id)
-        @production.update_columns(:step => 2)
-        update_last_step(@production, 2)
-        @production.update_columns(:percentage => 75)
-      end
+    @production = Production.find(params[:id])
+    
+    @clone_batches = @production.clone_batches.order(:id)
+      #
+      @cb_helpers = @production.clone_batches.where(:type_id => 1)
+      @cb_transgenes = @production.clone_batches.where(:type_id => 2)
+      @cb_capsids = @production.clone_batches.where(:type_id => 3)
+      @cb_libraries = @production.clone_batches.where(:type_id => 4)
+      @cb_nones = @production.clone_batches.where(:type_id => 5)
+      @cb_unknowns = @production.clone_batches.where(:type_id => 6)
+      #
+    @production.update_columns(:step => 2)
+    update_last_step(@production, 2)
+    @production.update_columns(:percentage => 100)
+    @production.update_columns( :locked => true )
+    #
+    flash.keep[:success] = "Production has beed locked. You can close it"
   end
   
   def display_all
+    
     #"between search": recherche dans un range de dates
-      params[:q] ||= {}
-          
-          if params[:q][:created_at_gteq].present?
-            params[:q][:created_at_gteq] = reformatdate(params[:q][:created_at_gteq])
-          end
-          
-          if params[:q][:created_at_lteq].present?
-            params[:q][:created_at_lteq] = reformatdate(params[:q][:created_at_lteq])
-          end
+      
+      #Formattage des dates
+      start_time = params[:created_at_gteq].to_date rescue Date.current
+      start_time = start_time.beginning_of_day # sets to 00:00:00
+      end_time = params[:created_at_lteq].to_date rescue Date.current
+      end_time = end_time.end_of_day # sets to 23:59:59
+      
     #Champ select pour "step" (champ de Production) et "projects" 
       @steps = Array.new()
       @steps_all =Array.new()
@@ -162,7 +168,7 @@ class ProductionsController < InheritedResources::Base
       @productions = @q.result(distinct: true).includes(:projects)
     
       #Config de l'affichage des résultats.
-      @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {name: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
+      @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {created_at: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
 
   end
   

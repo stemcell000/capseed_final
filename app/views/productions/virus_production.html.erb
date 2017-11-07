@@ -1,14 +1,18 @@
 <%= render 'components/prod_process_pills'%>
 	<div class="panel panel-info">
 		<div class="panel-heading"> Production: <%= @production.name %></div>
-		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
-		<div id="plasmid-batch-table-container" >
-						<%= render :partial => "productions/components/plasmid_batch_virus_table" , :locals => {:plasmid_batches => @plasmid_batches}%>
+		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
+		
+		<div class="panel-body">
+				<div id="cb-container">
+							<%= render :partial => "productions/components/table_lock" , :locals => { :collection => @clone_batches }%>
+				</div>
 		</div>
-			<div class="panel-footer row">
-			    <div class="btn-group col-md-7" role="group" aria-label="...">
-					<%= link_to 'Next', "#", :class => "btn btn-default btn-sm" %>
-			  	</div>
+		
+		<div class="panel-footer">
+		    <div class="btn-group" role="group" aria-label="...">
+				<%= link_to 'Previous', add_plasmid_production_path, :class => "btn btn-default btn-sm" %>
+				<%= link_to 'Close', productions_path, :class => "btn btn-default btn-sm" %>
 		  	</div>
-		</div>
-	</div>
+	  	</div>
+</div>

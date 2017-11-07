@@ -24,11 +24,22 @@ def top_menu_prod
   when 2
     s = "production of virus"
     p = virus_production_production_path(id)
-  when 3
-    s = "close production"
-    p = "#"
   end
 @hash = {:step_name => s, :step_path => p}
+   return @hash
+end
+
+ def formatProdStatus(st)
+   @hash ={}
+  case st
+  when 0
+    s = "creation"
+  when 1
+    s = "production design"
+  when 2
+    s = "closed"
+  end
+@hash = {:step_name => s}
    return @hash
 end
 
@@ -68,7 +79,7 @@ end
 def cb_display(collection)
   r = ""
   if collection
-    r = collection.order(:type_id).map {|c| c.name+cb_flag(c.type_id)}
+    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}
   else
     r=""
   end

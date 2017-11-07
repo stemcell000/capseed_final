@@ -137,8 +137,7 @@ Rails.application.routes.draw do
     resources :clone_batches do
       get :edit_from_prod, :on => :member
       get :remove_from_prod, :on => :member
-      resources :virus_productions
-    end
+        end
    end
   
   resources :stats do

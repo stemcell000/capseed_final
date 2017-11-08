@@ -1,0 +1,19 @@
+%h1 Listing virus_productions
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @virus_productions.each do |virus_production|
+      %tr
+        %td= link_to 'Show', virus_production
+        %td= link_to 'Edit', edit_virus_production_path(virus_production)
+        %td= link_to 'Destroy', virus_production, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Virus production', new_virus_production_path

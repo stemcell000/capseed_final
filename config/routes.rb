@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :virus_productions
   resources :inserts
   resources :clone_batch_as_plasmid_attachments
   resources :types

@@ -1,0 +1,10 @@
+= form_for @virus_production do |f|
+  - if @virus_production.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@virus_production.errors.count, "error")} prohibited this virus_production from being saved:"
+      %ul
+        - @virus_production.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

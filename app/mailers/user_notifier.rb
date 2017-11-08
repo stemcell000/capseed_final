@@ -10,9 +10,17 @@ class UserNotifier < ApplicationMailer
   
    def notify_cloning(user)   
     @user = user
-    @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Cloning')
- end
+    
+    recipients = User.all.where(:role => "user").where(:role => "cloning_user").pluck(:email)
+    firstnames = User.all.where(:role => "user").where(:role => "cloning_user").pluck(:firstname)
+    
+    sendgrid_category "Notification"
+    
+    sendgrid_recipients recipients
+    sendgrid_substitute "|subme|", firstnames
+    
+    mail :from => "noticeg@capseed.com", :to => "noreply@address.com", :subject => "Notification"
+  end
  
   def notify_production(user) 
     @user = user

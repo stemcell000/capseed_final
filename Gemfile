@@ -158,8 +158,6 @@ gem 'coffee-rails', '~> 4.1.0'
   gem "figaro"
   #Utilisation du mailer
   gem 'sendgrid'
-  #gem 'sendgrid-rails', '~> 2.0'
-  #gem 'sendgrid-ruby'
   
   #Popover
   gem 'bootstrap-popover-rails'

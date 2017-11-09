@@ -6,8 +6,8 @@ class UserNotifier < ApplicationMailer
    def notify_cloning(user)   
     @user = user
     
-    recipients = User.all.where(:role => "user").where(:role => "cloning_user").pluck(:email)
-    firstnames = User.all.where(:role => "user").where(:role => "cloning_user").pluck(:firstname)
+    recipients = User.where(:role => "cloning_user" , :role => "user").pluck(:email)
+    firstnames = User.where(:role => "cloning_user" , :role => "user").pluck(:firstname)
     
     sendgrid_category "Notification"
     

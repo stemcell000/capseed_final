@@ -6,8 +6,8 @@ class UserNotifier < ApplicationMailer
   def notify_cloning(user)   
     @user = user
     
-    recipients = User.where(:role => "cloning_user" ).pluck(:email)
-    firstnames = User.where(:role => "cloning_user" ).pluck(:firstname)
+    recipients = User.where(:role => ["cloning_user", "user"] ).pluck(:email)
+    firstnames = User.where(:role => ["cloning_user", "user"] ).pluck(:firstname)
     
     sendgrid_category "Notification"
     
@@ -17,7 +17,8 @@ class UserNotifier < ApplicationMailer
     mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Cloning Notification"
   end
  
-  def notify_production(user) 
+  def notify_production(user)
+    
     recipients = User.where( :role => [ "production_user", "user" ]).pluck(:email)
     firstnames = User.where( :role => [ "production_user", "user" ] ).pluck(:firstname)
     

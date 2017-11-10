@@ -18,8 +18,8 @@ class UserNotifier < ApplicationMailer
   end
  
   def notify_production(user) 
-    recipients = User.where( :role => "production_user", :role => "user" ).pluck(:email)
-    firstnames = User.where( :role => "production_user", :role => "user" ).pluck(:firstname)
+    recipients = User.where( :role => [ "production_user", "user" ]).pluck(:email)
+    firstnames = User.where( :role => [ "production_user", "user" ] ).pluck(:firstname)
     
     sendgrid_category "Notification"
     

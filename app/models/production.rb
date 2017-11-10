@@ -14,9 +14,11 @@ class Production < ActiveRecord::Base
   belongs_to :vol_unit
   has_and_belongs_to_many :projects
   has_many :clone_batches
+  has_many :virus_productions
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :clone_batches
+  accepts_nested_attributes_for :virus_productions
   
   #validations
   #validates :projects, :presence => true

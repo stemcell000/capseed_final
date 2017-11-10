@@ -60,7 +60,6 @@ class ProductionsController < InheritedResources::Base
    @production.update_attributes(production_params)
     if @production.valid?
       flash.keep[:success] = "Task completed!"
-      #redirect_to @production
       redirect_to :action => :add_plasmid
             @production.update_columns(:step => 0)
             @production.update_columns(:percentage => 25)
@@ -125,6 +124,8 @@ class ProductionsController < InheritedResources::Base
   def virus_production
     @production = Production.find(params[:id])
     
+    @vps = @production.virus_productions
+    
     @clone_batches = @production.clone_batches.order(:id)
       #
       @cb_helpers = @production.clone_batches.where(:type_id => 1)
@@ -136,10 +137,16 @@ class ProductionsController < InheritedResources::Base
       #
     @production.update_columns(:step => 2)
     update_last_step(@production, 2)
-    @production.update_columns(:percentage => 100)
+    @production.update_columns(:percentage => 75)
     @production.update_columns( :locked => true )
     #
-    flash.keep[:success] = "Production has beed locked. You can close it"
+    flash.keep[:success] = "Production has beed launched."
+  end
+  
+  def spawn_vp
+    @virus_production = VirusProduction.new
+    @production = Production.find(params[:production_id])
+    
   end
   
   def display_all

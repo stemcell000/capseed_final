@@ -1,10 +1,13 @@
-<% if @production.pool == true %>
-	<% st = "Production from pooled plasmids." %>
-<%else%>
-	<% st = "The plasmids are not pooled." %>
-<%end%>
+<% if @production.clone_batches.exists?%>
 
-<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
-<%= f.label :pool, :label => st %>
-<%= f.input_field :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();" %>
+	<% if @production.pool == true %>
+		<% st = "Production from pooled plasmids." %>
+	<%else%>
+		<% st = "The plasmids are not pooled." %>
+	<%end%>
+		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
+		<%= f.label :pool, :label => st %>
+		<%= f.input_field :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();" %>
+	<%end%>
+
 <%end%>

@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   get 'users/inform_production'
 
 
-  resources :virus_productions
   resources :vol_units
   resources :rows
   resources :columns
@@ -131,17 +130,21 @@ Rails.application.routes.draw do
     get :scheduler, :on => :collection
     post :scheduler, :on => :collection
     get :select_cbs, :on => :member
+    get :spawn_vp, :on => :new 
     patch :add_cbs, :on => :member
     get :remove_from_prod, :on => :member
     patch :pool
     
     resources :projects
     
+    resources :virus_productions
+    
     resources :clone_batches do
       get :edit_from_prod, :on => :member
       get :remove_from_prod, :on => :member
-        end
+    end
    end
+   
   
   resources :stats do
     collection do

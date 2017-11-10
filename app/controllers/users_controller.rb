@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   
   def inform_cloning
     @user = User.find(1)
-    #UserMailer.notify_cloning(@user).deliver_now
     UserNotifier.notify_cloning(@user).deliver_now
     redirect_to(assays_path)
     flash.keep[:success] = "Mail sent to cloning users!"
@@ -11,8 +10,7 @@ class UsersController < ApplicationController
   
   def inform_production
     @user = User.first
-    #UserMailer.notify_production(@user).deliver_later
-    UserNotifier.notify_production(@user).deliver_later
+    UserNotifier.notify_production(@user).deliver_now
     redirect_to(productions_path)
     flash.keep[:success] = "Mail sent to production users!"
   end

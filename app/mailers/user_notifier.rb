@@ -26,7 +26,7 @@ class UserNotifier < ApplicationMailer
     sendgrid_recipients recipients
     sendgrid_substitute "|subme|", firstnames
     
-    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Cloning Notification"
+    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production Notification"
   end
   
 end

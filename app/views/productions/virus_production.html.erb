@@ -4,12 +4,12 @@
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
 		
 		<div class="panel-body">
-				<div class="row" id="cb-container">
+				<div  id="cb-container">
 							<%= render :partial => "productions/components/table_lock" , :locals => { :collection => @clone_batches }%>
 				</div>
 				
-				<div class ="row" id="vp-container">
-							<%= render :partial => "productions/components/virus" , :locals => { :collection => @vps }%>
+				<div id="vp-container">
+							<%= render :partial => "productions/components/table_vp" , :locals => { :collection => @vps }%>
 				</div>
 				
 				<div class="row">
@@ -22,7 +22,7 @@
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
 				<%= link_to 'Previous', add_plasmid_production_path, :class => "btn btn-default btn-sm" %>
-				<%= link_to 'Close', productions_path, :class => "btn btn-default btn-sm" %>
+				<%= link_to 'Close', close_production_path, :class => "btn btn-default btn-sm" %>
 		  	</div>
 	  	</div>
 </div>

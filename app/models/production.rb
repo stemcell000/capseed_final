@@ -18,7 +18,8 @@ class Production < ActiveRecord::Base
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :clone_batches
-  accepts_nested_attributes_for :virus_productions
+  #Ligne ci-dessous indispensable pour nested_form à la page "virus_production"
+  accepts_nested_attributes_for :virus_productions, :allow_destroy => true, reject_if: :all_blank
   
   #validations
   #validates :projects, :presence => true

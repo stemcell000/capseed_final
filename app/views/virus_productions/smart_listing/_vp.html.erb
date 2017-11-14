@@ -1,0 +1,11 @@
+  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="actions center">
+	  <%= smart_listing_item_actions [
+	  { name:   :custom, 
+  		url:  "#",
+  		method: :get, 
+  		icon: "glyphicon glyphicon-eye-open",
+  		remote: false, 
+  		title:  "Edit production"
+  		}]%>
+</td>

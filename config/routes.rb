@@ -131,9 +131,12 @@ Rails.application.routes.draw do
     post :scheduler, :on => :collection
     get :select_cbs, :on => :member
     get :spawn_vp, :on => :new 
+    patch :create_vp, :on => :member
     patch :add_cbs, :on => :member
     get :remove_from_prod, :on => :member
+    get :remove_vp_from_prod, :on => :member
     patch :pool
+    get :close, :on => :member
     
     resources :projects
     
@@ -141,7 +144,6 @@ Rails.application.routes.draw do
     
     resources :clone_batches do
       get :edit_from_prod, :on => :member
-      get :remove_from_prod, :on => :member
     end
    end
    

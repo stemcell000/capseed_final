@@ -1,0 +1,52 @@
+<% if !collection.empty? %>
+<table class="table table-bordered" id="plasmid-table">
+			<thead>
+				<th>ID</th>
+				<th>Properties</th>
+				<th>Actions</th>
+			</thead>
+				<% collection.each do |vp| %>
+					<tr>
+						<td class="col-lg-1 text-center"><%= vp.id %></td>
+						<td class="col-lg-5">
+						<div class="col-lg-6">
+							<i class="glyphicon glyphicon-calendar"></i> <strong>Order (date): </strong> <%= vp.date_order.blank? ? "None" : vp.date_order.strftime("%B %e, %Y") %><br />
+							<i class="glyphicon glyphicon-calendar"></i> <strong>Prodution (date): </strong> <%= vp.date_production.blank? ? "None" : vp.date_production.strftime("%B %e, %Y") %><br />
+							<i class="glyphicon glyphicon-user"></i><%= vp.user_id.nil? ? "None" : vp.user.full_name %><br />
+							<i class="glyphicon glyphicon-tag"></i><strong>Invoice: </strong><%= vp.invoice.nil? ? "None" : vp.invoice %><br />
+							<strong>Volume: </strong><%= vp.vol.nil? ? "None" : vp.vol %> <%=vp.vol_unit.name%><br />
+							<strong>number of plates : </strong><%= vp.plate_nb.nil? ? "None" : vp.plate_nb %><br />
+							<strong>Plate IDs: </strong><%= vp.plate_id.nil? ? "None" : vp.plate_id %><br />
+							<strong>Titer: </strong><%= vp.titer.nil? ? "None" : vp.titer %><br />
+							<strong>Titer ATCC: </strong><%= vp.titer_atcc.nil? ? "None" : vp.titer_atcc %><br />
+							<strong>Titer to ATCC: </strong><%= vp.titer_to_atcc.nil? ? "None" : vp.titer_to_atcc %><br />
+						</div>
+						<div class="col-lg-6">
+							<strong>Sterility: </strong><%= vp.sterility.nil? ? "None" : vp.sterility %><br />
+							<strong>L2: </strong><%= vp.l2.nil? ? "None" : vp.l2 %><br />
+							<strong>Gel (prot.): </strong><%= vp.gel_prot.nil? ? "None" : vp.gel_prot %><br />
+							<strong>Batch end: </strong><%= vp.batch_end.nil? ? "None" : vp.batch_end %><br />
+							<strong>HEK results: </strong><%= vp.hek_result.nil? ? "None" : vp.hek_result %><br />
+							<strong>Comment: </strong><%= vp.comment.nil? ? "None" : vp.comment %><br />
+						</div>
+						</td>
+						<td class="col-lg-1 text-center">
+							<%= link_to "Remove", 
+										remove_vp_from_prod_production_path(@production, @vp, :virus_production_id =>vp.id, :id => vp.id),
+										:class =>"btn btn-danger btn-xs",
+										:title=>"Remove virus production from list.",
+										:remote => true
+							%>
+							<%= link_to "Edit", 
+										 edit_production_virus_production_path(:id =>vp.id, :production_id => vp.production_id),
+										:class =>"btn btn-success btn-xs",
+										:title=>"Edit virus production.",
+										:remote => true
+							%>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<%else%>
+			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No virus.</div></div>
+<% end %>

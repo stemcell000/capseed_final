@@ -1,0 +1,99 @@
+<%= simple_nested_form_for @production, url: create_vp_production_path(:id => @production.id), html: { class: 'form-vertical' }, :remote => true  do |f| %>
+	<%= f.error_notification %>
+	<small>
+	<%= f.input :id, :as => :hidden %>
+	
+		<%= f.simple_fields_for :virus_productions do |vp_builder|%>
+		
+		<% if vp_builder.object.id.nil? %>
+			<%= vp_builder.input :id, :as => :hidden %>
+			
+			<div class="row">
+				<div class="col-lg-4">
+							<%= vp_builder.input :date_order, :label => "Order (date):", :as => :string, :input_html => { :value => (vp_builder.object.date_order.strftime("%B %e, %Y") if vp_builder.object.date_order), "data-behaviour" => "datepicker" } %>
+				</div>
+				<div class="col-lg-4">
+							<%= vp_builder.input :date_production, :label => "Production (date):", :as => :string, :input_html => { :value => (vp_builder.object.date_production.strftime("%B %e, %Y") if vp_builder.object.date_production), "data-behaviour" => "datepicker" } %>
+				</div>
+				<div class="col-lg-2">
+					<%=vp_builder.input :invoice , :label => "Invoice"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-5">
+								<%= vp_builder.association :user, :label => "Contact name",
+												:collection => User.all, :label_method => :full_name, :value_method => :id,
+												:input_html => { class:"select2-select" } %>
+									</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-4">
+					<%= vp_builder.input :vol, :label => "Volume" %>
+				</div>
+				<div class="col-lg-4">
+					<%= vp_builder.association :vol_unit, :label => "Volume unit",
+												:collection => VolUnit.all,:value_method => :id,
+												:input_html => { class:"select2-select" },
+												:selected => 1 %>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-4">
+					<%= vp_builder.input :plate_nb, :label => "Number of plates" %>
+				</div>
+				<div class="col-lg-6">
+					<%= vp_builder.input :plate_id, :label => "Plate IDs" %>
+				</div>
+			</div>	
+			
+			<div class="row">
+				<div class="col-lg-4">
+					<%= vp_builder.input :sterility, :label => "Sterility"%>
+				</div>	
+				<div class="col-lg-2">
+					<%= vp_builder.input :l2, :label => "L2" %>
+				</div>
+			</div>
+			
+			<div class= "row">
+				<div class="col-lg-4">
+					<%=vp_builder.input :titer , :label => "Titer"%>
+				</div>
+				<div class="col-lg-4">
+					<%=vp_builder.input :titer_atcc , :label => "Titer ATCC"%>
+				</div>
+				<div class="col-lg-4">
+					<%=vp_builder.input :titer_atcc , :label => "Titer to ATCC"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-4">
+					<%=vp_builder.input :gel_prot , :label => "Gel (proteins)"%>
+				</div>
+				<div class="col-lg-4">
+					<%=vp_builder.input :hek_result , :label => "HEK (results)"%>
+				</div>
+				<div class="col-lg-4">
+					<%=vp_builder.input :batch_end , :label => "Batch end"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-12">
+					<%=vp_builder.input :comment , :label => "Comment"%>
+				</div>
+			</div>
+			
+			
+			<div class="btn-group" role="group" aria-label="...">
+		    		<%= vp_builder.submit("Save", :class => "btn btn-default") %>
+		        	<%= vp_builder.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+		    </div>
+		  <%end%>
+		<%end%>
+	</small>
+<%end%>

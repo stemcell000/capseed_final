@@ -4,7 +4,6 @@ class CloneBatchesController < InheritedResources::Base
     helper  SmartListing::Helper
     
   autocomplete :clone_batch, :name, :extra_data => [:id], :scopes => [:plasmid_allow]
- # autocomplete :clone_batch, :number, :extra_data => [:id, :name], :display_value => :autocomplete_display
   
   before_filter :authenticate_user!
   before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
@@ -162,7 +161,6 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def update_from_inventory
-    #@clone_batch.update_attributes(plasmid_params)
     @clone_batch.update_attributes(plasmid_params)
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
   end
@@ -170,7 +168,7 @@ class CloneBatchesController < InheritedResources::Base
   def add_pb_from_inventory
     @units = Unit.all
     @users = User.all
-    @clone_batch.plasmid_batches.build
+    #@clone_batch.plasmid_batches.build
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
   end
   

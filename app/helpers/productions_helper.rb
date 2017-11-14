@@ -24,6 +24,9 @@ def top_menu_prod
   when 2
     s = "production of virus"
     p = virus_production_production_path(id)
+  when 3
+    s = "closed"
+    p = productions_path(id)
   end
 @hash = {:step_name => s, :step_path => p}
    return @hash

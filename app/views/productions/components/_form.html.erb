@@ -1,6 +1,7 @@
 <div class="panel-body">
 		<%= simple_form_for @production, html: { class: 'form-vertical' }  do |f| %>
 			<%= f.error_notification %>
+					<%= f.input :id, :as => :hidden %>
 			        <%= f.input :comment, :disabled => @production.locked %>
 					<%= f.association :projects, :label => "Projects",
 					:collection => Project.all.order(:name),
@@ -10,7 +11,7 @@
 					
 	 				<div class="btn-group" role="group" aria-label="...">
 	      		     	<%= link_to "Cancel", @productions, class: "btn btn-default", :title => "Cancel the changes." %>
-	  		        	<%= f.submit("Save", class: "btn btn-default", title: "Save the changes.") %>
+	  		        	<%= f.submit("Next", class: "btn btn-default", title: "Save the changes.") %>
 	  		        </div>
 	  	
 			<% end %>

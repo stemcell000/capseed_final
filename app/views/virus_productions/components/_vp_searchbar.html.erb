@@ -1,0 +1,45 @@
+ <%= search_form_for @q, :url => virus_productions_path, :class => "form-inline" ,:remote => true do |f| %>
+
+<div class="row">
+	<div class="col-lg-4">
+		<div class="form-group">
+			<%= f.label "Comment" %>
+  			<%= f.search_field :comment_cont %>
+  		</div>
+  	</div>
+	<div class="col-lg-6">
+		<div class="form-group">
+			<%= f.label 'User'%>
+			<%= f.select(:user_id_eq, @users_all,{:include_blank => " "}, {:class => "select2-select"}) %>
+		</div>	
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4">
+		<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+					
+						<%= f.label "Start date ", :class=>"control-label"  %>
+						<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+						<%= f.label "End date ", :class=>"control-label" %>
+						<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+</div>
+<div class="form-group row">
+	<span class="help-block"><em>*Enter all or part of the value.</em></span>
+</div>
+
+<div class="row">
+  <%= f.submit class:"btn btn-default" %>
+  <%= link_to "Clear Search", request.path, class:"btn btn-default" %>
+</div>
+
+<% end %>

@@ -10,7 +10,7 @@ class ProductionsController < InheritedResources::Base
   helper  SmartListing::Helper 
   
   def index
-    @productions =Production.where(:locked=>false).rank(:row_order).all
+    @productions = Production.where("last_step <?", 3 ).rank(:row_order).all
     #update des dates de process en cours
       @productions.each do |p|
         if !p.locked
@@ -144,10 +144,38 @@ class ProductionsController < InheritedResources::Base
   end
   
   def spawn_vp
-    @virus_production = VirusProduction.new
     @production = Production.find(params[:production_id])
-    
+    #Ligne suivante indispensable pour nested_form
+     @production.virus_productions.build
   end
+  
+  def create_vp
+     @production = Production.find(params[:id])
+     #production_vp_params doit contenir production_id dans les attribut de virus_production (nested). Sinon impossible d'ajouter nouveau virus_production
+     @production.update_attributes(production_vp_params)
+     @vps = @production.virus_productions
+     
+     if @production.valid?
+      flash.keep[:success] = "Task completed!"
+    else
+      render :action => 'spawn_vp'
+    end
+  end
+  
+  def remove_vp_from_prod
+      @vp = VirusProduction.find(params[:id])
+      @production = Production.find(@vp.production_id)
+      @vps = @production.virus_productions
+      @vps.delete(@vp)
+ end
+ 
+ def close
+    @production = Production.find(params[:id])
+    @production.update_columns(:step => 3)
+    update_last_step(@production, 3)
+    @production.update_columns(:percentage => 100)
+    redirect_to :action => :index
+ end
   
   def display_all
     
@@ -176,8 +204,9 @@ class ProductionsController < InheritedResources::Base
     
       #Config de l'affichage des résultats.
       @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {created_at: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
-
   end
+  
+
   
   def scheduler
     
@@ -201,35 +230,44 @@ class ProductionsController < InheritedResources::Base
     @production = Production.find(params[:id])
   end
 
-    def production_params
-      params.require(:production).permit(:id, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
-      project_ids: [],
-      :projects_attributes => [:id, :name],
-      :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :_destroy, :production_id],
-      clone_batch_ids: [],
-      :clone_attributes => [:id, :name, :assay_id],
-      :assay_attributes => [:id, :name]
-      )
-    end
+  def production_params
+    params.require(:production).permit(:id, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
+    project_ids: [],
+    :projects_attributes => [:id, :name],
+    :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :_destroy, :production_id],
+    clone_batch_ids: [],
+    :clone_attributes => [:id, :name, :assay_id],
+    :assay_attributes => [:id, :name],
+    :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    :get_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id],
+    virus_production_ids: []
+    )
+  end
     
-     def formatProdStepName(i)
-      case i
-      when 0
-        s = "creation"
-      when 1
-        s = "production design"
-      when 2
-        s = "production of virus"
-      when 3
-        s = "close production"
-      end
-       return s
-    end
+  def production_vp_params
+    params.require(:production).permit(:id,
+    :virus_productions_attributes => [:id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id],virus_production_ids: [])
+  end
     
-    def reformatdate(d)
-      d = Date.strptime(d,"%m/%d/%Y").end_of_day
-      d = d.strftime('%Y-%m-%d')
+   def formatProdStepName(i)
+    case i
+    when 0
+      s = "creation"
+    when 1
+      s = "production design"
+    when 2
+      s = "production of virus"
+    when 3
+      s = "close production"
     end
+     return s
+  end
+    
+  def reformatdate(d)
+    d = Date.strptime(d,"%m/%d/%Y").end_of_day
+    d = d.strftime('%Y-%m-%d')
+  end
 
 end
 

@@ -16,7 +16,7 @@ class PlasmidBatch < ActiveRecord::Base
  #
 
   accepts_nested_attributes_for :clone_batch
-  accepts_nested_attributes_for :plasmid_batch_attachments, :allow_destroy => true
+  accepts_nested_attributes_for :plasmid_batch_attachments, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :plasmid_batch_qcs, :allow_destroy => true
   accepts_nested_attributes_for :box, :allow_destroy => true
   accepts_nested_attributes_for :row, :allow_destroy => true

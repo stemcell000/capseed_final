@@ -19,7 +19,7 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :clone
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_attachments, :allow_destroy => true
-  accepts_nested_attributes_for :clone_batch_as_plasmid_attachments, :allow_destroy => true
+  accepts_nested_attributes_for :clone_batch_as_plasmid_attachments, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :insert
   accepts_nested_attributes_for :strand

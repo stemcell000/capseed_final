@@ -169,13 +169,23 @@ class CloneBatchesController < InheritedResources::Base
     @units = Unit.all
     @users = User.all
     #@clone_batch.plasmid_batches.build
-    @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
+    @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 1)
   end
   
   
   def update_pb_from_inventory
+    
     @clone_batch.update_attributes(plasmid_pb_params)
     @users = User.all
+    
+    if @clone_batch.valid?
+      
+      redirect_to  root_path
+     
+     else
+          render action: :add_pb_from_inventory
+    end
+    
   end
   
    def destroy_from_inventory

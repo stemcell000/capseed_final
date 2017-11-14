@@ -1,14 +1,22 @@
-<td colspan="7">
-<%= simple_nested_form_for @clone_batch, url: update_pb_from_inventory_clone_batch_path, remote: true, html: {class: 'horizontal-form no-overflow'} do |f|  %>
+<% provide(:title, "Plasmid : Add batch(es)") %>
+
+<div class="container">
+	<div class= "row">
+		<div class="col-lg-4">
+			<h4> Plasmid: <%= @clone_batch.name %> </h4>
+		</div>
+		<div class="col-lg-4">
+			<h4>Number: <%= @clone_batch.number %> </h4>
+		</div>
+	</div>
+		
+<%= simple_nested_form_for @clone_batch, url: update_pb_from_inventory_clone_batch_path, html: {class: 'horizontal-form no-overflow'} do |f|  %>
 	
 	<%= f.error_notification :message => "Something went wrong: you cannot save an empty form. Add a batch or cancel."%>
 	<ul class="errors"></ul>
 		<%= f.input :id, :as => :hidden %>
 		<%= f.input :name, :as => :hidden %>
-		<div class="row">
-			<div class="col-lg-7" > <h5> Plasmid: <strong><%= f.object.name %></strong> </h5></div>
-			<div class="col-lg-2"><h5>Number: <strong><%= f.object.number %></strong> </h5></div>
-		</div>
+
 	<small>
 	<div class="row">
 		
@@ -78,7 +86,7 @@
 													
 											<div class="row">
 												<div class="col-lg-2">
-													<%= b.link_to_remove "Remove batch", :class => "btn btn-sm btn-danger" %>
+													<%= b.link_to_remove "Remove", :class => "btn btn-sm btn-danger" %>
 												</div>
 											</div>
 									</div>
@@ -95,16 +103,17 @@
 				</div>
 </div>
 			<!---->
-	
-	 		<div class="btn-group row" role="group" aria-label="...">
-	 			<div class="col-lg-4">
+	<div class="row">
+	 		<div class="btn-group pull-right" role="group" aria-label="...">
+	 			<div class="col-lg-3">
 	    			<%= f.submit "Save", :class => "btn btn-primary" %>
 	    		</div>
 	    		<div class="col-lg-4">
-	        		<%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+	        		<%= link_to "Back to inventory", clone_batches_path, :class => "btn btn-default"%>
 	        	</div>
 	       </div>
 	</div>
+	</small>
+	</div>
 <%end%>
-</small>
-</td>
+

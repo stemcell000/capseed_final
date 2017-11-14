@@ -43,6 +43,27 @@ class VirusProductionsController < InheritedResources::Base
       render :action => 'edit'
     end
   end
+  
+  
+  def edit_from_inventory
+      @vp = VirusProduction.find(params[:id])
+  end
+  
+  def update_from_inventory
+      @vp = VirusProduction.find(params[:id])
+      @vp.update_attributes(virus_production_params)
+  end 
+  
+  def destroy
+     @vp = VirusProduction.find(params[:id])
+     @vps = VirusProduction.all
+     @vp.destroy
+  end
+  
+  def new
+    @vp = VirusProduction.new
+  end
+  
  
   def virus_production_params
     params.require(:virus_production).permit(:id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,

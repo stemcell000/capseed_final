@@ -79,15 +79,6 @@ def formatDateToGantt(d)
     end
 end
 
-def cb_display(collection)
-  r = ""
-  if collection
-    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}
-  else
-    r=""
-  end
-  return r.to_sentence
-end
 
 def cb_flag(i)
  flag = ""

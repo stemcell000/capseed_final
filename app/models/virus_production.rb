@@ -2,10 +2,11 @@ class VirusProduction < ActiveRecord::Base
  belongs_to :production
  belongs_to :user
  belongs_to :vol_unit
+ has_many :clone_batches, :through => :production
  
 #pg_search
 include PgSearch
-multisearchable :against => [ :comment, :id, :user],
+multisearchable :against => [ :comment, :id, :user, :clone_batches],
 :if => lambda { |record| record.id > 0 }
   
  accepts_nested_attributes_for :user

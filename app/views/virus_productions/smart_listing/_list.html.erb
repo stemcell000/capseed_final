@@ -4,6 +4,12 @@
       <th class="col-md-3 center">
 		<%= smart_listing.sortable "Date of creation", :created_at %>
   	</th>
+  	<th class="col-md-3 center">
+		<%= smart_listing.sortable "Date of production", :date_production %>
+  	</th>
+   <th class="col-md-3 center">
+    	Plasmids
+    </th>
     </thead>
     <tbody>
 	  	<% smart_listing.collection.each do |s| %>
@@ -11,6 +17,7 @@
           		<%= smart_listing.render object: s, partial: "virus_productions/smart_listing/vp", locals: {object: s} %>
         	</tr>
       	<% end %>
+      	<%= smart_listing.item_new colspan: 7, link: new_virus_production_path(:object) %>
     </tbody>
   </table>
   <%= smart_listing.paginate %>

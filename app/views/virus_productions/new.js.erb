@@ -1,0 +1,11 @@
+<%= smart_listing_item :virus_productions, :new, @vp, "virus_productions/components/form_new_inventory" %>
+
+$(document).on('nested:fieldAdded', function(event){
+			$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+})

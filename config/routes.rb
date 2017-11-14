@@ -147,6 +147,11 @@ Rails.application.routes.draw do
     end
    end
    
+   
+   resources :virus_productions do
+     get :edit_from_inventory, :on => :member
+     patch :update_from_inventory, :on => :member
+   end
   
   resources :stats do
     collection do

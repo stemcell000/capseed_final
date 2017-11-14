@@ -94,4 +94,14 @@ end
  def round_up(n)
    (n.to_f).ceil
  end
+ 
+ def cb_display(collection)
+  r = ""
+  if collection
+    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}
+  else
+    r=""
+  end
+  return r.to_sentence
+end
 

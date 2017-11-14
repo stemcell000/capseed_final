@@ -1,0 +1,103 @@
+<td colspan="7">
+	<h4>New virus production</h4>
+<%= simple_form_for @vp, html: { class: 'form-vertical' }, :remote => true  do |f| %>
+	<%= f.error_notification %>
+	<small>
+		
+			<%= f.input :id, :as => :hidden %>
+
+			<div class="row">
+				<div class="col-lg-4">
+							<%= f.input :date_order, :label => "Order (date):", :as => :string, :input_html => { :value => (f.object.date_order.strftime("%B %e, %Y") if f.object.date_order), "data-behaviour" => "datepicker" } %>
+				</div>
+				<div class="col-lg-4">
+							<%= f.input :date_production, :label => "Production (date):", :as => :string, :input_html => { :value => (f.object.date_production.strftime("%B %e, %Y") if f.object.date_production), "data-behaviour" => "datepicker" } %>
+				</div>
+				<div class="col-lg-1">
+					<%=f.input :invoice , :label => "Invoice"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-3">
+								<%= f.association :user, :label => "Contact name",
+												:collection => User.all, :label_method => :full_name, :value_method => :id,
+												:input_html => { class:"select2-select" } %>
+									</div>
+				<div class="col-lg-2">
+					<%= f.input :vol, :label => "Volume" %>
+				</div>
+				<div class="col-lg-2">
+					<%= f.association :vol_unit, :label => "Volume unit",
+												:collection => VolUnit.all,:value_method => :id,
+												:input_html => { class:"select2-select" },
+												:selected => 1 %>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-2">
+					<%= f.input :plate_nb, :label => "Number of plates" %>
+				</div>
+				<div class="col-lg-4">
+					<%= f.input :plate_id, :label => "Plate IDs" %>
+				</div>
+				<div class="col-lg-2">
+					<%= f.input :sterility, :label => "Sterility"%>
+				</div>	
+				<div class="col-lg-2">
+					<%= f.input :l2, :label => "L2" %>
+				</div>
+			</div>
+			
+			<div class= "row">
+				<div class="col-lg-3">
+					<%=f.input :titer , :label => "Titer"%>
+				</div>
+				<div class="col-lg-3">
+					<%=f.input :titer_atcc , :label => "Titer ATCC"%>
+				</div>
+				<div class="col-lg-3">
+					<%=f.input :titer_atcc , :label => "Titer to ATCC"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-2">
+					<%=f.input :gel_prot , :label => "Gel (proteins)"%>
+				</div>
+				<div class="col-lg-4">
+					<%=f.input :hek_result , :label => "HEK (results)"%>
+				</div>
+				<div class="col-lg-2">
+					<%=f.input :batch_end , :label => "Batch end"%>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-6">
+					<%=f.input :comment , :label => "Comment"%>
+				</div>
+				<div class="col-lg-6">
+					<div class="row">
+						<div class="col-lg-12">
+							<strong>Associated plasmids :</strong><br />
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<%= f.object.clone_batches.empty? ? "No plasmid" : f.object.clone_batches.map { |cb| cb.name }.to_sentence %>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			
+			<div class="btn-group" role="group" aria-label="...">
+				<%= f.submit "Save", :class => "btn btn-primary" %>
+	        	<%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+		    </div>
+	</small>
+<%end%>
+</td>

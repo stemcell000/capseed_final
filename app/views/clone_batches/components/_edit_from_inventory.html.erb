@@ -103,14 +103,40 @@
 			<div class="col-lg-5">
 				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
+			<div class="col-lg-5">
+				<h6>Plasmid batches</h6>
+			<% if !f.object.plasmid_batches.empty? %>
+				<table class="table table-bordered">
+					<thead>
+						<th>Batch</th>
+						<th>Box</th>
+						<th>Location</th>
+						<th>Conc.</th>
+					</thead>
+					<%f.object.plasmid_batches.each do |pb|%>
+					<tr>
+						<td><%= pb.name %></td>
+						<td><%= pb.box_id.nil? ? "unknown" : pb.box.name %></td>
+						<td><%= pb.row_id.nil? ? "unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+						<td><%= pb.concentration.nil? ? "unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+					</tr>
+					<%end%>
+				</table>
+			<%else%>
+			no batch
+			<%end%>
+			</div>
 		</div>
 		
 	</small>
 	<div class="row">
-		<div class="col-lg-4">
-	 		<div class="btn-group" role="group" aria-label="...">
-	    		<%= f.submit "Save", :class => "btn btn-primary" %>
-	        	<%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+	 		<div class="btn-group pull-right" role="group" aria-label="...">
+	 			<div class="col-lg-4">
+	    			<%= f.submit "Save", :class => "btn btn-primary btn-sm" %>
+	    		</div>
+	    		<div class="col-lg-4">
+	        		<%= link_to "Cancel", :back, :class => "btn btn-default btn-sm", :remote => true %>
+	        	</div>
 	        </div>
 	      </div>
 	</div>

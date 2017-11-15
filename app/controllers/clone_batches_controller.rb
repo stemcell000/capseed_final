@@ -169,13 +169,14 @@ class CloneBatchesController < InheritedResources::Base
     @units = Unit.all
     @users = User.all
     #@clone_batch.plasmid_batches.build
-    @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 1)
+    @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
   end
   
   
   def update_pb_from_inventory
     
     @clone_batch.update_attributes(plasmid_pb_params)
+    
     @users = User.all
     
     if @clone_batch.valid?
@@ -272,7 +273,7 @@ class CloneBatchesController < InheritedResources::Base
     
     def plasmid_pb_params
       params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
-        :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]])
+        :plasmid_batch_attachments_attributes =>[:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]])
     end
        
       

@@ -83,7 +83,7 @@ config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = false  
 config.action_mailer.default :charset => "utf-8"  
 
-config.action_mailer.default_url_options = { host: 'www.example.com'}
+#config.action_mailer.default_url_options = { :host => 'https://nameless-ravine-16962.herokuapp.com'}
 
 ActionMailer::Base.smtp_settings = {
   :address => 'smtp.sendgrid.net',

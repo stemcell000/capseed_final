@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110093712) do
+ActiveRecord::Schema.define(version: 20171115161418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,13 +247,6 @@ ActiveRecord::Schema.define(version: 20171110093712) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "plasmid_batch_qc_attachments", force: :cascade do |t|
-    t.string   "attachment"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.integer  "plasmid_batch_qc_id"
-  end
-
   create_table "plasmid_batch_qcs", force: :cascade do |t|
     t.integer  "plasmid_batch_id"
     t.string   "dig_other"
@@ -439,27 +432,29 @@ ActiveRecord::Schema.define(version: 20171110093712) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "virus_productions", force: :cascade do |t|
-    t.date     "date_order"
-    t.date     "date_production"
-    t.integer  "user_id"
-    t.integer  "plate_nb"
-    t.decimal  "vol"
-    t.integer  "sterility"
-    t.string   "plate_id"
-    t.decimal  "titer_atcc"
-    t.decimal  "titer"
-    t.decimal  "titer_to_atcc"
-    t.text     "comment"
-    t.integer  "gel_prot"
-    t.boolean  "invoice"
-    t.boolean  "batch_end"
-    t.boolean  "l2"
-    t.text     "hek_result"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "vol_unit_id"
-    t.integer  "production_id"
+    t.integer "production_id"
+    t.integer "user_id"
+    t.integer "vol_unit_id"
+    t.date    "date_order"
+    t.date    "date_production"
+    t.integer "plate_nb"
+    t.decimal "vol"
+    t.boolean "sterility"
+    t.text    "plate_id"
+    t.decimal "titer"
+    t.decimal "titer_atcc"
+    t.decimal "titer_to_atcc"
+    t.text    "comment"
+    t.integer "get_prot"
+    t.boolean "invoice"
+    t.string  "batch_end"
+    t.boolean "l2"
+    t.text    "hek_result"
   end
+
+  add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree
+  add_index "virus_productions", ["user_id"], name: "index_virus_productions_on_user_id", using: :btree
+  add_index "virus_productions", ["vol_unit_id"], name: "index_virus_productions_on_vol_unit_id", using: :btree
 
   create_table "vol_units", force: :cascade do |t|
     t.datetime "created_at", null: false

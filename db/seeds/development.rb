@@ -93,11 +93,6 @@
   Sequencing.create(name: "not done")
   Sequencing.create(name: "passed")
   
-  #Sma1
-  Sma1.create(name: "yes")
-  Sma1.create(name: "no")
-  Sma1.create(name: "not applicable")
-  
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
   #Not Mandatory

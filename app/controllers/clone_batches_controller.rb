@@ -168,7 +168,7 @@ class CloneBatchesController < InheritedResources::Base
   def add_pb_from_inventory
     @units = Unit.all
     @users = User.all
-    #@clone_batch.plasmid_batches.build
+    @clone_batch.plasmid_batches.build
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
   end
   

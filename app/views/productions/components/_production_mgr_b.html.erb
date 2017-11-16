@@ -1,0 +1,47 @@
+<table class="table table-bordered table-striped table-hover prod_table" id="notsortable-production">
+  <thead>
+    <tr>
+      <th class="col-name">
+        Plasmids
+      </th>
+      <th class="col-startdate">
+        ID
+      </th>
+      <th class="col-startdate">
+        Start date
+      </th>
+      <th  class="col-step">
+        Current step
+      </th>
+      <th>
+      	Last validated step
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @productions.each do |p| %>
+      <tr data-item-id=<%= p.id %> class="item">
+        <td id="plasmid">
+          <%= cb_display(p.clone_batches) %>
+        </td>
+        <td>
+        	<%=p.id%>
+    	</td>
+      	<td id="startdate"%>
+          <%= p.created_at.strftime("%d %b %y at %H:%M") %>
+         </td>
+        <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
+          <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>
+        </td>
+         <td id="laststep" class=<%= formatProdStep(p.last_step, p.id)[:step_class] %>>
+          <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
+        </td>
+        <td id="Action">
+          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

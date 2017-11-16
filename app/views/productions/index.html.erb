@@ -2,26 +2,36 @@
 
 	<div class="center jumbotron production-color" >
 		<div class="row expl">
-		<% if @productions.empty?%>
-			<%else%>
-			<div class= "col-lg-8 pull-left">
-			Drag and drop the rows to rank the priority.
-			</div>
-			<%end%>
-			<div class="col-lg-2">
-				<%= link_to 'New Production', new_production_path, :class => "btn info prod_btn" %> 
-			</div>
-			<div class="col-lg-2 pull-right">
-				<% if can? :inform_production, @user %>
-					<%= link_to 'Push!', users_inform_production_path, :class => "btn btn-success" %>
-				<% end %>
+		<% if can? :update_row_order, @productions %>
+			<% if @productions.empty?%>
+				<%else%>
+				<div class="row">
+					<div class= "col-lg-4 pull-left ">
+					Drag and drop the rows to rank the priority.
+					</div>
+				</div>
+				<%end%>
+				<div class="row">
+					<div class="col-lg-2">
+						<%= link_to 'New Production', new_production_path, :class => "btn info prod_btn" %> 
+					</div>
+					<div class="col-lg-2 pull-right">
+					<% if can? :inform_production, @user %>
+						<%= link_to 'Push!', users_inform_production_path, :class => "btn btn-success" %>
+					<% end %>
+				</div>
 			</div>
 		</div>
+		<%end%>
 		<% if @productions.empty?%>
 			<p>No production to display</p>
-			<%else%>
-		<div class="row" id="production_todo">
-			<%= render :partial => 'components/production_mgr'%>
-		</div>
+		<%else%>
+				<div class="row" id="production_todo">
+					<% if can? :update_row_order, @productions %>
+						<%= render :partial => 'productions/components/production_mgr'%>
+					<%else%>
+						<%= render :partial => 'productions/components/production_mgr_b'%>
+					<%end%>
+				</div>
 		<%end%>
 </div>

@@ -3,11 +3,17 @@
 <div class="row">
 	<div class="col-lg-4">
 		<div class="form-group">
+			<%= f.label "Name" %>
+  			<%= f.search_field :name_cont %>
+  		</div>
+  	</div>
+	<div class="col-lg-4">
+		<div class="form-group">
 			<%= f.label "Comment" %>
   			<%= f.search_field :comment_cont %>
   		</div>
   	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 		<div class="form-group">
 			<%= f.label 'User'%>
 			<%= f.select(:user_id_eq, @users_all,{:include_blank => " "}, {:class => "select2-select"}) %>

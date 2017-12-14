@@ -12,7 +12,7 @@ class CloneBatchesController < InheritedResources::Base
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
-  before_action :load_lists, only: [:edit_as_plasmid, :edit_from_inventory, :update_from_inventory, :update_as_plasmid]
+  before_action :load_lists, only: [:edit_as_plasmid, :edit_from_inventory, :new_from_inventory, :update_from_inventory, :update_as_plasmid]
   
   def edit
     @clone_batch = CloneBatch.find(params[:id])
@@ -139,15 +139,20 @@ class CloneBatchesController < InheritedResources::Base
     #Recherche sur tables multiples.
       @q = CloneBatch.ransack(params[:q])
       
+   #Champ targets
+    @targets_all = Target.all.order(name: "asc").uniq
+    @targets_all = @targets_all.map{ |obj| [obj['name'], obj['id']] }
+      
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).includes(:clone)
+      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target)
       
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
-  respond_to do |format|
-    format.js
-    format.html
-  end
+     
+     respond_to do |format|
+      format.js
+      format.html
+    end
   end
   
   def edit_from_inventory
@@ -229,7 +234,7 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation,
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, 
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -241,13 +246,15 @@ class CloneBatchesController < InheritedResources::Base
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
-      :insert_attributes => [:id, :name, :number, :clone_batch_id])
+      :insert_attributes => [:id, :name, :number, :clone_batch_id],
+      :productions_attributes => [:id]
+      )
       
     end
     
     def plasmid_params
       
-      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :_destroy,
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :target_id ,:_destroy,
       :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id,
       
       :clone_batch_qc_attributes => [ :name, :date_send, :date_rec, :rec_name, :result, :conclusion],
@@ -268,7 +275,7 @@ class CloneBatchesController < InheritedResources::Base
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
       gene_ids: [], promoter_ids: [],
-      :production_attributes => [:id])
+      :productions_attributes => [:id])
     end
     
     def plasmid_pb_params
@@ -298,7 +305,8 @@ class CloneBatchesController < InheritedResources::Base
     
     def load_lists
       @strands_all = Strand.all
-      @types_all = Type.all
+      @types_all = Type.all.order(:name)
+      @targets_all = Target.all.order(:name)
     end
    
 end

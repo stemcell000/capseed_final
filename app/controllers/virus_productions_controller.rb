@@ -23,7 +23,7 @@ class VirusProductionsController < InheritedResources::Base
       @vps = @q.result(distinct: true).includes(:user)
     
       #Config de l'affichage des résultats.
-      @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {created_at: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
+      @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
  end
  
  
@@ -66,7 +66,7 @@ class VirusProductionsController < InheritedResources::Base
   
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
     :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id)
   end
  

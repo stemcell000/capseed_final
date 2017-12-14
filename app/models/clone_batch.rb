@@ -4,9 +4,10 @@ class CloneBatch < ActiveRecord::Base
   include ActiveModel::Dirty
   
   belongs_to :clone
-  belongs_to :production
+  has_and_belongs_to_many :productions, :join_table => "clone_batches_productions"
   has_and_belongs_to_many :clone_batch_qcs, :dependent => :destroy
   has_many :plasmid_batches, :dependent => :destroy
+  belongs_to :target
       
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
@@ -26,7 +27,7 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :type
   accepts_nested_attributes_for :genes, :allow_destroy => true
   accepts_nested_attributes_for :promoters, :allow_destroy => true
-  accepts_nested_attributes_for :production
+  accepts_nested_attributes_for :productions
   
   
   

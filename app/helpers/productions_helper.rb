@@ -22,7 +22,7 @@ def top_menu_prod
     s = "production design"
     p = add_plasmid_production_path(id)
   when 2
-    s = "production of virus"
+    s = "virus production"
     p = virus_production_production_path(id)
   when 3
     s = "closed"
@@ -40,6 +40,8 @@ end
   when 1
     s = "production design"
   when 2
+    s = "virus production"
+  else
     s = "closed"
   end
 @hash = {:step_name => s}

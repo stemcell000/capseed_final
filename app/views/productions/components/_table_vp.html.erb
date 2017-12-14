@@ -10,11 +10,9 @@
 						<td class="col-lg-1 text-center"><%= vp.id %></td>
 						<td class="col-lg-5">
 						<div class="col-lg-6">
-							<i class="glyphicon glyphicon-calendar"></i> <strong>Order (date): </strong> <%= vp.date_order.blank? ? "None" : vp.date_order.strftime("%B %e, %Y") %><br />
-							<i class="glyphicon glyphicon-calendar"></i> <strong>Prodution (date): </strong> <%= vp.date_production.blank? ? "None" : vp.date_production.strftime("%B %e, %Y") %><br />
 							<i class="glyphicon glyphicon-user"></i><%= vp.user_id.nil? ? "None" : vp.user.full_name %><br />
 							<i class="glyphicon glyphicon-tag"></i><strong>Invoice: </strong><%= vp.invoice.nil? ? "None" : vp.invoice %><br />
-							<strong>Volume: </strong><%= vp.vol.nil? ? "None" : vp.vol %> <%=vp.vol_unit.name%><br />
+							<strong>Volume: </strong><%= vp.vol.nil? ? "None" : vp.vol %> <%=vp.vol_unit.nil? ? "" : vp.vol_unit.name%><br />
 							<strong>number of plates : </strong><%= vp.plate_nb.nil? ? "None" : vp.plate_nb %><br />
 							<strong>Plate IDs: </strong><%= vp.plate_id.nil? ? "None" : vp.plate_id %><br />
 							<strong>Titer: </strong><%= vp.titer.nil? ? "None" : vp.titer %><br />

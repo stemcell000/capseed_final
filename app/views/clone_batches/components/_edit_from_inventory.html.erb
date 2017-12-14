@@ -27,11 +27,14 @@
 			<div class = "col-lg-3">
 			 		<%=f.input :origin_as_plasmid, :label => "Origin" %>
 			</div>	
-			<div class="col-lg-2">
+			<div class="col-lg-3">
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
 			<div class = "col-lg-2">
 			 	<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
+			</div>
+			<div class = "col-lg-2">
+			 	<%=f.association :target, :label => "Target", :collection => @targets_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<!--Add Promoter-->

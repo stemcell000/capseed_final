@@ -13,7 +13,7 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
  accepts_nested_attributes_for :vol_unit
  accepts_nested_attributes_for :production
  
- validates :date_order, :date_production, :plate_nb, :vol, :sterility, :plate_id, :vol_unit, :user, :presence => true
+ validates :plate_nb, :vol, :sterility, :plate_id, :vol_unit, :user, :presence => true
 # validates :titer, :titer_atcc, :titer_to_atcc, numericality: { greater_than: 0, less_than: 1000000 }
 
 end

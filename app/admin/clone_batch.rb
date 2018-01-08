@@ -1,5 +1,5 @@
 ActiveAdmin.register CloneBatch do
- config.sort_order = 'number_asc'
+ config.sort_order = 'id_asc'
 
    #index columns
   index do
@@ -22,6 +22,7 @@ ActiveAdmin.register CloneBatch do
     column :qc_validation
     column :strict_validation
     column :plasmid_validation
+    column :target
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_clone_batch_path(p)
@@ -32,7 +33,7 @@ end
  #Import csv   
  active_admin_import validate: false,
               csv_options: {col_sep: ";" },
-              headers_rewrites: { 'clone' => :clone_id,  'type' => :type_id, 'strand' => :strand_id, 'comment' => :comment_as_plasmid },
+              headers_rewrites: { 'clone' => :clone_id,  'type' => :type_id, 'strand' => :strand_id, 'comment' => :comment_as_plasmid, 'target' => :target_id },
               before_batch_import: ->(importer) {
                 
                 #CloneBatch.where(id: importer.values_at('id')).delete_all
@@ -52,10 +53,15 @@ end
                 options = Hash[*strands.flatten]
                 importer.batch_replace(:strand_id, options)
                 
-                 strand_names = importer.values_at(:strand_id)
+                strand_names = importer.values_at(:strand_id)
                 strands   = Strand.where(name: strand_names).pluck(:name, :id)
                 options = Hash[*strands.flatten]
                 importer.batch_replace(:strand_id, options)
+                
+                target_names = importer.values_at(:target_id)
+                targets   = Target.where(name: target_names).pluck(:name, :id)
+                options = Hash[*targets.flatten]
+                importer.batch_replace(:target_id, options)
                 
               },
               batch_size: 1000
@@ -63,7 +69,7 @@ end
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
 :strand, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :comment_as_plasmid, :promoters,
-:genes, :created_at, :updated_at, :type_id, :clone_id
+:genes, :created_at, :updated_at, :clone_id
 
 #Add Button to site
 action_item do

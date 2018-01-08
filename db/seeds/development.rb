@@ -18,8 +18,8 @@
   Strand.create( name:"sc")
   Strand.create( name:"ss")
   Strand.create( name:"nc")
-  Strand.create( name:"irrelevant")
-  Strand.create( name:"unknown")
+  Strand.create( name:"Irrelevant")
+  Strand.create( name:"Unknown")
 
   
    #Add boxes
@@ -95,65 +95,57 @@
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
-  #Not Mandatory
-  Assay.new( name:"Cloning1", display: "true", step:0, created_at: "2016-10-10 11:41:03" ).save(:validate => false)
-  Assay.new( name:"Cloning2", display: "true", step:1, created_at: "2016-10-13 11:41:03").save(:validate => false)
-  Assay.new( name:"Cloning3", display: "true", step:2, created_at: "2016-10-15 11:41:03").save(:validate => false)
-  Assay.new( name:"Cloning4", display: "true", step:3, created_at: "2016-10-17 11:41:03").save(:validate => false)
-  Assay.new( name:"Cloning5", display: "true", step:5, created_at: "2016-10-20 11:41:03").save(:validate => false)
-  Assay.new( name:"Cloning6", display: "true", step:4, created_at: "2016-10-21 11:41:03").save(:validate => false)
- 
-  Production.new( name:"Prod1", display: "true", step:0, last_step:0, created_at: "2016-10-20 09:41:03").save(:validate => false)
-  Production.new( name:"Prod2", display: "true", step:1, last_step:1, created_at: "2016-10-24 12:41:03").save(:validate => false)
-  Production.new( name:"Prod3", display: "true", step:2, last_step:2, created_at: "2016-10-28 09:12:03").save(:validate => false)
-  Production.new( name:"Prod4", display: "true", step:3, last_step:3, created_at: "2016-10-28 14:56:03").save(:validate => false)
-  Production.new( name:"Prod5", display: "true", step:0, last_step:0, created_at: "2016-10-30 17:00:30").save(:validate => false)
-  Production.new( name:"Prod6", display: "true", step:0, last_step:0, created_at: "2016-10-31 11:41:03").save(:validate => false)
- 
   #Add Projects to Assay
   Project.create( name:"Global project")
-  Project.create( name:"Hoffmann-La Roche")
-  Project.create( name:"Sanofi")
-  Project.create( name:"Novartis")
-  Project.create( name:"Bayer")
-  Project.create( name:"Lilly")
   
-
-  #Seed Clone
-  Clone.new( name: "Alpha", bbnb: 144, primerinsfor: "VR1", primerinsrev: "VR2", comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").save(:validate => false)
-  Clone.new( name: "Beta", bbnb: 319, primerinsfor: "WR1", primerinsrev: "WR2", comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").save(:validate => false)
-  Clone.new( name: "Gamma", bbnb: 102, primerinsfor: "VR1", primerinsrev: "VR2", comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").save(:validate => false)
+  #Target
+  Target.create( name: "Unknown")
+  Target.create( name: "Ubiquitous")
+  Target.create( name: "Bipolar cells on")
+  Target.create( name: "Cones")
+  Target.create( name: "Red cones")
+  Target.create( name: "Blue cones")
+  Target.create( name: "Neuronal")
+  Target.create( name: "RGC")
   
-  #Seed Insert
-  Insert.new( name:"insert1", clone_batch_id: 400, number: 650).save(:validate => false)
-  Insert.new( name:"insert2", clone_batch_id: 577, number: 651).save(:validate => false)
-  Insert.new( name:"insert3", clone_batch_id: 687, number: 652).save(:validate => false)
-  Insert.new( name:"insert4", clone_batch_id: 724, number: 653).save(:validate => false)
-  
-  
-  Assay.find(1).projects << Project.find(1)
-  Assay.find(1).projects << Project.find(2)
-  Assay.find(2).projects << Project.find(1)
-  Assay.find(2).projects << Project.find(3)
-  Assay.find(3).projects << Project.find(1)
-  Assay.find(3).projects << Project.find(4)
-  Assay.find(4).projects << Project.find(1)
-  Assay.find(4).projects << Project.find(5)
-  Assay.find(5).projects << Project.find(1)
-  Assay.find(5).projects << Project.find(6)
-  
-  #
-  Clone.find(1).enzymes << Enzyme.find(4)
-  Clone.find(1).enzymes << Enzyme.find(2)
-  Clone.find(2).enzymes << Enzyme.find(5)
-  Clone.find(2).enzymes << Enzyme.find(3)
-  Clone.find(2).enzymes << Enzyme.find(7)
-  Clone.find(3).enzymes << Enzyme.find(7)
-  Clone.find(3).enzymes << Enzyme.find(6)
-  Clone.find(3).enzymes << Enzyme.find(1)
-  
-  #
-  Clone.find(1).inserts << Insert.find(1)
-  Clone.find(1).inserts << Insert.find(2)
-  Clone.find(2).inserts << Insert.find(3)
-  Clone.find(2).inserts << Insert.find(4)
+  #Add Users
+    User.create! do |u|
+        u.email     = 'camille.robert@inserm.fr'
+        u.username = 'crobert'
+        u.firstname = 'Celine'
+        u.lastname = 'Robert'
+        u.password  = 'YM26r9mt'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'julien.murat@inserm.fr'
+        u.username = 'jmurat'
+        u.firstname = 'Julien'
+        u.lastname = 'Murat'
+        u.password    = 'gVx29g2G'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'emilie.mace@inserm.fr'
+        u.username = 'emace'
+        u.firstname = 'Emilie'
+        u.lastname = 'Macé'
+        u.password    = 'C84r2mXs'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'eleonore.duvelle@inserm.fr'
+        u.username = 'eduvelle'
+        u.firstname = 'Eléonore'
+        u.lastname = 'Duvelle'
+        u.password    = 'rr7A5Ke7'
+        u.role = 'Guest'
+    end 
+    User.create! do |u|
+        u.email     = 'celine.winkler@inserm.fr'
+        u.username = 'cwinkler'
+        u.firstname = 'Céline'
+        u.lastname = 'Winkler'
+        u.password    = 'E2tah3Y7'
+        u.role = 'Guest'
+    end 

@@ -1,23 +1,42 @@
  <%= search_form_for @q, :url => virus_productions_path, :class => "form-inline" ,:remote => true do |f| %>
+ <div class="row">
+			<div class="col-lg-12">
+				<h3><i class="fa_icon fa fa-search"></i> Virus Inventory</h3>
+			</div>
+		</div>
 
 <div class="row">
+	<div class="col-lg-4">
+		<div class="form-group">
+			<%= f.label "Name" %>
+  			<%= f.search_field :name_cont %>
+  		</div>
+  	</div>
 	<div class="col-lg-4">
 		<div class="form-group">
 			<%= f.label "Comment" %>
   			<%= f.search_field :comment_cont %>
   		</div>
   	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 		<div class="form-group">
 			<%= f.label 'User'%>
 			<%= f.select(:user_id_eq, @users_all,{:include_blank => " "}, {:class => "select2-select"}) %>
 		</div>	
 	</div>
 </div>
+<div class="row">
+	<div class="col-lg-4">
+		<div class="form-group">
+			<%= f.label "plasmid" %>
+  			<%= f.search_field :clone_batches_name_cont %>
+  		</div>
+  	</div>
+</div>
 
 <div class="row">
 	<div class="col-lg-4">
-		<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
+		<h5 class="text-primary"><em>Search by ranges of date of <mark>creation</mark> : </em></h5>
 	</div>
 	<div class="col-lg-4">
 				<div class="form-group" >
@@ -30,6 +49,25 @@
 				<div class="form-group" >
 						<%= f.label "End date ", :class=>"control-label" %>
 						<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4">
+		<h5 class="text-primary"><em>Search by ranges of date of <mark>production</mark> : </em></h5>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+					
+						<%= f.label "Start date ", :class=>"control-label"  %>
+						<%= f.search_field :date_of_production_gteq, value: @date_of_production_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+						<%= f.label "End date ", :class=>"control-label" %>
+						<%= f.search_field :date_of_production_lteq, value: @date_of_production_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 				</div>
 	</div>
 </div>

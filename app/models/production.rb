@@ -10,10 +10,8 @@ class Production < ActiveRecord::Base
    ranks :row_order
   
   #Nested models relationships
-  has_many :clone_batches, -> { uniq }
-  belongs_to :vol_unit
+  has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
   has_and_belongs_to_many :projects
-  has_many :clone_batches
   has_many :virus_productions
   
   accepts_nested_attributes_for :projects
@@ -37,6 +35,12 @@ class Production < ActiveRecord::Base
   
   def self.text_search(query)
     search(query)
+  end
+  
+    ransacker :id do
+    Arel::Nodes::SqlLiteral.new(
+      "regexp_replace(to_char(\"#{table_name}\".\"id\", '99999999'), ' ', '', 'g')"
+    )
   end
   
   private

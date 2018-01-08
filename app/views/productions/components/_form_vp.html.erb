@@ -10,14 +10,14 @@
 			
 			<div class="row">
 				<div class="col-lg-4">
-							<%= vp_builder.input :date_order, :label => "Order (date):", :as => :string, :input_html => { :value => (vp_builder.object.date_order.strftime("%B %e, %Y") if vp_builder.object.date_order), "data-behaviour" => "datepicker" } %>
+							<%= vp_builder.input :name, :label => "Name:" %>
 				</div>
 				<div class="col-lg-4">
-							<%= vp_builder.input :date_production, :label => "Production (date):", :as => :string, :input_html => { :value => (vp_builder.object.date_production.strftime("%B %e, %Y") if vp_builder.object.date_production), "data-behaviour" => "datepicker" } %>
+				<%= vp_builder.input :date_of_production, :label => "Date of production:", :as => :string, :input_html => { :value => (vp_builder.object.date_of_production.strftime("%B %e, %Y") if vp_builder.object.date_of_production), "data-behaviour" => "datepicker" } %>
 				</div>
 				<div class="col-lg-2">
 					<%=vp_builder.input :invoice , :label => "Invoice"%>
-				</div>
+				</div>		
 			</div>
 			
 			<div class="row">

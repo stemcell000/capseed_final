@@ -22,8 +22,8 @@ for(var i in prod){
 			};
 				prod[i][7] = null;
 };
-console.log(prod);
-console.log(gon.productions);
+console.log("prod:"+prod);
+console.log("gon.prod:"+gon.productions);
 
 google.charts.load('current', {'packages':['gantt']});
 google.charts.setOnLoadCallback(drawChart);
@@ -49,19 +49,25 @@ function drawChart() {
     gantt: {
       trackHeight: 30,
       labelStyle: {
-      fontName: "Arial"
+      fontName: "Arial",
+      fontSize: 12,
   				},
  	barHeight: 20,
   	criticalPathEnabled: false,
   	barCornerRadius: 2,
   	innerGridTrack: {fill: 'white'},
-    innerGridDarkTrack: {fill: 'white'}
+    innerGridDarkTrack: {fill: 'white'},
     }
   };
 
   var chart = new google.visualization.Gantt(document.getElementById('chart_prod_div'));
 
   chart.draw(data, options);
+  
+      function selectHandler() {
+        console.log(selectedItem);
+        document.getElementById('result').innerHTML = selectedItem.row + " row has been selected"; 
+    }
 }
 </script>
 <div id="chart_prod_div"></div>

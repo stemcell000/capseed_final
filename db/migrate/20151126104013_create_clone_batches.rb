@@ -3,6 +3,7 @@ class CreateCloneBatches < ActiveRecord::Migration
     create_table :clone_batches do |t|
       t.belongs_to :clone, index:true
       t.belongs_to :unit, index:true
+      t.belongs_to :target, index:true
       t.string :name
       t.string :temp_name
       t.text :comment

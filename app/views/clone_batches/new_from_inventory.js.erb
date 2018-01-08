@@ -1,5 +1,14 @@
 <%= smart_listing_item :clone_batches, :new, @clone_batch, "clone_batches/components/new_from_inventory" %>
 
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+
+
 $(document).on('nested:fieldAdded', function(event){
 			$(".select2-select").select2({
 		    theme: "bootstrap",

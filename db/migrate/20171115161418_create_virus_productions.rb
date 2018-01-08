@@ -4,8 +4,7 @@ class CreateVirusProductions < ActiveRecord::Migration
       t.belongs_to :production, index:true
       t.belongs_to :user, index:true
       t.belongs_to :vol_unit, index:true
-      t.date :date_order
-      t.date :date_production
+      t.string :name
       t.integer :plate_nb
       t.decimal :vol
       t.boolean :sterility
@@ -14,11 +13,13 @@ class CreateVirusProductions < ActiveRecord::Migration
       t.decimal :titer_atcc
       t.decimal :titer_to_atcc
       t.text :comment
-      t.integer :get_prot
+      t.string :gel_prot
       t.boolean :invoice
       t.string :batch_end
       t.boolean :l2
       t.text :hek_result
+      t.string :animal
+      t.timestamps null: false
     end
   end
 end

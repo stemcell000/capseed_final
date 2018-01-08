@@ -10,73 +10,80 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-lg-5">
 				<div class="row">
 					<h5 class="text-primary"><em>Basic input search : </em></h5>
 				</div>
 				<div class="form-group raw">
-					<%= f.label "Number*", :class=>"control-label col-xs-4" %>
-					<%= f.search_field :number_cont, :class=>"col-xs-7" %>
+					<%= f.label "Number*", :class=>"control-label col-lg-4" %>
+					<%= f.search_field :number_cont, :class=>"col-lg-7" %>
 				</div>
 				
 				<div class="form-group raw">
-					<%= f.label "Name*", :class=>"control-label col-xs-4" %>
-					<%= f.search_field :name_cont, :class=>"col-xs-7" %>
+					<%= f.label "Name*", :class=>"control-label col-lg-4" %>
+					<%= f.search_field :name_cont, :class=>"col-lg-7" %>
 				</div>
 				
 			 	<div class="form-group row">
-					<%= f.label "Clone name*",:class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :clone_name_cont, :class=>"col-xs-7" %>
+					<%= f.label "Clone name*",:class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :clone_name_cont, :class=>"col-lg-7" %>
 				</div>
 				
 				<div class="form-group row">
-				  	<%= f.label "Gene*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :genes_name_cont, :class=>"col-xs-7" %>
+				  	<%= f.label "Gene*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :genes_name_cont, :class=>"col-lg-7" %>
 			 	</div>
 			 	
 			 	<div class="form-group row">
-				  	<%= f.label "Promoter*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :promoters_name_cont, :class=>"col-xs-7" %>
+				  	<%= f.label "Promoter*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :promoters_name_cont, :class=>"col-lg-7" %>
 			 	</div>
 			 	
 			 	<div class="form-group row">
-				  	<%= f.label "Glycerol stock box#*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :glyc_stock_box_as_plasmid_cont, :class=>"col-xs-7" %>
+				  	<%= f.label "Glycerol stock box#*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :glyc_stock_box_as_plasmid_cont, :class=>"col-lg-7" %>
 			 	</div>
 			 	
 			 	<div class="form-group row">
 		 			<span class="help-block"><em>*Enter all or part of the value.</em></span>
 		 		</div>
 			</div>
-		<div class="col-sm-6">
+		<div class="col-lg-7">
 			<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
 				<div class="form-group" >
 					
-						<%= f.label "Start date ", :class=>"control-label col-xs-4" %>
+						<%= f.label "Start date ", :class=>"control-label col-lg-4" %>
 						<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 				</div>
 				
 				<div class="form-group" >
-						<%= f.label "End date ", :class=>"control-label col-xs-4" %>
+						<%= f.label "End date ", :class=>"control-label col-lg-4" %>
 						<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 				</div>
-				
-					 	<div class="form-group row">
-				  	<%= f.label "Batch name*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :plasmid_batches_name_cont, :class=>"col-xs-7" %>
+					<h5 class="text-primary"><em>Others : </em></h5>
+					 	<div class="form-group">
+				  	<%= f.label "Batch name*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :plasmid_batches_name_cont, :class=>"col-lg-7" %>
 			 	</div>
 			 	
-			 	<div class="form-group row">
-				  	<%= f.label "Format*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :plasmid_batches_format_cont, :class=>"col-xs-7" %>
+			 	<div class="form-group">
+				  	<%= f.label "Format*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :plasmid_batches_format_cont, :class=>"col-lg-7" %>
 			 	</div>
 			 	
-			 	<div class="form-group row">
-				  	<%= f.label "Comment*", :class=>"control-label col-xs-4" %>
-				  	<%= f.search_field :comment_as_plasmid_cont, :class=>"col-xs-7" %>
+			 	<div class="form-group">
+				  	<%= f.label "Comment*", :class=>"control-label col-lg-4" %>
+				  	<%= f.search_field :comment_as_plasmid_cont, :class=>"col-lg-7" %>
 			 	</div>
-		</div>
+			 	<div class="form-group">
+					 <%= f.label "Target*", :class=>"control-label col-lg-4" %>
+					 <div class="col-lg-8">
+					 	<%= f.select(:target_id_eq, @targets_all,{:include_blank => " "}, {:class => "select2-select project"}) %>
+					</div>
+				</div>
 			</div>
+		</div>
+
 		<div class="row">	
 				<div class="form-group pull-right">
 					<%= f.submit class:"cancel-button btn btn-default" %>

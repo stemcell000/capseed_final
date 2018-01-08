@@ -1,4 +1,5 @@
-	<td class="center"><%= cb_display(object.clone_batches) %></td> 
+<td class="center"><%= object.id %></td>
+<td class="center"><%= cb_display(object.clone_batches) %></td> 
   <td class="center"><%= formatProdStatus(object.last_step)[:step_name] %></td>
   <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
   <td class="center"><% if object.locked? %><span class="glyphicon glyphicon-lock"><%else%><span class="glyphicon glyphicon-minus"><%end%></td>

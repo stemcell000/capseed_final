@@ -1,23 +1,10 @@
 <div class="row">
 	<h6>Production Gantt-chart:</h6>
-		<div class="row">
-			<%= form_tag scheduler_productions_path do %>
-			  	<small>
-  					<div class = "row">
-  						<div class="col-md-3">
-  							Number of productions to display: 
-  						</div>
-  						<div class="col-md-3">
-    						<%= number_field_tag :nb, params[:nb] %>
-    					</div>
-    					<div class="col-md-1 col-md-offset-1">
-    						<%= submit_tag "Go!", :name => nil , :class =>'btn btn-default btn-xs'%>
-    					</div>
-    				</div>
-    			</small>
-			<% end %>
-		</div>
 		<div id='gantt-container' class="row">
+			<% unless @productions.empty? %>
 					<%= render :partial => "productions/components/production_gantt_chart", :locals => {:productions => @productions}  %>
+			<% else %>
+			<p>Nothing to display...</p>
+			<%end%>
 		</div>
 	</div>

@@ -140,7 +140,7 @@ class ProductionsController < InheritedResources::Base
     @production.update_columns(:percentage => 75)
     @production.update_columns( :locked => true )
     #
-    flash.keep[:success] = "Production has beed launched."
+    flash.keep[:success] = "Production has been saved."
   end
   
   def spawn_vp
@@ -195,6 +195,7 @@ class ProductionsController < InheritedResources::Base
         @steps << { "id" => p.step, "name" => name } 
       end
       @steps = @steps.sort_by { |hsh| hsh[:id] }.uniq.map { |obj| [obj['name'], obj['id']] }
+      
       @projects_all = Project.all.order(name: "asc").uniq
       @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }
       
@@ -203,23 +204,25 @@ class ProductionsController < InheritedResources::Base
       @productions = @q.result(distinct: true).includes(:projects)
     
       #Config de l'affichage des résultats.
-      @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {created_at: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
+      @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
   end
   
 
   
   def scheduler
     
-    if params[:nb] 
-    unless params[:nb].blank?
-      @producions = Production.all.order("id desc").limit(params[:nb])
-    else
-      @productions = Production.all.order("id desc").limit(10)
-    end
-    else
-      @productions = Production.all.order("id desc").limit(10)
-    end
+   # if params[:nb] 
+   #   unless params[:nb].blank?
+   #     @producions = Production.all.order("id desc").limit(params[:nb])
+   #   else
+   #     @productions = Production.all.order("id desc").limit(10)
+   #   end
+   #   else
+   #     @productions = Production.all.order("id desc").limit(10)
+   #   end
     
+    @productions = Production.all.where.not(:last_step => 3)
+      
     gon.rabl "app/views/productions/scheduler.json.rabl", as: "productions"
 
   end
@@ -231,22 +234,22 @@ class ProductionsController < InheritedResources::Base
   end
 
   def production_params
-    params.require(:production).permit(:id, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
+    params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
     project_ids: [],
     :projects_attributes => [:id, :name],
-    :clone_batch_attributes => [:id, :name, :promoted, :comment, :qc_validation, :clone_batch_id, :clone_id, :_destroy, :production_id],
+    :clone_batches_attributes => [:id, :name, :_destroy],
     clone_batch_ids: [],
     :clone_attributes => [:id, :name, :assay_id],
     :assay_attributes => [:id, :name],
     :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
-    :get_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id],
+    :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id],
     virus_production_ids: []
     )
   end
     
   def production_vp_params
     params.require(:production).permit(:id,
-    :virus_productions_attributes => [:id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    :virus_productions_attributes => [:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
     :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id],virus_production_ids: [])
   end
     

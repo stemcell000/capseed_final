@@ -1,13 +1,22 @@
 <% unless smart_listing.empty? %>
   <table class="table table-striped">
     <thead>
-      <th class="col-md-3 center">
+    <th class="col-lg-1 center">
+		<%= smart_listing.sortable "ID", :id %>
+  	</th>
+    <th class="col-lg-1 center">
+		<%= smart_listing.sortable "Name", :name %>
+  	</th>
+      <th class="col-lg-2 center">
 		<%= smart_listing.sortable "Date of creation", :created_at %>
   	</th>
-  	<th class="col-md-3 center">
-		<%= smart_listing.sortable "Date of production", :date_production %>
+     <th class="col-lg-1 center">
+		Prod. ID
   	</th>
-   <th class="col-md-3 center">
+  	<th class="col-lg-2 center">
+		Date of prod.
+  	</th>
+   <th class="col-lg-3 center">
     	Plasmids
     </th>
     </thead>

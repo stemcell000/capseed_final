@@ -1,4 +1,4 @@
-#Mandatory Seeds
+ #Mandatory Seeds
   #Add units
   Unit.create( name:"ng/uL")
   Unit.create( name:"ug/uL")
@@ -18,8 +18,8 @@
   Strand.create( name:"sc")
   Strand.create( name:"ss")
   Strand.create( name:"nc")
-  Strand.create( name:"irrelevant")
-  Strand.create( name:"unknown")
+  Strand.create( name:"Irrelevant")
+  Strand.create( name:"Unknown")
 
   
    #Add boxes
@@ -93,9 +93,59 @@
   Sequencing.create(name: "not done")
   Sequencing.create(name: "passed")
   
-  #First project
-  Project.create( name:"Global project")
-  
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
- 
+  #Add Projects to Assay
+  Project.create( name:"Global project")
+  
+  #Target
+  Target.create( name: "Unknown")
+  Target.create( name: "Ubiquitous")
+  Target.create( name: "Bipolar cells on")
+  Target.create( name: "Cones")
+  Target.create( name: "Red cones")
+  Target.create( name: "Blue cones")
+  Target.create( name: "Neuronal")
+  Target.create( name: "RGC")
+  
+  #Add Users
+    User.create! do |u|
+        u.email     = 'camille.robert@inserm.fr'
+        u.username = 'crobert'
+        u.firstname = 'Celine'
+        u.lastname = 'Robert'
+        u.password  = 'YM26r9mt'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'julien.murat@inserm.fr'
+        u.username = 'jmurat'
+        u.firstname = 'Julien'
+        u.lastname = 'Murat'
+        u.password    = 'gVx29g2G'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'emilie.mace@inserm.fr'
+        u.username = 'emace'
+        u.firstname = 'Emilie'
+        u.lastname = 'Macé'
+        u.password    = 'C84r2mXs'
+        u.role = 'Production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'eleonore.duvelle@inserm.fr'
+        u.username = 'eduvelle'
+        u.firstname = 'Eléonore'
+        u.lastname = 'Duvelle'
+        u.password    = 'rr7A5Ke7'
+        u.role = 'Guest'
+    end 
+    User.create! do |u|
+        u.email     = 'celine.winkler@inserm.fr'
+        u.username = 'cwinkler'
+        u.firstname = 'Céline'
+        u.lastname = 'Winkler'
+        u.password    = 'E2tah3Y7'
+        u.role = 'Guest'
+    end 

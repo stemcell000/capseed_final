@@ -19,6 +19,7 @@
 								<i class="glyphicon glyphicon-bookmark"></i><strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
 								<i class="glyphicon glyphicon-th"></i> <strong>number of plates: </strong> <%= object.plate_nb.nil? ? "none" : object.plate_nb %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date of prod.: </strong> <%= object.date_of_production.strftime("%B %e, %Y") %><br />
 								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
 								<strong>Titer ATCC: </strong> <%= object.titer_atcc.nil? ? "none" : object.titer_atcc %><br />
 								<strong>Titer to ATCC: </strong> <%= object.titer_to_atcc.nil? ? "none" : object.titer_to_atcc %><br />

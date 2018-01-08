@@ -16,19 +16,18 @@
 					</div>
 				</div>'
 				data-content='	
-								<i class="glyphicon glyphicon-bookmark"></i><strong>Titer: </strong> <%= object.titer.nil? ? "No data" : object.titer %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Volume: </strong> <%= object.vol.nil? ? "No data" : "#{object.vol} #{object.vol_unit.name}" %><br />
-								<i class="glyphicon glyphicon-th"></i> <strong>number of plates: </strong> <%= object.plate_nb.nil? ? "No data" : object.plate_nb %><br />
-								<i class="glyphicon glyphicon-calendar"></i> <strong>Date of prod.: </strong> <%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%B %e, %Y") %><br />
-								<strong>Titer: </strong> <%= object.titer.nil? ? "No data" : object.titer %><br />
-								<strong>Titer ATCC: </strong> <%= object.titer_atcc.nil? ? "No data" : object.titer_atcc %><br />
-								<strong>Titer to ATCC: </strong> <%= object.titer_to_atcc.nil? ? "No data" : object.titer_to_atcc %><br />
-								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "No data" : object.gel_prot %><br />
-								<strong>Sterility: </strong> <%= object.sterility.nil? ? "No data" : object.sterility %><br />
-								<strong>L2: </strong> <%= object.l2.nil? ? "No data" : object.l2 %><br />
-								<strong>Titer: </strong> <%= object.titer.nil? ? "No data" : object.titer %><br />
-								<strong>User: </strong><%= object.user.nil? ? "No data" : object.user.full_name %><br />
-								<strong>Batch end: </strong> <%= object.batch_end.nil? ? "No data" : object.batch_end %><br />
+								<i class="glyphicon glyphicon-bookmark"></i><strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
+								<i class="glyphicon glyphicon-th"></i> <strong>number of plates: </strong> <%= object.plate_nb.nil? ? "none" : object.plate_nb %><br />
+								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
+								<strong>Titer ATCC: </strong> <%= object.titer_atcc.nil? ? "none" : object.titer_atcc %><br />
+								<strong>Titer to ATCC: </strong> <%= object.titer_to_atcc.nil? ? "none" : object.titer_to_atcc %><br />
+								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
+								<strong>Sterility: </strong> <%= object.sterility.nil? ? "none" : object.sterility %><br />
+								<strong>L2: </strong> <%= object.l2.nil? ? "none" : object.l2 %><br />
+								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
+								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />
+								<strong>Batch end: </strong> <%= object.batch_end.nil? ? "none" : object.batch_end %><br />
 								<% if !object.hek_result.blank? %>
 									<strong>HEK results: </strong><%= object.hek_result %><br />
 								<%end%>

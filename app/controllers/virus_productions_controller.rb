@@ -13,6 +13,11 @@ class VirusProductionsController < InheritedResources::Base
       end_time = params[:created_at_lteq].to_date rescue Date.current
       end_time = end_time.end_of_day # sets to 23:59:59
       
+      start_prod_time = params[:date_of_production_gteq].todate rescue Date.current
+      start_prod_time = start_prod_time.beginning_of_day # sets to 00:00:00
+      end_prod_time = params[:date_of_production_lteq].to_date rescue Date.current
+      end_prod_time = end_prod_time.end_of_day # sets to 23:59:59
+      
     #Champ select pour "step" (champ de Production) et "projects" 
     
       @users_all = User.all.order(lastname: "asc").uniq
@@ -66,7 +71,7 @@ class VirusProductionsController < InheritedResources::Base
   
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
     :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id)
   end
  

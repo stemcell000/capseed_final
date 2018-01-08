@@ -57,15 +57,17 @@ class AssaysController < ApplicationController
   #Formatage des données pour
   def scheduler
     
-    if params[:nb] 
-    unless params[:nb].blank?
-      @assays = Assay.all.order("id desc").limit(params[:nb])
-    else
-      @assays = Assay.all.order("id desc").limit(10)
-    end
-    else
-      @assays = Assay.all.order("id desc").limit(10)
-    end
+    #if params[:nb] 
+    #unless params[:nb].blank?
+    #  @assays = Assay.all.order("id desc").limit(params[:nb])
+    #else
+    #  @assays = Assay.all.order("id desc").limit(10)
+    #end
+    #else
+    #  @assays = Assay.all.order("id desc").limit(10)
+    #end
+    
+    @assays = Assay.all.where.not(:last_step => 8)
     
     gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
     

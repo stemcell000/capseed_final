@@ -2,7 +2,7 @@
   <td class="center"><%= object.name %></td>
   <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
   <td class="center"><%= object.production.nil? ? "No data" : object.production.id %></td>
-  <td class="center"><%= object.production.nil? ? "No data" : object.production.created_at.strftime("%B %e, %Y") %></td>
+  <td class="center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%B %e, %Y") %></td>
   <td class="center"><small><%= cb_display(object.clone_batches) %></small></td> 
   
   <td class="actions">

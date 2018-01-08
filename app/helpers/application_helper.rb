@@ -55,9 +55,9 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
   
-  #Format name of step from number
-  def stepToString(step_id)
-  @hash ={}
+#Format name of step from number (assay only)
+def stepToString(step_id)
+ @hash ={}
   case step_id
   when 0
     s = "Creation"
@@ -75,6 +75,22 @@ module ApplicationHelper
     s = "Closing"
   when 8
     s = "Completed"
+   end 
+   return s
+end
+
+#Format name of step from number (production only)
+def stepToStringProd(step_id)
+ @hash ={}
+  case step_id
+  when 0
+    s = "Creation"
+  when 1
+    s = "Production design"
+  when 2
+    s = "Virus Production"
+  when 3
+    s = "Closed"
    end 
    return s
 end
@@ -103,5 +119,23 @@ end
     r=""
   end
   return r.to_sentence
+end
+
+def cb_flag(i)
+ flag = ""
+ 
+ case i
+ when i=1
+  flag = "(H)"
+ when i=2
+  flag = "(T)"
+ when i=3
+  flag = "(C)"
+ when i=4
+  flag = "(L)"
+ else
+  flag=""   
+ end
+
 end
 

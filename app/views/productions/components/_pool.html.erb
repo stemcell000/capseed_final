@@ -7,7 +7,7 @@
 	<%end%>
 		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
 		<%= f.label :pool, :label => st %>
-		<%= f.input_field :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();" %>
+		<%= f.input_field :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();", :disabled => @production.locked %>
 	<%end%>
 
 <%end%>

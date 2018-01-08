@@ -60,7 +60,7 @@
 						<%= f.label "End date ", :class=>"control-label col-lg-4" %>
 						<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 				</div>
-				
+					<h5 class="text-primary"><em>Others : </em></h5>
 					 	<div class="form-group">
 				  	<%= f.label "Batch name*", :class=>"control-label col-lg-4" %>
 				  	<%= f.search_field :plasmid_batches_name_cont, :class=>"col-lg-7" %>

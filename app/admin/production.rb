@@ -1,6 +1,6 @@
 ActiveAdmin.register Production do
 #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :id, :name, :locked
+ permit_params :list, :of, :attributes, :on, :model, :id, :name, :locked, :today_date
   #
  action_item do
   link_to "View Site", "/"

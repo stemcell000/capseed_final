@@ -140,7 +140,7 @@ class ProductionsController < InheritedResources::Base
     @production.update_columns(:percentage => 75)
     @production.update_columns( :locked => true )
     #
-    flash.keep[:success] = "Production has beed launched."
+    flash.keep[:success] = "Production has been saved."
   end
   
   def spawn_vp
@@ -211,15 +211,17 @@ class ProductionsController < InheritedResources::Base
   
   def scheduler
     
-    if params[:nb] 
-      unless params[:nb].blank?
-        @producions = Production.all.order("id desc").limit(params[:nb])
-      else
-        @productions = Production.all.order("id desc").limit(10)
-      end
-      else
-        @productions = Production.all.order("id desc").limit(10)
-      end
+   # if params[:nb] 
+   #   unless params[:nb].blank?
+   #     @producions = Production.all.order("id desc").limit(params[:nb])
+   #   else
+   #     @productions = Production.all.order("id desc").limit(10)
+   #   end
+   #   else
+   #     @productions = Production.all.order("id desc").limit(10)
+   #   end
+    
+    @productions = Production.all.where.not(:last_step => 3)
       
     gon.rabl "app/views/productions/scheduler.json.rabl", as: "productions"
 
@@ -247,7 +249,7 @@ class ProductionsController < InheritedResources::Base
     
   def production_vp_params
     params.require(:production).permit(:id,
-    :virus_productions_attributes => [:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    :virus_productions_attributes => [:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
     :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id],virus_production_ids: [])
   end
     

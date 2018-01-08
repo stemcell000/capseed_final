@@ -6,23 +6,6 @@
 	</div>
 	<div class="col-md-7">
 		<h6>Cloning Gantt-chart:</h6>
-		<div class="row">
-			<%= form_tag scheduler_assays_path do %>
-			  	<small>
-  					<div class = "row">
-  						<div class="col-md-5">
-  							Number of clonings to display: 
-  						</div>
-  						<div class="col-md-3">
-    						<%= number_field_tag :nb, params[:nb] %>
-    					</div>
-    					<div class="col-md-1 col-md-offset-1">
-    						<%= submit_tag "Go!", :name => nil , :class =>'btn btn-default btn-xs'%>
-    					</div>
-    				</div>
-    			</small>
-			<% end %>
-		</div>
 		<div id='gantt-container' class="row">
 				<div class="col-md-12">
 					<%= render :partial => "assays/components/cloning_gantt_chart", :locals => {:assays => @assays}  %>

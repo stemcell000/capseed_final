@@ -80,26 +80,6 @@ def formatDateToGantt(d)
     d.strftime("%Y, %-m, %-d")
     end
 end
-
-
-def cb_flag(i)
- flag = ""
- 
- case i
- when i=1
-  flag = "(H)"
- when i=2
-  flag = "(T)"
- when i=3
-  flag = "(C)"
- when i=4
-  flag = "(L)"
- else
-  flag=""   
- end
-
-end
-  
      
   
 end

@@ -121,7 +121,6 @@ gem 'coffee-rails', '~> 4.1.0'
     gem 'traceroute'
   
   #Pagination
-  #gem 'will_paginate-bootstrap'
   gem 'kaminari'
   gem 'bootstrap-kaminari-views'
   

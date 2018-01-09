@@ -41,7 +41,7 @@ GEM
       formtastic_i18n
       inherited_resources (~> 1.7)
       jquery-rails (>= 4.2.0)
-      kaminari (>= 0.15, < 2.0)
+      kaminari (>= 1.0.0, < 2.0)
       railties (>= 4.2, < 5.2)
       ransack (~> 1.3)
       sass (~> 3.1)

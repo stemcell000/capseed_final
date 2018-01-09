@@ -61,20 +61,6 @@
   Row.create( name:"I")
   Row.create(name: "None")
   
-  #Add Enzymes 
-  Enzyme.create(name: "Eco RI")
-  Enzyme.create(name: "BamHI")
-  Enzyme.create(name: "HindIII")
-  Enzyme.create(name: "MstII")
-  Enzyme.create(name: "TaqI")
-  Enzyme.create(name: "NotI")
-  Enzyme.create(name: "HinfI")
-  Enzyme.create(name: "Alul")
-  Enzyme.create(name: "BgIIII")
-  Enzyme.create(name: "HaelII")
-  Enzyme.create(name: "Hhal")
-  Enzyme.create(name: "PsrI")
-  
   #Formats
   Format.create(name: "mini")
   Format.create(name: "midi")

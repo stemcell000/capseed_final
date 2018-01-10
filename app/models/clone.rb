@@ -21,8 +21,6 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
 
-before_validation :downcase_name
-before_save :downcase_name
   #validations
     validates :name, :bbnb, :presence => true
     validates :bbnb, numericality: { only_integer: true }
@@ -30,7 +28,7 @@ before_save :downcase_name
     validates :bbnb, numericality: true
     validates :name, :length =>{in: 2..20, :message => "must be from 2 to 20 char. long"}
     validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
-    validates :name , :uniqueness => true
+    validates_uniqueness_of :name, :case_sensitive => false
  
  #Le truc a ne PAS utiliser pour éviter les doublons: validates_uniqueness_of :name, :scope => :assay 
   

@@ -1,5 +1,6 @@
 Status distribution
 <div id="pieChart"></div>
+<% if Statistic.all.count > 0 %>
 <script>
 $.ajax({
            type: "GET",
@@ -19,8 +20,8 @@ $.ajax({
 		
 		var pie = new d3pie("pieChart", {
 			"size": {
-				"canvasHeight": 420,
-				"canvasWidth": 420,
+				"canvasHeight": 450,
+				"canvasWidth": 450,
 				"pieInnerRadius": 0,
 				"pieOuterRadius": 100
 			},
@@ -39,7 +40,7 @@ $.ajax({
 					"hideWhenLessThanPercentage": 3
 				},
 				"mainLabel": {
-					"fontSize": 11
+					"fontSize": 10
 				},
 				"percentage": {
 					"color": "#ffffff",
@@ -83,3 +84,4 @@ $.ajax({
 }
 
 </script>
+<%end%>

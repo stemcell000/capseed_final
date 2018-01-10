@@ -16,14 +16,24 @@ def index
 end
 
 def new
+  
+    #initialisation de la liste des enzymes
+    @enzymes_all = Enzyme.all.order(:name)
+  #initialisation de la liste des méthodes
+    @cmeths_all = Cmeth.all.order(:name)
+  #initialisation de la liste des inserts
+    @inserts_all = Insert.all.order(:name)
+    
   #Genere un nouveau clone pour la methode create
   #Si le formulaire contient un champ :id non vide, alors on charge le même formulaire en 'edit'.
+  
   if params[:id]
     @clone = Clone.find(params[:id])
     @@old_id = params[:id]
     @clone_enzymes = @clone.enzymes.build
     @clone_inserts = @clone.inserts.build
     @clone_batches = @clone.clone_batches.build
+    
     render 'edit'
   else
     @clone = @assay.clones.new
@@ -31,15 +41,16 @@ def new
     @clone_inserts = @clone.inserts.build
     @clone.clone_batches.build
   end
-  #initialisation de la liste des enzymes
-    @enzymes_all = Enzyme.all
-  #initialisation de la liste des méthodes
-    @cmeths_all = Cmeth.all
-  #initialisation de la liste des inserts
-    @inserts_all = Insert.all
+
 end
 
 def create
+  #initialisation de la liste des enzymes backbones.
+  @enzymes_all = Enzyme.all.order(:name)
+  #initialisation de la liste des méthodes
+  @cmeths_all = Cmeth.all.order(:name)
+  #initialisation de la liste des inserts.
+  @inserts_all = Insert.all.order(:name)
     #Le paramètre à prendre en compte ici est l':id. si on prend le nom ("name"), pas de validation.
         @clone = Clone.where(:name => params[:clone][:id]).first_or_create(clone_params)
         @clones = @assay.clones.all
@@ -60,11 +71,11 @@ def edit
   @assays = @clone.assays.build
   @assays_count = @clone.assays.count
   #initialisation de la liste des enzymes backbones.
-  @enzymes_all = Enzyme.all
+  @enzymes_all = Enzyme.all.order(:name)
   #initialisation de la liste des méthodes
-  @cmeths_all = Cmeth.all
+  @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
-  @inserts_all = Insert.all
+  @inserts_all = Insert.all.order(:name)
   #
   @clone_enzymes = @clone.enzymes.build
   @clone_inserts = @clone.inserts.build
@@ -74,6 +85,12 @@ end
   
 def update
   @clones = @assay.clones.all
+  #initialisation de la liste des enzymes backbones.
+  @enzymes_all = Enzyme.all.order(:name)
+  #initialisation de la liste des méthodes
+  @cmeths_all = Cmeth.all.order(:name)
+  #initialisation de la liste des inserts.
+  @inserts_all = Insert.all.order(:name)
   #
   if !@assay.clones.where(:id => @@old_id).present?
         if @assay.clones << @clone
@@ -91,11 +108,11 @@ end
 def edit_record
   @clones = @assay.clones.build
   #initialisation de la liste des enzymes
-  @enzymes_all = Enzyme.all
- #initialisation de la liste des méthodes
-  @cmeths_all = Cmeth.all
+  @enzymes_all = Enzyme.all.order(:name)
+  #initialisation de la liste des méthodes
+  @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
-  @inserts_all = Insert.all
+  @inserts_all = Insert.all.order(:name)
   #
   @clone_enzymes = @clone.enzymes.build  
   @clone_insert = @clone.inserts.build
@@ -113,6 +130,7 @@ end
 
 def replicate
   @clone = Clone.find(@@old_id)
+  @cmeths_all = Cmeth.all.order(:name)
   @clone = @clone.amoeba_dup
   render :new  
 end

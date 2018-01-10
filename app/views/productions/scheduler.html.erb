@@ -1,10 +1,10 @@
 <div class="row">
 	<h6>Production Gantt-chart:</h6>
 		<div id='gantt-container' class="row">
-			<% unless @productions.empty? %>
+			<% if Production.where.not("last_step < ? ", 0).any? %>
 					<%= render :partial => "productions/components/production_gantt_chart", :locals => {:productions => @productions}  %>
 			<% else %>
-			<p>Nothing to display...</p>
+			<p>No Production to schedule...</p>
 			<%end%>
 		</div>
 	</div>

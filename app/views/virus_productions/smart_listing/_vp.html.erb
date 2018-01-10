@@ -16,16 +16,15 @@
 					</div>
 				</div>'
 				data-content='	
-								<i class="glyphicon glyphicon-bookmark"></i><strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
-								<i class="glyphicon glyphicon-th"></i> <strong>number of plates: </strong> <%= object.plate_nb.nil? ? "none" : object.plate_nb %><br />
-								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
-								<strong>Titer ATCC: </strong> <%= object.titer_atcc.nil? ? "none" : object.titer_atcc %><br />
-								<strong>Titer to ATCC: </strong> <%= object.titer_to_atcc.nil? ? "none" : object.titer_to_atcc %><br />
+								<strong>Date of prod.: </strong> <%= object.date_of_production.strftime("%B %e, %Y") %><br />
+								<strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
+								<strong>number of plates: </strong> <%= object.plate_nb.nil? ? "none" : object.plate_nb %><br />
+								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : "%.3e" %object.titer+"vg/ml" %><br />
+								<strong>Titer ATCC: </strong> <%= object.titer_atcc.nil? ? "none" : "%.3e" %object.titer_atcc+"vg/ml" %><br />
+								<strong>Titer to ATCC: </strong> <%= object.titer_to_atcc.nil? ? "none" : "%.3e" %object.titer_to_atcc+"vg/ml" %><br />
 								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
 								<strong>Sterility: </strong> <%= object.sterility.nil? ? "none" : object.sterility %><br />
 								<strong>L2: </strong> <%= object.l2.nil? ? "none" : object.l2 %><br />
-								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : object.titer %><br />
 								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />
 								<strong>Batch end: </strong> <%= object.batch_end.nil? ? "none" : object.batch_end %><br />
 								<% if !object.hek_result.blank? %>

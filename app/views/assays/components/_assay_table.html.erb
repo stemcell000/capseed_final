@@ -1,0 +1,20 @@
+<small>
+	<table class="table table-bordered " id="assay-table">
+				<thead>
+					<th>ID</th>
+					<th>Name</th>
+					<th>created on:</th>
+					<th>Last validated step</th>
+					<th></th>
+				</thead>
+					<% @assays.each do |assay| %>
+						<tr>
+							<td><%= assay.id %></td>
+							<td><%= assay.name %></td>
+							<td><%= assay.created_at.strftime("%B %e, %Y") %></td>
+							<td><%= stepToString(assay.last_step)%></td>
+							<td><%= link_to 'Edit', edit_assay_path(assay.id) , class: "btn btn-success btn-xs" %></td>
+						</tr>
+					<% end %>
+	</table>
+<small>

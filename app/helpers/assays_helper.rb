@@ -64,6 +64,54 @@ def formatStep(st, id)
    return @hash
 end
 
+def stepToString(step_id)
+    case step_id
+      when 0
+        s = "Creation"
+      when 1
+        s = "Design"
+      when 2
+        s = "Clone batch"
+      when 3
+        s = "Clone batch QC"
+      when 4
+        s = "Plasmid design"
+      when 5
+        s = "Plasmid batch"
+       when 6
+        s = "Plasmid batch QC"
+      when 7
+        s = "Closing"
+      when 8
+        s = "Completed"
+       end 
+      return s
+  end
+  
+   def stringToStep(label)
+    case label
+      when "Creation"
+        i = 0
+      when "Design"
+        i = 1
+      when "Clone batch"
+        i = 2
+      when "Clone batch QC"
+        i = 3
+      when "Plasmid design"
+        i = 4
+      when "Plasmid batch"
+        i = 5
+      when "Plasmid batch QC"
+        i = 6
+      when "Closing"
+        i = 7
+      when "Completed"
+        i = 8
+       end 
+     return i.to_i
+  end
+
 #abandonné
 def formatLinkTitle(step)
   return step.downcase.tr(" ", "_")

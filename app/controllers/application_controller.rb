@@ -16,38 +16,6 @@ class ApplicationController < ActionController::Base
         end
     end
     
-  #Methods for statistics
-    #Statistics for assays:
-     #step :
-     #Get the step collection
-   def getallstats
-      Statististic.all
-    end
-     #Get the values of the label attribute the Stat model    
-   def getstatlabel
-     Statistic.all.label
-   end 
-     #Get the values of the value attribute of the Stat model
-   def getstatval
-     Statstistic.all.val
-   end
-   
-    def get_stats
-      @stats = Statistic.all
-        respond_to do |format|
-          format.html
-          format.json {render :json => @stats, :root => false}
-        end
-    end
-    
-    def export_stats
-      step_list = Assay.get_step_label
-        step_list.each do |label|
-          q = Assay.count_by_step(label)
-          Statistic.import_data(label,q)
-        end
-    end
-    
     def update_last_step(model, value)
     unless model.last_step.nil?
       if model.last_step < value

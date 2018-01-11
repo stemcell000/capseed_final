@@ -15,8 +15,6 @@ class AssaysController < ApplicationController
   # GET /assays
   # GET /assays.json 
   def index
-    export_stats
-    #gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
     @assays = Assay.where.not(:last_step => 8).rank(:row_order).all
     ##update des dates de process en cours
     @assays.each do |a|
@@ -56,27 +54,51 @@ class AssaysController < ApplicationController
   
   #Formatage des données pour
   def scheduler
-    
-    #if params[:nb] 
-    #unless params[:nb].blank?
-    #  @assays = Assay.all.order("id desc").limit(params[:nb])
-    #else
-    #  @assays = Assay.all.order("id desc").limit(10)
-    #end
-    #else
-    #  @assays = Assay.all.order("id desc").limit(10)
-    #end
-    
-    @assays = Assay.all.where.not(:last_step => 8)
+    refresh_statistics
+    #Gantt Chart
+          @assays = Assay.all.where.not(:last_step => 8).order(:created_at)
     
     gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
     
-    #
-    
+    #Pie Chart
      @statistics = Statistic.all
      
     gon.rabl "app/views/statistics/get_stats.json.rabl", as: "statistics"
+    
+  end
+  
+  def refresh_statistics
+    Statistic.destroy_all
+    assay_collection = Assay.where("last_step < ?", 8).group(:last_step).count
+    assay_collection.each do |ac|
+      label = stepToString(ac[0])
+      q = ac[1]
+      @stat = Statistic.where(:label => label).first_or_initialize
+      @stat.value = q
+      @stat.save
+    end
+    
+  end
+  
+  def get_assay_by_last_step
 
+    @l = stringToStep(params[:label]).to_i
+    
+    @assays = Assay.where(:last_step => @l).order(:created_at)
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def reset_cloning_table
+    @assays = Assay.all.where.not(:last_step => 8).order(:created_at)
+    
+    gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
+    
+     respond_to do |format|
+      format.js
+    end
   end
 
   def new
@@ -88,7 +110,6 @@ class AssaysController < ApplicationController
   def create
     #Create new assay
     @assay = Assay.create(assay_params)
-    
     if @assay.save
       flash.keep[:success] = "Assay was successfully created!"
       redirect_to @assay

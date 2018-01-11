@@ -1,3 +1,4 @@
+<%# encoding: utf-8 %>
 <div id="pieChart"></div>
 <script>
 console.log(gon.statistics);
@@ -47,6 +48,19 @@ var pie = new d3pie("pieChart", {
 		"gradient": {
 			"enabled": false,
 			"percentage": 100
+		}
+	},
+	callbacks: {
+		onClickSegment: function(e) {
+			console.log("Label : "+e.data.label);
+	
+			label = e.data.label;
+			
+			$.ajax({
+			type: 'get',
+			url : '/assays/get_assay_by_last_step',
+			data: {label: label}
+			});
 		}
 	}
 });

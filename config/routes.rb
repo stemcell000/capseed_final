@@ -47,7 +47,6 @@ Rails.application.routes.draw do
         post :update_row_order
         get :display_all
         get :scheduler
-        get :get_assay_by_last_step
         get :reset_cloning_table
         post :scheduler
         get :stats_data

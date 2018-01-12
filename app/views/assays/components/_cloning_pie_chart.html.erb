@@ -58,7 +58,7 @@ var pie = new d3pie("pieChart", {
 			
 			$.ajax({
 			type: 'get',
-			url : '/assays/get_assay_by_last_step',
+			url : '/assays/scheduler',
 			data: {label: label}
 			});
 		}

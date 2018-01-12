@@ -1,2 +1,3 @@
-$("#gantt-container").html("<%= escape_javascript( render :partial => "assays/components/cloning_gantt_chart", :locals => {:assays => @assays} ) %>")
-console.log(<%= params[:nb]%>)
+$("#table_container").html("<%= escape_javascript( render :partial => "assays/components/assay_table", :locals => {:assays => @assays} ) %>");
+
+

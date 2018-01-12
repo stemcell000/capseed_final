@@ -82,9 +82,9 @@ class ProductionsController < InheritedResources::Base
       @cb_nones = @production.clone_batches.where(:type_id => 5)
       @cb_unknowns = @production.clone_batches.where(:type_id => 6)
       #
-    @production.update_columns(:step => 1)
-    update_last_step(@production, 1)
-    @production.update_columns(:percentage => 50)
+      @production.update_columns(:step => 1)
+      update_last_step(@production, 1)
+      @production.update_columns(:percentage => 50)
   end
  
   def select_cbs
@@ -135,12 +135,17 @@ class ProductionsController < InheritedResources::Base
       @cb_nones = @production.clone_batches.where(:type_id => 5)
       @cb_unknowns = @production.clone_batches.where(:type_id => 6)
       #
-    @production.update_columns(:step => 2)
-    update_last_step(@production, 2)
-    @production.update_columns(:percentage => 75)
-    @production.update_columns( :locked => true )
-    #
-    flash.keep[:success] = "Production has been saved."
+    
+    if @production.clone_batches.empty?
+      flash.keep[:notice] = "Add at least one plasmid please."
+      redirect_to :action => :add_plasmid
+    else
+      @production.update_columns(:step => 2)
+      update_last_step(@production, 2)
+      @production.update_columns(:percentage => 75)
+      @production.update_columns( :locked => true )
+    end
+    
   end
   
   def spawn_vp
@@ -171,10 +176,16 @@ class ProductionsController < InheritedResources::Base
  
  def close
     @production = Production.find(params[:id])
-    @production.update_columns(:step => 3)
-    update_last_step(@production, 3)
-    @production.update_columns(:percentage => 100)
-    redirect_to :action => :index
+    #
+    if @production.virus_productions.empty?
+      flash.keep[:notice] = "Add at least one virus please."
+      redirect_to :action => :virus_production
+    else
+      @production.update_columns(:step => 3)
+      update_last_step(@production, 3)
+      @production.update_columns(:percentage => 100)
+      redirect_to :action => :index
+    end
  end
   
   def display_all

@@ -55,15 +55,34 @@ class AssaysController < ApplicationController
   #Formatage des données pour
   def scheduler
     refresh_statistics
-    #Gantt Chart
-          @assays = Assay.all.where.not(:last_step => 8).order(:created_at)
     
-    gon.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
+    #Gantt Chart
+    
+    if params[:label].nil?
+     
+     @assays = Assay.all.where.not(:last_step => 8).order(:created_at)
+    
+    else
+    
+      @l = stringToStep(params[:label]).to_i
+    
+      @assays = Assay.where(:last_step => @l).order(:created_at)
+    
+    end
+    
+    gon.watch.rabl "app/views/assays/scheduler.json.rabl", as: "assays"
+    
+    
     
     #Pie Chart
      @statistics = Statistic.all
      
     gon.rabl "app/views/statistics/get_stats.json.rabl", as: "statistics"
+    
+    respond_to do |format|
+      format.js
+      format.html
+    end
     
   end
   
@@ -78,17 +97,6 @@ class AssaysController < ApplicationController
       @stat.save
     end
     
-  end
-  
-  def get_assay_by_last_step
-
-    @l = stringToStep(params[:label]).to_i
-    
-    @assays = Assay.where(:last_step => @l).order(:created_at)
-    
-    respond_to do |format|
-      format.js
-    end
   end
   
   def reset_cloning_table

@@ -1,9 +1,9 @@
 <div class="container">
 <div class="row">
 		<h6>Clonings:</h6>
-		<div id='chart-container' class="row">
+		<div class="row">
 			
-			<div class="col-lg-5">
+			<div id='chart-container' class="col-lg-5">
 					<%= render :partial => "assays/components/cloning_pie_chart", :locals => {:assays => @assays}  %>
 			</div>
 			
@@ -15,7 +15,7 @@
 				</div>
 				<div class="row">
 					<div id='table_container' class="col-lg-12">
-						<%= render :partial => "assays/components/assay_table", :locals => {:assays_by_last_step => @assays_by_last_step}  %>
+						<%= render :partial => "assays/components/assay_table", :locals => {:assays => @assays}  %>
 					</div>
 				</div>
 			</div>

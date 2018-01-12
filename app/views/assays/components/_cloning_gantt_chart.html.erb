@@ -1,5 +1,4 @@
 <script>
-
 var i = 0, result = [];
 while(i < gon.assays.length){
     result.push([]);
@@ -58,7 +57,6 @@ function drawChart() {
   };
 
   var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-
   chart.draw(data, options);
 }
 </script>

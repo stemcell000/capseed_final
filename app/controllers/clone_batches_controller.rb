@@ -205,6 +205,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.build
     @clone_batch.genes.build
     @clone_batch.promoters.build
+    @number = ( CloneBatch.where.not(:name=>"").last[:number].to_i+1).to_s
    end
    
    def create_from_inventory
@@ -234,7 +235,7 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, 
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, 
       :clone_batch_qc_attributes => [:primer_nb, :primer_name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
@@ -255,7 +256,7 @@ class CloneBatchesController < InheritedResources::Base
     def plasmid_params
       
       params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id, :temp_name,
       
       :clone_batch_qc_attributes => [ :name, :date_send, :date_rec, :rec_name, :result, :conclusion],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],

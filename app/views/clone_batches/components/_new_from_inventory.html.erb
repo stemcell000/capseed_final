@@ -1,5 +1,5 @@
 <td colspan="7">
-<%= simple_nested_form_for [@clone_batch], url: create_from_inventory_clone_batches_path, remote: true,  html: {class: 'horizontal-form no-overflow'} do |f|  %>
+<%= simple_nested_form_for [@clone_batch], url: create_from_inventory_clone_batches_path(@number), remote: true,  html: {class: 'horizontal-form no-overflow'} do |f|  %>
 	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>

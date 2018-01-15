@@ -1,4 +1,22 @@
 <%= smart_listing_item :virus_productions, :update, @vp, @vp.valid? ? "virus_productions/smart_listing/vp" : "virus_productions/components/form_inventory" %>
 
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+
+$(document).on('nested:fieldAdded', function(event){
+			$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+			})
+
 //Popover
  $('[data-toggle="popover"]').popover({html:true});

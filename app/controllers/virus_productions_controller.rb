@@ -69,6 +69,17 @@ class VirusProductionsController < InheritedResources::Base
     @vp = VirusProduction.new
   end
   
+  def create
+        @vp = VirusProduction.create(virus_production_params)
+
+      if  @vp.valid?
+          flash.keep[:success] = "Task completed!"
+      else
+          render :action => :new
+      end
+    
+  end
+  
  
   def virus_production_params
     params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,

@@ -16,7 +16,7 @@
 					</div>
 				</div>'
 				data-content='	
-								<strong>Date of prod.: </strong> <%= object.date_of_production.strftime("%B %e, %Y") %><br />
+								<strong>Date of prod.: </strong> <%= object.date_of_production.nil? ? "none" : object.date_of_production.strftime("%B %e, %Y") %><br />
 								<strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
 								<strong>number of plates: </strong> <%= object.plate_nb.nil? ? "none" : object.plate_nb %><br />
 								<strong>Titer: </strong> <%= object.titer.nil? ? "none" : "%.3e" %object.titer+"vg/ml" %><br />

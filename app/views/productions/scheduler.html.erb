@@ -1,4 +1,7 @@
 <div class="row">
+	<% if @productions.empty?%>
+								<p>No production to be scheduled...</p>
+	<%else%>
 	<h6>Production Gantt-chart:</h6>
 		<div id='gantt-container' class="row">
 			<% if Production.where.not("last_step < ? ", 0).any? %>
@@ -7,4 +10,5 @@
 			<p>No Production to schedule...</p>
 			<%end%>
 		</div>
+	<%end%>
 	</div>

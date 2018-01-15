@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'errors/not_found'
+
+  get 'errors/internal_server_error'
+  
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
+
   resources :virus_productions
   resources :inserts
   resources :clone_batch_as_plasmid_attachments
@@ -67,9 +74,8 @@ Rails.application.routes.draw do
       get :close
       get :complete
       patch :lock_process
-      
-      
     end
+
      resources :projects
      resources :clones do
       get :replicate, :on => :collection
@@ -211,6 +217,7 @@ Rails.application.routes.draw do
     delete :remove_box_row_column, :on => :member
       resources :plasmid_batch_qcs
   end
+  resources :enzymes
   
   #Home
   root 'clone_batches#index'

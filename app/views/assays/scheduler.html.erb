@@ -1,8 +1,11 @@
 <div class="container">
 <div class="row">
+	<% if @assays.empty?%>
+								<p>No cloning to be scheduled...</p>
+	<%else%>
 		<h6>Clonings:</h6>
 		<div class="row">
-			
+
 			<div id='chart-container' class="col-lg-5">
 					<%= render :partial => "assays/components/cloning_pie_chart", :locals => {:assays => @assays}  %>
 			</div>
@@ -26,5 +29,6 @@
 		<div id='gantt-container' class="row">
 					<%= render :partial => "assays/components/cloning_gantt_chart", :locals => {:assays => @assays}  %>
 		</div>
+		<%end%>
 	</div>
 </div>

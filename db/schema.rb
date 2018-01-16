@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108084512) do
+ActiveRecord::Schema.define(version: 20180116143104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,14 @@ ActiveRecord::Schema.define(version: 20180108084512) do
   add_index "assays_projects", ["assay_id", "project_id"], name: "index_assays_projects_on_assay_id_and_project_id", unique: true, using: :btree
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
+
+  create_table "backbones_clones", force: :cascade do |t|
+    t.integer "clone_id"
+    t.integer "backbones_id"
+  end
+
+  add_index "backbones_clones", ["backbones_id"], name: "index_backbones_clones_on_backbones_id", using: :btree
+  add_index "backbones_clones", ["clone_id"], name: "index_backbones_clones_on_clone_id", using: :btree
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name"

@@ -12,6 +12,7 @@ class Clone < ActiveRecord::Base
   has_many :clone_batch_qcs, :through => :clone_batches
   belongs_to :cmeth
   has_and_belongs_to_many :inserts
+  has_and_belongs_to_many :backbones
   
   accepts_nested_attributes_for :assay
   accepts_nested_attributes_for :enzymes
@@ -26,8 +27,7 @@ class Clone < ActiveRecord::Base
     validates :bbnb, numericality: { only_integer: true }
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
     validates :bbnb, numericality: true
-    validates :name, :length =>{in: 2..20, :message => "must be from 2 to 20 char. long"}
-    validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
+    #validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
     validates_uniqueness_of :name, :case_sensitive => false
  
  #Le truc a ne PAS utiliser pour éviter les doublons: validates_uniqueness_of :name, :scope => :assay 

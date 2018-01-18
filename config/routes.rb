@@ -142,7 +142,7 @@ Rails.application.routes.draw do
     get :remove_vp_from_prod, :on => :member
     patch :pool
     get :close, :on => :member
-    get 'users/inform_closed_production'
+    get :inform_closed_production, :on => :member
     
     resources :projects
     

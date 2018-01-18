@@ -17,7 +17,7 @@
 					</div>
 					<div class="col-lg-2 pull-right">
 					<% if can? :inform_production, @user %>
-						<%= link_to 'Push!', users_inform_production_path, :class => "btn btn-success" %>
+						<%= link_to 'Push!', users_inform_production_path(@user), :class => "btn btn-success" %>
 					<% end %>
 				</div>
 			</div>

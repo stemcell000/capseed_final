@@ -30,7 +30,7 @@ class UserNotifier < ApplicationMailer
     mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production Notification"
   end
   
-  def notify_closed_production(user)
+  def notify_closed_production(user, production)
     
     recipients = User.where( :role => [ "administrator", "user" ]).pluck(:email)
     firstnames = User.where( :role => [ "administrator", "user" ] ).pluck(:firstname)

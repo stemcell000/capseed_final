@@ -306,7 +306,6 @@ end
         redirect_to :action => :plasmid_design
             set_plasmid_validation(1, @assay)
             set_strict_validation(0, @assay)
-        
     else 
         flash[:notice] = "Add at least one batch."
         redirect_to :action => :plasmid_batch

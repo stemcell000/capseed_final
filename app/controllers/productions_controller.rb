@@ -222,8 +222,8 @@ class ProductionsController < InheritedResources::Base
  
   def inform_closed_production
     @user = User.first
-    UserNotifier.notify_closed_production(@user).deliver_now
-    #redirect_to(assays_path)
+    @production = Production.find(params[:id])
+    UserNotifier.notify_closed_production(@user, @production).deliver_now
     flash.keep[:success] = "Mail sent to administrators!"
   end
   

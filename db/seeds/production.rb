@@ -85,19 +85,19 @@
   #Add Users
     User.create! do |u|
         u.email     = 'marclechuga@free.fr'
-        u.username = 'Marc-prod'
-        u.firstname = 'Marc'
-        u.lastname = 'Lechuga'
-        u.password  = 'aaaaaa'
+        u.username = 'Paul-prod'
+        u.firstname = 'Paul'
+        u.lastname = 'McCartney'
+        u.password  = 'qsdfghjklm999'
         u.role = 'Production_user'
    end
    
        User.create! do |u|
         u.email     = 'lechuga@icloud.com'
-        u.username = 'Marc-cloning'
-        u.firstname = 'Marc'
-        u.lastname = 'Lechuga'
-        u.password  = 'aaaaaa'
+        u.username = 'John-Cloning'
+        u.firstname = 'John'
+        u.lastname = 'Lennon'
+        u.password  = 'azertyuiop999'
         u.role = 'Cloning_user'
    end
   

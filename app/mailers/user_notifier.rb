@@ -34,12 +34,10 @@ class UserNotifier < ApplicationMailer
     
     recipients = User.where( :role => [ "administrator", "user" ]).pluck(:email)
     firstnames = User.where( :role => [ "administrator", "user" ] ).pluck(:firstname)
-    id  = production.id
     sendgrid_category "Notification"
     
     sendgrid_recipients recipients
     sendgrid_substitute "|subme|", firstnames
-    sendgrid_substitute "|prod_id|", id
     
     mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production is closed."
   end

@@ -82,6 +82,25 @@
   #First project
   Project.create( name:"Global project")
   
+  #Add Users
+    User.create! do |u|
+        u.email     = 'marclechuga@free.fr'
+        u.username = 'Marc-prod'
+        u.firstname = 'Marc'
+        u.lastname = 'Lechuga'
+        u.password  = 'aaaaaa'
+        u.role = 'Production_user'
+   end
+   
+       User.create! do |u|
+        u.email     = 'lechuga@icloud.com'
+        u.username = 'Marc-cloning'
+        u.firstname = 'Marc'
+        u.lastname = 'Lechuga'
+        u.password  = 'aaaaaa'
+        u.role = 'Cloning_user'
+   end
+  
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
  

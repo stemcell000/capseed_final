@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get 'users/inform_cloning'
   get 'users/inform_production'
 
-
   resources :vol_units
   resources :rows
   resources :columns
@@ -140,10 +139,10 @@ Rails.application.routes.draw do
     get :spawn_vp, :on => :new 
     patch :create_vp, :on => :member
     patch :add_cbs, :on => :member
-    get :remove_from_prod, :on => :member
     get :remove_vp_from_prod, :on => :member
     patch :pool
     get :close, :on => :member
+    get 'users/inform_closed_production'
     
     resources :projects
     

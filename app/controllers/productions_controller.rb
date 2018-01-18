@@ -39,13 +39,15 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @production = Production.create(production_params)
-    
+      new_id = Production.last.id + 1
+    @production.id = new_id
     if @production.save
       flash.keep[:success] = "Production was successfully created!"
       redirect_to @production
       @production.update_columns(:step => 0)
       update_last_step(@production, 0)
       @production.update_columns(:percentage => 30)
+      @production.id = new_id
     else
       render :action => 'new'
     end
@@ -101,17 +103,45 @@ class ProductionsController < InheritedResources::Base
   def add_cbs
     @production.update_attributes(production_params)
     @clone_batches = @production.clone_batches.order(:type_id)
-     flash.keep[:success] = "Task completed!"
+    flash.discard[:success]
+    flash.discard[:warning]
+     
         @production.update_columns(:step => 0)
         @production.update_columns(:percentage => 50)
+        
+    #Recherche de l'existence d'une combinaison de plasmides identique dans la DB (le plasmid helper est exclu de la recherche ; library est alternatif à capsid)
+       
+     myReferenceArray = @production.clone_batches.collect(&:number)
+     
+     @production.clone_batches.each do |cb|
+      prod_nb = cb.productions.count
+      
+      trigger = false
+      
+      if prod_nb > 1
+            cb.productions.each do |p|
+             
+             f =  myReferenceArray - p.clone_batches.collect(&:number)
+             
+            break if f.size == 0
+            trigger = true
+       end
+              if trigger == false
+                flash.discard(:success)
+                flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
+                         
+              else
+               flash.discard(:success) 
+               flash.now[:success] = "Task completed."                
+             end
+      end
+    end
+    
+        @production.update_columns(:step => 0)
+        @production.update_columns(:percentage => 50)
+
+    
   end
-  
-   def remove_from_prod
-      @clone_batch = CloneBatch.find(params[:id])
-      @production = Production.find(@clone_batch.production_id)
-      @clone_batches = @production.clone_batches
-      @clone_batches.delete(@clone_batch)
-   end
    
    def pool
      #
@@ -185,8 +215,17 @@ class ProductionsController < InheritedResources::Base
       update_last_step(@production, 3)
       @production.update_columns(:percentage => 100)
       redirect_to :action => :index
+      #
+      inform_closed_production    
     end
  end
+ 
+  def inform_closed_production
+    @user = User.first
+    UserNotifier.notify_closed_production(@user).deliver_now
+    #redirect_to(assays_path)
+    flash.keep[:success] = "Mail sent to administrators!"
+  end
   
   def display_all
     
@@ -207,15 +246,21 @@ class ProductionsController < InheritedResources::Base
       end
       @steps = @steps.sort_by { |hsh| hsh[:id] }.uniq.map { |obj| [obj['name'], obj['id']] }
       
+      #
       @projects_all = Project.all.order(name: "asc").uniq
       @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }
       
+      #
+      @clone_batches_all = CloneBatch.all.order(name: "asc")
+      
       #          
       @q = Production.ransack(params[:q])
-      @productions = @q.result(distinct: true).includes(:projects)
+      @productions = @q.result(distinct: true).includes(:projects, :clone_batches)
+      
     
       #Config de l'affichage des résultats.
       @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
+  
   end
   
 

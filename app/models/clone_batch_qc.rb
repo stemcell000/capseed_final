@@ -4,11 +4,9 @@ class CloneBatchQc < ActiveRecord::Base
   has_and_belongs_to_many :qc_attachments, :dependent => :destroy
   belongs_to :pcr_colony
   belongs_to :sequencing
-  belongs_to :primer
-  
+
   accepts_nested_attributes_for :qc_attachments, :allow_destroy => true
   accepts_nested_attributes_for :user
-  accepts_nested_attributes_for :primer
   
   #validations
   validates :name, presence: { message: "You must select a technique." }

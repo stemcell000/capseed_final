@@ -5,9 +5,13 @@
 	<%else%>
 		<% st = "The plasmids are not pooled." %>
 	<%end%>
-		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
-		<%= f.label :pool, :label => st %>
-		<%= f.input_field :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();", :disabled => @production.locked %>
-	<%end%>
+	
+	
+		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true, :html => {:class => "form-inline"} do |f| %>
+			<div class="form-group col-lg-12">
+				
+				<%=st%> <%= f.check_box :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();", :disabled => @production.locked %>
+			</div>
+		<%end%>
 
 <%end%>

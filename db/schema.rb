@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116143104) do
+ActiveRecord::Schema.define(version: 20180116155148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,14 +76,6 @@ ActiveRecord::Schema.define(version: 20180116143104) do
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
 
-  create_table "backbones_clones", force: :cascade do |t|
-    t.integer "clone_id"
-    t.integer "backbones_id"
-  end
-
-  add_index "backbones_clones", ["backbones_id"], name: "index_backbones_clones_on_backbones_id", using: :btree
-  add_index "backbones_clones", ["clone_id"], name: "index_backbones_clones_on_clone_id", using: :btree
-
   create_table "boxes", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -127,6 +119,7 @@ ActiveRecord::Schema.define(version: 20180116143104) do
     t.integer  "sequencing_id"
     t.integer  "primer_id"
     t.string   "name"
+    t.string   "primer"
   end
 
   add_index "clone_batch_qcs", ["clone_batch_id"], name: "index_clone_batch_qcs_on_clone_batch_id", using: :btree
@@ -203,6 +196,7 @@ ActiveRecord::Schema.define(version: 20180116143104) do
   create_table "clones_inserts", force: :cascade do |t|
     t.integer "clone_id"
     t.integer "insert_id"
+    t.integer "backbone_id"
   end
 
   add_index "clones_inserts", ["clone_id"], name: "index_clones_inserts_on_clone_id", using: :btree
@@ -323,12 +317,6 @@ ActiveRecord::Schema.define(version: 20180116143104) do
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree
   add_index "plasmid_batches", ["unit_id"], name: "index_plasmid_batches_on_unit_id", using: :btree
 
-  create_table "primers", force: :cascade do |t|
-    t.string "name"
-    t.string "number"
-    t.text   "sequence"
-  end
-
   create_table "productions", force: :cascade do |t|
     t.string   "name"
     t.boolean  "display"
@@ -383,6 +371,7 @@ ActiveRecord::Schema.define(version: 20180116143104) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.string   "primer"
   end
 
   create_table "statistics", force: :cascade do |t|

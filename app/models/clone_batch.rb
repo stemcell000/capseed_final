@@ -44,6 +44,10 @@ class CloneBatch < ActiveRecord::Base
  
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}
+  
+  def custom_label
+     "#{number} | #{name}"
+  end
 
   private
   

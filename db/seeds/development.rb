@@ -98,7 +98,7 @@
     User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'
         u.username = 'crobert'
-        u.firstname = 'Celine'
+        u.firstname = 'Camille'
         u.lastname = 'Robert'
         u.password  = 'YM26r9mt'
         u.role = 'Production_user'

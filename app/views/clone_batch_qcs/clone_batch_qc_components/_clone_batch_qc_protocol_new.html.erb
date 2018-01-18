@@ -21,9 +21,7 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<%= f.input :id, :label => "id:", :as =>:hidden %>
-									<%= f.association :primer, :label => "Primer",
-										:collection => Primer.all, :label_method => lambda { |primer| "#{primer.number} | #{primer.name}"}, :value_method => :id,
-										:input_html => { class:"select2-select" } %>
+									<%= f.input :primer %>
 								</div>
 							</div>
 							<div class="row">

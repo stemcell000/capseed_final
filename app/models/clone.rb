@@ -23,12 +23,11 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
 
   #validations
-    validates :name, :bbnb, :presence => true
-    validates :bbnb, numericality: { only_integer: true }
+    validates :name, :primerinsfor, :primerinsrev, :presence => true
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
-    validates :bbnb, numericality: true
     #validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
     validates_uniqueness_of :name, :case_sensitive => false
+    validates_associated :inserts, :backbones, :enzymes, :cmeth
  
  #Le truc a ne PAS utiliser pour éviter les doublons: validates_uniqueness_of :name, :scope => :assay 
   
@@ -45,6 +44,7 @@ amoeba do
   enable
   include_association :enzymes
   include_association :inserts
+  include_association :backbones
 end
 
 private

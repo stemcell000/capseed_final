@@ -1,5 +1,5 @@
 class UserNotifier < ApplicationMailer
-   default :from => 'marc.lechuga@inserm.fr'
+   default :from => 'mailer@capseed.net'
 
 
   
@@ -28,6 +28,19 @@ class UserNotifier < ApplicationMailer
     sendgrid_substitute "|subme|", firstnames
     
     mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production Notification"
+  end
+  
+  def notify_closed_production(user)
+    
+    recipients = User.where( :role => [ "administrator", "user" ]).pluck(:email)
+    firstnames = User.where( :role => [ "administrator", "user" ] ).pluck(:firstname)
+    
+    sendgrid_category "Notification"
+    
+    sendgrid_recipients recipients
+    sendgrid_substitute "|subme|", firstnames
+    
+    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production is closed"
   end
   
 end

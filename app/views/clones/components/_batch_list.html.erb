@@ -16,23 +16,22 @@
     <div class="panel-body">
 	<div class="row">
 		
-			<div class="col-lg-2">
+			<div class="col-lg-5">
 				<strong>Clone name: </strong><%= clone.name %><br />
 				<strong>Clone#: </strong><%= clone.id %><br />
-				<strong>Backbone nb:</strong> <%= clone.bbnb%><br />
-				<strong>Insert: </strong><br />
-				<%= clone.inserts.empty? ? "NA" : clone.inserts.map { |insert| "##{insert.number} (#{insert.name})" }.to_sentence %><br />
+				<strong>Backbone: </strong><%= clone.backbones.empty? ? "No data" : clone.backbones.map { |backbone| "#{backbone.number} (#{backbone.name})" }.to_sentence %><br />
+				<strong>Insert: </strong><%= clone.inserts.empty? ? "No data" : clone.inserts.map { |insert| "#{insert.number} (#{insert.name})" }.to_sentence %><br />
 				<strong>Primer ins.fwd:</strong> <%= clone.primerinsfor%><br />
 				<strong>Primer ins.rev:</strong> <%= clone.primerinsrev%><br />
 				<strong>Enzymes: </strong><br />
-				<%= clone.enzymes.empty? ? "NA" : clone.enzymes.map { |enzyme| enzyme.name }.to_sentence %>
+				<%= clone.enzymes.empty? ? "No data" : clone.enzymes.map { |enzyme| enzyme.name }.to_sentence %>
 			</div>
 		
-			<div class="col-lg-6 text-justify">		
+			<div class="col-lg-4 text-justify">		
 				<strong>Comments:</strong>
 									<%= clone.comment.presence || 'no comment' %><br />
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<strong>Total number of batches: </strong>
 									<%= clone.batch_nb.presence || 'none' %><br />
 				<strong>Notes: </strong>

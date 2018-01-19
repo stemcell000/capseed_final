@@ -5,7 +5,7 @@
   </head>
   <body>
     <h3>Hey |subme|! The production # <%=@production.id%> is finished! </h3>
-    <table>
+    <table class="table table-bordered">
     	<tr>
     		<th>ID</th>
     		<td><%=@production.id%>
@@ -18,10 +18,28 @@
 			<th>Comment</th>
 			<td><%=@production.comment%></td>
 		</tr>
+		<tr>
 			<th>Plasmids</th>
     		<td>
-    			<%@production.clone_batches.to_sentence %>			
+    			<%@production.clone_batches.each do |plasmid|%>
+    				<%= plasmid.name %><br>
+    			<%end%>   			
     		</td>
+    	</tr>
+    	<tr>
+			<th>Date of order</th>
+    		<td>
+    			<%= @production.order_date.strftime("%B %e, %Y") %>		
+    		</td>
+    	</tr>
+    	<tr>
+			<th>Projects</th>
+    		<td>
+    			<%@production.projects.each do |project|%>
+    				<%= project.name %><br>
+    			<%end%>   			
+    		</td>
+    	</tr>
     </table>
     
     <%= @production.name %>

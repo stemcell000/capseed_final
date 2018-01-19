@@ -1,7 +1,7 @@
 class ProductionNotifier < ApplicationMailer
   
   def notify_closed_production(production)
-    
+    @production = production
     recipients = User.where( :role => [ "administrator" ]).pluck(:email)
     firstnames = User.where( :role => [ "administrator" ] ).pluck(:firstname)
     sendgrid_category "Notification"

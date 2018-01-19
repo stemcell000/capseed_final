@@ -36,7 +36,7 @@ end
               headers_rewrites: { 'clone' => :clone_id,  'type' => :type_id, 'strand' => :strand_id, 'comment' => :comment_as_plasmid, 'target' => :target_id },
               before_batch_import: ->(importer) {
                 
-                #CloneBatch.where(id: importer.values_at('id')).delete_all
+                CloneBatch.where(id: importer.values_at('id')).delete_all
                 
                 clone_names = importer.values_at(:clone_id)
                 clones   = Clone.where(name: clone_names).pluck(:name, :id)

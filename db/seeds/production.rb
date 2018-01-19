@@ -89,7 +89,7 @@
         u.firstname = 'Paul'
         u.lastname = 'McCartney'
         u.password  = 'qsdfghjklm999'
-        u.role = 'Production_user'
+        u.role = 'production_user'
    end
    
        User.create! do |u|
@@ -98,7 +98,7 @@
         u.firstname = 'John'
         u.lastname = 'Lennon'
         u.password  = 'azertyuiop999'
-        u.role = 'Cloning_user'
+        u.role = 'cloning_user'
    end
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

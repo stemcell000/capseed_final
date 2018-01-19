@@ -5,38 +5,38 @@
   </head>
   <body>
     <h3>Hey |subme|! The production # <%=@production.id%> is finished! </h3>
-    <table class="table table-bordered">
+    <table>
     	<tr>
-    		<th>ID</th>
-    		<td><%=@production.id%>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">>ID</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.id%>
     	</tr>
     	<tr>
-    		<th>Name</th>
-    		<td><%=@production.name%>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">>Name</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">><%=@production.name%>
 		</tr>
 		<tr>
-			<th>Comment</th>
-			<td><%=@production.comment%></td>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Comment</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.comment%></td>
 		</tr>
 		<tr>
-			<th>Plasmids</th>
-    		<td>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Plasmids</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">
     			<%@production.clone_batches.each do |plasmid|%>
-    				<%= plasmid.name %><br>
+    				<%=plasmid.type.name%>: <%= plasmid.name %><br>
     			<%end%>   			
     		</td>
     	</tr>
     	<tr>
-			<th>Date of order</th>
-    		<td>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Date of order</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">
     			<%= @production.order_date.strftime("%B %e, %Y") %>		
     		</td>
     	</tr>
     	<tr>
-			<th>Projects</th>
-    		<td>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Projects</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">
     			<%@production.projects.each do |project|%>
-    				<%= project.name %><br>
+    				<%= project.name %>; 
     			<%end%>   			
     		</td>
     	</tr>

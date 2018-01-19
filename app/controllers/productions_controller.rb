@@ -39,8 +39,9 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @projects_all = Project.all
-    @production = Production.create(production_params)
-      new_id = Production.last.id + 1
+    @production = Production.new(production_create_params)
+    #@production = Production.create(production_create_params)
+    new_id = Production.last.id + 1
     @production.id = new_id
     if @production.save
       flash.keep[:success] = "Production was successfully created!"
@@ -48,7 +49,6 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 0)
       update_last_step(@production, 0)
       @production.update_columns(:percentage => 30)
-      @production.id = new_id
     else
       render :action => 'new'
     end
@@ -301,6 +301,23 @@ class ProductionsController < InheritedResources::Base
     :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
     :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id],
     virus_production_ids: []
+    )
+  end
+  
+    def production_create_params
+      params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
+      project_ids: [],
+      :projects_attributes => [:id, :name],
+      :clone_attributes => [:id, :name, :assay_id],
+      :assay_attributes => [:id, :name],
+    )
+  end
+  
+    def production_projects_params
+    params.require(:production).permit(:id, :production_id,
+    project_ids: [],
+    :projects_attributes => [:id, :name],
+    
     )
   end
     

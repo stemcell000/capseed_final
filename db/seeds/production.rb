@@ -84,22 +84,45 @@
   
   #Add Users
     User.create! do |u|
-        u.email     = 'marclechuga@free.fr'
-        u.username = 'Paul-prod'
-        u.firstname = 'Paul'
-        u.lastname = 'McCartney'
-        u.password  = 'qsdfghjklm999'
+        u.email     = 'camille.robert@inserm.fr'
+        u.username = 'crobert'
+        u.firstname = 'Camille'
+        u.lastname = 'Robert'
+        u.password  = 'YM26r9mt'
         u.role = 'production_user'
-   end
-   
-       User.create! do |u|
-        u.email     = 'lechuga@icloud.com'
-        u.username = 'John-Cloning'
-        u.firstname = 'John'
-        u.lastname = 'Lennon'
-        u.password  = 'azertyuiop999'
-        u.role = 'cloning_user'
-   end
+    end 
+        User.create! do |u|
+        u.email     = 'julien.murat@inserm.fr'
+        u.username = 'jmurat'
+        u.firstname = 'Julien'
+        u.lastname = 'Murat'
+        u.password    = 'gVx29g2G'
+        u.role = 'production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'emilie.mace@inserm.fr'
+        u.username = 'emace'
+        u.firstname = 'Emilie'
+        u.lastname = 'Macé'
+        u.password    = 'C84r2mXs'
+        u.role = 'production_user'
+    end 
+        User.create! do |u|
+        u.email     = 'eleonore.duvelle@inserm.fr'
+        u.username = 'eduvelle'
+        u.firstname = 'Eléonore'
+        u.lastname = 'Duvelle'
+        u.password    = 'rr7A5Ke7'
+        u.role = 'guest'
+    end 
+    User.create! do |u|
+        u.email     = 'celine.winkler@inserm.fr'
+        u.username = 'cwinkler'
+        u.firstname = 'Céline'
+        u.lastname = 'Winkler'
+        u.password    = 'E2tah3Y7'
+        u.role = 'guest'
+    end 
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   

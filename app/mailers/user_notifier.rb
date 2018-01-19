@@ -32,6 +32,7 @@ class UserNotifier < ApplicationMailer
     
     recipients = User.where( :role => [ "administrator", "user" ]).pluck(:email)
     firstnames = User.where( :role => [ "administrator", "user" ] ).pluck(:firstname)
+    prod = Production.find(params[:id])
     sendgrid_category "Notification"
     
     sendgrid_recipients recipients

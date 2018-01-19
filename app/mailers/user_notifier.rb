@@ -38,7 +38,7 @@ class UserNotifier < ApplicationMailer
     sendgrid_substitute "|subme|", firstnames
     sendgrid_unique_args :key => production.id
     
-    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production is closed ('#{production.id}')."
+    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production ##{production.id} is closed."
   end
   
 end

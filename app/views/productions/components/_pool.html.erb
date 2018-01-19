@@ -7,11 +7,12 @@
 	<%end%>
 	
 	
-		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true, :html => {:class => "form-inline"} do |f| %>
-			<div class="form-group col-lg-12">
-				
-				<%=st%> <%= f.check_box :pool, :as => :boolean, :onclick => "$('#production_pool*').submit();", :disabled => @production.locked %>
-			</div>
+		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
+			<div class="form-group">
+				<div class=" pull-right">
+		  		<%= f.input :pool, :as => :boolean, :label =>false, :inline_label => st, :input_html => {:onclick => "$('#production_pool*').submit();"}%>
+		  		</div>
+	  		</div>
 		<%end%>
 
 <%end%>

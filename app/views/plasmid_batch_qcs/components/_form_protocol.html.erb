@@ -1,4 +1,4 @@
-qc_attachments<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_plasmid_batch_qcs_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch_qc]), :url => create_qc_protocol_collection_assay_clone_clone_batch_plasmid_batch_qcs_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
  <%= f.error_notification %>
   <ul class="errors"></ul>
 	<div class="container">

@@ -38,6 +38,7 @@ class ProductionsController < InheritedResources::Base
  
  def create
     #Create new production
+    @projects_all = Project.all
     @production = Production.create(production_params)
       new_id = Production.last.id + 1
     @production.id = new_id

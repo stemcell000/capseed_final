@@ -30,14 +30,13 @@ class UserNotifier < ApplicationMailer
   
   def notify_closed_production(production)
     
-    recipients = User.where( :role => [ "administrator", "user" ]).pluck(:email)
-    firstnames = User.where( :role => [ "administrator", "user" ] ).pluck(:firstname)
-    prod = Production.find(params[:id])
+    recipients = User.where( :role => [ "administrator" ]).pluck(:email)
+    firstnames = User.where( :role => [ "administrator" ] ).pluck(:firstname)
     sendgrid_category "Notification"
     
     sendgrid_recipients recipients
     sendgrid_substitute "|subme|", firstnames
-    sendgrid_substitute "|prod|", production
+    sendgrid_substitute "|prod|", production.id
     
     mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production is closed."
   end

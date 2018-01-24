@@ -37,7 +37,7 @@ class Production < ActiveRecord::Base
     search(query)
   end
   
-    ransacker :id do
+  ransacker :id do
     Arel::Nodes::SqlLiteral.new(
       "regexp_replace(to_char(\"#{table_name}\".\"id\", '99999999'), ' ', '', 'g')"
     )

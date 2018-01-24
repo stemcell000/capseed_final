@@ -6,13 +6,13 @@ class Clone < ActiveRecord::Base
  #ancienne relation avec assay (faux en plus puisque assayS ici. Je ne comprends pas comment ça a pu marcher...)
   #has_one :assays
   belongs_to :assay
-  has_and_belongs_to_many :enzymes
+  has_and_belongs_to_many :enzymes, :join_table => "clones_enzymes"
   has_many :clone_attachments, :dependent => :destroy
   has_many :clone_batches, :dependent => :destroy
   has_many :clone_batch_qcs, :through => :clone_batches
   belongs_to :cmeth
-  has_and_belongs_to_many :inserts
-  has_and_belongs_to_many :backbones
+  has_and_belongs_to_many :inserts, :join_table => "clones_inserts"
+  has_and_belongs_to_many :backbones, :join_table => "clones_inserts"
   
   accepts_nested_attributes_for :assay
   accepts_nested_attributes_for :enzymes
@@ -45,6 +45,18 @@ amoeba do
   include_association :enzymes
   include_association :inserts
   include_association :backbones
+end
+
+#pg_search
+include PgSearch
+multisearchable :against => [ :name, :id, :created_at ]
+  
+def self.search(query)
+  if query.present?
+    search(query)
+  else
+    scoped
+  end
 end
 
 private

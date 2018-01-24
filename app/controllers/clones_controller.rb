@@ -1,10 +1,11 @@
 class ClonesController < ApplicationController
 
-autocomplete :clone, :name, :extra_data => [:id]
+autocomplete :clone, :name, :full => true, :extra_data => [:id]
 
-include SmartListing::Helper::ControllerExtensions
-helper  SmartListing::Helper
-
+#Smart_listing
+ include SmartListing::Helper::ControllerExtensions
+ helper  SmartListing::Helper
+    
 before_action :load_assay, only:[:edit, :new, :edit_record, :edit_batch, :edit_batch_select, :update, :create, :autocm, :destroy, :replicate, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc, :clone_info]
 before_action :set_param, only: [:update, :edit, :cb_generator, :edit_record, :edit_batch_select, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc]
 before_action :clone_params, only: [:update, :update_clone, :create, :edit, :update_record_batch]
@@ -13,6 +14,18 @@ skip_before_filter :verify_authenticity_token, :only => :update_record_batch
 @@old_id =0
 
 def index
+  #Formattage des dates
+    start_time = params[:created_at_gteq].to_date rescue Date.current
+    start_time = start_time.beginning_of_day # sets to 00:00:00
+    end_time = params[:created_at_lteq].to_date rescue Date.current
+    end_time = end_time.end_of_day # sets to 23:59:59
+  
+  #Recherche sur tables multiples.
+    @q = Clone.ransack(params[:q])
+    @clones = @q.result(distinct: true).includes(:assay)
+  
+  #Config de l'affichage des résultats.
+    @clones = smart_listing_create(:clones, @clones, partial: "clones/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [20, 30, 50, 100])
 end
 
 def new

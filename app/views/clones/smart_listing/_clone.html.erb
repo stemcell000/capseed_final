@@ -1,0 +1,17 @@
+  <td class="center"><%= object.id %></td>
+  <td class="center"><%= object.name %></td>
+  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
+  <td class="center"><%= object.assay.projects.map{|p| p.name }.to_sentence %></td>
+  <td class="actions center">
+	  <%= smart_listing_item_actions [
+	  { name:   :custom, 
+  		url:  edit_assay_path(:id => object.assay_id),
+  		method: :get, 
+  		icon: "fa_icon fa fa-pencil-square-o",
+  		remote: false, 
+  		title:  "Edit cloning"
+  		},
+		{name: :destroy, url: clone_path(object),
+			title: "Destroy",
+			confirmation: "Are you sure you want to delete this clone?"}]%>
+</td>

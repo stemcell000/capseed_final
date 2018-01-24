@@ -1,7 +1,5 @@
 class AssaysController < ApplicationController
    
-    autocomplete :clone, :name, :extra_data => [:id]
-   
     before_filter :authenticate_user!
     before_action :assay_params, only:[:create, :update_row_order, :update, :add_clone]
     before_action :set_params, only:[:get_line, :update, :mask_line, :show, :clone_design, :clone_batch, :clone_batch_nb_update, :clone_batch_select, :clone_batch_qc, :plasmid_design, :plasmid_batch, :plasmid_batch_qc, :edit, :watch, :destroy, :clone_info, :plasmid_info, :close, :complete]
@@ -46,10 +44,10 @@ class AssaysController < ApplicationController
     
     #Recherche sur tables multiples.
       @q = Assay.ransack(params[:q])
-      @assays = @q.result(distinct: true)
+      @assays = @q.result(distinct: true).includes(:clones)
     
     #Config de l'affichage des résultats.
-    @assays = smart_listing_create(:assays, @assays, partial: "assays/smart_listing/list", default_sort: {name: "asc"}, page_sizes: [5, 10, 20, 30, 50, 100])  
+    @assays = smart_listing_create(:assays, @assays, partial: "assays/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
   end
   
   #Formatage des données pour

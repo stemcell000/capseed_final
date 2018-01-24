@@ -26,7 +26,7 @@
 		    </button>
 	<nav class="navbar-default" role="navigation">
     <div class="collapse navbar-collapse">
-    	<%if params[:controller]== "assays" %>
+    	<%if params[:controller]== "assays" || "clones" %>
 			<%= render :partial => 'components/dynamic_menu' %>
 		<% provide(:title, "Cloning Manager") %>
 			<%else if params[:controller]== "productions"%>

@@ -1,5 +1,11 @@
-  <td class="center"><%= object.name %></td>
   <td class="center"><%= object.id %></td>
+  <td class="center"><%= object.name %></td>
+  <td class="center"><% if !object.clones.empty? %>
+  						<small><em><%= object.clones.map{|c| c.name }.to_sentence %></em></small>
+  						<%else%>
+  							-
+  						<%end%>
+  						</td>
   <td class="center"><%= formatStep(object.last_step, object.id)[:step_name] %></td>
   <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
   <td class="center"><% if object.locked? %><span class="glyphicon glyphicon-lock"><%else%><span class="glyphicon glyphicon-minus"><%end%></td>

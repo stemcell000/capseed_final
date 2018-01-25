@@ -41,7 +41,7 @@ class ProductionsController < InheritedResources::Base
     @projects_all = Project.all
     @production = Production.new(production_create_params)
     #@production = Production.create(production_create_params)
-    if Production.exist?
+    if Production.exists?
       new_id = Production.last.id + 1
     end
     @production.id = new_id

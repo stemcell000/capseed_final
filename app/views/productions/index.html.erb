@@ -12,10 +12,10 @@
 				</div>
 				<%end%>
 				<div class="row">
-					<div class="col-lg-2">
+					<div class="col-lg-6 text-align-left">
 						<%= link_to 'New Production', new_production_path, :class => "btn info prod_btn" %> 
 					</div>
-					<div class="col-lg-2 pull-right">
+					<div class="col-lg-6 text-align-right">
 					<% if can? :inform_production, @user %>
 						<%= link_to 'Push!', users_inform_production_path(@user), :class => "btn btn-success" %>
 					<% end %>

@@ -12,7 +12,7 @@ class Assay < ActiveRecord::Base
   #-> { uniq } empêche l'enregistrement de duplicats identifiés par l'id de clone, ici.
   has_many :clones, -> { uniq }, :dependent => :destroy
   has_many :clone_batches, :through => :clones
-  has_and_belongs_to_many :projects
+  has_and_belongs_to_many :projects, :join_table => "assays_projects"
   belongs_to :user
   
   accepts_nested_attributes_for :clones

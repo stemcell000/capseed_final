@@ -6,4 +6,8 @@ class Insert < ActiveRecord::Base
  accepts_nested_attributes_for :clones
  accepts_nested_attributes_for :clone_batch
  
+ def name_with_number
+   "#{number} | #{name}"
+ end
+ 
 end

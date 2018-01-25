@@ -19,10 +19,16 @@ def index
     start_time = start_time.beginning_of_day # sets to 00:00:00
     end_time = params[:created_at_lteq].to_date rescue Date.current
     end_time = end_time.end_of_day # sets to 23:59:59
+    
+  #Champ inserts
+    @inserts_all = Insert.all.order(:id)
+    
+  #Champ backbones
+    @backbones_all = Insert.all.order(:id)
   
   #Recherche sur tables multiples.
     @q = Clone.ransack(params[:q])
-    @clones = @q.result(distinct: true).includes(:assay)
+    @clones = @q.result(distinct: true).includes(:assay, :inserts, :backbones)
   
   #Config de l'affichage des résultats.
     @clones = smart_listing_create(:clones, @clones, partial: "clones/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [20, 30, 50, 100])

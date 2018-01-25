@@ -6,28 +6,35 @@
 			  	<%= f.label "Search by any terms in name or comment:" %>
 			  	<%= f.search_field :name_or_comment_or_assay_comment_or_assay_name_cont %>
 		  	</div>
-	</div>
-	<div class="col-lg-6">
-					<div class="form-group">
+		</div>
+		<div class="col-lg-6">
+			<div class="form-group">
 					<%= f.label "Project", :class=>"control-label col-lg-8" %>
 					<%= f.search_field :assay_projects_name_cont %>
 			</div>
-	</div>
-	</div>
-	<div class="row">
-		<strong>Search by ranges of date of creation : </strong>
+		</div>
 	</div>
 	<div class="row">
+		<div class="col-lg-12">
+			<div class="form-group">
+				 <%= f.label "Inserts" %>
+				 	<%= f.collection_select(:inserts_id_in, Insert.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select", :multiple => true} )%>
+				 <%= f.label "Backbones" %>
+				 	<%= f.collection_select(:backbones_id_in, Backbone.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select", :multiple => true} )%>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
 			<div class="form-group" >
-				
 					<%= f.label "Start date ", :class=>"control-label col-lg-5" %>
 					<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 			</div>
-			
 			<div class="form-group" >
 					<%= f.label "End date ", :class=>"control-label col-lg-5" %>
 					<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
 			</div>
+		</div>
 	</div>
   	<div class="row">	
 				<div class="form-group pull-right">

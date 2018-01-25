@@ -41,7 +41,9 @@ class ProductionsController < InheritedResources::Base
     @projects_all = Project.all
     @production = Production.new(production_create_params)
     #@production = Production.create(production_create_params)
-    new_id = Production.last.id + 1
+    if Production.exist?
+      new_id = Production.last.id + 1
+    end
     @production.id = new_id
     if @production.save
       flash.keep[:success] = "Production was successfully created!"

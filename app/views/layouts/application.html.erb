@@ -26,13 +26,12 @@
 		    </button>
 	<nav class="navbar-default" role="navigation">
     <div class="collapse navbar-collapse">
-    	<%if params[:controller]== "assays"%>
-			<%= render :partial => 'components/dynamic_menu' %>
-		<% provide(:title, "Cloning Manager") %>
-			<% else if params[:controller] == "productions" %>
+		<% unless params[:controller] == "productions"%>
+				<%= render :partial => 'components/dynamic_menu' %>
+				<% provide(:title, "Cloning Manager") %>
+		<%else%>
 				<%= render :partial => 'components/dynamic_menu_prod' %>
 				<% provide(:title, "Production Manager") %>
-			<%end%>
 		<%end%>
 	</nav>
 		<div class="jumbotron container-fluid <%= jumboclass(yield(:title)) %>" >

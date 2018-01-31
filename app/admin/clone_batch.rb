@@ -65,8 +65,8 @@ end
               batch_size: 1000
 
 
-permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
-:strand, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :comment_as_plasmid, :promoters,
+permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand_id, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
+:date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :strand, :target, :target_id, :comment_as_plasmid, :promoters,
 :genes, :created_at, :updated_at, :clone_id
 
 #Add Button to site

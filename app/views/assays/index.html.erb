@@ -16,7 +16,7 @@
 					<%= link_to 'New cloning', new_assay_path , :class => "btn btn-primary" %> 
 				</div>
 				<div class="col-lg-6 text_align-right">
-					<% if can? :inform, @user %>
+					<% if can? :inform_cloning, @user %>
 						<%= link_to 'Push!', users_inform_cloning_path(@user) , :class => "btn btn-success" %>
 					<% end %>
 				</div>

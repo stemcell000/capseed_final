@@ -283,8 +283,21 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def plasmid_pb_params
-      params.require(:clone_batch).permit(:id, :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
-        :plasmid_batch_attachments_attributes =>[:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]])
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :target_id ,:_destroy,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id, :temp_name,
+      
+      :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
+     
+      :type_attributes => [:id, :name],
+      :insert_attributes => [:id, :name, :number],
+      :strand_attributes => [:id, :name],
+      :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
+      :box_attributes => [:id, :name],
+      :row_attributes => [:id, :name],
+      :column_attributes => [:id, :name],
+      gene_ids: [], promoter_ids: [])
     end
        
       

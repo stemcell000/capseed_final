@@ -7,6 +7,10 @@
   float: left;
   display: none;
   min-width: 180px;
+  max-height: 400px;
+  overflow-y: auto;   /* prevent horizontal scrollbar */
+  overflow-x: hidden; /* add padding to account for vertical scrollbar */
+ z-index:1000 !important;
   _width: 160px;
   padding: 4px 10px;
   margin: 2px 0 0 0;
@@ -30,9 +34,9 @@
  
     .ui-menu-item > a.ui-corner-all {
       display: block;
-      padding: 5px 5px 5px 5px;
+      padding: 0px 5px 0px 5px;
       clear: both;
-      font-weight: bold;
+      font-weight: normal;
       line-height: 30px;
       color: #555555;
       white-space: nowrap;
@@ -57,7 +61,7 @@
     
     input[id*='name']{
       height: 45px;
-      padding: 0 0 0 5px;
+      padding: 0 0 0 2px;
     }
     
 	input, label {

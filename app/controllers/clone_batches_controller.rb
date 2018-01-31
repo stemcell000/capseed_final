@@ -131,18 +131,21 @@ class CloneBatchesController < InheritedResources::Base
   
    def index
     #Formattage des dates
-      start_time = params[:created_at_gteq].to_date rescue Date.current
-      start_time = start_time.beginning_of_day # sets to 00:00:00
-      end_time = params[:created_at_lteq].to_date rescue Date.current
-      end_time = end_time.end_of_day # sets to 23:59:59
-    
-    #Recherche sur tables multiples.
-      @q = CloneBatch.ransack(params[:q])
+        start_time = params[:created_at_gteq].to_date rescue Date.current
+        start_time = start_time.beginning_of_day # sets to 00:00:00
+        end_time = params[:created_at_lteq].to_date rescue Date.current
+        end_time = end_time.end_of_day # sets to 23:59:59
       
-   #Champ targets
-    @targets_all = Target.all.order(name: "asc").uniq
-    @targets_all = @targets_all.map{ |obj| [obj['name'], obj['id']] }
-      
+      #Recherche sur tables multiples.
+        @q = CloneBatch.ransack(params[:q])
+        
+    #Champ targets
+      @targets_all = Target.all.order(name: "asc").uniq
+      @targets_all = @targets_all.map{ |obj| [obj['name'], obj['id']] }
+    #Champs types
+      @types_all = Type.all.order(name: "asc").uniq
+      @types_all = @types_all.map{ |obj| [obj['name'], obj['id']] }
+        
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
       @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target)
       

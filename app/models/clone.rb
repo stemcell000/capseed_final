@@ -68,5 +68,9 @@ def downcase_name
   self.name = self.name.downcase if self.name.present?
 end
 
+def display_method
+  "#{self.name} (#{self.id})"
+end
+
   
 end

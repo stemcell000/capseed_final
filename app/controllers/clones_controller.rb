@@ -1,6 +1,6 @@
 class ClonesController < ApplicationController
 
-autocomplete :clone, :name, :full => true, :extra_data => [:id]
+autocomplete :clone, :name, :full => true, :extra_data => [:id], :display_value => :display_method
 
 #Smart_listing
  include SmartListing::Helper::ControllerExtensions

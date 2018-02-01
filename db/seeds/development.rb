@@ -79,6 +79,16 @@
   Sequencing.create(name: "not done")
   Sequencing.create(name: "passed")
   
+  #Target
+  Target.create(name: "Unknown")
+  Target.create(name: "Ubiquitous")
+  Target.create(name: "RGC")
+  Target.create(name: "Cones")
+  Target.create(name: "neuronal")
+  Target.create(name: "Bipolar cells on")
+  Target.create(name: "Red cones")
+  Target.create(name: "Blue cones")
+  
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
   #Add Projects to Assay

@@ -18,8 +18,8 @@
   Strand.create( name:"sc")
   Strand.create( name:"ss")
   Strand.create( name:"nc")
-  Strand.create( name:"irrelevant")
-  Strand.create( name:"unknown")
+  Strand.create( name:"Irrelevant")
+  Strand.create( name:"Unknown")
 
   
    #Add boxes
@@ -78,6 +78,16 @@
   Sequencing.create(name: "failed")
   Sequencing.create(name: "not done")
   Sequencing.create(name: "passed")
+  
+  #Target
+  Target.create(name: "Unknown")
+  Target.create(name: "Ubiquitous")
+  Target.create(name: "RGC")
+  Target.create(name: "Cones")
+  Target.create(name: "neuronal")
+  Target.create(name: "Bipolar cells on")
+  Target.create(name: "Red cones")
+  Target.create(name: "Blue cones")
   
   #First project
   Project.create( name:"Global project")

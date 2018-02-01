@@ -33,8 +33,8 @@
   Cmeth.create(name: "Directed mutagenesis")
   Cmeth.create(name: "Classic")
   Cmeth.create(name: "Gibson")
-  Cmeth.create(name: "other")
-  Cmeth.create(name: "unknown") 
+  Cmeth.create(name: "Other")
+  Cmeth.create(name: "Unknown") 
  
   #Add columns
   Column.create( name:"1")

@@ -56,14 +56,11 @@
 			</div>
 			
 			<div class= "row">
-				<div class="col-lg-3">
+				<div class="col-lg-6">
 					<%=f.input :titer , :label => "Titer (vg/ml)", as: :string, :input_html => {:value => "%.3e" % f.object.titer } %>
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-6">
 					<%=f.input :titer_atcc , :label => "Titer ATCC (vg/mL)", as: :string, :input_html => {:value => "%.3e" % f.object.titer_atcc }%>
-				</div>
-				<div class="col-lg-3">
-					<%=f.input :titer_to_atcc , :label => "Titer to ATCC (vg/mL)", as: :string, :input_html => {:value => "%.3e" % f.object.titer_to_atcc }%>
 				</div>
 			</div>
 			

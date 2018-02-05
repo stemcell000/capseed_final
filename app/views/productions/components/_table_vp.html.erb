@@ -16,9 +16,9 @@
 							<strong>Number of plates : </strong><%= vp.plate_nb.nil? ? "No data" : vp.plate_nb %><br />
 							<strong>Date of prod.:</strong> <%=vp.date_of_production.nil? ? "No Data" : formatDate(vp.date_of_production)%><br />
 							<strong>Plate IDs: </strong><%= vp.plate_id.nil? ? "No data" : vp.plate_id %><br />
-							<strong>Titer: </strong><%= vp.titer.nil? ? "No data" : vp.titer %><br />
-							<strong>Titer ATCC: </strong><%= vp.titer_atcc.nil? ? "No data" : vp.titer_atcc %><br />
-							<strong>Titer to ATCC: </strong><%= vp.titer_to_atcc.nil? ? "No data" : vp.titer_to_atcc %><br />
+							<strong>Titer: </strong><%= vp.titer_atcc.nil? ? "none" : "%.3e" %vp.titer_atcc+" vg/ml" %><br />
+							<strong>Titer ATCC: </strong><%= vp.titer_atcc.nil? ? "none" : "%.3e" %vp.titer_atcc+" vg/ml" %><br />
+							<strong>Titer to ATCC: </strong><%= vp.titer_to_atcc.nil? ? "none" : "%.3e" %vp.titer_to_atcc+" vg/ml" %><br />
 						</div>
 						<div class="col-lg-6">
 							<strong>Sterility: </strong><%= vp.sterility.nil? ? "No data" : vp.sterility %><br />

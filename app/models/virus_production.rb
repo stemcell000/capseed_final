@@ -13,7 +13,13 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
  accepts_nested_attributes_for :vol_unit
  accepts_nested_attributes_for :production
  
- validates :plate_nb, :vol, :plate_id, :vol_unit, :user, :date_of_production, :presence => true
-# validates :titer, :titer_atcc, :titer_to_atcc, numericality: { greater_than: 0, less_than: 1000000 }
+ #validates :vol, :vol_unit, :user, :date_of_production, :presence => true 
+ validates :titer, :titer_atcc, :presence => true
+ 
+ #Calulates the value of titer_to_atcc automately
+ 
+ def titer_to_atcc
+   (32800000000/self.titer_atcc)*self.titer
+ end
 
 end

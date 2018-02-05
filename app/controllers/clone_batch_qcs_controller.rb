@@ -95,6 +95,7 @@ class CloneBatchQcsController < InheritedResources::Base
     #TUTO:indispensable pour exécuter le fichier js.erb correspondant
     respond_to do |format|
       format.js
+      format.html
     end
   end
   
@@ -104,6 +105,7 @@ class CloneBatchQcsController < InheritedResources::Base
     #TUTO:indispensable pour exécuter le fichier js.erb correspondant
     respond_to do |format|
       format.js {render :set_qc_validation}
+      format.html
     end
   end
   

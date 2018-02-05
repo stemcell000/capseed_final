@@ -192,6 +192,7 @@ class ProductionsController < InheritedResources::Base
      #production_vp_params doit contenir production_id dans les attribut de virus_production (nested). Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
+     titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])
      
      if @production.valid?
       flash.keep[:success] = "Task completed!"

@@ -13,7 +13,6 @@ class CloneBatchQcsController < InheritedResources::Base
     @clone_batch_qc.qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
-    @primers_all = Primer.all
   end
   
   def new

@@ -291,6 +291,11 @@ class ProductionsController < InheritedResources::Base
   private
   def set_production
     @production = Production.find(params[:id])
+       #
+   rescue ActiveRecord::RecordNotFound  
+    redirect_to :controller => "virus_productions", :action => "index"
+    flash[:alert] = "Production not found."
+   return
   end
 
   def production_params

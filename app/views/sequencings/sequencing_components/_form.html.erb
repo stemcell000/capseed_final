@@ -1,0 +1,50 @@
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @sequencing]), remote: true, html: {class: 'horizontal-form'} do |f|  %>
+<%= f.error_notification %>
+<ul class="errors"></ul>
+<small>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="container">	
+			
+		
+				
+			</div>
+					<div class="hidden" id="files">
+						<div class="col-lg-12">
+						   <strong>File</strong><br />
+						     	<%= f.simple_fields_for :qc_attachments do |a| %>	
+								<%= link_to File.basename(a.object.attachment.to_s), a.object.attachment.to_s%>
+							    <%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %> 
+							    <%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
+								<% end %>
+						</div>
+					</div>
+						
+					<div class="hidden" id="add-file">
+							<div class="col-lg-2">
+								<%= f.link_to_add "Add a file", :qc_attachments ,:class => 'btn btn-sm btn-success' %>
+							</div>
+					</div>
+				     
+			  		
+			  		
+			  		
+		 </div>
+		</small>
+		</div>
+	</nav>	
+	
+	</div>
+	<div class="panel-footer">
+		 		<div class="btn-group" role="group" aria-label="...">
+		    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.", :remote => true) %>
+		        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+		        </div>
+	</div>
+        
+     </div>
+<%end%>
+
+
+
+

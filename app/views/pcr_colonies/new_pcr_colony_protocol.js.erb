@@ -1,7 +1,7 @@
 		$("#qc-label").html("Clone batch Quality Control")
 		$("#qc-buttons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 		$("#flash-msg-container").html("")
-		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'clone_batch_qcs/clone_batch_qc_components/clone_batch_qc_protocol_new', locals: {:clone_id => @clone.id, :assay_id => @assay.id} ) %>")
+		$("#inner-qc-modal").html("<%= escape_javascript( render :partial => 'pcr_colonies/pcr_colony_components/clone_batch_pcr_colony_protocol_new', locals: {:clone_id => @clone.id, :assay_id => @assay.id} ) %>")
 		$("#pcr-colony-port").hide();
 		$("ul.errors").html("");
 		$("#qc-modal").modal("show");

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CloneBatchQcTest < ActiveSupport::TestCase
+class PcrColoniesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

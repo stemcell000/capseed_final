@@ -15,9 +15,12 @@
 <% if !clone.clone_batches.empty? %>
 		<div id= "clone_batch_qc_table_container<%=clone.id%>">
 			<% assay_id = @assay.id %>
-			<div class="row pull-right">
-				<div class="col-md-1">
-					<%= link_to "Add QC protocol", new_qc_protocol_new_assay_clone_clone_batch_qc_path(@assay, clone), :class => "btn btn-success btn-xs", :remote => true, :disabled => @assay.locked %>
+			<div class="row">
+				<div class="col-lg-2">
+					<%= link_to "Add sequencing for all", new_sequencing_protocol_new_assay_clone_sequencing_path(@assay, clone), :class => "btn btn-info btn-xs", :remote => true, :disabled => @assay.locked %>
+				</div>
+				<div class="col-lg-2">
+					<%= link_to "Add PCR colony for all", new_pcr_colony_protocol_new_assay_clone_pcr_colony_path(@assay, clone), :class => "btn btn-info btn-xs", :remote => true, :disabled => @assay.locked %>
 				</div>
 			</div>
 			<%= render :partial => "clone_batches/components/clone_batch_qc_table", :locals => { :clone => clone, :assay => @assay }%>

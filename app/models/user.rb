@@ -3,15 +3,16 @@ class User < ActiveRecord::Base
   has_many :assays
   has_many :plasmid_batches
   has_many :virus_productions
+  has_many :sequencings
+  has_many :pcr_colonies
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
+  accepts_nested_attributes_for :sequencings
 
-  has_many :clone_batch_qcs
   has_many :plasmid_batch_qcs
   accepts_nested_attributes_for :virus_productions
-  accepts_nested_attributes_for :clone_batch_qcs
   
   validates :username, :firstname, :lastname,
   :presence => true,

@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   resources :clone_batch_attachments
   resources :plasmids
   resources :qc_attachments
-  resources :clone_batch_qcs
   resources :clone_attachments
   resources :clone_batches
   resources :plasmid_batches
@@ -89,12 +88,13 @@ Rails.application.routes.draw do
       get :plasmid_info
       get :plasmid_batch_info
       get :plasmid_batch_qc_info
-      resources :clone_batch_qcs do
-           get :new_qc_protocol, :on => :new
-           get :render_sequencing, :on => :new
-           get :render_pcr_colony, :on => :new
-           post :create_qc_protocol_collection, :on => :collection
-           get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
+      resources :sequencings do
+           get :new_sequencing_protocol, :on => :new
+           post :create_sequencing_protocol_collection, :on => :collection
+      end
+      resources :pcr_colonies do
+           get :new_pcr_colony_protocol, :on => :new
+           post :create_pcr_colony_protocol_collection, :on => :collection
       end
       resources :clone_batches do
            get :autocomplete_clone_batch_name, :on => :collection
@@ -102,12 +102,17 @@ Rails.application.routes.draw do
            get :display, :on => :member
            patch :update_as_plasmid, :on => :member
            get :remove_from_clone_collection, :on => :member
+           
            #Clone Batch QC
-           resources :clone_batch_qcs do
-             get :set_qc_validation, :on => :member
-             get :set_qc_unvalidation, :on => :member
-             get :autocomplete_clone_batch_qc_primer_nb, :on => :collection
+           resources :sequencings do
+             get :set_sequencing_validation, :on => :member
+             get :set_sequencing_unvalidation, :on => :member
            end 
+           resources :pcr_colonies do
+             get :set_pcr_colony_validation, :on => :member
+             get :set_pcr_colony_unvalidation, :on => :member
+           end 
+           
            #Plasmid Batch QC
            resources :plasmid_batch_qcs do
               get :new_qc_protocol, :on => :new
@@ -188,7 +193,8 @@ Rails.application.routes.draw do
   end
   
   resources :clone_batches do
-    resources :clone_batch_qcs 
+    resources :sequencings
+    resources :pcr_colonies 
     resources :plasmid_batches
     get :edit_as_plasmid, :on => :member
     get :edit_from_inventory, :on => :member

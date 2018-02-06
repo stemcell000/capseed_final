@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116155148) do
+ActiveRecord::Schema.define(version: 20180206095214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,27 +103,6 @@ ActiveRecord::Schema.define(version: 20180116155148) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "clone_batch_qcs", force: :cascade do |t|
-    t.integer  "clone_batch_id"
-    t.date     "date_send"
-    t.date     "date_rec"
-    t.text     "result"
-    t.boolean  "conclusion"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.integer  "user_id"
-    t.integer  "pcr_colony_id"
-    t.string   "primer1"
-    t.string   "primer2"
-    t.date     "date_send2"
-    t.integer  "sequencing_id"
-    t.integer  "primer_id"
-    t.string   "name"
-    t.string   "primer"
-  end
-
-  add_index "clone_batch_qcs", ["clone_batch_id"], name: "index_clone_batch_qcs_on_clone_batch_id", using: :btree
-
   create_table "clone_batch_qcs_batches", force: :cascade do |t|
     t.integer "clone_batch_id"
     t.integer "clone_batch_qc_id"
@@ -131,14 +110,6 @@ ActiveRecord::Schema.define(version: 20180116155148) do
 
   add_index "clone_batch_qcs_batches", ["clone_batch_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_id", using: :btree
   add_index "clone_batch_qcs_batches", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_qc_id", using: :btree
-
-  create_table "clone_batch_qcs_qc_attachments", force: :cascade do |t|
-    t.integer "clone_batch_qc_id"
-    t.integer "qc_attachment_id"
-  end
-
-  add_index "clone_batch_qcs_qc_attachments", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_qc_attachments_on_clone_batch_qc_id", using: :btree
-  add_index "clone_batch_qcs_qc_attachments", ["qc_attachment_id"], name: "index_clone_batch_qcs_qc_attachments_on_qc_attachment_id", using: :btree
 
   create_table "clone_batches", force: :cascade do |t|
     t.integer  "target_id"
@@ -163,6 +134,14 @@ ActiveRecord::Schema.define(version: 20180116155148) do
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
 
+  create_table "clone_batches_pcr_colonies", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "pcr_colony_id"
+  end
+
+  add_index "clone_batches_pcr_colonies", ["clone_batch_id"], name: "index_clone_batches_pcr_colonies_on_clone_batch_id", using: :btree
+  add_index "clone_batches_pcr_colonies", ["pcr_colony_id"], name: "index_clone_batches_pcr_colonies_on_pcr_colony_id", using: :btree
+
   create_table "clone_batches_productions", force: :cascade do |t|
     t.integer "clone_batch_id"
     t.integer "production_id"
@@ -170,6 +149,14 @@ ActiveRecord::Schema.define(version: 20180116155148) do
 
   add_index "clone_batches_productions", ["clone_batch_id"], name: "index_clone_batches_productions_on_clone_batch_id", using: :btree
   add_index "clone_batches_productions", ["production_id"], name: "index_clone_batches_productions_on_production_id", using: :btree
+
+  create_table "clone_batches_sequencings", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "sequencing_id"
+  end
+
+  add_index "clone_batches_sequencings", ["clone_batch_id"], name: "index_clone_batches_sequencings_on_clone_batch_id", using: :btree
+  add_index "clone_batches_sequencings", ["sequencing_id"], name: "index_clone_batches_sequencings_on_sequencing_id", using: :btree
 
   create_table "clones", force: :cascade do |t|
     t.integer  "assay_id"
@@ -240,8 +227,20 @@ ActiveRecord::Schema.define(version: 20180116155148) do
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree
 
   create_table "pcr_colonies", force: :cascade do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "result"
+    t.boolean  "conclusion"
   end
+
+  create_table "pcr_colonies_qc_attachments", force: :cascade do |t|
+    t.integer "pcr_colony_id"
+    t.integer "qc_attachment_id"
+  end
+
+  add_index "pcr_colonies_qc_attachments", ["pcr_colony_id"], name: "index_pcr_colonies_qc_attachments_on_pcr_colony_id", using: :btree
+  add_index "pcr_colonies_qc_attachments", ["qc_attachment_id"], name: "index_pcr_colonies_qc_attachments_on_qc_attachment_id", using: :btree
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
@@ -361,6 +360,14 @@ ActiveRecord::Schema.define(version: 20180116155148) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "qc_attachments_sequencings", force: :cascade do |t|
+    t.integer "qc_attachment_id"
+    t.integer "sequencing_id"
+  end
+
+  add_index "qc_attachments_sequencings", ["qc_attachment_id"], name: "index_qc_attachments_sequencings_on_qc_attachment_id", using: :btree
+  add_index "qc_attachments_sequencings", ["sequencing_id"], name: "index_qc_attachments_sequencings_on_sequencing_id", using: :btree
+
   create_table "rows", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -368,10 +375,17 @@ ActiveRecord::Schema.define(version: 20180116155148) do
   end
 
   create_table "sequencings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "name"
     t.string   "primer"
+    t.integer  "clone_batch_qc_id"
+    t.integer  "user_id"
+    t.date     "date_rec"
+    t.date     "date_send"
+    t.text     "comment"
+    t.text     "result"
+    t.boolean  "conclusion"
   end
 
   create_table "statistics", force: :cascade do |t|

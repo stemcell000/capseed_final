@@ -47,6 +47,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.update_attributes(clone_batch_params)
     @clone = Clone.find(params[:clone_id])
     @clone_batches = @clone.clone_batches
+
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
         CloneBatch.set_callback(:create)
@@ -296,7 +297,9 @@ class CloneBatchesController < InheritedResources::Base
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      gene_ids: [], promoter_ids: [])
+      :sequencing_attributes => [:name, :primer, :user_id, :date_rec, :date_send, :comment, :result, :conclusion],
+      :pcr_colony_attributes => [:name, :primer_r, :primer_f, :user_id, :date, :comment, :result, :conclusion],
+      gene_ids: [], promoter_ids: [], sequencing_ids: [], pcr_colonies: [])
     end
        
       

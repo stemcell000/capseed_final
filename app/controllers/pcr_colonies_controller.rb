@@ -8,22 +8,22 @@ class PcrColoniesController < ApplicationController
   
   def edit
     @assay = Assay.find(params[:assay_id])
-    @pcr_colony = pcr_colony.find(params[:id])
-    @pcr_colony.qc_attachments.build
+    @pcr_colony = PcrColony.find(params[:id])
+    #@pcr_colony.qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
   end
   
   def new
     @pcr_colony = @clone_batch.pcr_colonies.new
-    @pcr_colony.qc_attachments.build
+    #@pcr_colony.qc_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
   end
   
   def create
-    @pcr_colony = pcr_colony.create(set_params)
+    @pcr_colony = PcrColony.create(set_params)
     if @pcr_colony.valid?
         @clone_batch.pcr_colonies << @pcr_colony
         batch_pcr_colony_validation_checking
@@ -60,7 +60,7 @@ class PcrColoniesController < ApplicationController
   def create_pcr_colony_protocol_collection
     
    #TUTO:Génération du pcr_colony modèle (jamais enregistré)
-    @pcr_colony = pcr_colony.new(set_params)
+    @pcr_colony = PcrColony.new(set_params)
     if @pcr_colony.valid?
            @clone.clone_batches.each do |cb|
     #TUTO:Duplication totale (+association) sauf attachement
@@ -80,7 +80,7 @@ class PcrColoniesController < ApplicationController
   end
   
   def set_pcr_colony_validation
-    @pcr_colony = Sequence.find(params[:id])
+    @pcr_colony = PcrColony.find(params[:id])
     @pcr_colony.update_columns(:conclusion => true)
     #TUTO:indispensable pour exécuter le fichier js.erb correspondant
     respond_to do |format|
@@ -90,7 +90,7 @@ class PcrColoniesController < ApplicationController
   end
   
    def set_pcr_colony_unvalidation
-    @pcr_colony = pcr_colony.find(params[:id])
+    @pcr_colony = PcrColony.find(params[:id])
     @pcr_colony.update_columns(:conclusion => false)
     #TUTO:indispensable pour exécuter le fichier js.erb correspondant
     respond_to do |format|
@@ -101,7 +101,7 @@ class PcrColoniesController < ApplicationController
   
   private
     def set_params
-      params.require(:pcr_colony).permit(:clone_batch_id, :id, :name, :primer, :user_id, :date_rec, :date_send, :comment, :result, :conclusion,
+      params.require(:pcr_colony).permit(:clone_batch_id, :id, :name, :primer_f, :primer_r, :user_id, :date, :comment, :result, :conclusion,
       :clone_batch_attributes => [:name, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :qc_attachments_attributes =>[:id,:pcr_colony_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
@@ -113,7 +113,7 @@ class PcrColoniesController < ApplicationController
     end
     
     def load_pcr_colony
-      @pcr_colony = pcr_colony.find(params[:id])
+      @pcr_colony = PcrColony.find(params[:id])
     end
     
     def load_all

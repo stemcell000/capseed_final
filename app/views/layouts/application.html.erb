@@ -26,10 +26,10 @@
 		    </button>
 	<nav class="navbar-default" role="navigation">
     <div class="collapse navbar-collapse">
-		<% unless params[:controller] == "productions"%>
+		<% if params[:controller] == "assays" || params[:controller] == "clones"%>
 				<%= render :partial => 'components/dynamic_menu' %>
 				<% provide(:title, "Cloning Manager") %>
-		<%else%>
+		<%elsif params[:controller] == "productions" %>
 				<%= render :partial => 'components/dynamic_menu_prod' %>
 				<% provide(:title, "Production Manager") %>
 		<%end%>

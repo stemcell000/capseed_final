@@ -8,7 +8,7 @@ class CreatePcrColonyQcAttachement < ActiveRecord::Migration
            t.belongs_to :clone_batch, index: true
            t.belongs_to :pcr_colony, index: true
      end
-      add_column :pcr_colonies, :result, :text
+      add_column :pcr_colonies, :result, :string
       add_column :pcr_colonies, :conclusion, :boolean
   end
 end

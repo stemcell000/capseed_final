@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206095214) do
+ActiveRecord::Schema.define(version: 20180206150536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,11 @@ ActiveRecord::Schema.define(version: 20180206095214) do
     t.datetime "updated_at", null: false
     t.text     "result"
     t.boolean  "conclusion"
+    t.string   "primer_r"
+    t.string   "primer_f"
+    t.date     "date"
+    t.integer  "user_id"
+    t.text     "comment"
   end
 
   create_table "pcr_colonies_qc_attachments", force: :cascade do |t|

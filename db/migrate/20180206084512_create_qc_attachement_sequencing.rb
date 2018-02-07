@@ -8,7 +8,7 @@ class CreateQcAttachementSequencing < ActiveRecord::Migration
            t.belongs_to :clone_batch, index: true
            t.belongs_to :sequencing, index: true
      end
-     add_column :sequencings, :result, :text
+     add_column :sequencings, :result, :string
      add_column :sequencings, :conclusion, :boolean
   end
 end

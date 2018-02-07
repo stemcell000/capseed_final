@@ -14,9 +14,13 @@
 															<tr>
 																<td class="col-lg-3 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
 																</td>
-																<td class="col-lg-12 .well">
+																
+																<td class="col-lg-7">
+																	
 																	<% qcs = (cb.sequencings + cb.pcr_colonies).sort_by(&:created_at)  %>
-																						<% qcs.each_with_index do |qc, index| %>
+																	
+																		<% qcs.each_with_index do |qc, index| %>
+																		
 																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
 																							title='
 																							<div class="row">
@@ -24,12 +28,12 @@
 																									QC created on : <%=qc.created_at.strftime("%h %e, %Y ") %>
 																								</div>
 																							</div>
-																						<%if qc.klass == Sequencing %>
-																							<% name = sequencing%>
+																						<%if qc.class.name == "Sequencing" %>
+																							<% name = "Sequencing" %>
 																								<div class="row">
 																									<div class="col-lg-12">
 																										<div class="btn-group" role="group" aria-label="Edit">
-																													<%= link_to "Edit", edit_assay_clone_clone_batch_sequencing_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+																													<%= link_to "Edit sequencing", edit_assay_clone_clone_batch_sequencing_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
 																										</div>		
 																												<% unless qc.conclusion %>
 																										<div class="btn-group" role="group" aria-label="Validate">
@@ -45,33 +49,16 @@
 																										</div>
 																									</div>
 																								</div>
-																						<%else%>
-																							<% name = pcr_colony %>
-																								<div class="row">
-																									<div class="col-lg-12">
-																										<div class="btn-group" role="group" aria-label="Edit">
-																													<%= link_to "Edit", edit_assay_clone_clone_batch_pcr_colony_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
-																										</div>		
-																												<% unless qc.conclusion %>
-																										<div class="btn-group" role="group" aria-label="Validate">
-																													<%= link_to "Validate", set_pcr_colony_validation_assay_clone_clone_batch_pcr_colony_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
-																										</div>
-																												<%else%>
-																										<div class="btn-group" role="group" aria-label="Unvalidate">	
-																													<%= link_to "Unvalidate", set_pcr_colony_unvalidation_assay_clone_clone_batch_sequencing_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
-																										</div>		
-																												<%end%>
-																										<div class="btn-group" role="group" aria-label="remove">	
-																													<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true, :disabled => @assay.locked %>
-																										</div>
-																									</div>
-																								</div>
-																							<%end%>
 																							'
 																							data-content='
 																							<small>
 																								<div class="col-lg-12 text-left">
-																										<div><strong>Note:</strong> <%= qc.result.blank? ? "none" : qc.result %></div>
+																										<div><strong>Sequencing</strong></div>
+																										<div><strong>Contact</strong> <%= qc.user_id.nil? ? "No data" : qc.user.full_name %> </div>
+																										<div><strong>Sending date</strong> <%= qc.date_send.nil? ? "No data" : qc.date_send.strftime("%B %e, %Y") %> </div>
+																										<div><strong>Receiving date</strong> <%= qc.date_rec.nil? ? "No data" : qc.date_rec.strftime("%B %e, %Y") %> </div>
+																										<div><strong>Primer:</strong> <%= qc.primer.blank? ? "No data" : qc.primer.truncate(15) %></div>
+																										<div><strong>Note:</strong> <%= qc.result.blank? ? "No data" : qc.result.truncate(27) %></div>
 																										<div><strong>Conclusion:</strong> 
 																											<%if qc.conclusion==true %>
 																											Validated QC
@@ -89,10 +76,63 @@
 																												<em>No attachment.</em>
 																											<%end%>
 																										</div>
-																							<small>
 																								</div>
+																							<small>
 																								'
 																							>
+																						<%else%>
+																							<% name = "PCR colony" %>
+																								<div class="row">
+																									<div class="col-lg-12">
+																										<div class="btn-group" role="group" aria-label="Edit">
+																													<%= link_to "Edit PCR colony", edit_assay_clone_clone_batch_pcr_colony_path(:assay_id => @assay, :clone_id => clone.id, :clone_batch_id => cb.id, :id => qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+																										</div>		
+																												<% unless qc.conclusion %>
+																										<div class="btn-group" role="group" aria-label="Validate">
+																													<%= link_to "Validate", set_pcr_colony_validation_assay_clone_clone_batch_pcr_colony_path( @assay, clone, cb,  qc), :class =>"btn btn-success btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+																										</div>
+																												<%else%>
+																										<div class="btn-group" role="group" aria-label="Unvalidate">	
+																													<%= link_to "Unvalidate", set_pcr_colony_unvalidation_assay_clone_clone_batch_pcr_colony_path( @assay, clone, cb,  qc), :class =>"btn btn-info btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+																										</div>		
+																												<%end%>
+																										<div class="btn-group" role="group" aria-label="remove">	
+																													<%= link_to "Remove", [cb, qc, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true, :disabled => @assay.locked %>
+																										</div>
+																									</div>
+																								</div>
+																						
+																							'
+																							data-content='
+																							<small>
+																								<div class="col-lg-12 text-left">
+																										<div><strong>Contact</strong> <%= qc.user_id.nil? ? "No data" : qc.user.full_name %> </div>
+																										<div><strong>Date</strong> <%= qc.date.nil? ? "No data" : qc.date.strftime("%B %e, %Y") %> </div>
+																										<div><strong>Primer forward:</strong> <%= qc.primer_f.blank? ? "No data" : qc.primer_f.truncate(15) %></div>
+																										<div><strong>Primer reverse:</strong> <%= qc.primer_r.blank? ? "No data" : qc.primer_r.truncate(15) %></div>
+																										<div><strong>Note:</strong> <%= qc.result.blank? ? "No data" : qc.result.truncate(27) %></div>
+																										<div><strong>Conclusion:</strong> 
+																											<%if qc.conclusion==true %>
+																											Validated QC
+																											<%else%>
+																											not validated QC
+																											<%end%>
+																										</div>
+																										<div><strong>Files:</strong></br>
+																											<% if qc.qc_attachments.length>0%>
+																												<% qc.qc_attachments.each do |a|%>
+																													<% mypath= a.attachment.to_s%>
+																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%><br />
+																												<%end%>
+																												<%else%>
+																												<em>No attachment.</em>
+																											<%end%>
+																										</div>
+																								</div>
+																							<small>
+																								'
+																							>
+																							<%end%>
 																								<% if qc.conclusion == true %>
 																										<span class="font-success"><i class="glyphicon glyphicon-map-marker"></i>
 																											<%= "#{index+1}-#{name} - (#{qc.created_at.strftime("%h %e, %Y ")})" %>  </span>
@@ -103,6 +143,7 @@
 																						<%end%>
 																						</a>
 																</td>
+																
 																<td class="col-lg-2">
 																		<div class="row">
 																			<div class="col-md-2">
@@ -121,12 +162,12 @@
 																	
 																	<div class="row">
 																		<div class="col-lg-2">
-																			<%= link_to "Add sequencing", new_assay_clone_clone_batch_sequencing_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
+																			<%= link_to "Add Sequencing", new_assay_clone_clone_batch_sequencing_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
 																		</div>
 																	</div>
 																	<div class="row">
 																		<div class="col-lg-2">
-																			<%= link_to "Add pcr colony", new_assay_clone_clone_batch_pcr_colony_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
+																			<%= link_to "Add PCR colony", new_assay_clone_clone_batch_pcr_colony_path(:clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
 																		</div>
 																	</div>
 																	<div class="row">

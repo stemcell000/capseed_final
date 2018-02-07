@@ -8,7 +8,6 @@ class PlasmidBatchQcsController < InheritedResources::Base
 
 def new
     @plasmid_batch_qc = PlasmidBatchQc.new
-    @plasmid_batch_qc.qc_attachments.build
     #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
     @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
 end
@@ -26,7 +25,6 @@ def create
 end
 
 def edit
-  @plasmid_batch_qc.qc_attachments.build
   #Indispensable pour transmettre @plasmid_batch à batch_qc_validation_checking et actualidation après fermeture de la fenêtre modal:
   @plasmid_batch = PlasmidBatch.find(params[:plasmid_batch_id])
 end
@@ -57,7 +55,6 @@ end
   
    def new_qc_protocol
     @plasmid_batch_qc =  PlasmidBatchQc.new
-    @plasmid_batch_qc.qc_attachments.build
       respond_to do |format|
         format.js
         format.html

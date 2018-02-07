@@ -110,6 +110,17 @@ class AssaysController < ApplicationController
   def new
     @assay = Assay.new
     @assay.projects.build
+    @assay.save!
+  end
+  
+  def assay_generator
+    @assay = Assay.new
+    @assay.save
+      @assay.update_columns(:step => 0)
+      update_last_step(@assay, 0)
+      @assay.update_columns(:percentage => 10)
+      
+      redirect_to :action => 'clone_design', :id => @assay.id
   end
   
   
@@ -163,8 +174,8 @@ class AssaysController < ApplicationController
   
  def destroy
   @assay.destroy
+  @assays = Assay.where.not(:last_step => 8).rank(:row_order).all
 end
- # end
   
  def get_id
       @assay = Assay.find(params[:id])

@@ -1,11 +1,15 @@
+<% if @assays.empty?%>
+			<p>No cloning to display!</p>
+<%else%>
+
 <table class="table table-bordered table-striped table-hover" id="notsortable">
   <thead>
     <tr>
       <th class="col-name">
-        Name
+        Construction
       </th>
       <th  class="col-id">
-        ID
+        Cloning ID
       </th>
       <th class="col-startdate">
         Start date
@@ -23,8 +27,8 @@
   <tbody>
     <% @assays.each do |assay| %>
       <tr data-item-id=<%= assay.id %> class="item">
-        <td id="name">
-          <%= assay.name %>
+        <<td id="clone_collection">
+          <%= clone_display(assay.clones) %>
         </td>
         <td id="id">
         	<%= assay.id %>
@@ -46,3 +50,4 @@
   </tbody>
 </table>
 
+<%end%>

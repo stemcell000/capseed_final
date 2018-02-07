@@ -3,16 +3,22 @@
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th>created on:</th>
+					<th>created on</th>
 					<th>Last validated step</th>
+					<th>Project</th>
 					<th></th>
 				</thead>
 					<% @assays.each do |assay| %>
 						<tr>
-							<td><%= assay.id %></td>
-							<td><%= assay.name %></td>
-							<td><%= assay.created_at.strftime("%B %e, %Y") %></td>
-							<td><%= stepToString(assay.last_step)%></td>
+							<td class="col-lg-1"><%= assay.id %></td>
+							<td class="col-lg-2"><%= clone_display(assay.clones) %></td>
+							<td class="col-lg-2"><%= assay.created_at.strftime("%B %e, %Y") %></td>
+							<td class="col-lg-3"><%= stepToString(assay.last_step)%></td>
+							<td class="col-lg-4">
+								<% assay.clones.each do |c| %>
+									<%= display_collection(c.projects) %>
+								<%end%>
+							</td>
 							<td><%= link_to 'Edit', edit_assay_path(assay.id) , class: "btn btn-success btn-xs" %></td>
 						</tr>
 					<% end %>

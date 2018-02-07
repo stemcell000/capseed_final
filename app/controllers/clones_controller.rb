@@ -20,6 +20,10 @@ def index
     end_time = params[:created_at_lteq].to_date rescue Date.current
     end_time = end_time.end_of_day # sets to 23:59:59
     
+  #Projects 
+    @projects_all = Project.all.order(name: "asc").uniq
+    @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }
+    
   #Champ inserts
     @inserts_all = Insert.all.order(:id)
     
@@ -38,10 +42,12 @@ def new
   
     #initialisation de la liste des enzymes
     @enzymes_all = Enzyme.all.order(:name)
-  #initialisation de la liste des méthodes
+    #initialisation de la liste des méthodes
     @cmeths_all = Cmeth.all.order(:name)
-  #initialisation de la liste des inserts
+    #initialisation de la liste des inserts
     @inserts_all = Insert.all.order(:name)
+    #initialisation de la liste des projets
+    @projects_all =Project.all.order(:name)
     
   #Genere un nouveau clone pour la methode create
   #Si le formulaire contient un champ :id non vide, alors on charge le même formulaire en 'edit'.
@@ -52,6 +58,7 @@ def new
     @clone_enzymes = @clone.enzymes.build
     @clone_inserts = @clone.inserts.build
     @clone_batches = @clone.clone_batches.build
+    @clone.projects.build
     
     render 'edit'
   else
@@ -59,6 +66,7 @@ def new
     @clone_enzymes = @clone.enzymes.build
     @clone_inserts = @clone.inserts.build
     @clone.clone_batches.build
+    @clone.projects.build
   end
 
 end
@@ -70,6 +78,8 @@ def create
   @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all.order(:name)
+  #initialisation de la liste des projets
+  @projects_all =Project.all.order(:name)
     #Le paramètre à prendre en compte ici est l':id. si on prend le nom ("name"), pas de validation.
         @clone = Clone.where(:name => params[:clone][:id]).first_or_create(clone_params)
         @clones = @assay.clones.all
@@ -95,10 +105,13 @@ def edit
   @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all.order(:name)
+  #initialisation de la liste des projets
+  @projects_all =Project.all.order(:name)
   #
   @clone_enzymes = @clone.enzymes.build
   @clone_inserts = @clone.inserts.build
   @clone_batches = @clone.clone_batches.build
+  @assay.projects.build
   @@old_id = params[:id]
 end
   
@@ -110,6 +123,8 @@ def update
   @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all.order(:name)
+  #initialisation de la liste des projets
+  @projects_all =Project.all.order(:name)
   #
   if !@assay.clones.where(:id => @@old_id).present?
         if @assay.clones << @clone
@@ -132,9 +147,12 @@ def edit_record
   @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
   @inserts_all = Insert.all.order(:name)
+  #initialisation de la liste des projets
+  @projects_all =Project.all.order(:name)
   #
   @clone_enzymes = @clone.enzymes.build  
   @clone_insert = @clone.inserts.build
+  @clones_projects = @clone.projects.build
 end
 
 def update_record
@@ -149,7 +167,15 @@ end
 
 def replicate
   @clone = Clone.find(@@old_id)
+    @clones = @assay.clones.build
+  #initialisation de la liste des enzymes
+  @enzymes_all = Enzyme.all.order(:name)
+  #initialisation de la liste des méthodes
   @cmeths_all = Cmeth.all.order(:name)
+  #initialisation de la liste des inserts.
+  @inserts_all = Insert.all.order(:name)
+  #initialisation de la liste des projets
+  @projects_all =Project.all.order(:name)
   @clone = @clone.amoeba_dup
   render :new  
 end
@@ -165,7 +191,6 @@ def edit_batch
   @clones = @assay.clones.order(:id)
   @assay.clones.build
   @clone = Clone.find(params[:id])
-  @clone.clone_attachments.build
 end
 
 def update_record_batch
@@ -300,7 +325,7 @@ if @clone.changed?
       #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
       i = 1
       @clone.batch_nb.times do
-        temp =@assay.name+'_'+@clone.name+'_'+i.to_s
+        temp =@clone.name+'_'+i.to_s
         cb = CloneBatch.create(:temp_name => temp)
         @clone.clone_batches << cb
         i += 1
@@ -318,11 +343,13 @@ def load_assay
 end
 
 def clone_params
-  params.require(:clone).permit( :id, :assay_id, :cmeth_id, :name, :bbnb, :primerinsfor, :primerinsrev, :comment, :comment_batch, :batch_nb, :strict_validation,
+  params.require(:clone).permit( :id, :assay_id, :clones_id, :project_id, :cmeth_id, :name, :bbnb, :primerinsfor, :primerinsrev, :comment, :comment_batch, :batch_nb, :strict_validation,
   enzyme_ids: [],
   insert_ids: [],
   backbone_ids: [],
   cmeth_ids: [],
+  project_ids: [],
+  :projects_attributes => [:id, :clone_id, :name],
   :enzymes_attributes =>[:id, :clone_id, :name],
   :cmeth_attributes =>[:id, :name],
   :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],

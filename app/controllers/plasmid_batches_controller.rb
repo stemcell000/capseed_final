@@ -16,7 +16,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
 
 def new
     @plasmid_batch = PlasmidBatch.new
-    @plasmid_batch.plasmid_batch_attachments.build
+    #@plasmid_batch.plasmid_batch_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
@@ -28,7 +28,7 @@ end
 
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
-    @plasmid_batch.plasmid_batch_attachments.build
+    #@plasmid_batch.plasmid_batch_attachments.build
     @users = User.all
 end
 

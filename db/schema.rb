@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206150536) do
+ActiveRecord::Schema.define(version: 20180207085029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,14 @@ ActiveRecord::Schema.define(version: 20180206150536) do
 
   add_index "clones_inserts", ["clone_id"], name: "index_clones_inserts_on_clone_id", using: :btree
   add_index "clones_inserts", ["insert_id"], name: "index_clones_inserts_on_insert_id", using: :btree
+
+  create_table "clones_projects", force: :cascade do |t|
+    t.integer "clone_id"
+    t.integer "project_id"
+  end
+
+  add_index "clones_projects", ["clone_id"], name: "index_clones_projects_on_clone_id", using: :btree
+  add_index "clones_projects", ["project_id"], name: "index_clones_projects_on_project_id", using: :btree
 
   create_table "cmeths", force: :cascade do |t|
     t.string "name"

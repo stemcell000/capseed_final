@@ -8,5 +8,9 @@ ActiveAdmin.register CloneBatchProduction do
 
               },
               batch_size: 1000 
+ #Add Button to site
+action_item do
+  link_to "View Site", "/"
+end
 
 end

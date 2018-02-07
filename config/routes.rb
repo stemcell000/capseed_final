@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         get :reset_cloning_table
         post :scheduler
         get :stats_data
+        get :assay_generator
         resources :search, :only => [:index]
     end
     member do

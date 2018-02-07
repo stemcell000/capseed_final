@@ -1,39 +1,21 @@
-	<h4>Cloning</h4>
+	<h4>Start Cloning</h4>
 		<%= simple_form_for @assay, html: { class: 'form-vertical' }  do |f| %>
 			
 			<%= f.error_notification %>
 			
 			<div class="form-group">
-				    <%= f.input :name,
-				    	autofocus: true,
-				    	label: "Name",
-				    	placeholder: 'Enter the name of the assay',
-				    	autocomplete: false,
-				    	:readonly => @assay.locked
-				    %>
 				    <%= f.input :user_id, :input_html => {:value=> current_user.id}, :as => :hidden %>
-				    
+				    <div id="clone-table-container" class="col-md-6">
+						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>
+					</div>
 				    <%= f.input :comment,
 				    	label: "Comment",
 				    	:readonly => @assay.locked%>
-				    	
-				   <% if params[:action] == 'edit' %>
-					<%= f.association :projects, :label => "Projects",
-					:collection => Project.all.order(:name),
-					:input_html => { class:"select2-select" },
-				   	:disabled => @assay.locked %>
-				   <%else%>
-				   	<%= f.association :projects, :label => "Projects",
-					:collection => Project.all.order(:name),
-					:selected => 1,
-					:input_html => { class:"select2-select" },
-				   	:disabled => @assay.locked %>
-				   <%end%>
 				</div>	
 					
 	 				<div class="btn-group" role="group" aria-label="...">
 	      		     	<%= link_to "Cancel", root_path, class: "btn btn-default", :title => "Cancel the changes and return to the Home page." %>
-	  		        	<%= f.submit("Next", class: "btn btn-default", title: "Save the changes.") %>
+	  		        	<%= f.submit("Start", class: "btn btn-default", title: "Save the changes.") %>
 	  		        </div>
 	  			
 			<% end %>

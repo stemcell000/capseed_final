@@ -12,6 +12,7 @@ function disableFormInputs(c){
 		$("#clone_primerinsfor").prop("readonly", c);
 		$("#clone_primerinsrev").prop("readonly", c);
 		$("#clone_comment").prop("readonly", c);
+		$("#clone_project_ids").prop("disabled", c);
 }
 
 function disableSelectEnzyme(c){

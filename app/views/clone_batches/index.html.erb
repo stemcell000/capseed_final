@@ -78,13 +78,13 @@
 			 	<div class="form-group">
 					 <%= f.label "Target*", :class=>"control-label col-lg-4" %>
 					 <div class="col-lg-8">
-					 	<%= f.select(:target_id_eq, @targets_all,{:include_blank => " "}, {:class => "select2-select project"}) %>
+					 	<%= f.select(:target_id_eq, @targets_all,{:include_blank => " "}, {:class => "select2-select col-lg-10"}) %>
 					</div>
 				</div>
 				<div class="form-group">
 					 <%= f.label "Type", :class=>"control-label col-lg-4" %>
 					 <div class="col-lg-8">
-					 	<%= f.select(:type_id_eq, @types_all,{:include_blank => " "}, {:class => "select2-select project"}) %>
+					 	<%= f.select(:type_id_eq, @types_all,{:include_blank => " "}, {:class => "select2-select col-lg-10"}) %>
 					</div>
 				</div>
 			</div>

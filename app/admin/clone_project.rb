@@ -1,4 +1,4 @@
-ActiveAdmin.register AssayProject do
+ActiveAdmin.register CloneProject do
   #Import csv   
  active_admin_import validate: true,
              csv_options: {col_sep: ";" },
@@ -8,4 +8,10 @@ ActiveAdmin.register AssayProject do
 
               },
               batch_size: 1000 
+ #Add Button to site
+action_item do
+  link_to "View Site", "/"
+end
+
+
 end

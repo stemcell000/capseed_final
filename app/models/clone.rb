@@ -7,6 +7,7 @@ class Clone < ActiveRecord::Base
   #has_one :assays
   belongs_to :assay
   has_and_belongs_to_many :enzymes, :join_table => "clones_enzymes"
+  has_and_belongs_to_many :projects, :join_table => "clones_projects"
   has_many :clone_attachments, :dependent => :destroy
   has_many :clone_batches, :dependent => :destroy
   has_many :clone_batch_qcs, :through => :clone_batches
@@ -17,6 +18,7 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :assay
   accepts_nested_attributes_for :enzymes
   accepts_nested_attributes_for :inserts
+  accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :clone_attachments, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batches, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
@@ -26,8 +28,8 @@ class Clone < ActiveRecord::Base
     validates :name, :primerinsfor, :primerinsrev, :presence => true
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
     #validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
-    validates_uniqueness_of :name, :case_sensitive => false
-    validates_associated :inserts, :backbones, :enzymes, :cmeth
+    validates :name, :uniqueness => {message: "Unique name, please!"}, :case_sensitive => false
+    validates_associated :inserts, :backbones, :enzymes, :cmeth, :projects
  
  #Le truc a ne PAS utiliser pour éviter les doublons: validates_uniqueness_of :name, :scope => :assay 
   
@@ -45,6 +47,7 @@ amoeba do
   include_association :enzymes
   include_association :inserts
   include_association :backbones
+  include_association :projects
 end
 
 #pg_search

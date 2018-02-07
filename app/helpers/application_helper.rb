@@ -60,20 +60,18 @@ def stepToString(step_id)
  @hash ={}
   case step_id
   when 0
-    s = "Creation"
-  when 1
     s = "Clone design"
-  when 2
+  when 1
     s = "Clone batch"
-  when 4
+  when 2
     s = "Plasmid design"
-  when 5
+  when 3
     s = "Plasmid batch"
-   when 6
+   when 4
     s = "Plasmid batch QC"
-  when 7
+  when 5
     s = "Closing"
-  when 8
+  when 7
     s = "Completed"
    end 
    return s
@@ -113,12 +111,32 @@ end
  
  def cb_display(collection)
   r = ""
-  if collection
-    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}
+  if !collection.empty?
+    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}.to_sentence
   else
-    r=""
+    r="No data yet"
   end
-  return r.to_sentence
+  return r
+end
+
+def clone_display(collection)
+   r = ""
+  if !collection.empty?
+    r = collection.order(:id).map {|c| c.name+" | "+c.id.to_s}.to_sentence
+  else
+    r="Add a construction!"
+  end
+  return r
+end
+
+def display_collection(collection)
+   r = ""
+  if !collection.empty?
+    r = collection.order(:id).map {|c| c.name }.to_sentence
+  else
+    r="-"
+  end
+  return r
 end
 
 def cb_flag(i)

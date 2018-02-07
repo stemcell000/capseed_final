@@ -65,7 +65,7 @@
 												:input_html => {class: "select2-select"} %>
 							<% if @clone.id.present? %>
 							<%= f.association :enzymes, :label => "Backbone enzymes",
-												:collection => @insert_all,
+												:collection => @enzymes_all,
 												:placeholder => 'Select enzymes',
 												:as => :hidden %>
 							<% end %>
@@ -89,8 +89,27 @@
 							<%= f.input :primerinsrev, :label => "Reverse primer insert" %>
 						</div>
 					</div>
-						<%= f.input :comment, :label => "Comment"%>
+					<div class="row">
+						<div class="col-lg-12">
+							<%= f.input :comment, :label => "Comment"%>
+						</div>
 					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<%= f.association :projects, :label => "Projects",
+												:label_method => :name,
+												:value_method => :id,
+												:prompt => 'Select projects',
+												:input_html => {class: "select2-select"} %>
+							<% if @clone.id.present? %>
+							<%= f.association :enzymes, :label => "Projects",
+												:collection => @projects_all,
+												:placeholder => 'Select projects',
+												:as => :hidden %>
+							<% end %>
+						</div>
+					</div>
+					
  		<div class="btn-group" role="group" aria-label="...">
         	<% if params[:id]%>
         		<%= link_to "Duplicate", replicate_assay_clones_path(@assay,@clone), :class =>"btn btn-primary btn-md", :title=>"Update clone's parameters." ,:remote => true %>

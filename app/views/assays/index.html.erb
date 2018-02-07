@@ -6,14 +6,16 @@
 		<% if @assays.empty?%>
 		<%else%>
 			<div class="row">
-				<div class= "col-lg-4 pull-left">
+				<div class= "col-lg-12 pull-left">
 					Drag and drop from bottom to top the rows to rank the priority.
 					</div>
 				</div>
 			<%end%>
 			<div class="row">
 				<div class="col-lg-6 text-align-left">
-					<%= link_to 'New cloning', new_assay_path , :class => "btn btn-primary" %> 
+				<% if can? :assay_generator, @user %>
+					<%= link_to 'New cloning', assay_generator_assays_path , :class => "btn btn-primary" %>
+				<%end%>
 				</div>
 				<div class="col-lg-6 text_align-right">
 					<% if can? :inform_cloning, @user %>
@@ -23,9 +25,6 @@
 			</div>
 		</div> 
 		<%end%>
-		<% if @assays.empty?%>
-			<p>No cloning to display!</p>
-			<%else%>
 				<div class="row" id="mgr_info">
 					<% if can? :update_row_order, @assays %>
 						<%= render :partial => 'assays/components/assay_mgr' %>
@@ -33,5 +32,4 @@
 						<%= render :partial => 'assays/components/assay_mgr_b' %>
 					<%end%>
 				</div>
-		<%end%>
 	</div>

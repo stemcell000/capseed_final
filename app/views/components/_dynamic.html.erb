@@ -3,9 +3,6 @@
 		<table class="table table-bordered table-striped table-condensed" id="custom_table">
 	  <thead>
 	    <tr>
-	      <th>
-	        <%= sortable "name" , "Name" %>
-	      </th>
 	       <th>
 	        <%= sortable "id" , "Number" %>
 	      </th>
@@ -19,9 +16,6 @@
 	  <tbody>
 	    <% @assays.each do |assay| %>
 	      <tr data-item-id=<%= "#{assay.id}" %> class="item">
-	        <td>
-	          <%= assay.name %>
-	        </td>
 	         <td>
 	          <%= assay.id %>
 	      	<td>

@@ -2,14 +2,10 @@
   <small>
   <div class="row">
 	  <div class="col-lg-6">
-			  	<%= f.label "Search by any terms in name or comment:" %>
-			  	<%= f.search_field :name_or_comment_or_assay_comment_or_assay_name_cont %>
-				<%= f.label "Inserts" %>
-				<%= f.collection_select(:inserts_id_in, Insert.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select col-lg-8", :multiple => true} )%>
-				<%= f.label "Backbones" %>
-				<%= f.collection_select(:backbones_id_in, Backbone.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select col-lg-8", :multiple => true} )%>
+			  	<%= f.label "Search by any terms in name or comment*:" %>
+			  	<%= f.search_field :name_or_comment_cont, :class => "col-lg-12"%>
 				<%= f.label 'Project' %>
-				<%= f.select(:projects_id_in, @projects_all, {:include_blank => " "}, {:class => "select2-select col-lg-8", :multiple => true }) %>
+				<%= f.select(:projects_id_in, @projects_all, {:include_blank => " "}, {:class => "select2-select col-lg-12", :multiple => true }) %>
 		</div>
 		<div class="col-lg-6">
 					<%= f.label "Start date " %>
@@ -18,6 +14,17 @@
 					<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker', :class=>"col-lg-12"%>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<%= f.label "Inserts" %>
+			<%= f.collection_select(:inserts_id_in, Insert.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select col-lg-12", :multiple => true} )%>
+			<%= f.label "Backbones" %>
+			<%= f.collection_select(:backbones_id_in, Backbone.all.order(:id), :id, :name_with_number, {include_blank: ''}, {:class => "select2-select col-lg-12", :multiple => true} )%>
+		</div>
+	</div>
+ 	<div class="form-group row">
+ 			<span class="help-block"><em>*Enter all or part of the value.</em></span>
+	</div>		
   	<div class="row">	
 				<div class="form-group pull-right">
 					<%= f.submit class:"btn btn-default" %>

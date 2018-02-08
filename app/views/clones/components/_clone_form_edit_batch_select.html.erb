@@ -11,7 +11,7 @@
 								<% if b.object.name?%>
 										<%= b.input :name,:label => "Final name:", :disabled => true %>
 								<%end%>
-								       	<%= b.input :temp_name, :label => "Temporary name: ", :input_html => {:value=> @assay.name+'_'+@clone.name+'_'+index.to_s}, :readonly => true %>
+								       	<%= b.input :temp_name, :label => "Temporary name: ", :input_html => {:value=> @clone.name+'_'+index.to_s}, :readonly => true %>
 								       	<%= b.input :comment, :label => "Notes: " %>
 							</div> 
 						</div>

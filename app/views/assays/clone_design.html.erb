@@ -1,6 +1,6 @@
 <%= render 'components/process_pills'%>
 	<div class="panel panel-primary">
-		<div class="panel-heading"> Cloning: <%= @assay.name %></div>
+		<div class="panel-heading"> Cloning: <%= @assay.id %></div>
 		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
 		<div id="clone-table-container" class="col-md-6">
 						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>

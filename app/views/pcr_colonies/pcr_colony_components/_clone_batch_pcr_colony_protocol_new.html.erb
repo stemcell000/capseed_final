@@ -28,8 +28,13 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-lg-3">
+				<%=f.input :result, :label => "Result", :collection => ["Ok", "Failed","Passed", "Not done", "Unknown"], :placeholder => "Select", input_html: { class: 'select2-select' }%>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-7">
-				<%=f.input :result, :label => "Comment" %>
+				<%=f.input :comment, :label => "Comment" %>
 			</div>
 		</div>
 		
@@ -49,6 +54,10 @@
 								<%= f.link_to_add "Add a file", :qc_attachments ,:class => 'btn btn-sm btn-success' %>
 							</div>
 					</div>
+				     
+			  		
+			  		
+			  		
 		 </div>
 		</small>
 		</div>

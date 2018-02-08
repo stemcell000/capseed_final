@@ -8,9 +8,6 @@
       <th class="col-name col">
         Construction
       </th>
-      <th  class="col-id">
-        Cloning ID
-      </th>
       <th class="col-startdate">
         Start date
       </th>
@@ -29,9 +26,6 @@
       <tr data-item-id=<%= assay.id %> class="item">
         <td id="clone_collection" class="col-lg-3">
           <small><%= clone_display(assay.clones) %></small>
-        </td>
-        <td id="id" class="col-lg-1">
-        	<%= assay.id %>
         </td>
       	<td id="startdate" class="col-lg-2"%>
           <%= assay.created_at.strftime("%d %b %y at %H:%M") %>

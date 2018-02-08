@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 20180208093713) do
     t.integer "project_id"
   end
 
-  add_index "assays_projects", ["assay_id", "project_id"], name: "index_assays_projects_on_assay_id_and_project_id", unique: true, using: :btree
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
 
@@ -101,14 +100,6 @@ ActiveRecord::Schema.define(version: 20180208093713) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
-
-  create_table "clone_batch_qcs_batches", force: :cascade do |t|
-    t.integer "clone_batch_id"
-    t.integer "clone_batch_qc_id"
-  end
-
-  add_index "clone_batch_qcs_batches", ["clone_batch_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_id", using: :btree
-  add_index "clone_batch_qcs_batches", ["clone_batch_qc_id"], name: "index_clone_batch_qcs_batches_on_clone_batch_qc_id", using: :btree
 
   create_table "clone_batches", force: :cascade do |t|
     t.integer  "target_id"
@@ -235,15 +226,18 @@ ActiveRecord::Schema.define(version: 20180208093713) do
 
   create_table "pcr_colonies", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text     "result"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "clone_batch_qc_id"
+    t.integer  "user_id"
+    t.string   "primer_F"
+    t.string   "primer_R"
+    t.text     "comment"
+    t.date     "date"
+    t.string   "result"
     t.boolean  "conclusion"
     t.string   "primer_r"
     t.string   "primer_f"
-    t.date     "date"
-    t.integer  "user_id"
-    t.text     "comment"
   end
 
   create_table "pcr_colonies_qc_attachments", force: :cascade do |t|
@@ -396,7 +390,7 @@ ActiveRecord::Schema.define(version: 20180208093713) do
     t.date     "date_rec"
     t.date     "date_send"
     t.text     "comment"
-    t.text     "result"
+    t.string   "result"
     t.boolean  "conclusion"
   end
 

@@ -161,8 +161,8 @@ class CloneBatchesController < InheritedResources::Base
   
   def edit_from_inventory
     if @clone_batch.genes.empty?
-      @clone_batch.genes.build
-      @clone_batch.promoters.build
+      #@clone_batch.genes.build
+      #@clone_batch.promoters.build
       @units = Unit.all
       @users = User.all
    end
@@ -207,8 +207,8 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
-    @clone_batch.genes.build
-    @clone_batch.promoters.build
+    #@clone_batch.genes.build
+    #@clone_batch.promoters.build
     @number = ( CloneBatch.where.not(:name=>"").last[:number].to_i+1).to_s
    end
    

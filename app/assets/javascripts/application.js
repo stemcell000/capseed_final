@@ -19,7 +19,16 @@
 //= require moment
 //= require fetch_clone_data
 //= require fetch_pb_data
+//= require nprogress
+//= require nprogress-ajax
 //= loader
 //= require d3.min
 //= require d3pie.min
 //= require_tree .
+
+
+NProgress.configure({
+  showSpinner: true,
+  ease: 'ease',
+  speed: 2
+});

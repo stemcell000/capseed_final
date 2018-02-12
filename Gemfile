@@ -37,7 +37,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+gem 'byebug'
+  
+gem 'nprogress-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   group :development do

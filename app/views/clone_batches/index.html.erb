@@ -11,57 +11,86 @@
 			
 			<div class="col-lg-6">
 					<h5 class="text-primary"><em>Basic input search : </em></h5>
-					
-					<%= f.label "Number*" %>
-					<%= f.search_field :number_cont, :class=>"col-lg-12" %>
-				
+			</div>	
+			<div class="col-lg-6">
+					<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+						<%= f.label "Number*" %>
+						<%= f.search_field :number_cont, :class=>"col-lg-12" %>
+			</div>
+			<div class="col-lg-6">
+						<%= f.label "Start date " %>
+						<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">	
 					<%= f.label "Name*" %>
 					<%= f.search_field :name_cont, :class=>"col-lg-12" %>
-				
-					<%= f.label "Clone name*"%>
-				  	<%= f.search_field :clone_name_cont, :class=>"col-lg-12" %>
-				
-				  	<%= f.label "Gene*" %>
-				  	<%= f.search_field :genes_name_cont, :class=>"col-lg-12" %>
-			 	
-				  	<%= f.label "Promoter*"%>
-				  	<%= f.search_field :promoters_name_cont, :class=>"col-lg-12" %>
-			 	
-				  	<%= f.label "Glycerol stock box#*"%>
-				  	<%= f.search_field :glyc_stock_box_as_plasmid_cont, :class=>"col-lg-12" %>
-				  	
-					 <%= f.label "Type" %>
-					 <%= f.select(:type_id_eq, @types_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
-			 	
-		 			<span class="help-block"><em>*Enter all or part of the value.</em></span>
 			</div>
-			
-		<div class="col-lg-6">
-			
-			<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
-					
-					<%= f.label "Start date " %>
-					<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
-				
+			<div class="col-lg-6">
 					<%= f.label "End date " %>
 					<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
-					
-			<h5 class="text-primary"><em>Others : </em></h5>
-				  	
-				  	<%= f.label "Batch name*" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+					<%= f.label "Clone name*"%>
+				  	<%= f.search_field :clone_name_cont, :class=>"col-lg-12" %>
+			</div>
+			<div class="col-lg-6">
+					<%= f.label "Batch name*" %>
 				  	<%= f.search_field :plasmid_batches_name_cont, :class=>"col-lg-12" %>
-			 	
-				  	<%= f.label "Format*" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+					<%= f.label "Gene*" %>
+				  	<%= f.search_field :genes_name_cont, :class=>"col-lg-12" %>	
+			</div>
+			<div class="col-lg-6">
+					<h5 class="text-primary"><em>Others : </em></h5>	
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+					<%= f.label "Promoter*"%>
+				  	<%= f.search_field :promoters_name_cont, :class=>"col-lg-12" %>
+			</div>
+			<div class="col-lg-6">
+					<%= f.label "Glycerol stock box#*"%>
+				  	<%= f.search_field :glyc_stock_box_as_plasmid_cont, :class=>"col-lg-12" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+					<%= f.label "Type" %>
+					<%= f.select(:type_id_eq, @types_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
+			</div>
+			<div class="col-lg-6">
+			 		<%= f.label "Format*" %>
 				  	<%= f.search_field :plasmid_batches_format_cont, :class=>"col-lg-12" %>
-			 	
-				  	<%= f.label "Comment*" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<%= f.label "Target" %>
+				<%= f.select(:target_id_eq, @targets_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
+			</div>
+			<div class="col-lg-6">
+		 			<%= f.label "Comment*" %>
 				  	<%= f.search_field :comment_as_plasmid_cont, :class=>"col-lg-12" %>
-
-					<%= f.label "Target" %>
-					<%= f.select(:target_id_eq, @targets_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+		 			<span class="help-block"><em>*Enter all or part of the value.</em></span>
+		 	</div>
 
 		</div>
-	</div>
 
 		<div class="row">	
 				<div class="form-group pull-right">

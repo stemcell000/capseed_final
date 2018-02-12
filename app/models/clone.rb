@@ -5,12 +5,12 @@ class Clone < ActiveRecord::Base
  #Nested models relationships
  #ancienne relation avec assay (faux en plus puisque assayS ici. Je ne comprends pas comment ça a pu marcher...)
   #has_one :assays
+  
   belongs_to :assay
   has_and_belongs_to_many :enzymes, :join_table => "clones_enzymes"
   has_and_belongs_to_many :projects, :join_table => "clones_projects"
   has_many :clone_attachments, :dependent => :destroy
   has_many :clone_batches, :dependent => :destroy
-  has_many :clone_batch_qcs, :through => :clone_batches
   belongs_to :cmeth
   has_and_belongs_to_many :inserts, :join_table => "clones_inserts"
   has_and_belongs_to_many :backbones, :join_table => "clones_inserts"
@@ -21,7 +21,6 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :clone_attachments, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batches, :allow_destroy => true, reject_if: :all_blank
-  accepts_nested_attributes_for :clone_batch_qcs, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
 
   #validations

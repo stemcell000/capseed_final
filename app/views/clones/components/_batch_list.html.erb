@@ -23,8 +23,7 @@
 				<strong>Insert: </strong><%= clone.inserts.empty? ? "No data" : clone.inserts.map { |insert| "#{insert.number} (#{insert.name})" }.to_sentence %><br />
 				<strong>Primer ins.fwd:</strong> <%= clone.primerinsfor%><br />
 				<strong>Primer ins.rev:</strong> <%= clone.primerinsrev%><br />
-				<strong>Enzymes: </strong><br />
-				<%= clone.enzymes.empty? ? "No data" : clone.enzymes.map { |enzyme| enzyme.name }.to_sentence %>
+				<strong>Enzymes: </strong><%= clone.enzymes.empty? ? "No data" : clone.enzymes.map { |enzyme| enzyme.name }.to_sentence %>
 			</div>
 		
 			<div class="col-lg-4 text-justify">		

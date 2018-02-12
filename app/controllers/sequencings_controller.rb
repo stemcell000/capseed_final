@@ -10,14 +10,12 @@ class SequencingsController < ApplicationController
   def edit
     @assay = Assay.find(params[:assay_id])
     @sequencing = Sequencing.find(params[:id])
-    #@sequencing.qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
   end
   
   def new
     @sequencing = @clone_batch.sequencings.new
-    #@sequencing.qc_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
@@ -50,7 +48,6 @@ class SequencingsController < ApplicationController
   
   def new_sequencing_protocol
     @sequencing =  Sequencing.new
-    #@sequencing.qc_attachments.build
     
     respond_to do |format|
         format.js

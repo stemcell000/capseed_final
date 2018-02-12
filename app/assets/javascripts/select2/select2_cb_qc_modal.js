@@ -17,27 +17,6 @@
 		});
 		
 		
-		$('#clone_batch_qc_name').change(function(){
-  			
-   			if($(this).val() == 'Sequencing'){
-   				
-   				$("#sequencing").attr('class', 'row');
-   				$("#pcr-colony").attr('class', 'hidden');
-   				$("#contacts").attr('class', 'row');
-   				$("#files").attr('class', 'row');
-   				$("#add-file").attr('class', 'row');
-
-   			}else if($(this).val() == 'PCR-colony'){
-
-				$("#pcr-colony").attr('class', 'row');
-				$("#sequencing").attr('class', 'hidden');
-				$("#contacts").attr('class', 'row');
-   				$("#files").attr('class', 'row');
-   				$("#add-file").attr('class', 'row');
-
-   				};
-		});
-		
 		//
 		
 		$('[id*="_date"]').focus(function(){

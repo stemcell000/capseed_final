@@ -4,13 +4,8 @@
 			<% st = "Cloning unlocked" %>
 		<%end%>
 		<%= simple_form_for @assay, url: lock_process_assay_path, :remote=> true do |f| %>
-		<div class="form-group">
-			<div class="col-lg-4  pull-right">
-	  		<%= f.input :locked, :as => :boolean, :label =>false, :inline_label => st, :input_html => {:onclick => "$('#assay_locked*').submit();"}%>
-	  		<span><small><em>Lock this assay to prevent any modification</em></small></span>
-	  		</div>
-	  	</div>
+		  		<%= f.input :locked, :as => :boolean, :label =>false, :inline_label => st, :input_html => {:onclick => "$('#assay_locked*').submit();"}%>
+		  		<span><small><em>Lock this assay to prevent any modification</em></small></span>
 	  	
 		<% end %>
-</div>
-</div>
+

@@ -2,7 +2,7 @@ class Assay < ActiveRecord::Base
   
   #pg_search
   include PgSearch
-  multisearchable :against => [ :name, :step, :last_step, :created_at, :id, :comment, :locked ]
+  multisearchable :against => [ :name, :step, :last_step, :created_at, :id, :locked ]
 
   #order
   include RankedModel

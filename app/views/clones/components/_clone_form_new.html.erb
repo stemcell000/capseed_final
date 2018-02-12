@@ -100,7 +100,9 @@
 												:label_method => :name,
 												:value_method => :id,
 												:prompt => 'Select projects',
-												:input_html => {class: "select2-select"} %>
+												:input_html => {class: "select2-select"},
+												:selected => 1
+												 %>
 							<% if @clone.id.present? %>
 							<%= f.association :enzymes, :label => "Projects",
 												:collection => @projects_all,

@@ -38,7 +38,8 @@ class Ability
         can :manage, :clone_attachment
         can :manage, :clone_batch
         can :manage, :clone_batch_attachment
-        can :manage, :clone_batch_qc
+        can :manage, :sequencing
+        can :manage, :pcr_colony
         can :manage, :qc_attachment
         can :manage, :clone_batch_as_plasmid_attchment
         can :manage, :plasmid_batch
@@ -46,9 +47,25 @@ class Ability
         can :manage, :plasmid_batch_qc
         can :manage, :plasmid_batch_qc_attachment
         can :update, :production
-        can :update, :user
         can :manage, :virus_production
         cannot :update_row_order, :assay
+    elsif user.role? :cloning_user
+        can :update, :assay
+        can :update, :clone
+        can :manage, :clone_attachment
+        can :manage, :clone_batch
+        can :manage, :clone_batch_attachment
+        can :manage, :sequencing
+        can :manage, :pcr_colony
+        can :manage, :qc_attachment
+        can :manage, :clone_batch_as_plasmid_attchment
+        can :manage, :plasmid_batch
+        can :manage, :plasmid_batch_attachment
+        can :manage, :plasmid_batch_qc
+        can :manage, :plasmid_batch_qc_attachment
+    elsif user.role? :production_user
+        can :update, :production
+        can :manage, :virus_production
     else
         can :read, :all
     end

@@ -8,9 +8,6 @@
 				    <div id="clone-table-container" class="col-md-6">
 						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>
 					</div>
-				    <%= f.input :comment,
-				    	label: "Comment",
-				    	:readonly => @assay.locked%>
 				</div>	
 					
 	 				<div class="btn-group" role="group" aria-label="...">

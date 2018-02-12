@@ -411,8 +411,8 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assay_params
-      params.require(:assay).permit(:id, :assay_id, :user_id, :name, :assaynb, :startdate, :created_at , :updated_at , :step, :last_step, :assaynb, :row_order_position, :display , :comment, :locked,
-      project_ids: [], clone_batch_ids: [], clone_batch_qc_ids: [],
+      params.require(:assay).permit(:id, :assay_id, :user_id, :name, :assaynb, :startdate, :created_at , :updated_at , :step, :last_step, :assaynb, :row_order_position, :display , :locked,
+      project_ids: [], clone_batch_ids: [],
       :projects_attributes => [:id, :name],
       :user_attributes => [:id, :name],
       :clones_attributes => [:id, :name, :primerinsfor, :primerinsrev, :bbnb, :comment, :comment_batch, :batch_nb, :strict_validation,
@@ -422,7 +422,6 @@ end
         :type_attributes =>[:id, :name],
         :promoters_attributes =>[:id, :name],
         :genes_attributes =>[:id, :name],
-        :clone_batch_qcs_attributes =>[:id, :clone_batch_id, :conclusion],
         :plasmid_batch_qcs_attributes =>[:id, :plasmid_batch_id, :dig_saml, :dig_other, :comments, :conclusion]
         ],
       :clone_attachments_attributes =>[:id,:clone_id, :attachment, :_destroy, :remove_attachment]])

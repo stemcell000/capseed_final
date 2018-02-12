@@ -240,7 +240,6 @@ class CloneBatchesController < InheritedResources::Base
     
     def clone_batch_params
       params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, 
-      :clone_batch_qc_attributes => [:clone_batch_id, :id, :name, :result, :conclusion,],
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       

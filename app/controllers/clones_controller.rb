@@ -197,7 +197,7 @@ def update_record_batch
   @clones = @assay.clones.order(:id)
   
  #TUTO: Ici on doit pouvoir changer le parametre batch_nb pour générer le nombre de batches correspondant.
- #Si par la suite on ajoute des données aux batches générés (p. ex des clone_batch_qcs),
+ #Si par la suite on ajoute des données aux batches générés,
  #Il faut donc utiliser le module Dirty pour tracer si oui ou non il ya eu changement de valeurs pour batch_nb.
  #Si oui, on génére de nouveau batches (et on efface toutes les données associées), si non, on ne fait rien.
  #si on utilise: @clone.update_attributes(clone_params), Dirty ne fonctionne pas car update_attributes réinitialise le modèle
@@ -356,7 +356,6 @@ def clone_params
   :bs_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :assay_attributes => [:id, :name, :step],
   :clone_batches_attributes => [:id, :clone_id, :unit_id, :name, :temp_name, :comment, :_destroy,
-  :clone_batch_qcs_attributes => [:id, :primer_id, :date_send, :date_rec, :rec_name, :result, :op, :_destroy],
   :plasmid_batch_attributes => [:id, :clone_batch_id, :name, :format, :concentration, :_destroy],
   :unit_attributes =>[:id, :clone_batch_id, :name]],
   :clone_attachments_attributes =>[:id,:clone_id, :attachment, :remove_attachment, :_destroy])

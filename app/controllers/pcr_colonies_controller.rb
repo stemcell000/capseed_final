@@ -9,14 +9,12 @@ class PcrColoniesController < ApplicationController
   def edit
     @assay = Assay.find(params[:assay_id])
     @pcr_colony = PcrColony.find(params[:id])
-    #@pcr_colony.qc_attachments.build
     @clone = Clone.find(params[:clone_id])
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
   end
   
   def new
     @pcr_colony = @clone_batch.pcr_colonies.new
-    #@pcr_colony.qc_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
@@ -49,7 +47,6 @@ class PcrColoniesController < ApplicationController
   
   def new_pcr_colony_protocol
     @pcr_colony =  PcrColony.new
-    @pcr_colony.qc_attachments.build
     
     respond_to do |format|
         format.js

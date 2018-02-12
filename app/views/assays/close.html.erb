@@ -1,4 +1,4 @@
-<%= render :partial => 'components/process_pills' %>
+<%= render 'components/process_pills'%>
 	<div class="panel panel-primary">
 			<div class="panel-heading"> Assay: <%= @assay.id %></div>
 			<div class="panel-body">
@@ -7,18 +7,17 @@
 							<%= render :partial => "plasmid_batches/components/list_to_close" , :locals => {:clones => @clones, :assay => @assay}%>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12" id= "lock_container">
+				<div class="row pull-right">
+					<div class="col-lg-10" id= "lock_container">
 						<%= render :partial => 'assays/components/complete_lock' %>			
 					</div>
 				</div>
-			</div>
+		</div>
 			<div class="panel-footer row">
-				<div class="col-lg-12">
 				    <div class="btn-group col-md-5" role="group" aria-label="...">
 				    	<%= link_to 'Previous', plasmid_batch_qc_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 						<%= link_to 'Close', complete_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 				  	</div>
-			  	</div>
 			</div>
+		</div>
 	</div>

@@ -63,8 +63,8 @@
 			 if(jQuery(e).attr('data-autocomplete-label') !== undefined) {
 				label = jQuery(e).attr('data-autocomplete-label');
 			  }
-			  arguments[0] = []
-              arguments[0][0] = { id: "", label: label }
+			  arguments[0] = [];
+              arguments[0][0] = { id: "", label: label };
             }
             jQuery(arguments[0]).each(function(i, el) {
               var obj = {};

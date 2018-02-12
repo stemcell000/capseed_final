@@ -32,12 +32,12 @@ class CloneBatchesController < InheritedResources::Base
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
  
-    if @clone_batch.genes.empty?
-      @clone_batch.genes.build
-    end
-    if @clone_batch.promoters.empty?
-      @clone_batch.promoters.build
-    end
+    #if @clone_batch.genes.empty?
+      #@clone_batch.genes.build
+    #end
+    #if @clone_batch.promoters.empty?
+      #@clone_batch.promoters.build
+    #end
   end
   
   def update
@@ -67,12 +67,12 @@ class CloneBatchesController < InheritedResources::Base
          end
          #
         else
-          if @clone_batch.genes.empty?
-            @clone_batch.genes.build
-          end
-          if @clone_batch.promoters.empty?
-            @clone_batch.promoters.build
-          end
+          #if @clone_batch.genes.empty?
+           # @clone_batch.genes.build
+          #end
+          #if @clone_batch.promoters.empty?
+           # @clone_batch.promoters.build
+          #end
         render :action => 'edit_as_plasmid'
       end
   end

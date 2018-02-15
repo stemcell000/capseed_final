@@ -22,7 +22,7 @@ end
  end
  
  def pending?
-   return(self == "Creation")? true : false
+   return(self == "Design")? true : false
  end
  
  def qc?
@@ -32,9 +32,6 @@ end
 def formatStep(st, id)
    @hash ={}
   case st
-  when 0
-    s = "Creation"
-    p = edit_assay_path(id)
   when 1
     s = "Clone design"
     p = clone_design_assay_path(id)
@@ -66,8 +63,6 @@ end
 
 def stepToString(step_id)
     case step_id
-      when 0
-        s = "Creation"
       when 1
         s = "Design"
       when 2
@@ -90,8 +85,6 @@ def stepToString(step_id)
   
    def stringToStep(label)
     case label
-      when "Creation"
-        i = 0
       when "Design"
         i = 1
       when "Clone batch"

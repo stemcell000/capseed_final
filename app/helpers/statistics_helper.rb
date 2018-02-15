@@ -2,8 +2,6 @@ module StatisticsHelper
   
 def stepToString(step_id)
     case step_id
-      when 0
-        s = "Creation"
       when 1
         s = "Design"
       when 2

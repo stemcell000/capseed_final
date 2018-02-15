@@ -116,8 +116,8 @@ class AssaysController < ApplicationController
   def assay_generator
     @assay = Assay.new
     @assay.save
-      @assay.update_columns(:step => 0)
-      update_last_step(@assay, 0)
+      @assay.update_columns(:step => 1)
+      update_last_step(@assay, 1)
       @assay.update_columns(:percentage => 10)
       
       redirect_to :action => 'clone_design', :id => @assay.id

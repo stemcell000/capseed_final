@@ -31,16 +31,6 @@ ActiveAdmin.register_page "Dashboard" do
     section "Recent records" do
       columns do
         column do
-        panel 'Clonings' do
-          table_for Assay.order("created_at desc").limit(5) do |t|
-          t.column :name
-          t.column :status
-          t.column :created_at
-          end
-          strong {link_to "View All Assays" , admin_assays_path}
-        end
-        end
-        column do
         panel 'Clones' do
           table_for Clone.order("created_at desc").limit(5) do |t|
           t.column :name

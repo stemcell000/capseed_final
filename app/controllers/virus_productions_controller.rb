@@ -31,7 +31,6 @@ class VirusProductionsController < InheritedResources::Base
       @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
  end
  
- 
  def edit
    @vp = VirusProduction.find(params[:id])
  end
@@ -77,13 +76,30 @@ class VirusProductionsController < InheritedResources::Base
       else
           render :action => :new
       end
-    
+  end
+  
+  def spawn_dosage
+    @virus_production = VirusProduction.find(params[:id])
+    @users = User.all
+  end
+  
+  def create_dosage
+    @virus_production = VirusProduction.find(params[:id])
+    production = @virus_production.production
+    @vps = production.virus_productions
+     @virus_production.update_attributes(virus_production_params)
+     if @virus_production.valid?
+      flash.keep[:success] = "Task completed!"
+    else
+      render :action => 'spawn_dosage'
+    end
   end
   
  
   def virus_production_params
     params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id)
+    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :_destroy, :remove_dosage])
   end
  
 end

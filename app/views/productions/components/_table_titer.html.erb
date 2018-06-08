@@ -1,0 +1,25 @@
+<% if !dosages.empty? %>
+<small>
+<div class="table-responsive">
+<table class="table table-bordered table-hover table-condensed " id="plasmid-table">
+			<thead>
+				<th>Titer</th>
+				<th>Titer ATCC</th>
+				<th>Titer to ATCC</th>
+				<th>Contact</th>
+				<th>Date</th>
+			</thead>
+				<% dosages.each do |dosage| %>
+					<tr>
+						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer+" vg/ml" %></td>
+						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer_atcc.to_s+" vg/ml" %></td>
+						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer_to_atcc.to_s+" vg/ml" %></td>
+						<td class="col-lg-2 text-center"><%= dosage.user_id.nil? ? "No data" : dosage.user.full_name %></td>
+						<td class="col-lg-1 text-center"><%= dosage.date.nil? ? "No data" : dosage.date.strftime("%B %e, %Y") %></td>
+					</tr>
+				<%end%>
+				
+</table>
+</div>
+</small>
+<%end%>

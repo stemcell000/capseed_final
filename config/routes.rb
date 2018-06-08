@@ -152,7 +152,10 @@ Rails.application.routes.draw do
     
     resources :projects
     
-    resources :virus_productions
+    resources :virus_productions do
+      resources :dosages, :on => :member
+      get :spawn_dosage, :on => :member
+    end
     
     resources :clone_batches do
       get :edit_from_prod, :on => :member
@@ -163,6 +166,9 @@ Rails.application.routes.draw do
    resources :virus_productions do
      get :edit_from_inventory, :on => :member
      patch :update_from_inventory, :on => :member
+     resources :dosages, :on => :member
+     get :spawn_dosage, :on => :member
+     patch :create_dosage, :on => :member
    end
   
   resources :stats do

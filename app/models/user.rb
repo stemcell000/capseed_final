@@ -5,11 +5,13 @@ class User < ActiveRecord::Base
   has_many :virus_productions
   has_many :sequencings
   has_many :pcr_colonies
+  has_many :dosages
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
   accepts_nested_attributes_for :sequencings
+  accepts_nested_attributes_for :dosages
 
   has_many :plasmid_batch_qcs
   accepts_nested_attributes_for :virus_productions

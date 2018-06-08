@@ -1,6 +1,6 @@
 <%= render 'components/prod_process_pills'%>
 	<div class="panel panel-info">
-		<div class="panel-heading"> Production: <%= @production.id %> <mark><strong>is locked</strong></mark> (ask your administrator to unlock.)</div>
+		<div class="panel-heading"> Production: <%= @production.id %></div>
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
 		
 		<div class="panel-body">
@@ -20,12 +20,11 @@
 							<%= render :partial => "productions/components/table_vp" , :locals => { :collection => @vps }%>
 				</div>
 		</div>
-				
-				<div class="row">
-					<div class="col-lg-12">
-						<%= link_to 'Add virus', spawn_vp_new_production_path(:production_id =>@production.id), :class => "btn btn-success btn-sm  pull-right", :remote => true %>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<%= link_to 'Add virus', spawn_vp_new_production_path(:production_id =>@production.id), :class => "btn btn-success btn-sm  pull-right", :remote => true %>
+			</div>
+		</div>
 		</div>
 		
 		<div class="panel-footer">

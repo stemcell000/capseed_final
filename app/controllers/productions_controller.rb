@@ -184,7 +184,9 @@ class ProductionsController < InheritedResources::Base
   def spawn_vp
     @production = Production.find(params[:production_id])
     #Ligne suivante indispensable pour nested_form
-     @production.virus_productions.build
+      @production.virus_productions.build
+      @vps = @production.virus_productions
+      @last_virus = VirusProduction.all.last
   end
   
   def create_vp
@@ -192,7 +194,7 @@ class ProductionsController < InheritedResources::Base
      #production_vp_params doit contenir production_id dans les attribut de virus_production (nested). Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
-     titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])
+     #titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])
      
      if @production.valid?
       flash.keep[:success] = "Task completed!"
@@ -307,7 +309,8 @@ class ProductionsController < InheritedResources::Base
     :clone_attributes => [:id, :name, :assay_id],
     :assay_attributes => [:id, :name],
     :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
-    :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id],
+    :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id,
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]],
     virus_production_ids: []
     )
   end
@@ -332,10 +335,11 @@ class ProductionsController < InheritedResources::Base
   def production_vp_params
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id],virus_production_ids: [])
+    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]])
   end
     
-   def formatProdStepName(i)
+  def formatProdStepName(i)
     case i
     when 0
       s = "creation"

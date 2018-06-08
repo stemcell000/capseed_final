@@ -1,0 +1,40 @@
+<%= simple_nested_form_for @virus_production, url: create_dosage_virus_production_path(:id => @virus_production.id), html: { class: 'form-vertical' }, :remote => true  do |f| %>
+	<%= f.error_notification %>
+	<small>
+	<%= f.input :id, :as => :hidden %>
+	<div class="row">
+			<div id="titer_container" class="col-lg-12">
+				<%=f.simple_fields_for :dosages do |ff|%>
+					<div class="row">
+						<div class = "col-lg-9 vcenter">
+							<div class="form-group ui-front">
+								<%= ff.input :id, :as => :hidden %>
+								<p class="help-block">Example of titer: 4e13</p>
+								<%= ff.input :titer , :label => "Titer (vg/mL)", as: :string %>
+								<%= ff.input :titer_atcc , :label => "Titer ATCC (vg/mL)", as: :string %>
+								<%= ff.input :id, :as => :hidden %>
+								<%= ff.association :user, :label => "Contact name",
+									:collection => @users, :label_method => :full_name, :value_method => :id,
+									:input_html => { class:"select2-select" } %>
+								<%= ff.input :date, :label => "Date", :as => :string, :input_html => { :value => (ff.object.date.strftime("%B %e, %Y") if ff.object.date), "data-behaviour" => "datepicker" } %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 vcenter">
+								<%= ff.link_to_remove "Remove titer" %>	
+						</div>
+					</div>			
+				<%end%>
+								<%= f.link_to_add "Add titers", :dosages %>
+				</div>
+		</div>
+		      <div class="modal-footer" id="myPbButtons">
+      
+				<div class="btn-group" role="group" aria-label="...">
+			    		<%= f.submit("Save", :class => "btn btn-default") %>
+			        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+			</div>
+			</div>
+	</small>
+<%end%>

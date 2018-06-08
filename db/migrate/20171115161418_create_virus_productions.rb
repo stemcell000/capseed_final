@@ -8,10 +8,7 @@ class CreateVirusProductions < ActiveRecord::Migration
       t.integer :plate_nb
       t.decimal :vol
       t.boolean :sterility
-      t.text :plate_id
-      t.decimal :titer
-      t.decimal :titer_atcc
-      t.decimal :titer_to_atcc
+      t.text :plate_idx
       t.text :comment
       t.string :gel_prot
       t.boolean :invoice

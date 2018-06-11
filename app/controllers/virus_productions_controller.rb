@@ -51,6 +51,8 @@ class VirusProductionsController < InheritedResources::Base
   
   def edit_from_inventory
       @vp = VirusProduction.find(params[:id])
+      #@vp.dosages.build
+      @users = User.all
   end
   
   def update_from_inventory

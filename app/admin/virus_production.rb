@@ -5,16 +5,12 @@ ActiveAdmin.register VirusProduction do
       link_to vp.id, admin_virus_production_path(vp)
     end
     column :name
-    column :id
     column :vol_unit
     column :name
     column :plate_id
     column :vol
     column :sterility
     column :plate_id
-    column :titer
-    column :titer_atcc
-    column :titer_to_atcc
     column :comment
     column :gel_prot
     column :invoice
@@ -23,6 +19,7 @@ ActiveAdmin.register VirusProduction do
     column :hek_result
     column :target
     column :animal
+    column :production_id
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_virus_production_path(p)

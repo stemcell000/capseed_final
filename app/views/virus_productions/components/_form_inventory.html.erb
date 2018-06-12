@@ -83,8 +83,7 @@
 			
 <%=f.simple_fields_for :dosages do |ff|%>
 				<div id="titer_container" class="col-lg-12">
-					<div class="row">
-							<div class="form-group ui-front well">
+						<div class="form-group ui-front well">
 							<div class="row">
 								<%= ff.input :id, :as => :hidden %>
 								<div class ="col-lg-3">
@@ -108,8 +107,8 @@
 									<%= ff.input :titer, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_to_atcc }, :readonly => true %>
 								<%end%>
 								</div>
-								</div>
-								<div class="row">
+							</div>
+							<div class="row">
 									<div class="col-lg-5">
 										<%= ff.input :id, :as => :hidden %>
 										<%= ff.association :user, :label => "Contact name",
@@ -122,8 +121,9 @@
 							</div>
 							<%= ff.link_to_remove "Remove titer" %>
 						</div>
-							
+					</div>	
 				<%end%>
+					
 							<div class="row">	
 								<div class="col-lg-12">
 									<%= f.link_to_add "Add titers", :dosages, :class => "btn btn-info btn-sm" %>

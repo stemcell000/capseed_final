@@ -1,6 +1,6 @@
 //= require jquery
-//= require jquery.tokeninput
 //= require jquery_ujs
+//= require jquery.tokeninput
 //= require jquery.remotipart
 //= require jquery.ui.all
 //= require jquery-fileupload

@@ -20,12 +20,6 @@ ActiveAdmin.register_page "Dashboard" do
   end
    
    
-    action_item do
-    link_to "View Site", "/"
-    end
-   
-   
-
    content title: proc{ I18n.t("active_admin.dashboard") } do
     
     section "Recent records" do

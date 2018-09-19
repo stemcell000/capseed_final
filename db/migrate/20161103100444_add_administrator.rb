@@ -5,8 +5,10 @@ class AddAdministrator < ActiveRecord::Migration
             u.username = 'mlechuga'
             u.firstname = 'Marc'
             u.lastname = 'Lechuga'
-            u.password    = 'stemcell'
+            u.encrypted_password   = 'stemcell'
+            u.password = 'stemcell'
+            u.password_confirmation =  'stemcell'
             u.role = 'administrator'
-        end
+            end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601122613) do
+ActiveRecord::Schema.define(version: 20180919080339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20180601122613) do
     t.integer "virus_production_id"
     t.integer "user_id"
     t.date    "date"
+    t.string  "plate_nb"
   end
 
   create_table "enzymes", force: :cascade do |t|
@@ -478,13 +479,8 @@ ActiveRecord::Schema.define(version: 20180601122613) do
     t.integer  "user_id"
     t.integer  "vol_unit_id"
     t.string   "name"
-    t.integer  "plate_nb"
     t.decimal  "vol"
     t.boolean  "sterility"
-    t.text     "plate_id"
-    t.decimal  "titer"
-    t.decimal  "titer_atcc"
-    t.decimal  "titer_to_atcc"
     t.text     "comment"
     t.string   "gel_prot"
     t.boolean  "invoice"

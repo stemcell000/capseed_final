@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
-    def login=(login)
+  def login=(login)
     @login = login
   end
 

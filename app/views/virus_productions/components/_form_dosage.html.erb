@@ -26,12 +26,12 @@
 									<%= ff.input :titer_atcc , :label => "Titer ATCC (vg/mL)", as: :string %>
 									<div class="help-block">Example of titer: 4e13</div>
 								<%else%>
-									<%= ff.input :titer, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_atcc } %>
+									<%= ff.input :titer_atcc, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_atcc } %>
 								<%end%>
 								</div>
 								<div class ="col-lg-4">
 								<% if !ff.object.id.nil? %>
-									<%= ff.input :titer, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_to_atcc }, :readonly => true %>
+									<%= ff.input :titer_to_atcc, :label => "Titer to ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_to_atcc }, :readonly => true %>
 								<%end%>
 								</div>
 								</div>

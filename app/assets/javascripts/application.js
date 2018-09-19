@@ -30,5 +30,13 @@
 NProgress.configure({
   showSpinner: true,
   ease: 'ease',
-  speed: 2
+  speed: 1
+});
+
+$(document).on('turbolinks:click', function() {
+  NProgress.start();
+});
+$(document).on('turbolinks:render', function() {
+  NProgress.done();
+  NProgress.remove();
 });

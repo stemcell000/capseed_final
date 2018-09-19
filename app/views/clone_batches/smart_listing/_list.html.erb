@@ -1,47 +1,47 @@
-  <% unless smart_listing.empty? %>
-  <table class="table table-striped plasmid-inv-color">
-    <thead>
-     
-    <th class="col-lg-1 center">
-        <%= smart_listing.sortable "Number", :number %>
-    </th>
-      
-    <th class="col-lg-1 center">
-        <%= smart_listing.sortable "Name", :name %>
-    </th>
-    
-     <th class="col-lg-1 center">
-        <%= smart_listing.sortable "Clone", :clone_id %>
-    </th>
-    
-    <th class="col-lg-1 center">
-        				 promoter(s)
-    </th>
-    
-     <th class="col-lg-1 center">
-        				 gene(s)
-    </th>
-    
-    <th class="col-lg-1 center">
-    					number of batch(es)
-	</th>
-    
-    <th class="col-lg-1 center">
-		<%= smart_listing.sortable "Created at:", :created_at %>
-  	</th>
-  	<th class="col-lg-1 center"></th>
-    </thead>
-    <tbody>
-	  	<% smart_listing.collection.each do |s| %>
-      		<tr class="editable" data-id = "<%= s.id %>">
-          		<%= smart_listing.render partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
-        	</tr>
-      	<% end %>
-      	<%= smart_listing.item_new colspan: 7, link: new_from_inventory_new_clone_batch_path(:object) %>
-    </tbody>
-  </table>
-  <%= smart_listing.paginate %>
-  <%= smart_listing.pagination_per_page_links %>
-  <%else%>
- <p> No Record! </p>
-  <%end%>
+  <div class="container-fluid">
+	  <table class="table table-striped plasmid-inv-color">
+	    <thead>
+	     
+	    <th class="col-lg-1 center">
+	        <%= smart_listing.sortable "Number", :number %>
+	    </th>
+	      
+	    <th class="col-lg-1 center">
+	        <%= smart_listing.sortable "Name", :name %>
+	    </th>
+	    
+	     <th class="col-lg-1 center">
+	        <%= smart_listing.sortable "Clone", :clone_id %>
+	    </th>
+	    
+	    <th class="col-lg-1 center">
+	        				 promoter(s)
+	    </th>
+	    
+	     <th class="col-lg-1 center">
+	        				 gene(s)
+	    </th>
+	    
+	    <th class="col-lg-1 center">
+	    					number of batch(es)
+		</th>
+	    
+	    <th class="col-lg-1 center">
+			<%= smart_listing.sortable "Created at:", :created_at %>
+	  	</th>
+	  	<th class="col-lg-1 center"></th>
+	    </thead>
+	    <tbody>
+	    	 <% unless smart_listing.empty? %>
+		  	<% smart_listing.collection.each do |s| %>
+	      		<tr class="editable" data-id = "<%= s.id %>">
+	          		<%= smart_listing.render partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
+	        	</tr>
+	      	<% end %>
+	      <%end%>
+	      	<%= smart_listing.item_new colspan: 7, link: new_from_inventory_new_clone_batch_path(:object) %>
+	    </tbody>
+	  </table>
+	  <%= smart_listing.paginate %>
+	  <%= smart_listing.pagination_per_page_links %>
+	</div>

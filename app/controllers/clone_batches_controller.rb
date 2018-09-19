@@ -209,7 +209,11 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.build
     #@clone_batch.genes.build
     #@clone_batch.promoters.build
-    @number = ( CloneBatch.where.not(:name=>"").last[:number].to_i+1).to_s
+    if  !CloneBatch.where.not(:name=>"").nil?
+      @number = "1"
+    else
+      @number = ( CloneBatch.where.not(:name=>"").last[:number].to_i+1).to_s
+     end
    end
    
    def create_from_inventory

@@ -1,5 +1,4 @@
 <div class="container-fluid">
-	<% unless smart_listing.empty? %>
 	  <table class="table table-striped">
 	    <thead>
 	    <th class="col-lg-1 center">
@@ -17,20 +16,20 @@
 	   <th class="col-lg-3 center">
 	    	Plasmids
 	    </th>
+	    <th class="col-lg-1 center"></th>
 	    </thead>
 	    <tbody>
+	    	<% unless smart_listing.empty? %>
 		  	<% smart_listing.collection.each do |s| %>
 	      		<tr class="editable" data-id = "<%= s.id %>">
 	          		<%= smart_listing.render object: s, partial: "virus_productions/smart_listing/vp", locals: {object: s} %>
-	        	</tr>
+	        		</tr>
 	      	<% end %>
+		<% end %>
 	      	<%= smart_listing.item_new colspan: 7, link: new_virus_production_path(:object) %>
 	    </tbody>
 	  </table>
 	  <%= smart_listing.paginate %>
 	  <%= smart_listing.pagination_per_page_links %>
-	<% else %>
-	  <p>No records!</p>
-	  <%= smart_listing.item_new colspan: 7, link: new_virus_production_path(:object) %>
-	<% end %>
+
 </div>

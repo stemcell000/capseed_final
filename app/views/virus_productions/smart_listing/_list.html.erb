@@ -31,5 +31,6 @@
 	  <%= smart_listing.pagination_per_page_links %>
 	<% else %>
 	  <p>No records!</p>
+	  <%= smart_listing.item_new colspan: 7, link: new_virus_production_path(:object) %>
 	<% end %>
 </div>

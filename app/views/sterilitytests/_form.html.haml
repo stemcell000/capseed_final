@@ -1,0 +1,10 @@
+= form_for @sterilitytest do |f|
+  - if @sterilitytest.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sterilitytest.errors.count, "error")} prohibited this sterilitytest from being saved:"
+      %ul
+        - @sterilitytest.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

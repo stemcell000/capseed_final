@@ -4,6 +4,7 @@ class VirusProduction < ActiveRecord::Base
  belongs_to :vol_unit
  has_many :clone_batches, :through => :production
  has_many :dosages
+ has_many :sterilitytests
  
  before_save :titer_to_atcc
  
@@ -16,6 +17,7 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
  accepts_nested_attributes_for :vol_unit
  accepts_nested_attributes_for :production
  accepts_nested_attributes_for :dosages, :allow_destroy => true, reject_if: :all_blank
+ accepts_nested_attributes_for :sterilitytests, :allow_destroy => true, reject_if: :all_blank
  
  #validates :vol, :vol_unit, :user, :date_of_production, :presence => true 
  #validates :titer, :titer_atcc, :presence => true

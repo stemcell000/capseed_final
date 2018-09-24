@@ -102,7 +102,8 @@ class VirusProductionsController < InheritedResources::Base
   def virus_production_params
     params.require(:virus_production).permit(:id, :user_id, :plate_nb, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
     :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
-    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_nb, :_destroy, :remove_dosage])
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_nb, :_destroy, :remove_dosage],
+    :sterilitytests_attributes => [:id, :virus_production_id, :sterility, :date, :_destroy, :remove_sterilitytest])
   end
  
 end

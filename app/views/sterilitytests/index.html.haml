@@ -1,0 +1,19 @@
+%h1 Listing sterilitytests
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @sterilitytests.each do |sterilitytest|
+      %tr
+        %td= link_to 'Show', sterilitytest
+        %td= link_to 'Edit', edit_sterilitytest_path(sterilitytest)
+        %td= link_to 'Destroy', sterilitytest, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sterilitytest', new_sterilitytest_path

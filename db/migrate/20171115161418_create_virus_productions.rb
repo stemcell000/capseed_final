@@ -4,9 +4,7 @@ class CreateVirusProductions < ActiveRecord::Migration
       t.belongs_to :production, index:true
       t.belongs_to :user, index:true
       t.belongs_to :vol_unit, index:true
-      t.string :name
       t.decimal :vol
-      t.boolean :sterility
       t.text :comment
       t.string :gel_prot
       t.boolean :invoice

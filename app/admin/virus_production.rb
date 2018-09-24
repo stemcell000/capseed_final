@@ -7,10 +7,8 @@ ActiveAdmin.register VirusProduction do
     column :name
     column :vol_unit
     column :name
-    column :plate_id
     column :vol
     column :sterility
-    column :plate_id
     column :comment
     column :gel_prot
     column :invoice

@@ -71,7 +71,7 @@
 	<div class="col-lg-4">
 				<div class="form-group" >
 						<%= f.label "End date ", :class=>"control-label" %>
-						<%= f.search_field :date_of_production_lteq, value: @date_of_production_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+						<%= f.search_field :date_of_production_lteq, value: @date_of_production_date_lteq_with_proper_format, input_html: { class: "datepicker"}%>
 				</div>
 	</div>
 </div>

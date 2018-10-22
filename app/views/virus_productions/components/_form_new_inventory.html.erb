@@ -35,7 +35,7 @@
 		<div class="form-group ui-front well">
 			<div class="row">
 				<div class="col-lg-2">
-					<%= s.input :sterility, label: "Sterility", collection: [["yes",1],["no",2],["not done",0]], input_html: {class: "select2-select"} %>
+					<%= s.input :sterility, label: "Sterility", collection: [["yes",1],["no",2]], input_html: {class: "select2-select"} %>
 				</div>
 				<div class="col-lg-2">
 					<%=s.input :date, :label => "Date", :as => :string, :input_html => { :value => (s.object.date.strftime("%B %e, %Y") if s.object.date), "data-behaviour" => "datepicker" } %>
@@ -141,11 +141,10 @@
 							</div>
 				</div>
 			
-			
-		<div class="btn-group row" role="group" aria-label="...">
+		<div class="btn-group" role="group" aria-label="...">
 			<div class="col-lg-12">
 				<%= f.submit "Save", :class => "btn btn-primary" %>
-	        	<%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+	        		<%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
 	        </div>
 		</div>
 	</small>

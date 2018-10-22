@@ -1,8 +1,8 @@
 module ProductionsHelper
 def top_menu_prod
     [
-      "Production" , productions_path,
-      #"Search" , display_all_productions_path,
+      "On-going productions" , productions_path,
+      "Search" , display_all_productions_path,
       "Scheduler", scheduler_productions_path,
     ].each_slice(2).map do |name, path| content_tag(:li, link_to(name, path), :class =>(cp(path)))
     end.join('').html_safe

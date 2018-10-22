@@ -20,8 +20,7 @@ $(document).on("focus", "[data-behaviour~='datepicker']", function(e){
     	"daysOfWeekDisabled": "0,6",
     	"calendarWeeks": true,
     	"todayHighlight": true
-    	
-    	});
+    		});
     });
      console.debug('datepicker');
 

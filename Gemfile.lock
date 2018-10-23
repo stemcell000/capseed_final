@@ -388,7 +388,7 @@ DEPENDENCIES
   multi-select-rails
   nested_form
   nprogress-rails
-  pg (>= 0.18, < 2.0)
+  pg (~> 1.1.3)
   pg_search
   puma
   rabl

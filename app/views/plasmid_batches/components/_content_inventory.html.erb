@@ -1,0 +1,51 @@
+	<% pbl = @plasmid_batches.length %>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-lg-6">
+							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
+									<% @plasmid_batches.order(:id).each_with_index do |b, index|%>
+										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
+											title='
+												<div class="row"> 
+													<div class="col-lg-4 text-left">
+														<%=b.name%>
+													</div>
+													<div class="col-lg-8 right">
+														<%= link_to "Edit", edit_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
+														<%= link_to "Remove",destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+													</div>	
+												</div>'
+											data-content='
+												<div class="col-lg-12 text-left">
+													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
+													<% if !b.comment.blank? %>
+														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />
+													<%end%>
+													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
+													<% if b.plasmid_batch_attachments.length>0 %>
+														<strong>Attached file(s): </strong><br />
+															<% b.plasmid_batch_attachments.each do |a|%>
+																<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+															<%end%>
+													<%end%>
+												</div>
+											'
+										>
+											<i class="glyphicon glyphicon-star"></i> <%= b.name %>
+										</a>	
+										<%if pbl-(index+1) > 0 %>	<%end%>		
+								<%end%>
+						</div><!--End of col-lg-3-->
+						<div class="row">
+							<div class="col-lg-11 right">
+									<%= link_to "Add plasmid batch", new_from_inventory_clone_batch_plasmid_batch_path( :clone_batch_id => @clone_batch.id ), :class =>"btn btn-default btn-sm", :remote => true %>
+							</div><!--End of Btn_col-->
+						</div><!--End of row-->
+					
+					</div><!--End pf row-->
+				</div><!--End of panel body-->
+			</div><!--End of panel-->
+

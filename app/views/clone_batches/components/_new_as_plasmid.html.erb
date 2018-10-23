@@ -22,7 +22,7 @@
 					<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 					</div>
 				<div class = "col-lg-2">
-							<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
+					<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
 				</div>
 		</div>
 		<div class="row">

@@ -175,10 +175,13 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def add_pb_from_inventory
+    
     @units = Unit.all
     @users = User.all
     @clone_batch.plasmid_batches.build
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
+    @plasmid_batches = @clone_batch.plasmid_batches
+    
   end
   
   
@@ -190,10 +193,11 @@ class CloneBatchesController < InheritedResources::Base
     
     if @clone_batch.valid?
       
-      redirect_to  root_path
-     
+        redirect_to  root_path
+      #@q = CloneBatch.ransack(params[:q])
      else
-          render action: :add_pb_from_inventory
+       
+        render action: :add_pb_from_inventory
     end
     
   end

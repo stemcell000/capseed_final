@@ -4,7 +4,8 @@
 	<div class="container">
 		<small>
 		<% @clone.clone_batches.each_with_index do |clone_batch, index| %>
-			<%= f.simple_fields_for :clone_batches, clone_batch do |b| %>
+		
+			<%= f.simple_fields_for :clone_batches, clone_batch do |b, index| %>
 				<div class="row">
 					<div class="col-md-6">
 							<div class="panel panel-default unit-panel lightblue">

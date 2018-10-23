@@ -115,6 +115,7 @@
 						<th>Box</th>
 						<th>Location</th>
 						<th>Conc.</th>
+						<th>Date of prod..</th>
 					</thead>
 					<%f.object.plasmid_batches.each do |pb|%>
 					<tr>
@@ -122,6 +123,7 @@
 						<td><%= pb.box_id.nil? ? "unknown" : pb.box.name %></td>
 						<td><%= pb.row_id.nil? ? "unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
 						<td><%= pb.concentration.nil? ? "unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+						<td><%= pb.date.nil? ? "unknown" : pb.date.strftime("%B %e, %Y") %></td>
 					</tr>
 					<%end%>
 				</table>

@@ -1,4 +1,4 @@
-d<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), url: create_from_inventory_clone_batch_plasmid_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">

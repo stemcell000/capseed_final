@@ -203,7 +203,13 @@ Rails.application.routes.draw do
   resources :clone_batches do
     resources :sequencings
     resources :pcr_colonies 
-    resources :plasmid_batches
+    resources :plasmid_batches do
+      get :new_from_inventory, :on => :member
+      post :create_from_inventory, :on => :member
+      get :destroy_from_inventory, :on => :member
+      get :edit_from_inventory, :on => :member
+      patch :update_from_inventory, :on => :member
+    end
     get :edit_as_plasmid, :on => :member
     get :edit_from_inventory, :on => :member
     get :new_from_inventory, :on => :new

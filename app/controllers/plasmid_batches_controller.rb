@@ -9,6 +9,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
   before_action :load_users, only: [:new, :new_from_inventory, :edit, :create, :update] 
+  before_filter :load_batches, only:[:update_from_inventory]
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -16,7 +17,6 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
 
 def new
     @plasmid_batch = PlasmidBatch.new
-    #@plasmid_batch.plasmid_batch_attachments.build
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
@@ -28,8 +28,11 @@ end
 
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
-    #@plasmid_batch.plasmid_batch_attachments.build
-    @users = User.all
+    @clone_batch = CloneBatch.find(params[:clone_batch_id])
+    nb = @clone_batch.plasmid_batches.size+1
+    
+    @name = @clone_batch.number.to_s+"."+nb.to_s
+    
 end
 
   
@@ -47,21 +50,17 @@ def create
 end
 
 def create_from_inventory
-  
     @plasmid_batch = PlasmidBatch.create(set_params)
-    if params[:clone_batch_id]
-      @clone_batch = CloneBatch.find(params[:clone_batch_id])
-    end
-
+    @users = User.all
+    @clone_batch = CloneBatch.find(params[:clone_batch_id])
     if  @plasmid_batch.valid?
         @plasmid_batch.update_columns(:strict_validation => 0)
         @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
-        if @clone_batch
-          @clone_batch.plasmid_batches << @plasmid_batch
-        end
+        @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
+        @plasmid_batches = @clone_batch.plasmid_batches
     else
-        render :action => :new_from_inventory
+        render :action => 'new_from_inventory'
     end
 end
 
@@ -74,7 +73,6 @@ end
 def edit_from_inventory
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
-  @plasmid_batch.update_columns(:inventory_validation => 1)
   @users = User.all
 end
   
@@ -127,7 +125,9 @@ end
   end
   
   def destroy_from_inventory
+    @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @plasmid_batch.delete
+    
   end
   
   #Interaction avec production
@@ -280,6 +280,11 @@ end
    
     def load_users
       @users = User.all.order(:lastname)
+    end
+    
+    def load_batches
+      @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
+      @plasmid_batches = @clone_batch.plasmid_batches
     end
 
 end

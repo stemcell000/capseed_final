@@ -1,4 +1,5 @@
 class PlasmidBatch < ActiveRecord::Base
+ 
   belongs_to :clone_batch
   default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fiels_for)
   has_many :plasmid_batch_attachments, :dependent => :destroy
@@ -39,11 +40,5 @@ class PlasmidBatch < ActiveRecord::Base
 def without_box
   includes(:box).where(box: {plasmid_batch_id: nil})
 end
-
-private
-def enable_strict_validation?
-  self.strict_validation == 1
-end
-
 
 end

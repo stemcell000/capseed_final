@@ -73,9 +73,6 @@ GEM
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (6.0.4)
-    auto_increment (1.5.0)
-      activerecord (>= 4.0, < 5.3)
-      activesupport (>= 4.0, < 5.3)
     autoprefixer-rails (6.7.7.2)
       execjs
     bcrypt (3.1.11)
@@ -345,7 +342,6 @@ DEPENDENCIES
   activeadmin-select2!
   acts-as-taggable-on (~> 3.4)
   amoeba
-  auto_increment
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
@@ -380,7 +376,7 @@ DEPENDENCIES
   multi-select-rails
   nested_form
   nprogress-rails
-  pg
+  pg (= 0.20.0)
   pg_search
   puma
   rabl

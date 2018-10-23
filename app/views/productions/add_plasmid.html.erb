@@ -5,7 +5,7 @@
 		
 		<div class="panel-body">
 				<div id="cb-container">
-							<%= render :partial => "productions/components/table" , :locals => { :collection => @clone_batches, :production => @production }%>
+							<%= render :partial => "productions/components/table" , :locals => { :collection => @production.plasmid_batches}%>
 				</div>
 				<div class="row">
 					<div class="col-lg-12" id="pool-container">

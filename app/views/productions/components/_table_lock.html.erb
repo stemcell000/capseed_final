@@ -2,16 +2,16 @@
 <table class="table table-bordered " id="plasmid-table">
 			<thead>
 				<th>Name</th>
-				<th>Type</th>
 				<th>Plasmid</th>
+				<th>Type</th>
 				<th>Clone</th>
 			</thead>
-				<% collection.each do |pb| %>
+				<% collection.each do |plasmid_batch| %>
 					<tr>
-						<td class="col-sm-2"><%= pb.name %></td>
-						<td class="col-sm-3"><%= pb.clone_batch.type.nil? ? "None" : pb.clone_batch.type.name %></td>
-						<td class="col-sm-4"><%= pb.clone_batch.name.nil? ? "None" : pb.clone_batch.name %></td>
-						<td class="col-sm-3"><%= pb.clone_batch.clone.nil? ? "None" : pb.clone_batch.clone.name %></td>
+						<td class="col-sm-3"><%= plasmid_batch.name %></td>
+						<td class="col-sm-1 text-center"><%= plasmid_batch.clone_batch.name %></td>
+						<td class="col-sm-3"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-sm-3"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
 					</tr>
 				<% end %>
 </table>

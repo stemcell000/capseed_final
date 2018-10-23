@@ -78,7 +78,7 @@ class ProductionsController < InheritedResources::Base
   end
 
   def add_plasmid
-    @clone_batches = @production.clone_batches.order(:id)
+      @clone_batches = @production.clone_batches.order(:id)
       #
       @plasmids = PlasmidBatch.all
       #
@@ -94,8 +94,9 @@ class ProductionsController < InheritedResources::Base
   end
   
   def add_cbs
+    
     @production.update_attributes(production_params)
-    @clone_batches = @production.clone_batches.order(:type_id)
+
     flash.discard[:success]
     flash.discard[:warning]
      
@@ -290,8 +291,9 @@ class ProductionsController < InheritedResources::Base
     project_ids: [],
     :projects_attributes => [:id, :name],
     :clone_batches_attributes => [:id, :name, :_destroy],
+    :plasmid_batches_attributes => [:id, :name, :_destroy],
     clone_batch_ids: [],
-    :clone_attributes => [:id, :name, :assay_id],
+    plasmid_batch_ids: [],
     :assay_attributes => [:id, :name],
     :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_nb, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
     :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id,

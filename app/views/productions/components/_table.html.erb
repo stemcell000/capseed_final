@@ -1,20 +1,21 @@
-<% if !collection.empty? %>
-<table class="table table-bordered" id="plasmid-table">
+<% if !@production.plasmid_batches.empty? %>
+<table class="table table-bordered " id="plasmid-table">
 			<thead>
 				<th>Name</th>
-				<th>Number</th>
+				<th>Plasmid</th>
 				<th>Type</th>
 				<th>Clone</th>
 			</thead>
-				<% collection.each do |plasmid| %>
+				<% @production.plasmid_batches.each do |plasmid_batch| %>
 					<tr>
-						<td class="col-sm-3"><%= plasmid.name %></td>
-						<td class="col-sm-1 text-center"><%= plasmid.number %></td>
-						<td class="col-sm-3"><%= plasmid.type.nil? ? "None" : plasmid.type.name %></td>
-						<td class="col-sm-3"><%= plasmid.clone.nil? ? "None" : plasmid.clone.name %></td>
+						<td class="col-lg-1 col-md-1 col-sm-2"><%= plasmid_batch.name %></td>
+						<td class="col-lg-5 col-md-5 col-sm-6"><%= plasmid_batch.clone_batch.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-2"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-4"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
 					</tr>
 				<% end %>
 </table>
 <%else%>
 			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid.</div></div>
 <% end %>
+

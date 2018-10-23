@@ -219,7 +219,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     nprogress-rails (0.2.0.2)
     orm_adapter (0.5.0)
-    pg (1.1.3)
+    pg (0.21.0)
     pg_search (2.1.2)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
@@ -388,7 +388,7 @@ DEPENDENCIES
   multi-select-rails
   nested_form
   nprogress-rails
-  pg (~> 1.1.3)
+  pg (~> 0.15)
   pg_search
   puma
   rabl

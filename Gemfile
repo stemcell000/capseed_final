@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
-gem 'pg', '~>1.1.3'
+gem 'pg', '~> 0.15'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

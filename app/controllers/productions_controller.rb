@@ -80,12 +80,7 @@ class ProductionsController < InheritedResources::Base
   def add_plasmid
     @clone_batches = @production.clone_batches.order(:id)
       #
-      @cb_helpers = @production.clone_batches.where(:type_id => 1)
-      @cb_transgenes = @production.clone_batches.where(:type_id => 2)
-      @cb_capsids = @production.clone_batches.where(:type_id => 3)
-      @cb_libraries = @production.clone_batches.where(:type_id => 4)
-      @cb_nones = @production.clone_batches.where(:type_id => 5)
-      @cb_unknowns = @production.clone_batches.where(:type_id => 6)
+      @plasmids = PlasmidBatch.all
       #
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)
@@ -95,12 +90,7 @@ class ProductionsController < InheritedResources::Base
   def select_cbs
      @production = Production.find(params[:id])
       #
-      @cb_helpers = CloneBatch.all.where(:type_id => 1)
-      @cb_transgenes = CloneBatch.all.where(:type_id => 2)
-      @cb_capsids = CloneBatch.all.where(:type_id => 3)
-      @cb_libraries = CloneBatch.all.where(:type_id => 4)
-      #
-      @production.update_columns(:strict_validation => 1)
+      @plasmids = PlasmidBatch.all
   end
   
   def add_cbs
@@ -161,12 +151,7 @@ class ProductionsController < InheritedResources::Base
     
     @clone_batches = @production.clone_batches.order(:id)
       #
-      @cb_helpers = @production.clone_batches.where(:type_id => 1)
-      @cb_transgenes = @production.clone_batches.where(:type_id => 2)
-      @cb_capsids = @production.clone_batches.where(:type_id => 3)
-      @cb_libraries = @production.clone_batches.where(:type_id => 4)
-      @cb_nones = @production.clone_batches.where(:type_id => 5)
-      @cb_unknowns = @production.clone_batches.where(:type_id => 6)
+    @plasmids = PlasmidBatch.all
       #
     
     if @production.clone_batches.empty?

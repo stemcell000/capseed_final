@@ -10,16 +10,12 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<strong># </strong><%= vp.id.nil? ? "No data" : vp.id %></strong><br />
-									<strong>Name: </strong><%= vp.name.nil? ? "No data" : vp.name %><br />
 									<strong>User: </strong><%= vp.user_id.nil? ? "No data" : vp.user.full_name %><br />
 									<strong>Invoice: </strong><%= vp.invoice.nil? ? "No data" : vp.invoice %><br />
 									<strong>Volume: </strong><%= vp.vol.nil? ? "No data" : vp.vol %> <%=vp.vol_unit.nil? ? "" : vp.vol_unit.name%><br />
-									<strong>Number of plates : </strong><%= vp.plate_nb.nil? ? "No data" : vp.plate_nb %><br />
 									<strong>Date of prod.:</strong> <%=vp.date_of_production.nil? ? "No Data" : formatDate(vp.date_of_production)%><br />
-									<strong>Plate IDs: </strong><%= vp.plate_id.nil? ? "No data" : vp.plate_id %><br />
 								</div>
 								<div class="col-lg-6">
-									<strong>Sterility: </strong><%= vp.sterility.nil? ? "No data" : vp.sterility %><br />
 									<strong>L2: </strong><%= vp.l2.nil? ? "No data" : vp.l2 %><br />
 									<strong>Gel (prot.): </strong><%= vp.gel_prot.nil? ? "No data" : vp.gel_prot %><br />
 									<strong>Batch end: </strong><%= vp.batch_end.nil? ? "No data" : vp.batch_end %><br />

@@ -151,7 +151,6 @@ gem 'nprogress-rails'
     gem 'rack-cache'
     gem 'rails_12factor'
     ruby '2.3.0'
-    
     gem 'foreman'
   end
   

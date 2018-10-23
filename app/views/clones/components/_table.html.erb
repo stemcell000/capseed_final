@@ -1,14 +1,14 @@
-<% if clones.empty?%>
+<% if @assay.clones.empty?%>
 			<p>No clone to display</p>
 <%end%>
-<% if !clones.empty?%>
+<% if !@assay.clones.empty?%>
 <table class="table table-striped table-bordered" id="clone-table">
 			<thead>
 				<th>Name</th>
 				<th>Clone number</th>
 				<th>Actions</th>
 			</thead>
-				<% clones.each do |clone| %>
+				<% @assay.clones.each do |clone| %>
 					<tr>
 						<td class="col-md-3"><%= clone.name %></td>
 						<td class="col-sm-2"><%= clone.id %></td>

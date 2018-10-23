@@ -6,7 +6,7 @@
 			<div class="form-group">
 				    <%= f.input :user_id, :input_html => {:value=> current_user.id}, :as => :hidden %>
 				    <div id="clone-table-container" class="col-md-6">
-						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>
+						<%= render :partial => "clones/components/table" , :locals => {:assay => @assay, :clones => @clones}%>
 					</div>
 				</div>	
 					

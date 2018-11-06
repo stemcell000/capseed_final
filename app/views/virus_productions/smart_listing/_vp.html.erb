@@ -2,14 +2,14 @@
   <td class="center"><%= object.created_at.strftime("%b %e, %Y") %></td>
   <td class="center"><%= object.production.nil? ? "No data" : object.production.id %></td>
   <td class="center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="center"><small><%= cb_display(object.clone_batches) %></small></td> 
+  <td class="center"><small><%= object.plasmid_batches.map {|pb| pb.name}.to_sentence %></small></td> 
   
   <td class="actions">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='
 				<div class="row"> 
-					<div class="col-lg-12 text-left primary">
+					<div class="col-lg-12 text-left primary <%if object.%>">
 						<strong>ID: <%=object.id%></strong><br />
 						<strong>Created on: <%=object.created_at.strftime("%b %e, %Y")%></strong>
 					</div>

@@ -150,12 +150,12 @@ class ProductionsController < InheritedResources::Base
     
     @vps = @production.virus_productions
     
-    @clone_batches = @production.clone_batches.order(:id)
+    @plasmid_batches = @production.plasmid_batches.order(:id)
       #
     @plasmids = PlasmidBatch.all
       #
     
-    if @production.clone_batches.empty?
+    if @production.plasmid_batches.empty?
       flash.keep[:notice] = "Add at least one plasmid please."
       redirect_to :action => :add_plasmid
     else
@@ -177,7 +177,7 @@ class ProductionsController < InheritedResources::Base
   
   def create_vp
      @production = Production.find(params[:id])
-     #production_vp_params doit contenir production_id dans les attribut de virus_production (nested). Sinon impossible d'ajouter nouveau virus_production
+     #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
      #titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])

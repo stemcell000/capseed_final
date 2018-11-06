@@ -15,4 +15,8 @@ class UsersController < ApplicationController
     flash.keep[:success] = "Mail sent to production users!"
   end
   
+  def display_search_fields
+     current_user.switch_toggle
+  end
+  
 end

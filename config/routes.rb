@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-
+  resources :users do
+    get :display_search_fields, :on => :member
+  end
   resources :sterilitytests
   get 'errors/not_found'
 
@@ -99,7 +101,6 @@ Rails.application.routes.draw do
            post :create_pcr_colony_protocol_collection, :on => :collection
       end
       resources :clone_batches do
-           get :autocomplete_clone_batch_name, :on => :collection
            get :show_exist, :on => :member
            get :display, :on => :member
            patch :update_as_plasmid, :on => :member
@@ -132,8 +133,7 @@ Rails.application.routes.draw do
           get :plasmid_info, :on => :member
           get :plasmid_info_close, :on => :member
         end
-  end
-  
+  end  
   
   resources :productions do
     post :update_row_order, :on => :collection
@@ -189,12 +189,13 @@ Rails.application.routes.draw do
   resources :inserts
   
   resources :clone_batches do
+    get :autocomplete_clone_batch_name, :on => :collection
+    get :autocomplete_clone_batch_origin_as_plasmid, :on => :collection
     patch :update_qc, :on => :member
     get :select_to_add, :on => :member
   end
     resources :clone_attachments
     resources :clone_batches do
-       get :autocomplete_clone_batch_name, :on => :collection
        get :show_exist, :on => :member
        post :select, :on => :member
     end

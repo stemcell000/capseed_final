@@ -24,7 +24,7 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
 
   #validations
-    validates :name, :primerinsfor, :primerinsrev, :presence => true
+    validates :name, :presence => true
     validates :batch_nb, :presence => true, numericality: { only_integer: true, greater_than_or_equal_to: 1}, :if => :enable_strict_validation?
     #validates :name, :format => { :with => /[a-zA-Z0-9]/, :message =>"has invalide format" }
     validates :name, :uniqueness => {message: "Unique name, please!"}, :case_sensitive => false

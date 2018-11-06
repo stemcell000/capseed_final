@@ -126,8 +126,19 @@ end
   
   def destroy_from_inventory
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
-    @plasmid_batch.delete
-    
+    @plasmid_batches = @clone_batch.plasmid_batches
+    @plasmid_batch.toggle!(:trash)
+    @plasmid_batch.update_columns(:concentration => 0)
+    garbage = Box.find_by_name("Garbage")
+     garbage.plasmid_batches << @plasmid_batch
+      @row = @plasmid_batch.row
+      @column = @plasmid_batch.column
+      if @row 
+        @row.plasmid_batches.delete(@plasmid_batch)
+      end
+      if @column
+        @column.plasmid_batches.delete(@plasmid_batch)
+      end
   end
   
   #Interaction avec production
@@ -202,7 +213,7 @@ end
   private
     def set_params
       params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id,
-      :user_id, :strict_validation , :_destroy,
+      :user_id, :strict_validation , :_destroy, :trash,
       
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy],
       

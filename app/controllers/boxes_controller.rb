@@ -2,7 +2,7 @@ class BoxesController < InheritedResources::Base
   private
 
     def box_params
-      params.require(:box).permit(:name, :plasmid_batch[:plasmid_batch_id])
+      params.require(:box).permit(:name, :plasmid_batch [:id, :name, :plasmid_batch_id], plasmid_batch_ids: [])
     end
     
     def load_box

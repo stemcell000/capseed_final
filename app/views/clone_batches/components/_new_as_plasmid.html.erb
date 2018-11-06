@@ -12,9 +12,11 @@
 			<div class="col-lg-2">
 				<%= f.input :temp_name%>
 			</div>
-			<div class="col-lg-1">
-				<%= f.input :number, :input_html => { :value => number_generator }, :readonly => true%>
-			</div>
+			<% if f.object.id%>
+				<div class="col-lg-1">
+					<%= f.input :number, :input_html => { :value => number_generator }, :readonly => true%>
+				</div>
+			<%end%>
 			<%f.input :clone_id, :as => :hidden%>
 		</div>
 		<div class="row">
@@ -27,7 +29,7 @@
 		</div>
 		<div class="row">
 			<div class = "col-lg-5">
-			 		<%=f.input :origin_as_plasmid, :label => "Origin" %>
+			 		<%=f.input :origin_as_plasmid, :label => "Origin", :url => autocomplete_clone_batch_origin_as_plasmid_index_path, :as => :autocomplete %>
 			</div>	
 		</div>
 		<div class="row">
@@ -90,7 +92,7 @@
 				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
 					<div class="row">	
 						<div class="col-lg-7 vcenter">
-							<%= File.basename(a.object.attachment.to_s) %>
+							<%= File.basename(a.object.attachment.to_s)%>
 					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
 						</div>
 						<div class="col-lg-1 vcenter">

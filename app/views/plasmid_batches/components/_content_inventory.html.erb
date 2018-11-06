@@ -13,7 +13,11 @@
 													</div>
 													<div class="col-lg-8 right">
 														<%= link_to "Edit", edit_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-primary btn-xs font80pc", :remote => true %>
-														<%= link_to "Remove",destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%if b.trash%>
+															<%= link_to "Remove",destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%else%>
+															<%= link_to "Rescue",destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-warning btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%end%>	
 													</div>	
 												</div>'
 											data-content='
@@ -28,13 +32,13 @@
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
-																<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+																<%= link_to File.basename(a.attachment.to_s ) %><br />
 															<%end%>
 													<%end%>
 												</div>
 											'
 										>
-											<i class="glyphicon glyphicon-star"></i> <%= b.name %>
+											<i class="glyphicon glyphicon-star <%=b.set_text_color %>"></i><span> <%= b.name %></span>
 										</a>	
 										<%if pbl-(index+1) > 0 %>	<%end%>		
 								<%end%>

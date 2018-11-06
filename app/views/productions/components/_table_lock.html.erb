@@ -8,10 +8,10 @@
 			</thead>
 				<% collection.each do |plasmid_batch| %>
 					<tr>
-						<td class="col-sm-3"><%= plasmid_batch.name %></td>
-						<td class="col-sm-1 text-center"><%= plasmid_batch.clone_batch.name %></td>
-						<td class="col-sm-3"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-sm-3"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.name %></td>
+						<td class="col-lg-6 col-md-6 col-sm-6"><%= plasmid_batch.clone_batch.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
 					</tr>
 				<% end %>
 </table>

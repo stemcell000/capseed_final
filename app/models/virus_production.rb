@@ -5,6 +5,7 @@ class VirusProduction < ActiveRecord::Base
  has_many :clone_batches, :through => :production
  has_many :dosages
  has_many :sterilitytests
+ has_many :plasmid_batches, :through => :production
  
  before_save :titer_to_atcc
  

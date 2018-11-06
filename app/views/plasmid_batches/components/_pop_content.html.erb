@@ -9,7 +9,7 @@
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
-																<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+																<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s )%><br />
 															<%end%>
 													<%end%>
 												</div>

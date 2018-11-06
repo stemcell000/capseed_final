@@ -52,7 +52,7 @@
 								<% if qc.qc_attachments.length>0 %>
 									<strong>Attached files: </strong><br />
 										<% qc.qc_attachments.each do |a|%>
-											<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
+											<%= link_to File.basename(a.attachment.to_s )a.attachment.to_s )%><br />
 										<%end%>
 								<%end%>
 							</div>

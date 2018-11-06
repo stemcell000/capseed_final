@@ -7,7 +7,7 @@
 		</div>
 			<div class="panel-footer row">
 			    <div class="btn-group col-md-7" role="group" aria-label="...">
-			    	<%= link_to 'Add Clone',new_assay_clone_path(@assay), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Add Cloning',new_assay_clone_path(@assay), :class => 'btn btn-default btn-sm', :remote => true %>
 			    	<%= link_to 'Add Backbone Enzymes', new_enzyme_path(@enzyme), :class => 'btn btn-default btn-sm', :remote => true %>
 			    	<%= link_to 'Previous', edit_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 					<%= link_to 'Next', clone_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>

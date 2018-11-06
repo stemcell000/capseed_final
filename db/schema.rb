@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181023130321) do
+ActiveRecord::Schema.define(version: 20181106140102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 20181023130321) do
     t.integer  "clone_id"
     t.string   "number"
     t.integer  "strand_id"
-    t.integer  "production_id"
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
@@ -234,6 +233,12 @@ ActiveRecord::Schema.define(version: 20181023130321) do
 
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree
 
+  create_table "origins", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "pcr_colonies", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",        null: false
@@ -328,6 +333,7 @@ ActiveRecord::Schema.define(version: 20181023130321) do
     t.integer  "user_id"
     t.integer  "box_id"
     t.date     "date"
+    t.boolean  "trash",             default: true
   end
 
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree
@@ -469,22 +475,23 @@ ActiveRecord::Schema.define(version: 20181023130321) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "username"
     t.string   "role"
     t.string   "firstname"
     t.string   "lastname"
+    t.boolean  "toggle_switch",          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

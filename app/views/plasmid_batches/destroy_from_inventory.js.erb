@@ -3,7 +3,7 @@
   	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
   	//$('#assay-modal').modal("hide");
   	$('.modal').modal("hide");
-  	$("#info-container").html("<%= escape_javascript( render :partial => "plasmid_batches/components/content_inventory", :locals => {:cb => @clone_batch, :cb_collection => @cb_collection } ) %>")
+  	$("#info-container").html("<%= escape_javascript( render :partial => "plasmid_batches/components/content_inventory", :locals => {:cb => @clone_batch, :cb_collection => @plasmid_batches} ) %>")
 console.log("Refreshing plasmid info.")
 
 //Popover

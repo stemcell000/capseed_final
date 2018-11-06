@@ -54,5 +54,9 @@ class User < ActiveRecord::Base
    def full_name
      "#{firstname} #{lastname}"
    end
+  
+   def switch_toggle
+     self.toggle!(:toggle_switch)
+  end
    
 end

@@ -7,6 +7,18 @@
 				<h3><i class="fa_icon fa fa-search"></i> Plasmid Inventory</h3>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<%= f.search_field :number_or_name_or_temp_name_or_comment_or_origin_as_plasmid_or_comment_as_plasmid_or_productions_id_or_productions_name_or_type_name_or_strand_name_or_genes_name_or_promoters_name_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
+			</div>
+		</div>
+		<div id="toggle_button">
+				<%if current_user.toggle_switch%>
+					<%= link_to "Show more fields","user_display_search_fields_path", :class =>"btn btn-default btn-md font80pc", :title=>"Remove clone from list.", :remote => true %>
+				<%else%>
+					<%= link_to "Hide","user_display_search_fields_path", :class =>"btn btn-default btn-md font80pc", :title=>"Remove clone from list.", :remote => true %>
+				<%end%>	
+		</div>
 		
 		<div class="row">
 			

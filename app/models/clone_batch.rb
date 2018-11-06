@@ -6,21 +6,22 @@ class CloneBatch < ActiveRecord::Base
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
+    scope :uniq_origin, -> { self.uniq.pluck(:origin_as_plasmid)}
+  
   belongs_to :clone
   has_and_belongs_to_many :productions, :join_table => "clone_batches_productions"
   has_and_belongs_to_many :sequencings, :dependent => :destroy
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
-  has_many :plasmid_batches, :dependent => :destroy
+  has_many :plasmid_batches, -> { uniq }, :dependent => :destroy
   belongs_to :target
       
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
   belongs_to :type
-  has_one :insert
+  has_one :insert, :dependent => :destroy
   belongs_to :strand
   has_many :genes, :dependent => :destroy
-  has_many :promoters, :dependent => :destroy
-  
+  has_many :promoters, :dependent => :destroy  
 
 
   def normalize_blank_values
@@ -46,9 +47,8 @@ class CloneBatch < ActiveRecord::Base
   
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
-  #validates :name, :presence => true, :if => :enable_strict_validation?
   validates :name, :uniqueness => true, :if => :enable_strict_validation?, :allow_blank => true, :allow_nil => true
-  validates :name, :glyc_stock_box_as_plasmid, :date_as_plasmid, :origin_as_plasmid, :strand, :type, :presence => true, :if => :enable_plasmid_validation?
+  validates :name, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :strand, :type, :presence => true, :if => :enable_plasmid_validation?
   
   #pg_search
   include PgSearch
@@ -60,7 +60,11 @@ class CloneBatch < ActiveRecord::Base
   def custom_label
      "#{number} | #{name}"
   end
-
+  
+  def autocomplete_display
+    self.uniq
+  end
+  
   private
   
   def enable_strict_validation?
@@ -74,6 +78,5 @@ class CloneBatch < ActiveRecord::Base
   def pb_count
     self.plasmid_batches.count
   end
-  
 
 end

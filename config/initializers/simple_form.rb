@@ -109,7 +109,7 @@ SimpleForm.setup do |config|
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
 
-  # Whether attributes are required by default (or not). Default is true.
+  # Whether attributes are required by default (or not)Default is true.
   # config.required_by_default = true
 
   # Tell browsers whether to use the native HTML5 validations (novalidate form option).

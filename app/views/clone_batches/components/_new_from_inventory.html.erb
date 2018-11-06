@@ -82,8 +82,8 @@
 			<div id="file_container" class="col-lg-4 well">
 				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
 					<div class="row">	
-						<div class="col-lg-7 vcenter">
-							<%= File.basename(a.object.attachment.to_s) %>
+						<div class="col-lg-12 vcenter">
+							<%= File.basename(a.object.attachment.to_s)%>
 					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
 						</div>
 						<div class="col-lg-1 vcenter">

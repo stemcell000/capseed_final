@@ -21,7 +21,7 @@
 									<% if cb.clone_batch_attachments.length>0%>
 										<% cb.clone_batch_attachments.each do |a|%>
 										<%mypath= a.attachment.to_s%>
-											<p class="text-success"><%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%></p><br />
+											<p class="text-success"><%= link_to File.basename(a.attachment.to_s )a.attachment.to_s%></p><br />
 										<%end%>
 										<%else%>
 										<p class="font-italic">No attachment.</p>

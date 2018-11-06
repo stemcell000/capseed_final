@@ -1,4 +1,2 @@
 module PlasmidBatchesHelper
-  
-
 end

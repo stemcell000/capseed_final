@@ -1,4 +1,4 @@
-d<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), remote: true, html: {class: 'vertical-form'} do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">
@@ -30,7 +30,7 @@ d<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), re
 		<%= f.simple_fields_for :plasmid_batch_attachments do |a| %>
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">	
-									<%= File.basename(a.object.attachment.to_s) %>
+									<%= File.basename(a.object.attachment.to_s)%>
 									<% if a.object.id.nil? %>
 									
 								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>

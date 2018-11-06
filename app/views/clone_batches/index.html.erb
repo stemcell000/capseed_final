@@ -1,7 +1,7 @@
 <% provide(:title, "Plasmid : Search") %>
 
 <%= search_form_for @q, :url =>clone_batches_path, :class=>"form-horizontal", :remote => true do |f| %>
-	<small>	
+<small>	
 		<div class="row">
 			<div class="col-lg-12">
 				<h3><i class="fa_icon fa fa-search"></i> Plasmid Inventory</h3>
@@ -12,19 +12,22 @@
 				<%= f.search_field :number_or_name_or_temp_name_or_comment_or_origin_as_plasmid_or_comment_as_plasmid_or_productions_id_or_productions_name_or_type_name_or_strand_name_or_genes_name_or_promoters_name_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
 			</div>
 		</div>
-		<div id="toggle_button">
-				<%if current_user.toggle_switch%>
-					<%= link_to "Show more fields","user_display_search_fields_path", :class =>"btn btn-default btn-md font80pc", :title=>"Remove clone from list.", :remote => true %>
-				<%else%>
-					<%= link_to "Hide","user_display_search_fields_path", :class =>"btn btn-default btn-md font80pc", :title=>"Remove clone from list.", :remote => true %>
-				<%end%>	
-		</div>
-		
-		<div class="row">
-			
-			<div class="col-lg-6">
-					<h5 class="text-primary"><em>Basic input search : </em></h5>
-			</div>	
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	
+  <div class="panel panel-default">
+  	
+    <div class="panel-heading" role="tab" id="heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">
+        Fine search
+        <i class="indicator glyphicon glyphicon-chevron-right  pull-right"></i></a>
+      </h4>
+    </div>
+    
+    <div id="collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
+      	<div class="panel-body">
+			<div class="row">
 			<div class="col-lg-6">
 					<h5 class="text-primary"><em>Search by ranges of date of creation : </em></h5>
 			</div>
@@ -104,16 +107,35 @@
 		 	</div>
 
 		</div>
-
+</div>
+</div>
+</div>
+</div>
 		<div class="row">	
 				<div class="form-group pull-right">
 					<%= f.submit class:"cancel-button btn btn-default" %>
 					<%= link_to "Clear Search", clone_batches_path, class:"cancel-button btn btn-default" %>
 			</div>
 		</div>
-		</small>
-		<% end %>
-		
+</small>	
 		<div id="container" class="row">
 			<%= smart_listing_render :clone_batches %>
 		</div>
+	
+	
+	
+	
+	
+	
+			</div>
+		</div>
+	</div>
+	</div>
+
+<%end%>
+
+
+
+
+		
+		

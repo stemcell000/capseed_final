@@ -22,7 +22,7 @@
 			data-content='		<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "No data" : object.number %><br />
 								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.nil? ? "No data" : object.date_as_plasmid.strftime("%b %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid.nil? ? "No data" : object.glyc_stock_box_as_plasmid %><br />
-								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin_as_plasmid.nil? ? "No data" : object.origin_as_plasmid %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "No data" : object.origin.name %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "No data" : object.type.name %><br />
 								<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= object.plasmid_batches.empty? ? "No data" : object.plasmid_batches.length %><br />
 								<strong>Target: </strong> <%= object.target.nil? ? "No data" : object.target.name %><br />

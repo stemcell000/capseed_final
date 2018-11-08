@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :origins
   resources :users do
     get :display_search_fields, :on => :member
   end
@@ -190,7 +191,6 @@ Rails.application.routes.draw do
   
   resources :clone_batches do
     get :autocomplete_clone_batch_name, :on => :collection
-    get :autocomplete_clone_batch_origin_as_plasmid, :on => :collection
     patch :update_qc, :on => :member
     get :select_to_add, :on => :member
   end
@@ -238,6 +238,9 @@ Rails.application.routes.draw do
       resources :plasmid_batch_qcs
   end
   resources :enzymes
+  resources :genes
+  resources :promoters
+  resources :origins
   
   #Home
   root 'clone_batches#index'

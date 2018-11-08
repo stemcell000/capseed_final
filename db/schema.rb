@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181106140102) do
+ActiveRecord::Schema.define(version: 20181108110442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 20181106140102) do
     t.integer  "plasmid_validation",        default: 0
     t.date     "date_as_plasmid"
     t.string   "glyc_stock_box_as_plasmid"
-    t.string   "origin_as_plasmid"
     t.text     "comment_as_plasmid"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
@@ -119,6 +118,7 @@ ActiveRecord::Schema.define(version: 20181106140102) do
     t.integer  "clone_id"
     t.string   "number"
     t.integer  "strand_id"
+    t.integer  "origin_id"
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
@@ -130,14 +130,6 @@ ActiveRecord::Schema.define(version: 20181106140102) do
 
   add_index "clone_batches_pcr_colonies", ["clone_batch_id"], name: "index_clone_batches_pcr_colonies_on_clone_batch_id", using: :btree
   add_index "clone_batches_pcr_colonies", ["pcr_colony_id"], name: "index_clone_batches_pcr_colonies_on_pcr_colony_id", using: :btree
-
-  create_table "clone_batches_productions", force: :cascade do |t|
-    t.integer "clone_batch_id"
-    t.integer "production_id"
-  end
-
-  add_index "clone_batches_productions", ["clone_batch_id"], name: "index_clone_batches_productions_on_clone_batch_id", using: :btree
-  add_index "clone_batches_productions", ["production_id"], name: "index_clone_batches_productions_on_production_id", using: :btree
 
   create_table "clone_batches_sequencings", force: :cascade do |t|
     t.integer "clone_batch_id"

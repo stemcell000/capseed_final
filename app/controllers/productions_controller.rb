@@ -78,9 +78,9 @@ class ProductionsController < InheritedResources::Base
   end
 
   def add_plasmid
-      @clone_batches = @production.clone_batches.order(:id)
+      @clone_batches = @production.plasmid_batches.order(:id).map {|object| object.clone_batch}
       #
-      @plasmids = PlasmidBatch.all
+      @plasmids = PlasmidBatch.where.not(:trash => false)
       #
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)
@@ -90,11 +90,11 @@ class ProductionsController < InheritedResources::Base
   def select_cbs
      @production = Production.find(params[:id])
       #
-      @plasmids = PlasmidBatch.all
+      @plasmids = PlasmidBatch.where(:trash => false)
   end
   
   def add_cbs
-    
+    @production = Production.find(params[:id])
     @production.update_attributes(production_params)
 
     flash.discard[:success]
@@ -104,38 +104,21 @@ class ProductionsController < InheritedResources::Base
         @production.update_columns(:percentage => 50)
         
     #Recherche de l'existence d'une combinaison de plasmides identique dans la DB (le plasmid helper est exclu de la recherche ; library est alternatif à capsid)
-       
-     myReferenceArray = @production.clone_batches.collect(&:number)
      
-     @production.clone_batches.each do |cb|
-      prod_nb = cb.productions.count
+    #trigger = PlasmidBatch.ransack(params[:id] => @production.plasmid_batches.ids)
+    #trigger = Production.includes(:plasmid_batch).ransack(:plasmid_batches_eq => @production.plasmid_batches).nil?
+    trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.plasmid_batches.map {|object| object.clone_batch}).nil?
       
-      trigger = false
-      
-      if prod_nb > 1
-            cb.productions.each do |p|
-             
-             f =  myReferenceArray - p.clone_batches.collect(&:number)
-             
-            break if f.size == 0
-            trigger = true
-       end
               if trigger == false
                 flash.discard(:success)
                 flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
-                         
               else
                flash.discard(:success) 
                flash.now[:success] = "Task completed."                
              end
-      end
     end
     
-        @production.update_columns(:step => 0)
-        @production.update_columns(:percentage => 50)
-
     
-  end
    
    def pool
      #
@@ -308,6 +291,8 @@ class ProductionsController < InheritedResources::Base
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
+      :plasmid_batches_attributes => [:id, :name, :_destroy],
+      plasmid_batch_ids: []
     )
   end
   

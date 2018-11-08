@@ -7,6 +7,7 @@ belongs_to :clone_batch
 
 accepts_nested_attributes_for :clone_batch
 
-#validates :name , :presence => true
+  validates :name, :uniqueness => {message: "Unique name, please!"}, :case_sensitive => false
+  validates :name, :presence => true
 
 end

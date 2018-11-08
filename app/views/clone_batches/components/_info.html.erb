@@ -18,11 +18,11 @@
 						<td class="col-md-3">
 							<div class="col-md-12">
 							<% if !cb.strand_id.nil?%>
-								<strong>Strand: </strong><%= cb.strand_id %><br />
+								<strong>Strand: </strong><%= cb.strand.name %><br />
 								<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<strong>stock concentration: </strong> <%= cb.glyc_stock_as_plasmid %> <%= Unit.find(cb.unit_id).name %><br />
 								<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
-								<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+								<strong>Origin: </strong><%= cb.origin.nil? ? "None" : cb.origin.name %><br />
 								<strong>Type: </strong>: <%= Type.find(cb.type_id).name %><br />
 								<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
 								<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />

@@ -12,11 +12,11 @@ ActiveAdmin.register CloneBatch do
     column :comment
     column :date_as_plasmid
     column :glyc_stock_box_as_plasmid
-    column :origin_as_plasmid
     column :comment_as_plasmid
     column :created_at
     column :updated_at
     column :strand
+    column :origin
     column :type
     column :clone
     column :qc_validation
@@ -66,7 +66,7 @@ end
 
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand_id, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
-:date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :type_id, :type, :strand, :target, :target_id, :comment_as_plasmid, :promoters,
+:date_as_plasmid, :glyc_stock_box_as_plasmid, :origin, :origin_id, :type_id, :type, :strand, :target, :target_id, :comment_as_plasmid, :promoters,
 :genes, :created_at, :updated_at, :clone_id
 
 #Add Button to site

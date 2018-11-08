@@ -1,4 +1,6 @@
 class VirusProductionsController < InheritedResources::Base
+ 
+   before_action :virus_production_params, only:[:create, :update, :update_from_inventory, :destroy]
   
   #Smart_listing
   include SmartListing::Helper::ControllerExtensions

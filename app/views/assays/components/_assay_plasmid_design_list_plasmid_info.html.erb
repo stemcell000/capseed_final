@@ -22,7 +22,7 @@
 								<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 								<strong>stock concentration: </strong> <%= cb.glyc_stock_as_plasmid %> <%= Unit.find(cb.unit_id).name %><br />
 								<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
-								<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+								<strong>Origin: </strong><%= cb.origin.nil? ? "NA" : cb.origin.name %><br />
 								<strong>Type: </strong>: <%= Type.find(cb.type_id).name %><br />
 								<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
 								<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />

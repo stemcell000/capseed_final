@@ -29,7 +29,7 @@
 		</div>
 		<div class="row">
 			<div class = "col-lg-5">
-			 		<%=f.input :origin_as_plasmid, :label => "Origin", :url => autocomplete_clone_batch_origin_as_plasmid_index_path, :as => :autocomplete %>
+			 		<%=f.association :origin, :collection => @origins_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 			</div>	
 		</div>
 		<div class="row">

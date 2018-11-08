@@ -10,13 +10,12 @@ class Production < ActiveRecord::Base
    ranks :row_order
   
   #Nested models relationships
-  has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
   has_and_belongs_to_many :plasmid_batches, :join_table => "plasmid_batches_productions"
   has_and_belongs_to_many :projects
+  has_many :clone_batches, :through => :plasmid_batches
   has_many :virus_productions
   
   accepts_nested_attributes_for :projects
-  accepts_nested_attributes_for :clone_batches
   accepts_nested_attributes_for :plasmid_batches
   #Ligne ci-dessous indispensable pour nested_form à la page "virus_production"
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true, reject_if: :all_blank

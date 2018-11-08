@@ -11,7 +11,7 @@
 									<strong>Brand: </strong><%= cb.strand.nil? ? "NA" : cb.strand.name %><br />
 									<strong>Date: </strong><%= cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
 									<strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid %><br />
-									<strong>Origin: </strong><%= cb.origin_as_plasmid %><br />
+									<strong>Origin: </strong><%= cb.origin.nil? ? "NA" : cb.origin.name %><br />
 									<strong>Type: </strong><%= cb.type.name %><br />
 									<strong>Promoter: </strong>: <%= cb.promoter_as_plasmid %><br />
 									<strong>Gene: </strong><%= cb.gene_as_plasmid %><br />

@@ -7,7 +7,6 @@ class EnzymesController < ApplicationController
  end
  
   def create
-    #Create new assay
     @enzyme = Enzyme.create(enzyme_params)
     if @enzyme.save
       flash.keep[:success] = "A new Enzyme has been successfully created!"

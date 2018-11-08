@@ -111,8 +111,11 @@ end
  
  def cb_display(collection)
   r = ""
+  
+ # myCbColl = collection.map {|c| c.clone_batch}
+  
   if !collection.empty?
-    r = collection.order(:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}.to_sentence
+    r = collection.sort_by(&:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}.to_sentence
   else
     r="No data yet"
   end

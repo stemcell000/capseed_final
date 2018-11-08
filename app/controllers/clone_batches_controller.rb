@@ -4,8 +4,6 @@ class CloneBatchesController < InheritedResources::Base
     helper  SmartListing::Helper
     
   autocomplete :clone_batch, :name
-  autocomplete :clone_batch, :origin_as_plasmid, :order => :id, :full => true, :order => :id,  scopes:[:no_dup]
-  
     
   before_filter :authenticate_user!
   before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
@@ -116,7 +114,7 @@ class CloneBatchesController < InheritedResources::Base
     @assay = Assay.find(params[:assay_id])
     #effacement des données de plasmid uniquement
     @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
-                                :glyc_stock_box_as_plasmid=>nil, :origin_as_plasmid=>nil, :type_id=>nil, 
+                                :glyc_stock_box_as_plasmid=>nil, :origin_id=>nil, :type_id=>nil, 
                                 :comment_as_plasmid=>nil, :number => nil)
     #destruction des associations
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
@@ -150,7 +148,7 @@ class CloneBatchesController < InheritedResources::Base
       @types_all = @types_all.map{ |obj| [obj['name'], obj['id']] }
         
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :productions)
+      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
       
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
@@ -263,8 +261,8 @@ class CloneBatchesController < InheritedResources::Base
     
     def plasmid_params
       
-      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name,
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :origin_id, :plasmid_validation, :target_id ,:_destroy,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
      
@@ -276,6 +274,7 @@ class CloneBatchesController < InheritedResources::Base
       :type_attributes => [:id, :name],
       :insert_attributes => [:id, :name, :number],
       :strand_attributes => [:id, :name],
+      :origin_attributes => [:id, :name],
       :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
@@ -287,14 +286,15 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def plasmid_pb_params
-      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name,
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :origin_id, :plasmid_validation, :target_id ,:_destroy,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid,:comment_as_plasmid, :production_id, :template, :temp_name,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
      
       :type_attributes => [:id, :name],
       :insert_attributes => [:id, :name, :number, :clone_batch_id],
       :strand_attributes => [:id, :name],
+      :origin_attributes => [:id, :name],
       :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
@@ -330,6 +330,9 @@ class CloneBatchesController < InheritedResources::Base
       @strands_all = Strand.all
       @types_all = Type.all.order(:name)
       @targets_all = Target.all.order(:name)
+      @genes_all = Gene.all.order(:name)
+      @promoters_all = Promoter.all.order(:name)
+      @origins_all = Origin.all.order(:name)
     end
 end
 

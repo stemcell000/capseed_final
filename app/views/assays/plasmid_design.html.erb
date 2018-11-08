@@ -8,9 +8,12 @@
 						<%= render :partial => "clone_batches/components/plasmid_design_list" , :locals => {:clones => @clones, :assay => @assay}%>
 				</div>
 		<div class="panel-footer row">
-			    <div class="btn-group col-md-5" role="group" aria-label="...">
+			    <div class="btn-group col-md-12" role="group" aria-label="...">
+			    	<%= link_to 'Add new gene', new_gene_path(@gene), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Add new promoter', new_promoter_path(@promoter), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Add new origin', new_origin_path(@origin), :class => 'btn btn-default btn-sm', :remote => true %>
 			    	<%= link_to 'Previous', clone_batch_qc_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
-					<%= link_to 'Next', plasmid_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+				<%= link_to 'Next', plasmid_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 			  	</div>
 		</div>
 	

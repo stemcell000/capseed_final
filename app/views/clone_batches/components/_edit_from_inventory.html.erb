@@ -25,7 +25,7 @@
 		</div>
 		<div class="row">
 			<div class = "col-lg-3">
-			 		<%=f.input :origin_as_plasmid, :label => "Origin" %>
+			 	<%=f.association :origin, :collection => @origins_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 			</div>	
 			<div class="col-lg-3">
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>

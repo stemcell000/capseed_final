@@ -1,13 +1,7 @@
-class Promoter < ActiveRecord::Base
+class Origin < ActiveRecord::Base
+  has_many :clone_batches
   
-#pg_search
-include PgSearch
-  
-belongs_to :clone_batch
-
-accepts_nested_attributes_for :clone_batch
-
   validates :name, :uniqueness => {message: "Unique name, please!"}, :case_sensitive => false
   validates :name, :presence => true
-
+  
 end

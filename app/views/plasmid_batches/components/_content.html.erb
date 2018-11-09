@@ -9,38 +9,44 @@
 						<div class="col-lg-6">
 							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
 									<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%>
-										<a tabindex="0" data-toggle="popover" data-trigger="focus"
+										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
 											title='
 												<div class="row"> 
 													<div class="col-lg-4 text-left">
 														<%=b.name%>
 													</div>
 													<div class="col-lg-8 right">
-														<%= link_to "Edit", edit_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
-														<%= link_to "Remove", [b, :clone_batch_id => cb.id, :clone_id => clone.id, :assay_id => @assay.id], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true, :disabled => @assay.locked %>
+														<%if b.trash%>
+															<%= link_to "Edit", edit_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+															<%= link_to "Remove",destroy_from_list_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%else%>
+															<%= link_to "Rescue",destroy_from_list_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-warning btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%end%>	
 													</div>	
 												</div>'
 											data-content='
 												<div class="col-lg-12 text-left">
-													<strong>Created on: </strong><%= b.created_at.strftime("%h %e, %Y ") %><br />
-													<strong>Format: </strong><%= b.format.name %><br />
-													<strong>Concentration: </strong><%= b.concentration %> <%= Unit.find(b.unit_id).name %><br />
+													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
+													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<% if !b.comment.blank? %>
-														<strong>Comments: </strong><br /><%=b.comment%><br />
+														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />
 													<%end%>
 													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
-																<%= link_to File.basename(a.attachment.to_s)%><br />
+																<%= link_to File.basename(a.attachment.to_s ) %><br />
 															<%end%>
 													<%end%>
 												</div>
 											'
 										>
-											<i class="glyphicon glyphicon-star"></i> <%= b.name %>
+											<div class="col-lg-1">
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><span><%= b.name %></span>
+											</div>
 										</a>	
-										<%if pbl-(index+1) > 0 %>,<%end%>		
 								<%end%>
 						</div><!--End of col-lg-3-->
 						<div class="row">

@@ -80,7 +80,7 @@ class ProductionsController < InheritedResources::Base
   def add_plasmid
       @clone_batches = @production.plasmid_batches.order(:id).map {|object| object.clone_batch}
       #
-      @plasmids = PlasmidBatch.where.not(:trash => false)
+      @plasmids = PlasmidBatch.where.not(:trash => false).where(:volume => 0)
       #
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)

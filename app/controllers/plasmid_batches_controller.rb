@@ -4,7 +4,7 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
 
   before_action :set_params, only:[:create, :add_to_prod, :create_from_inventory]
   before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
-  before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create]
+  before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create, :destroy_from_list]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
@@ -118,19 +118,45 @@ end
     end
   end
   
-  def destroy
-    @plasmid_batches = @clone_batch.plasmid_batches.all
+  def destroy_from_list
+    
     @plasmid_batch = PlasmidBatch.find(params[:id])
-    @plasmid_batch.destroy
+    @clone_batch = CloneBatch.find(params[:clone_batch_id])
+    @plasmid_batches = @clone_batch.plasmid_batches
+    @plasmid_batch.toggle!(:trash)
+    garbage = Box.find_by_name("Garbage")
+    
+    unless @plasmid_batch.trash
+      @plasmid_batch.update_columns(:volume => 0)
+      garbage.plasmid_batches << @plasmid_batch
+     else
+      garbage.plasmid_batches.delete(@plasmid_batch)
+     end
+      
+     @row = @plasmid_batch.row
+      @column = @plasmid_batch.column
+      if @row 
+        @row.plasmid_batches.delete(@plasmid_batch)
+      end
+      if @column
+        @column.plasmid_batches.delete(@plasmid_batch)
+      end
   end
   
   def destroy_from_inventory
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @plasmid_batches = @clone_batch.plasmid_batches
     @plasmid_batch.toggle!(:trash)
-    @plasmid_batch.update_columns(:concentration => 0)
+    @plasmid_batch.update_columns(:volume => 0)
     garbage = Box.find_by_name("Garbage")
-     garbage.plasmid_batches << @plasmid_batch
+    
+    unless @plasmid_batch.trash
+      @plasmid_batch.update_columns(:volume => 0)
+      garbage.plasmid_batches << @plasmid_batch
+     else
+      garbage.plasmid_batches.delete(@plasmid_batch)
+     end
+     
       @row = @plasmid_batch.row
       @column = @plasmid_batch.column
       if @row 

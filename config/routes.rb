@@ -210,6 +210,7 @@ Rails.application.routes.draw do
       get :destroy_from_inventory, :on => :member
       get :edit_from_inventory, :on => :member
       patch :update_from_inventory, :on => :member
+     get :destroy_from_list, :on => :member
     end
     get :edit_as_plasmid, :on => :member
     get :edit_from_inventory, :on => :member

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
         end
     end
     
-    def update_last_step(model, value)
+   def update_last_step(model, value)
     unless model.last_step.nil?
       if model.last_step < value
          model.update_columns(:last_step => value)
@@ -44,9 +44,9 @@ end
     protected
     
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :toggle_switch) }
-      devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me, :toggle_switch) }
-      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username, :password, :password_confirmation, :current_password, :toggle_switch, subteam_ids: [] ) }
+      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me ) }
+      devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
+      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username, :password, :password_confirmation, :current_password, subteam_ids: [] ) }
     end
     
 end

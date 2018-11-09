@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   resources :origins
-  resources :users do
-    get :display_search_fields, :on => :member
-  end
   resources :sterilitytests
   get 'errors/not_found'
 

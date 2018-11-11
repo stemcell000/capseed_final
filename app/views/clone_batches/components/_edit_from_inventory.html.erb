@@ -1,4 +1,4 @@
-<td colspan="7">
+<td colspan="12">
 <%= simple_nested_form_for @clone_batch, url: update_from_inventory_clone_batch_path, remote: true, html: {class: 'horizontal-form no-overflow'} do |f|  %>
 	
 	<%= f.error_notification %>
@@ -6,27 +6,29 @@
 	<small>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
-			<div class="col-lg-3">
+			<div class="col-lg-5">
 				<%= f.input :name%>
 			</div>
-			<div class="col-lg-3">
-				<%= f.input :temp_name%>
+			<div class="col-lg-5">
+				<%= f.input :temp_name, :label => "Temporary name", :readonly => true %>
 			</div>
 			<div class="col-lg-2">
 				<%= f.input :number, :input_html => { :value => f.object.number || @number}, :readonly => true%>
 			</div>
-			<%= f.input :clone_id, :as => :hidden%>
+		</div>
+		<div class="row">
+				<%= f.input :clone_id, :as => :hidden%>
 			<div class = "col-lg-3">
 				<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 			</div>
-			<div class = "col-lg-2">
-						<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
+			<div class = "col-lg-3">
+				<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
+			</div>
+			<div class = "col-lg-3">
+			 	<%=f.association :origin, :collection => @origins_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<div class="row">
-			<div class = "col-lg-3">
-			 	<%=f.association :origin, :collection => @origins_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
-			</div>	
 			<div class="col-lg-3">
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
@@ -37,49 +39,18 @@
 			 	<%=f.association :target, :label => "Target", :collection => @targets_all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
-		<!--Add Promoter-->
-		<div class="row">
-			<div class="col-lg-5 well">
-				<div id="promoter_container" class="col-lg-6">
-				<%=f.simple_fields_for :promoters do |r|%>
-					<div class="row">
-						<div class = "col-lg-9 vcenter">
-							<div class="form-group ui-front">
-								<%= r.input :name,
-									:label => "Promoter"
-								%>
-								<%= r.input :id, :as => :hidden %>
-							</div>
-						</div>
-						<div class="col-lg-1 vcenter">
-								<%= r.link_to_remove "X" %>	
-						</div>
-					</div>			
-				<%end%>
-								<%= f.link_to_add "Add promoter", :promoters %>
-				</div>
-			
-		<!--Add gene-->
-			<div id="gene_container" class="col-lg-5">
-			<%=f.simple_fields_for :genes do |g|%>
-				<div class="row">
-					<div class = "col-lg-9 vcenter">
-						<div class="form-group ui-front">
-						<%= g.input :name,
-							:label => "Gene"
-						%>
-						</div>
-					</div>
-					<div class="col-lg-1 vcenter">
-							<%= g.link_to_remove "X" %>	
-					</div>
-				</div>			
-			<%end%>
-							<%= f.link_to_add "Add gene", :genes %>
+		<!--Add Promoter(s) & gene(s)-->
+		<div class= "row">
+			<div class="col-lg-6">
+				<%=f.association :promoters, :label => "Promoter", :collection => @promoters_all, input_html: { class: 'select2-select'} %>
+			</div>
+			<div class="col-lg-6">
+				<%=f.association :genes, :label => "Gene", :collection => @genes_all, input_html: { class: 'select2-select'} %>	
 			</div>
 		</div>
-		<div class="col-lg-1"></div>
-			<div id="file_container" class="col-lg-6 well">
+		
+		<div class="row">
+			<div id="file_container" class="col-lg-12">
 				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
 					<div class="row">
 						<div class="col-lg-12 vcenter">
@@ -106,8 +77,8 @@
 			<div class="col-lg-5">
 				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
-			<div class="col-lg-5">
-				<h6>Plasmid batches</h6>
+			<div class="col-lg-6">
+				<h6><strong> Plasmid batches </strong></h6>
 			<% if !f.object.plasmid_batches.empty? %>
 				<table class="table table-bordered">
 					<thead>

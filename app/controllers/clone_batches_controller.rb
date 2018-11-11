@@ -146,9 +146,18 @@ class CloneBatchesController < InheritedResources::Base
     #Champs types
       @types_all = Type.all.order(name: "asc").uniq
       @types_all = @types_all.map{ |obj| [obj['name'], obj['id']] }
-        
+    #Champs genes
+      @genes_all = Gene.all.order(name: "asc").uniq
+      @genes_all = @genes_all.map{ |obj| [obj['name'], obj['id']] }
+     #Champs promoters
+      @promoters_all = Promoter.all.order(name: "asc").uniq
+      @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
+     #Champs origins
+      @origins_all = Origin.all.order(name: "asc").uniq
+      @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
+          
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
+      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :format)
       
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
@@ -211,7 +220,7 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
-    @number = ( CloneBatch.where.not(:name=>"").last[:number].to_i+1).to_s
+    @number = @clone_batch.id
    end
    
    def create_from_inventory

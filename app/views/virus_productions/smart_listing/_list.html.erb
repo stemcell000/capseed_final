@@ -19,17 +19,16 @@
 	    <th class="col-lg-1 center"></th>
 	    </thead>
 	    <tbody>
-	    	<% unless smart_listing.empty? %>
+	    	 <% unless smart_listing.empty? %>
 		  	<% smart_listing.collection.each do |s| %>
 	      		<tr class="editable" data-id = "<%= s.id %>">
 	          		<%= smart_listing.render object: s, partial: "virus_productions/smart_listing/vp", locals: {object: s} %>
 	        		</tr>
 	      	<% end %>
-		<% end %>
+		 <%end%>
 	      	<%= smart_listing.item_new colspan: 7, link: new_virus_production_path(:object) %>
 	    </tbody>
 	  </table>
 	  <%= smart_listing.paginate %>
-	  <%= smart_listing.pagination_per_page_links %>
-
-</div>
+	  <%= smart_listing.pagination_per_page_links %>	
+	 </div>

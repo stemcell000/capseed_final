@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  virus_production_id: 1
+  box_id: 1
+  row_id: 1
+  column_id: 1
+
+two:
+  name: MyString
+  virus_production_id: 1
+  box_id: 1
+  row_id: 1
+  column_id: 1

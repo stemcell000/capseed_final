@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :virus_batches
   resources :origins
   resources :sterilitytests
   get 'errors/not_found'
@@ -164,10 +165,18 @@ Rails.application.routes.draw do
    
    resources :virus_productions do
      get :edit_from_inventory, :on => :member
+     get :add_vb_from_inventory, :on => :member
      patch :update_from_inventory, :on => :member
      resources :dosages, :on => :member
      get :spawn_dosage, :on => :member
      patch :create_dosage, :on => :member
+     resources :virus_batches do
+       get :new_from_inventory, :on => :new
+       post :create_from_inventory, :on => :collection
+       get :destroy_from_inventory, :on => :member
+       get :edit_from_inventory, :on => :member
+       patch :update_from_inventory, :on => :member
+     end
    end
   
   resources :stats do
@@ -202,8 +211,8 @@ Rails.application.routes.draw do
     resources :sequencings
     resources :pcr_colonies 
     resources :plasmid_batches do
-      get :new_from_inventory, :on => :member
-      post :create_from_inventory, :on => :member
+      get :new_from_inventory, :on => :new
+      post :create_from_inventory, :on => :collection
       get :destroy_from_inventory, :on => :member
       get :edit_from_inventory, :on => :member
       patch :update_from_inventory, :on => :member

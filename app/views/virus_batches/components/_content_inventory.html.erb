@@ -1,10 +1,10 @@
-	<% pbl = @plasmid_batches.length %>
+	<% vbl = @virus_batches.length %>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row" >
 						<div class="col-lg-6">
-							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
-									<% @plasmid_batches.order(:id).each_with_index do |b, index|%>
+							<strong><%= vbl > 1 ?  "Virus batches:" : "Virus batch:" %></strong><br />
+									<% @virus_batches.order(:id).each_with_index do |b, index|%>
 										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
 											title='
 												<div class="row"> 
@@ -23,18 +23,9 @@
 											data-content='
 												<div class="col-lg-12 text-left">
 													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
-													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
-													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />
-													<%end%>
-													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
-													<% if b.plasmid_batch_attachments.length>0 %>
-														<strong>Attached file(s): </strong><br />
-															<% b.plasmid_batch_attachments.each do |a|%>
-																<%= link_to File.basename(a.attachment.to_s ) %><br />
-															<%end%>
 													<%end%>
 												</div>
 											'
@@ -47,7 +38,7 @@
 						</div><!--End of col-lg-3-->
 						<div class="row">
 							<div class="col-lg-11 right">
-									<%= link_to "Add plasmid batch", new_from_inventory_new_clone_batch_plasmid_batch_path( :clone_batch_id => @clone_batch.id ), :class =>"btn btn-default btn-sm", :remote => true %>
+									<%= link_to "Add virus batch", new_from_inventory_new_virus_production_virus_batch_path( :virus_production_id => @virus_production.id ), :class =>"btn btn-default btn-sm", :remote => true %>
 							</div><!--End of Btn_col-->
 						</div><!--End of row-->
 					

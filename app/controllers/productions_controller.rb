@@ -80,7 +80,7 @@ class ProductionsController < InheritedResources::Base
   def add_plasmid
       @clone_batches = @production.plasmid_batches.order(:id).map {|object| object.clone_batch}
       #
-      @plasmids = PlasmidBatch.where.not(:trash => false).where(:volume => 0)
+      @plasmids = PlasmidBatch.all
       #
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)
@@ -105,10 +105,9 @@ class ProductionsController < InheritedResources::Base
         
     #Recherche de l'existence d'une combinaison de plasmides identique dans la DB (le plasmid helper est exclu de la recherche ; library est alternatif à capsid)
      
-    #trigger = PlasmidBatch.ransack(params[:id] => @production.plasmid_batches.ids)
-    #trigger = Production.includes(:plasmid_batch).ransack(:plasmid_batches_eq => @production.plasmid_batches).nil?
-    trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.plasmid_batches.map {|object| object.clone_batch}).nil?
+        trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.plasmid_batches.map {|object| object.clone_batch}).nil?
       
+            unless @production.plasmid_batches.empty?
               if trigger == false
                 flash.discard(:success)
                 flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
@@ -116,9 +115,9 @@ class ProductionsController < InheritedResources::Base
                flash.discard(:success) 
                flash.now[:success] = "Task completed."                
              end
-    end
+            end
     
-    
+   end
    
    def pool
      #

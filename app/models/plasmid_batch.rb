@@ -35,6 +35,7 @@ class PlasmidBatch < ActiveRecord::Base
   validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
+  validate :box_validator
     
  #pg_search
  include PgSearch
@@ -48,6 +49,10 @@ end
 def set_tube_status
   str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png"
   return str
+end
+
+def box_validator
+  
 end
 
 end

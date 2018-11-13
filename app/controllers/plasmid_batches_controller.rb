@@ -22,7 +22,7 @@ def new
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
     
-    @name = @clone_batch.number.to_s+"."+nb.to_s
+    @name = @clone_batch.id.to_s+"."+nb.to_s
 end
 
 
@@ -30,9 +30,10 @@ def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     nb = @clone_batch.plasmid_batches.size+1
-    
-    @name = @clone_batch.number.to_s+"."+nb.to_s
-    
+    @boxes = Box.all
+    @columns = Column.all
+    @rows = Row.all
+    @name = @clone_batch.id.to_s+"."+nb.to_s
 end
 
   
@@ -74,6 +75,9 @@ def edit_from_inventory
   @plasmid_batch.plasmid_batch_attachments.build
   @units = Unit.all
   @users = User.all
+  @boxes = Box.all
+  @columnss = Column.all
+  @rows = Row.all
 end
   
 def update

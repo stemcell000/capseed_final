@@ -23,7 +23,7 @@
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
         <td id="plasmid">
-          <%= cb_display(p.clone_batches) %>
+          <%= cb_display(cb_display(p.plasmid_batches.map {|pb| pb.clone_batch}) ) %>
         </td>
         <td>
         	<%=p.id%>

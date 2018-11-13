@@ -1,4 +1,5 @@
 class CloneBatchesController < InheritedResources::Base
+  
   #Smart_listing
     include SmartListing::Helper::ControllerExtensions
     helper  SmartListing::Helper
@@ -157,7 +158,7 @@ class CloneBatchesController < InheritedResources::Base
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
           
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :format)
+      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
       
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  

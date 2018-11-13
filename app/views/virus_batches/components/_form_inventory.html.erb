@@ -1,25 +1,15 @@
-<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), url: create_from_inventory_clone_batch_plasmid_batches_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+<%= simple_nested_form_for ([@virus_production, @virus_batch]), url: create_from_inventory_virus_production_virus_batches_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
-	<div class="container">
   <small>
+  	<div class="container">
   	<div class="row">
 		<div class="col-lg-3 col-md-5 col-sm-3 ">
 			<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
 		</div>
 		<div class="col-lg-3 col-md-5 col-sm-3">
 			<%=f.input :date, :label => "Date of production", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-2 col-sm-2 col-md-2">
-			<%=f.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
-		</div>
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%= f.input :concentration, :label => "Concentration: " %>
-  		</div>
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
 		</div>
 	</div>
 	<div class="row">
@@ -35,35 +25,6 @@
 		<%= f.input :comment, :label => "Comment:" %>
 	</div>
 </div>
-		<%= f.simple_fields_for :plasmid_batch_attachments do |a| %>
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">	
-									<%= File.basename(a.object.attachment.to_s)%>
-									<% if a.object.id.nil? %>
-									
-								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-							       	
-							       	<%end%>
-							 </div>
-							 </div>
-							 <div class="row">
-							       	<div class="col-lg-2">
-							       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
-							       	</div>
-					       	</div>
-		<% end %>
-		<div class="row">
-			<div class="col-lg-2 col-md-12 col-sm-2">
-				<%= f.link_to_add "Add a file", :plasmid_batch_attachments ,:class => 'btn btn-sm btn-success' %>
-			</div>
-		</div>
-		<div class ="row">
-							<div class="col-lg-5 col-md-5 col-sm-5">
-								   <%= f.association :user, :label => "Contact name",
-										:collection => @users, :label_method => :full_name, :value_method => :id,
-										:input_html => { class:"select2-select" } %>
-							</div>
-		</div>
 		
 		<div class="row">
 							<div class="col-lg-2 col-md-2 col-sm-3">
@@ -83,9 +44,10 @@
 								:collection => @columns, 
 								:input_html => { class: "select2-select" } %>
 							</div>
+		
+		</div>
 		</div>
 </small>
-
 <div class="panel-footer">
  		<div class="btn-group" role="group" aria-label="...">
     		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>

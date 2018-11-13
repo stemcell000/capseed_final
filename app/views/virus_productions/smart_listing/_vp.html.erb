@@ -47,7 +47,11 @@
 	</a>
 	  <%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_from_inventory_virus_production_path(object),
-	  		title: "Edit"}
+	  		title: "Edit"},
+	  	{name: :custom,    url: add_vb_from_inventory_virus_production_path(object),
+	  		method: :get, 
+  			icon: "glyphicon glyphicon-th",
+  			title: "Add batches"}
 	  		]%>
   			
   		<%if object.production_id?%>

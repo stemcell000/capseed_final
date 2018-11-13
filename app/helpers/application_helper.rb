@@ -112,14 +112,14 @@ end
  def cb_display(collection)
   r = ""
   
- # myCbColl = collection.map {|c| c.clone_batch}
-  
   if !collection.empty?
-    r = collection.sort_by(&:type_id).map {|c| c.name+" | "+c.number+" "+cb_flag(c.type_id)}.to_sentence
+    r = collection.map {|c| c.name+" | " +c.id.to_s+" "+cb_flag(c.type_id)}.to_sentence
   else
-    r="No data yet"
+    r = "No data yet"
   end
+
   return r
+
 end
 
 def clone_display(collection)
@@ -147,13 +147,13 @@ def cb_flag(i)
  
  case i
  when i=1
-  flag = "(H)"
+  flag = "(Hel.)"
  when i=2
-  flag = "(T)"
+  flag = "(Trsg.)"
  when i=3
-  flag = "(C)"
+  flag = "(Cap..)"
  when i=4
-  flag = "(L)"
+  flag = "(Lib)"
  else
   flag=""   
  end

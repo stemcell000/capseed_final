@@ -23,6 +23,7 @@ class Production < ActiveRecord::Base
   
   #validations
   #validates :projects, :presence => true
+  validates :clone_batches, :presence => true
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"
   #validates_associated :clone_batches, :if => :enable_strict_validation?

@@ -139,6 +139,14 @@ ActiveRecord::Schema.define(version: 20181119143704) do
   add_index "clone_batches_pcr_colonies", ["clone_batch_id"], name: "index_clone_batches_pcr_colonies_on_clone_batch_id", using: :btree
   add_index "clone_batches_pcr_colonies", ["pcr_colony_id"], name: "index_clone_batches_pcr_colonies_on_pcr_colony_id", using: :btree
 
+  create_table "clone_batches_productions", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "production_id"
+  end
+
+  add_index "clone_batches_productions", ["clone_batch_id"], name: "index_clone_batches_productions_on_clone_batch_id", using: :btree
+  add_index "clone_batches_productions", ["production_id"], name: "index_clone_batches_productions_on_production_id", using: :btree
+
   create_table "clone_batches_sequencings", force: :cascade do |t|
     t.integer "clone_batch_id"
     t.integer "sequencing_id"
@@ -334,7 +342,6 @@ ActiveRecord::Schema.define(version: 20181119143704) do
     t.integer  "box_id"
     t.date     "date"
     t.boolean  "trash",             default: true
-    t.decimal  "wdvol"
   end
 
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree

@@ -113,7 +113,7 @@ end
   r = ""
   
   if !collection.empty?
-    r = collection.map {|c| c.name+" | " +c.id.to_s+" "+cb_flag(c.type_id)}.to_sentence
+    r = collection.map {|c| c.type.name+": "+c.id.to_s+"|"+ c.name}.to_sentence
   else
     r = "No data yet"
   end
@@ -147,13 +147,13 @@ def cb_flag(i)
  
  case i
  when i=1
-  flag = "(Hel.)"
+  flag = "(Help.)"
  when i=2
-  flag = "(Trsg.)"
+  flag = "(Trans.)"
  when i=3
-  flag = "(Cap..)"
+  flag = "(Caps.)"
  when i=4
-  flag = "(Lib)"
+  flag = "(Libr.)"
  else
   flag=""   
  end

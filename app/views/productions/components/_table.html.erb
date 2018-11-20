@@ -5,21 +5,51 @@
 				<th>Plasmid</th>
 				<th>Type</th>
 				<th>Current volume</th>
-				<th>Action</th>
+				<th>Production volume</th>
 			</thead>
 				<% @production.plasmid_batches.each do |plasmid_batch| %>
+				<%= simple_nested_form_for @production, url: production_update_pb_volumes_path(:production_id=> @production.id), :remote => true do |f|%>
 					<tr>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.name %></td>
-						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= plasmid_batch.clone_batch.name%></small></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.volume %> <%= plasmid_batch.vol_unit.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-2">
-								<%= link_to ' Prod. volume', edit_pb_volume_production_plasmid_batch_path(:id => plasmid_batch.id, :production_id => @production.id), :remote => true, :class => "btn btn-danger btn-sm" %>
+					<%= f.input :id, :as => :hidden %>
+						<%=f.simple_fields_for :plasmid_batches do |ff| %>
+						<td class="col-lg-1 col-md-1 col-sm-1"><%= ff.object.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= ff.object.clone_batch.name%></small></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.volume %> <%= plasmid_batch.vol_unit.name %></td>
+						<td class="col-lg-4 col-md-3 col-sm-4">
+							<div class="row">
+								
+										<%= ff.input :id, :as => :hidden %>
+										<%=ff.simple_fields_for :assets do |fff| %>
+										<div class="col-lg-8 col-md-8 col-sm-7 align-bottom">
+											<%=fff.input :volume, :label => false %>		
+										</div>					
+										<%end%>
+									<div class="col-lg-3 col-md-3 col-sm-4 align-bottom">
+									<%= ff.object.vol_unit.name %>
+									<%end%>
+									
+								
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="btn-group" role="group" aria-label="...">
+								<%= f.submit("Save", class: "btn btn-default", title: "Save the changes.") %>
+							</div>
+							<%end%>
 						</td>
 					</tr>
 				<% end %>
 </table>
 <%else%>
-			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid.</div></div>
+			<ul class="list-group">
+				<% @production.clone_batches.each do |cb| %>
+					<li class="list-group-item"><%= cb.type.name+": "+cb.number+" "+cb.name %></li>
+				<%end%>
+			</ul>
+			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid batch</div></div>
 <% end %>
 

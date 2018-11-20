@@ -39,18 +39,27 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @projects_all = Project.all
-    @production = Production.new(production_create_params)
-    #@production = Production.create(production_create_params)
-    if Production.exists?
-      new_id = Production.last.id + 1
-    end
-    @production.id = new_id
+    #@production = Production.new(production_create_params)
+    @production = Production.create(production_create_params)
     if @production.save
-      flash.keep[:success] = "Production was successfully created!"
       redirect_to @production
       @production.update_columns(:step => 0)
       update_last_step(@production, 0)
       @production.update_columns(:percentage => 30)
+        #Recherche de l'existence d'une combinaison de plasmides identique dans la DB (le plasmid helper est exclu de la recherche ; library est alternatif à capsid)
+     
+        trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.clone_batches.nil?)
+      
+            unless @production.clone_batches.empty?
+              if trigger == false
+                flash.discard(:success)
+                flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
+              else
+               flash.discard(:success) 
+               flash.now[:success] = "Production created"                
+             end
+            end
+      
     else
       render :action => 'new'
     end
@@ -302,9 +311,11 @@ class ProductionsController < InheritedResources::Base
       project_ids: [],
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],
+      :clone_batches_attributes => [:id, :name, :_destroy ],
       :assay_attributes => [:id, :name],
       :plasmid_batches_attributes => [:id, :name, :_destroy],
-      plasmid_batch_ids: []
+      plasmid_batch_ids: [],
+      clone_batch_ids: []
     )
   end
   

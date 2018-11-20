@@ -19,8 +19,12 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-    @nb = n = CloneBatch.where.not(:name =>"").last[:number].to_i+1
-    @nb = @nb.to_s
+    if CloneBatch.where.not(:name =>"").last
+      n = CloneBatch.where.not(:name =>"").last[:number].to_i
+      @nb = (n+1).to_s
+    else
+      @nb = 1
+    end
   end
   
   def new
@@ -221,7 +225,12 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
-    @number = @clone_batch.id
+    if CloneBatch.last
+     n = CloneBatch.where.not(:name =>"").last[:number].to_i
+     @nb = (n+1).to_s
+    else
+      @nb = "1"
+    end
    end
    
    def create_from_inventory

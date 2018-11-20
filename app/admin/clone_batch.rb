@@ -67,7 +67,7 @@ end
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand_id, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
 :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin, :origin_id, :type_id, :type, :strand, :target, :target_id, :comment_as_plasmid, :promoters,
-:genes, :created_at, :updated_at, :clone_id
+:genes, :created_at, :updated_at, :clone_id, :number
 
 #Add Button to site
 action_item do

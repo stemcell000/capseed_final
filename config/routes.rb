@@ -34,8 +34,6 @@ Rails.application.routes.draw do
   resources :qc_attachments
   resources :clone_attachments
   resources :clone_batches
-  resources :plasmid_batches
-#  devise_for :admin_users, ActiveAdmin::Devise.config
 
   resources :search_suggestions
 
@@ -137,6 +135,7 @@ Rails.application.routes.draw do
   resources :productions do
     post :update_row_order, :on => :collection
     get :add_plasmid, :on => :member
+    patch :update_pb_volumes
     get :virus_production, :on => :member
     get :display_all, :on => :collection
     get :scheduler, :on => :collection
@@ -149,6 +148,10 @@ Rails.application.routes.draw do
     patch :pool
     get :close, :on => :member
     get :inform_closed_production, :on => :member
+      resources :plasmid_batches do
+            get :edit_pb_volume, :on => :member
+            patch :update_from_inventory, :on => :member 
+      end
     
     resources :projects
     
@@ -159,6 +162,10 @@ Rails.application.routes.draw do
     
     resources :clone_batches do
       get :edit_from_prod, :on => :member
+    end
+    
+    resources :plasmid_batches do
+      patch :update_pb_volume, :on => :member
     end
    end
    
@@ -233,6 +240,8 @@ Rails.application.routes.draw do
   resources :plasmid_batches do
     get :edit_and_sort
     get :edit_from_inventory, :on => :member
+    get :edit_pb_volume, :on => :member
+    patch :update_pb_volume, :on => :member
     patch :update_from_inventory, :on => :member 
     get :inventory, :on => :collection
     get :autocomplete_plasmid_batch_number, :on => :collection
@@ -243,6 +252,7 @@ Rails.application.routes.draw do
     patch :update_and_sort, :on => :member
     delete :remove_box_row_column, :on => :member
       resources :plasmid_batch_qcs
+      resources :assets
   end
   resources :enzymes
   resources :genes

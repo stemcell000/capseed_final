@@ -1,17 +1,21 @@
-<% if !@production.plasmid_batches.empty? %>
+<% unless @production.plasmid_batches.empty? %>
 <table class="table table-bordered " id="plasmid-table">
 			<thead>
 				<th>Name</th>
 				<th>Plasmid</th>
 				<th>Type</th>
-				<th>Clone</th>
+				<th>Current volume</th>
+				<th>Action</th>
 			</thead>
 				<% @production.plasmid_batches.each do |plasmid_batch| %>
 					<tr>
 						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.name %></td>
-						<td class="col-lg-6 col-md-6 col-sm-6"><%= plasmid_batch.clone_batch.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= plasmid_batch.clone_batch.name%></small></td>
 						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.volume %> <%= plasmid_batch.vol_unit.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2">
+								<%= link_to ' Prod. volume', edit_pb_volume_production_plasmid_batch_path(:id => plasmid_batch.id, :production_id => @production.id), :remote => true, :class => "btn btn-danger btn-sm" %>
+						</td>
 					</tr>
 				<% end %>
 </table>

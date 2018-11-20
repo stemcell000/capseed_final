@@ -12,8 +12,9 @@ class Production < ActiveRecord::Base
   #Nested models relationships
   has_and_belongs_to_many :plasmid_batches, :join_table => "plasmid_batches_productions"
   has_and_belongs_to_many :projects
-  has_many :clone_batches, :through => :plasmid_batches
+  has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
   has_many :virus_productions
+  has_many :assets, :through => :plasmid_batches
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :plasmid_batches

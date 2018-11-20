@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181112094327) do
+ActiveRecord::Schema.define(version: 20181119143704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,14 @@ ActiveRecord::Schema.define(version: 20181112094327) do
 
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
+
+  create_table "assets", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "vol_unit_id"
+    t.integer  "plasmid_batch_id"
+    t.decimal  "volume"
+  end
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name"
@@ -326,6 +334,7 @@ ActiveRecord::Schema.define(version: 20181112094327) do
     t.integer  "box_id"
     t.date     "date"
     t.boolean  "trash",             default: true
+    t.decimal  "wdvol"
   end
 
   add_index "plasmid_batches", ["clone_batch_id"], name: "index_plasmid_batches_on_clone_batch_id", using: :btree

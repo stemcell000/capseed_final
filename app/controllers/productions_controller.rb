@@ -3,7 +3,7 @@ class ProductionsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update, :add_cbs]
-  before_action :set_production, only:[:edit, :update, :add_plasmid, :virus_production, :select_cbs, :add_cbs]
+  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_cbs, :add_cbs]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -73,6 +73,16 @@ class ProductionsController < InheritedResources::Base
     end
   end
   
+   def update_pb_volumes
+   @production.update_attributes(production_params)
+    if @production.valid?
+      flash.keep[:success] = "Task completed!"
+      redirect_to :action => :add_plasmid
+    else
+      render :action => :add_plasmid
+    end
+  end
+  
   def show
     redirect_to :action => :add_plasmid
   end
@@ -81,6 +91,9 @@ class ProductionsController < InheritedResources::Base
       @clone_batches = @production.plasmid_batches.order(:id).map {|object| object.clone_batch}
       #
       @plasmids = PlasmidBatch.all
+      @production.plasmid_batches.each do |pb|
+        pb.assets.build
+      end
       #
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)
@@ -116,7 +129,6 @@ class ProductionsController < InheritedResources::Base
                flash.now[:success] = "Task completed."                
              end
             end
-    
    end
    
    def pool
@@ -273,7 +285,8 @@ class ProductionsController < InheritedResources::Base
     project_ids: [],
     :projects_attributes => [:id, :name],
     :clone_batches_attributes => [:id, :name, :_destroy],
-    :plasmid_batches_attributes => [:id, :name, :_destroy],
+    :plasmid_batches_attributes => [:id, :name, :_destroy, :volume, 
+      :assets_attributes => [:volume, :_destroy]],
     clone_batch_ids: [],
     plasmid_batch_ids: [],
     :assay_attributes => [:id, :name],

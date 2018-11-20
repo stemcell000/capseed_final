@@ -2,23 +2,21 @@
 	<div class="panel panel-info">
 		<div class="panel-heading"> Production: <%= @production.name %></div>
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
-		
 		<div class="panel-body">
 				<div id="cb-container">
-							<%= render :partial => "productions/components/table" , :locals => { :collection => @production.plasmid_batches}%>
+							<%= render :partial => "productions/components/table_NEW", :locals => { :production => @production }%>
 				</div>
 				<div class="row">
 					<div class="col-lg-12" id="pool-container">
-							<%= render :partial => "productions/components/pool" , :locals => { :production => @production }%>						
+							<%= render :partial => "productions/components/pool", :locals => { :production => @production }%>						
 					</div>
 				</div>
 		</div>
-		
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
-		    	<%= link_to 'Add/Modify Plasmids', select_cbs_production_path(@production), :remote => true, :class => 'btn btn-default btn-sm' %>
+		    	<%= link_to 'Add/Modify Plasmids', select_cbs_production_path(@production), :remote => true, :class => "btn btn-default btn-sm" %>
 		    	<%= link_to 'Previous', edit_production_path(@production.id), :class => "btn btn-default btn-sm" %>
-				<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>
+			<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>
 		  	</div>
 	  	</div>
 	</div>

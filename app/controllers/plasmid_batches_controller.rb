@@ -42,7 +42,8 @@ def create
 
     if  @plasmid_batch.valid?
         @plasmid_batch.update_columns(:strict_validation => 0)
-        @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
+        last_number = PlasmidBatch.last.number.to_i
+        @plasmid_batch.update_columns(:number => (last_number+1).to_s)
         @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
     else
@@ -56,7 +57,8 @@ def create_from_inventory
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     if  @plasmid_batch.valid?
         @plasmid_batch.update_columns(:strict_validation => 0)
-        @plasmid_batch.update_columns(:number => @plasmid_batch.id.to_s)
+        last_number = PlasmidBatch.last.number.to_i
+        @plasmid_batch.update_columns(:number => (last-number+1).to_s)
         @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
         @plasmid_batches = @clone_batch.plasmid_batches
@@ -240,6 +242,21 @@ end
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
   end
   
+   def edit_pb_volume
+    @plasmid_batch = PlasmidBatch.find(params[:id])
+    @plasmid_batch.assets.build
+  end
+  
+  def update_pb_volume
+    @plasmid_batch = PlasmidBatch.find(params[:id])
+    @plasmid_batch.update_attributes(set_params)
+    if @plasmid_batch.valid?
+      flash.keep[:success] = "Task completed!"
+    else
+      render :action => 'edit_pb_volume'
+    end
+  end
+  
   private
     def set_params
       params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id,
@@ -264,6 +281,8 @@ end
       :column_attributes => [:id, :name],
       
       :format_attributes => [:id, :name],
+      
+      :asset_attributes => [:id, :volume],
       
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name])
     end

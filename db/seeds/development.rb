@@ -3,8 +3,8 @@
   Unit.create( name:"ng/uL")
   Unit.create( name:"ug/uL")
    #Add Volume units
+  VolUnit.create( name:"µL")
   VolUnit.create( name:"mL")
-  VolUnit.create( name:"uL")
   
   #Add Types
   Type.create( name:"Helper")

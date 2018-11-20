@@ -16,8 +16,8 @@
 						<% if pb.box_id? %>
 							<td>
 								<strong>Box# : </strong><%=pb.box.name%>
-								<%if !pb.row_id.nil? || !pb.column_id.nil?%>
-									<strong>Location : </strong><%=pb.row.name%><%=pb.column.name%>
+								<% unless pb.row.nil? || pb.column.nil?%>
+									<strong>Location : </strong><%=pb.row.name%> <%=pb.column.name%>
 								<%else%>
 									<strong>Location : </strong>unknown
 								<%end%>

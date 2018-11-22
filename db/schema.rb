@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181119143704) do
+ActiveRecord::Schema.define(version: 20181121085252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20181119143704) do
     t.integer  "vol_unit_id"
     t.integer  "plasmid_batch_id"
     t.decimal  "volume"
+    t.integer  "production_id"
   end
 
   create_table "boxes", force: :cascade do |t|
@@ -350,6 +351,7 @@ ActiveRecord::Schema.define(version: 20181119143704) do
   create_table "plasmid_batches_productions", force: :cascade do |t|
     t.integer "plasmid_batch_id"
     t.integer "production_id"
+    t.decimal "volume"
   end
 
   add_index "plasmid_batches_productions", ["plasmid_batch_id"], name: "index_plasmid_batches_productions_on_plasmid_batch_id", using: :btree
@@ -371,6 +373,7 @@ ActiveRecord::Schema.define(version: 20181119143704) do
     t.integer  "strict_validation"
     t.boolean  "pool"
     t.date     "today_date"
+    t.decimal  "production_volume"
   end
 
   create_table "productions_projects", force: :cascade do |t|

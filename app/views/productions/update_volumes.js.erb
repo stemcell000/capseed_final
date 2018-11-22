@@ -1,0 +1,13 @@
+  	console.log("Volume changed.")
+	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	
+	
+	$("#cb-container").html("<%= escape_javascript( render :partial => "productions/components/table_titer", :locals => {:production => @productions}) %>");
+	console.log("Refreshing plasmid.");
+	
+	$("#pool-container").html("<%= escape_javascript( render :partial => "productions/components/pool", :locals => {:production => @productions}) %>");
+	console.log("Refreshing pool.");
+	
+	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+	
+

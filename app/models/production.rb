@@ -14,16 +14,19 @@ class Production < ActiveRecord::Base
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
   has_many :virus_productions
-  has_many :assets, :through => :plasmid_batches
+  has_many :assets
+  has_many :plasmid_batch_productions
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :plasmid_batches
+  accepts_nested_attributes_for :plasmid_batch_productions
   #Ligne ci-dessous indispensable pour nested_form à la page "virus_production"
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true, reject_if: :all_blank
   
   #validations
   #validates :projects, :presence => true
   validates :clone_batches, :presence => true
+    
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"
   #validates_associated :clone_batches, :if => :enable_strict_validation?

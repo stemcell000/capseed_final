@@ -7,6 +7,7 @@ class PlasmidBatch < ActiveRecord::Base
   
   has_many :plasmid_batch_attachments, :dependent => :destroy
   has_many :assets, :dependent => :destroy
+  has_many :plasmid_batch_productions
   has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
   has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
   belongs_to :unit
@@ -31,14 +32,13 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
-  accepts_nested_attributes_for :assets, :allow_destroy => true
+  accepts_nested_attributes_for :assets, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :plasmid_batch_productions
   
   #validations
-  validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true
+  validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :assets, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
-  #validates_associated :assets
-    
  #pg_search
  include PgSearch
  multisearchable :against => [:name, :comment, :id], :if => lambda { |record| record.id > 0 }

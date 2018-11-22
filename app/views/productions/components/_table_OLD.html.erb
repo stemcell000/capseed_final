@@ -12,24 +12,24 @@
 					
 					<%= f.input :id, :as => :hidden %>
 					
-					<%= f.simple_fields_for :plasmid_batch_productions do |ff| %>
-						<%= ff.input :id, :as => :hidden %>
-						<%= ff.input :production_id, :as => :hidden %>
-						<%= ff.input :plasmid_batch_id, :as => :hidden %>	
+					<%= f.simple_fields_for :plasmid_batches do |ff| %>
+					
 					<tr>
-						<td class="col-lg-1 col-md-1 col-sm-1"><%= ff.object.plasmid_batch.name %></td>
-						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= ff.object.plasmid_batch.clone_batch.name%></small></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.plasmid_batch.volume %></td>
-					<td class="col-lg-4 col-md-3 col-sm-4">
+						<td class="col-lg-1 col-md-1 col-sm-1"><%= ff.object.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= ff.object.clone_batch.name%></small></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.clone_batch.type.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.volume %></td>
+						<td class="col-lg-4 col-md-3 col-sm-4">
 							<div class="row">
-											<div class="col-lg-8 col-md-8 col-sm-7 align-bottom">
-													<%= ff.input :volume, :label => false %>
-											</div>
-											<div class="col-lg-2 col-md-2 col-sm-2 align-bottom">
-													<%= ff.object.plasmid_batch.vol_unit.name %>
-											</div>
-							<%end%>				
+											<%= ff.input :id, :as => :hidden %>
+					<%end%>		
+									<%= f.simple_fields_for :plasmid_batch_productions do |fff| %>
+													<div class="col-lg-8 col-md-8 col-sm-7 align-bottom">
+															<%= fff.input :volume, :label => false %>
+															<%= fff.input :production_id %>
+															<%= fff.input :plasmid_batch_id %>
+													</div>
+									<%end%>				
 							</div>
 						</td>
 					</tr>

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :formats
   get 'users/inform_cloning'
   get 'users/inform_production'
+  resources :plasmid_batches_productions
 
   resources :vol_units
   resources :rows
@@ -135,7 +136,7 @@ Rails.application.routes.draw do
   resources :productions do
     post :update_row_order, :on => :collection
     get :add_plasmid, :on => :member
-    patch :update_pb_volumes
+    patch :update_volumes, :on =>:member
     get :virus_production, :on => :member
     get :display_all, :on => :collection
     get :scheduler, :on => :collection
@@ -162,10 +163,6 @@ Rails.application.routes.draw do
     
     resources :clone_batches do
       get :edit_from_prod, :on => :member
-    end
-    
-    resources :plasmid_batches do
-      patch :update_pb_volume, :on => :member
     end
    end
    
@@ -231,7 +228,6 @@ Rails.application.routes.draw do
     post :create_from_inventory, :on => :collection
     delete :destroy_from_inventory, :on => :member
     patch :update_from_inventory, :on => :member
-    patch :update_pb_from_inventory, :on => :member 
     patch :update_as_plasmid, :on => :member
     get :remove_plasmid_data, :on => :member
     get :add_pb_from_inventory, :on => :member
@@ -241,7 +237,6 @@ Rails.application.routes.draw do
     get :edit_and_sort
     get :edit_from_inventory, :on => :member
     get :edit_pb_volume, :on => :member
-    patch :update_pb_volume, :on => :member
     patch :update_from_inventory, :on => :member 
     get :inventory, :on => :collection
     get :autocomplete_plasmid_batch_number, :on => :collection

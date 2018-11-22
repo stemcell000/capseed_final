@@ -3,6 +3,7 @@
 
 	
 	$("#vp-container").html("<%= escape_javascript( render :partial => "productions/components/table_vp", :locals => {:collection => @vps}) %>");
-	console.debug("Refreshing Virus table.");
+	$("#add-button-container").html("<%= escape_javascript( render :partial => "productions/components/add_vp_button", :locals => {:vps => @vps}) %>");
+	
 	
 

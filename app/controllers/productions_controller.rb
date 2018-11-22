@@ -60,23 +60,30 @@ class ProductionsController < InheritedResources::Base
    @projects_all = Project.all
    @production.update_attributes(production_params)
     if @production.valid?
-      flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
-       trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.clone_batches.nil?)
+    #redirect_to: permet l'affichage des message flash contrairement à render:
+                 redirect_to :action => 'add_plasmid'
+                 @production.update_columns(:step => 0)
+                 @production.update_columns(:percentage => 25)
+
+        trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.clone_batches).nil?
       
+            unless @production.clone_batches.empty?
               if trigger == false
-                flash.now[:warning] = "You did this before! This combination of plasmids already exist. Are you sure you want to do it again?"
+                flash.discard(:success)
+                
+               flash.keep[:warning] = "You did this before! This combination of plasmids #{@production.clone_batches.pluck(:name).to_sentence} already exists. Are you sure you want to do it again?"
+              
               else
-               flash.now[:success] = "Task completed."                
-              end
-      
-      
-      redirect_to :action => :add_plasmid
-            @production.update_columns(:step => 0)
-            @production.update_columns(:percentage => 25)
+               flash.discard(:success) 
+               flash[:success] = "Task completed."                
+             end
+            end
+
     else
       render :action => 'edit'
-    end
+     end
   end
+  
   
   def show
     redirect_to :action => :add_plasmid
@@ -133,10 +140,8 @@ class ProductionsController < InheritedResources::Base
       
             unless @production.plasmid_batches.empty?
               if trigger == false
-                flash.discard(:success)
-                flash.now[:warning] = "You did this before! This combination of plasmid batches already exist. Are you sure you want to do it again?"
+                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
               else
-               flash.discard(:success) 
                flash.now[:success] = "Task completed."                
              end
             end
@@ -170,7 +175,7 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 2)
       update_last_step(@production, 2)
       @production.update_columns(:percentage => 75)
-      @production.update_columns( :locked => true )
+      #@production.update_columns( :locked => true )
     end
     
   end

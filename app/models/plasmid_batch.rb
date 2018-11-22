@@ -6,7 +6,6 @@ class PlasmidBatch < ActiveRecord::Base
   default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fiels_for)
   
   has_many :plasmid_batch_attachments, :dependent => :destroy
-  has_many :assets, :dependent => :destroy
   has_many :plasmid_batch_productions
   has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
   has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
@@ -32,7 +31,6 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
-  accepts_nested_attributes_for :assets, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :plasmid_batch_productions
   
   #validations

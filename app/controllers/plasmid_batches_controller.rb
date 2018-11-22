@@ -244,7 +244,6 @@ end
   
    def edit_pb_volume
     @plasmid_batch = PlasmidBatch.find(params[:id])
-    @plasmid_batch.assets.build
   end
   
   def update_pb_volume

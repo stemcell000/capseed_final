@@ -1,3 +1,4 @@
 	$("#vp-container").html("<%= escape_javascript( render :partial => "productions/components/table_vp", :locals => {:collection => @vps}) %>");
+	$("#add-button-container").html("<%= escape_javascript( render :partial => "productions/components/add_vp_button", :locals => {:vps => @vps}) %>");
 	console.log("Refreshing virus productions.");
 	

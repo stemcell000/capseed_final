@@ -1,0 +1,17 @@
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), url: send_to_production_clone_batch_plasmid_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	<div class="container">
+  	<div class="row">		
+  		<div class="col-lg-4">
+  			<%=f.input :id, :as => :hidden %>
+  			<%= f.association :productions, :collection => Production.all.where("last_step < ?", 2),  :label => "Select a production: ", :label_method => lambda { |production| "#{production.id}".html_safe} , input_html: { class: 'select2-select' }%>
+		</div>
+	</div>
+<div class="panel-footer">
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Send", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+</div>
+<% end %>

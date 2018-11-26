@@ -3,13 +3,13 @@ class PlasmidBatchesController < ApplicationController
 autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_value => :autocomplete_display
 
   before_action :set_params, only:[:create, :add_to_prod, :create_from_inventory]
-  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
+  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :send_to_production,:destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
   before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create, :destroy_from_list]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
   before_action :load_users, only: [:new, :new_from_inventory, :edit, :create, :update] 
-  before_filter :load_batches, only:[:update_from_inventory]
+  before_filter :load_batches, only:[:update_from_inventory, :send_to_production]
   
 #Smart_listing
     include SmartListing::Helper::ControllerExtensions
@@ -254,6 +254,16 @@ end
     else
       render :action => 'edit_pb_volume'
     end
+  end
+  
+  def pipe
+    @plasmid_batch = PlasmidBatch.find(params[:id])
+  end
+  
+  def send_to_production
+      @plasmid_batch = PlasmidBatch.find(params[:id])
+      @plasmid_batch.update_attributes(set_params)
+      
   end
   
   private

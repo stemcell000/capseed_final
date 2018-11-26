@@ -2,8 +2,8 @@ class ProductionsController < InheritedResources::Base
   
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
-  before_action :production_params, only:[:create, :update_row_order, :update, :add_cbs, :update_pb_volumes]
-  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_cbs, :add_cbs]
+  before_action :production_params, only:[:create, :update_row_order, :update, :add_pbs, :update_pb_volumes]
+  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -46,7 +46,7 @@ class ProductionsController < InheritedResources::Base
             redirect_to @production
             @production.update_columns(:step => 0)
             update_last_step(@production, 0)
-            @production.update_columns(:percentage => 30) 
+            @production.update_columns(:percentage => 10) 
      else
         redirect_to :action => :new
      end
@@ -54,6 +54,15 @@ class ProductionsController < InheritedResources::Base
  
  def edit
    @production.update_columns(:step => 0)
+   #Reset associations plasmid_batches
+   @production.plasmid_batches.each do |pb|
+   pb.plasmid_batch_productions.delete_all
+   end
+   @production.plasmid_batches.delete_all
+   @production.plasmid_batch_productions.destroy_all
+   #Changement du tag
+    #cbtag_value = @production.clone_batches.pluck(:id).sort.join('-')
+    @production.update_columns(:cbtag => '')
  end
  
  def update
@@ -63,16 +72,27 @@ class ProductionsController < InheritedResources::Base
     #redirect_to: permet l'affichage des message flash contrairement à render:
                  redirect_to :action => 'add_plasmid'
                  @production.update_columns(:step => 0)
-                 @production.update_columns(:percentage => 25)
-
-        trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.clone_batches).nil?
+                 @production.update_columns(:percentage => 30)
+                 
+            #Reset associations & plasmid_batches
+                 @production.plasmid_batches.each do |pb|
+                   pb.plasmid_batch_productions.delete_all
+                 end
+                 @production.plasmid_batches.delete_all
+                 @production.plasmid_batch_productions.destroy_all
+            
+            #Changement du tag
+            cbtag_value = @production.clone_batches.pluck(:id).sort.join('-')
+            @production.update_columns(:cbtag => cbtag_value)
+            
+            #Recherche de doublons (Combinaison de plasmids)
+            @trigger = Production.where(:cbtag => @production.cbtag).count
+            @prod_array = Production.where(:cbtag => @production.cbtag).pluck(:id).sort.to_sentence
       
             unless @production.clone_batches.empty?
-              if trigger == false
+              unless @trigger <= 1
                 flash.discard(:success)
-                
-               flash.keep[:warning] = "You did this before! This combination of plasmids #{@production.clone_batches.pluck(:name).to_sentence} already exists. Are you sure you want to do it again?"
-              
+                flash.keep[:warning] = "You did this before! This combination of plasmids [#{@production.clone_batches.pluck(:name).sort.to_sentence}] already exists (productions #: #@prod_array). Are you sure you want to do it again?"
               else
                flash.discard(:success) 
                flash[:success] = "Task completed."                
@@ -95,6 +115,8 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 1)
       update_last_step(@production, 1)
       @production.update_columns(:percentage => 50)
+      pbtag_value = @production.plasmid_batches.pluck(:id).sort.join('-')
+      @production.update_columns(:pbtag => pbtag_value)
       #
       unless @production.plasmid_batches.empty?
         @production.plasmid_batches.each do|plasmid_batch|
@@ -118,13 +140,13 @@ class ProductionsController < InheritedResources::Base
       
   end
  
-  def select_cbs
+  def select_pbs
      @production = Production.find(params[:id])
       #
       @plasmids = PlasmidBatch.where(:trash => false)
   end
   
-  def add_cbs
+  def add_pbs
     @production = Production.find(params[:id])
     @production.update_attributes(production_params)
 
@@ -132,15 +154,16 @@ class ProductionsController < InheritedResources::Base
     flash.discard[:warning]
      
         @production.update_columns(:step => 0)
-        @production.update_columns(:percentage => 50)
+        @production.update_columns(:percentage => 40)
         
-    #Recherche de l'existence d'une combinaison de plasmides identique dans la DB (le plasmid helper est exclu de la recherche ; library est alternatif à capsid)
+    #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
      
-        trigger = Production.includes(:clone_batch).ransack(:clone_batches_eq => @production.plasmid_batches.map {|object| object.clone_batch}).nil?
+            @trigger = Production.where(:pbtag => @production.pbtag).count
+            @prod_array_pb = Production.where(:pbtag => @production.pbtag).pluck(:id).sort.to_sentence
       
             unless @production.plasmid_batches.empty?
-              if trigger == false
-                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
+              unless @trigger <= 1
+                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists (peoduction # #@prod_array_pb). Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed."                
              end
@@ -165,11 +188,14 @@ class ProductionsController < InheritedResources::Base
     @plasmids = PlasmidBatch.all
       #
     
-    if @production.plasmid_batches.empty?
-      flash.keep[:notice] = "Add at least one plasmid please."
+    if @production.plasmid_batches.map {|pb| pb.clone_batch.id} - @production.clone_batches.pluck(:id) == []
+      flash.keep[:notice] = "Add each  corresponding plasmid batches please."
       redirect_to :action => :add_plasmid
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume.blank? }
       flash.keep[:notice] = "Complete the volumes, please."
+      redirect_to :action => :add_plasmid
+    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.plasmid_batch.volume - pbp.volume <0 }
+       flash.keep[:notice] = "Check the production's volumes, please."
       redirect_to :action => :add_plasmid
     else
       @production.update_columns(:step => 2)
@@ -300,7 +326,7 @@ class ProductionsController < InheritedResources::Base
   end
 
   def production_params
-    params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
+    params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
     project_ids: [],
     :projects_attributes => [:id, :name],
     :clone_batches_attributes => [:id, :name, :_destroy],
@@ -316,7 +342,7 @@ class ProductionsController < InheritedResources::Base
   end
   
     def production_create_params
-      params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool,
+      params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
       project_ids: [],
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],

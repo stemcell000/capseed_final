@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181121085252) do
+ActiveRecord::Schema.define(version: 20181126102211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,6 +374,8 @@ ActiveRecord::Schema.define(version: 20181121085252) do
     t.boolean  "pool"
     t.date     "today_date"
     t.decimal  "production_volume"
+    t.string   "cbtag"
+    t.string   "pbtag"
   end
 
   create_table "productions_projects", force: :cascade do |t|

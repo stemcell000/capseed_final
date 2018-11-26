@@ -141,10 +141,10 @@ Rails.application.routes.draw do
     get :display_all, :on => :collection
     get :scheduler, :on => :collection
     post :scheduler, :on => :collection
-    get :select_cbs, :on => :member
+    get :select_pbs, :on => :member
     get :spawn_vp, :on => :new 
     patch :create_vp, :on => :member
-    patch :add_cbs, :on => :member
+    patch :add_pbs, :on => :member
     get :remove_vp_from_prod, :on => :member
     patch :pool
     get :close, :on => :member
@@ -219,6 +219,8 @@ Rails.application.routes.draw do
       post :create_from_inventory, :on => :collection
       get :destroy_from_inventory, :on => :member
       get :edit_from_inventory, :on => :member
+      get :pipe, :on => :member
+      patch :send_to_production, :on => :member
       patch :update_from_inventory, :on => :member
      get :destroy_from_list, :on => :member
     end

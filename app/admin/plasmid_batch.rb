@@ -6,6 +6,7 @@ ActiveAdmin.register PlasmidBatch do
  permit_params :list, :of, :attributes, :on, :model, :name, :number, :format_id, :concentration, :unit_id, :box_id, :row_id, :column_id, :clone_batch_id, :vol_unit, :volume
    
   #filter
+  filter :id
   filter :name
   filter :number
   filter :temp_name
@@ -25,6 +26,7 @@ ActiveAdmin.register PlasmidBatch do
     column :name, sortable: :name do |pb|
     link_to pb.name, admin_plasmid_batch_path(pb)
   end
+    column :id
     column :number
     column 'plasmid', :clone_batch 
     column :format

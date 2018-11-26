@@ -80,6 +80,20 @@ def formatDateToGantt(d)
     d.strftime("%Y, %-m, %-d")
     end
 end
-     
+ 
+def volume_checker(u,v)
+  str =""
+  if u.nil?
+    w = v
+    str = w.to_s
+  elsif v < u
+    w = v
+    str = "Not enough material."
+  else
+    w = v-u
+    str= w.to_s
+  end
+  return str
+end
   
 end

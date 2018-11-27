@@ -15,11 +15,10 @@
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
 		    		<%= link_to 'Previous', edit_production_path(@production.id), :class => "btn btn-default btn-sm" %>
-				<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>
-				<%= link_to 'Add/Modify Plasmids', select_pbs_production_path(@production), :remote => true, :class => "btn btn-default btn-sm" %>
+				<%unless @production.clone_batches.empty?%>
+					<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>
+					<%= link_to 'Add/Modify Plasmids', select_pbs_production_path(@production), :remote => true, :class => "btn btn-default btn-sm" %>
+		  		<%end%>
 		  	</div>
 	  	</div>
 	</div>
-<script type="text/javascript">
-   $('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-</script>

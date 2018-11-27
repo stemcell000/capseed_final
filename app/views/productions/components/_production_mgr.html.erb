@@ -39,6 +39,9 @@
         </td>
         <td id="Action">
           <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %> 
+          <% if can? :inform_production, @user %>
+          <%= link_to "Remove", p, :method => :delete, :class =>"btn btn-danger", :remote => true  %>
+        		<%end%>
         </td>
       </tr>
     <% end %>

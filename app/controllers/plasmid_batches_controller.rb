@@ -3,7 +3,8 @@ class PlasmidBatchesController < ApplicationController
 autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_value => :autocomplete_display
 
   before_action :set_params, only:[:create, :add_to_prod, :create_from_inventory]
-  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :send_to_production,:destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column, :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod ]
+  before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :send_to_production,:destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column,
+                                            :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod,:send_to_production ]
   before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create, :destroy_from_list]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
@@ -261,8 +262,11 @@ end
   end
   
   def send_to_production
-      @plasmid_batch = PlasmidBatch.find(params[:id])
       @plasmid_batch.update_attributes(set_params)
+      @production = @plasmid_batch.productions.last
+      @production.clone_batches << @plasmid_batch.clone_batch
+      
+      
       
   end
   
@@ -281,7 +285,8 @@ end
       
       :plasmid_batch_qcs_attributes =>[:id, :dig_saml, :dig_other, :comments, :conclusion],
       
-      :production_attributes => [:id, :name, :plasmid_batch_id],
+      :productions_attributes => [:id, :name, :_destroy],
+       production_ids: [],
       
       :box_attributes => [:id, :name],
       
@@ -290,8 +295,6 @@ end
       :column_attributes => [:id, :name],
       
       :format_attributes => [:id, :name],
-      
-      :asset_attributes => [:id, :volume],
       
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name])
     end
@@ -331,10 +334,6 @@ end
     
     def load_plasmid_batch
       @plasmid_batch = PlasmidBatch.find(params[:id])
-    end
-    
-    def load_production
-      @production = Production.find(params[:production_id])
     end
     
     def NameFormatHelper(str)

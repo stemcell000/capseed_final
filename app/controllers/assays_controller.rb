@@ -2,7 +2,8 @@ class AssaysController < ApplicationController
    
     before_filter :authenticate_user!
     before_action :assay_params, only:[:create, :update_row_order, :update, :add_clone]
-    before_action :set_params, only:[:get_line, :update, :mask_line, :show, :clone_design, :clone_batch, :clone_batch_nb_update, :clone_batch_select, :clone_batch_qc, :plasmid_design, :plasmid_batch, :plasmid_batch_qc, :edit, :watch, :destroy, :clone_info, :plasmid_info, :close, :complete]
+    before_action :set_params, only:[:get_line, :update, :mask_line, :show, :clone_design, :clone_batch, :clone_batch_nb_update, :clone_batch_select, :clone_batch_qc, :plasmid_design, :plasmid_batch, :plasmid_batch_qc,
+      :edit, :watch, :destroy, :clone_info, :plasmid_info, :close, :complete]
     before_action :ranked_assays, only: :index
     helper_method :sort_column, :sort_direction
     

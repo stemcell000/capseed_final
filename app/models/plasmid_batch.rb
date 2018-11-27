@@ -13,7 +13,7 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :column
   belongs_to :row
   belongs_to :box
-  belongs_to :production
+  has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
   belongs_to :vol_unit
   belongs_to :format
   belongs_to :user
@@ -32,6 +32,7 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
   accepts_nested_attributes_for :plasmid_batch_productions
+  accepts_nested_attributes_for :productions
   
   #validations
   validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true

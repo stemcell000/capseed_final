@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181126102211) do
+ActiveRecord::Schema.define(version: 20181127095024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,13 @@ ActiveRecord::Schema.define(version: 20181126102211) do
 
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree
 
+  create_table "lists", force: :cascade do |t|
+    t.integer  "plasmid_batch_id"
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "origins", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -376,6 +383,8 @@ ActiveRecord::Schema.define(version: 20181126102211) do
     t.decimal  "production_volume"
     t.string   "cbtag"
     t.string   "pbtag"
+    t.string   "cbarr",             default: [],                 array: true
+    t.string   "pbarr",             default: [],                 array: true
   end
 
   create_table "productions_projects", force: :cascade do |t|

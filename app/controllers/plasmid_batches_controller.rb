@@ -243,31 +243,19 @@ end
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
   end
   
-   def edit_pb_volume
+  def edit_pb_volume
     @plasmid_batch = PlasmidBatch.find(params[:id])
   end
   
   def update_pb_volume
     @plasmid_batch = PlasmidBatch.find(params[:id])
     @plasmid_batch.update_attributes(set_params)
+    
     if @plasmid_batch.valid?
       flash.keep[:success] = "Task completed!"
     else
       render :action => 'edit_pb_volume'
     end
-  end
-  
-  def pipe
-    @plasmid_batch = PlasmidBatch.find(params[:id])
-  end
-  
-  def send_to_production
-      @plasmid_batch.update_attributes(set_params)
-      @production = @plasmid_batch.productions.last
-      @production.clone_batches << @plasmid_batch.clone_batch
-      
-      
-      
   end
   
   private

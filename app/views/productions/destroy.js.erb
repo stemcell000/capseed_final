@@ -5,7 +5,7 @@ $(document).ready(function() {
 //sortable table
 	jQuery(function() {
 	  var cells, desired_width, table_width;
-	  if ($('#sortable').length > 0) {
+	  if ($('#sortable-production').length > 0) {
 	    table_width = $('#sortable').width();
 	    cells = $('.table').find('tr')[0].cells.length;
 	    desired_width = table_width / cells + 'px';
@@ -28,7 +28,7 @@ $(document).ready(function() {
 	        position = ui.item.index();
 	        $.ajax({
 	          type: 'POST',
-	          url: '/assays/update_row_order',
+	          url: '/productions/update_row_order',
 	          dataType: 'json',
 	          data: {
 	            assay: {

@@ -219,8 +219,6 @@ Rails.application.routes.draw do
       post :create_from_inventory, :on => :collection
       get :destroy_from_inventory, :on => :member
       get :edit_from_inventory, :on => :member
-      get :pipe, :on => :member
-      patch :send_to_production, :on => :member
       patch :update_from_inventory, :on => :member
      get :destroy_from_list, :on => :member
     end

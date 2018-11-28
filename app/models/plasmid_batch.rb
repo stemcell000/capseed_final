@@ -38,6 +38,8 @@ class PlasmidBatch < ActiveRecord::Base
   validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
+  validates_with VolumeValidator
+  
  #pg_search
  include PgSearch
  multisearchable :against => [:name, :comment, :id], :if => lambda { |record| record.id > 0 }

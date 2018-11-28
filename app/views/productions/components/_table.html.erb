@@ -1,4 +1,5 @@
 <% unless @production.plasmid_batches.empty? %>
+
 <table class="table table-bordered " id="plasmid-table">
 			<thead>
 				<th>Name</th>
@@ -13,27 +14,34 @@
 					<%= f.input :id, :as => :hidden %>
 					
 					<%= f.simple_fields_for :plasmid_batch_productions do |ff| %>
-						<%= ff.input :id, :as => :hidden %>
-						<%= ff.input :production_id, :as => :hidden %>
-						<%= ff.input :plasmid_batch_id, :as => :hidden %>	
 					<tr>
+					
 						<td class="col-lg-1 col-md-1 col-sm-1"><%= ff.object.plasmid_batch.name %></td>
 						<td class="col-lg-3 col-md-3 col-sm-3"><small><%= ff.object.plasmid_batch.clone_batch.name%></small></td>
 						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-2"><%= ff.object.plasmid_batch.volume %></td>
-					<td class="col-lg-4 col-md-3 col-sm-4">
+						<td class="col-lg-2 col-md-2 col-sm-2">
+											<div class="col-lg-12, col-md-12, col-sm-12">
+												<%= ff.simple_fields_for :plasmid_batch do |fff|%>
+													<%= fff.input :id, :as => :hidden %>
+													<%= fff.input :volume, :label => false, :input_html => {:value => ff.object.plasmid_batch.volume - ff.object.volume} %>
+												<%end%>
+											</div>
+						</td>
+						<td class="col-lg-4 col-md-3 col-sm-4">
 							<div class="row">
 											<div class="col-lg-8 col-md-8 col-sm-7 align-bottom">
-													<%= ff.input :volume, :label => false %>
+												<%= ff.input :id, :as => :hidden %>
+												<%= ff.input :production_id, :as => :hidden %>
+												<%= ff.input :plasmid_batch_id, :as => :hidden %>	
+												<%= ff.input :volume, :label => false %>
 											</div>
 											<div class="col-lg-2 col-md-2 col-sm-2 align-bottom">
 													<%= ff.object.plasmid_batch.vol_unit.name %>
 											</div>
-							<%end%>				
 							</div>
 						</td>
 					</tr>
-					
+					<%end%>	
 						</table>
 					<div class="row">
 							<div class="btn-group col-lg-2 col-md-3 col-sm-4 pull-right" role="group" aria-label="...">
@@ -41,7 +49,7 @@
 							</div>
 					</div>
 					<div class="row">
-						<div class="col-lg-4 col-md-5 col-sm-7 pull-right">
+						<div class="col-lg-5 col-md-6 col-sm-8 pull-right">
 							<p class="help-block">Do not forget save your changes before clicking Next.</p>
 						</div>
 					</div>
@@ -49,11 +57,6 @@
 				<%end%>
 
 <%else%>
-			<ul class="list-group">
-				<% @production.clone_batches.each do |cb| %>
-					<li class="list-group-item"><%= cb.type.name+": "+cb.number+" "+cb.name %></li>
-				<%end%>
-			</ul>
 			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid batch</div></div>
 <% end %>
 

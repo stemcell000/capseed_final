@@ -83,7 +83,8 @@ class ProductionsController < InheritedResources::Base
             @production.update_columns(:percentage => 10)
             
             @production.update_columns(:cbtag => @production.clone_batches.pluck(:id).join("-"))
-  
+            
+            
             
             #Recherche de doublons (Combinaison de plasmids)
             @trigger = Production.where(:cbtag => @production.cbtag).count
@@ -121,32 +122,25 @@ class ProductionsController < InheritedResources::Base
        @production.update_columns(:pbtag => pbtag_value)
       end
       #
-      unless @production.plasmid_batches.empty?
-        @production.plasmid_batches.each do|plasmid_batch|
-          plasmid_batch_production = PlasmidBatchProduction.where(:production_id => @production.id, :plasmid_batch_id => plasmid_batch.id ) 
-          @production.plasmid_batch_productions << plasmid_batch_production
-          plasmid_batch.plasmid_batch_productions << plasmid_batch_production
-        end
-      end
   end
   
   def update_volumes
     @production = Production.find(params[:id])
     @production.update_attributes(production_volumes_params)
+    
     if @production.valid?
       flash.keep[:success] = "Task completed!"
       redirect_to :action => :add_plasmid
     else
       render :action => 'add_plasmid'
-    end
     
-      
+    end
   end
  
   def select_pbs
      @production = Production.find(params[:id])
       #
-      @plasmids = PlasmidBatch.where(:trash => false)
+      @plasmids = PlasmidBatch.where(:trash => false).where('volume > ?', 0)
   end
   
   def add_pbs
@@ -191,14 +185,21 @@ class ProductionsController < InheritedResources::Base
     @plasmids = PlasmidBatch.all
       #
     
-    if @production.plasmid_batches.map {|pb| pb.clone_batch.id} - @production.clone_batches.pluck(:id) == []
-      flash.keep[:notice] = "Add each  corresponding plasmid batches please."
+      @arr1= (@production.plasmid_batches.map{|pb| pb.clone_batch.id}).sort
+      @arr2= @production.clone_batches.pluck(:id).sort
+      
+      @a = @arr2 - @arr1
+      @str = CloneBatch.where(:id => @a).pluck(:name).sort.to_sentence
+      @missing_plasmids = 'batch'.pluralize(@a.size)+' for '+@str+"."
+      
+    if !@a.empty?
+      flash.keep[:warning] = "Add each  corresponding plasmid batches please: missing #@missing_plasmids"
       redirect_to :action => :add_plasmid
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume.blank? }
-      flash.keep[:notice] = "Complete the volumes, please."
+      flash.keep[:warning] = "Complete the volumes, please."
       redirect_to :action => :add_plasmid
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.plasmid_batch.volume - pbp.volume <0 }
-       flash.keep[:notice] = "Check the production's volumes, please."
+       flash.keep[:warning] = "Check the production's volumes, please."
       redirect_to :action => :add_plasmid
     else
       @production.update_columns(:step => 2)
@@ -220,9 +221,9 @@ class ProductionsController < InheritedResources::Base
  def destroy
   @production.destroy
   @productions = Production.where.not(:last_step => 3).rank(:row_order).all
-  end
+ end
   
-  def create_vp
+ def create_vp
      @production = Production.find(params[:id])
      #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
@@ -254,7 +255,7 @@ class ProductionsController < InheritedResources::Base
       update_last_step(@production, 3)
       @production.update_columns(:percentage => 100)
       redirect_to :action => :index
-      #
+    #
       inform_closed_production    
     end
  end
@@ -269,7 +270,6 @@ class ProductionsController < InheritedResources::Base
   def display_all
     
     #"between search": recherche dans un range de dates
-      
       #Formattage des dates
       start_time = params[:created_at_gteq].to_date rescue Date.current
       start_time = start_time.beginning_of_day # sets to 00:00:00
@@ -296,7 +296,6 @@ class ProductionsController < InheritedResources::Base
       @q = Production.ransack(params[:q])
       @productions = @q.result(distinct: true).includes(:projects, :clone_batches)
       
-    
       #Config de l'affichage des résultats.
       @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
   
@@ -305,16 +304,6 @@ class ProductionsController < InheritedResources::Base
 
   
   def scheduler
-    
-   # if params[:nb] 
-   #   unless params[:nb].blank?
-   #     @producions = Production.all.order("id desc").limit(params[:nb])
-   #   else
-   #     @productions = Production.all.order("id desc").limit(10)
-   #   end
-   #   else
-   #     @productions = Production.all.order("id desc").limit(10)
-   #   end
     
     @productions = Production.all.where.not(:last_step => 3)
       
@@ -378,11 +367,9 @@ class ProductionsController < InheritedResources::Base
   end
   
   def production_volumes_params
-    params.require(:production).permit(:id,
-    :plasmid_batches_attributes => [:id, :name, :_destroy, :volume, 
-      :plasmid_batches_productions_attributes => [:id, :volume, :production_id, :plasmid_batch_id, :_destroy]],
-    :plasmid_batch_productions_attributes => [:id, :volume, :production_id, :plasmid_batch_id, :_destroy],
-    plasmid_batch_ids: [],
+    params.require(:production).permit(:id, 
+    :plasmid_batch_productions_attributes => [:id, :volume, :production_id, :plasmid_batch_id, :_destroy,
+      :plasmid_batch_attributes => [:id, :volume]],
     plasmid_batch_production_ids: []
     )
   end

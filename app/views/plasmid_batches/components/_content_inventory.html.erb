@@ -4,7 +4,12 @@
 					<div class="row" >
 						<div class="col-lg-6">
 							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
+							
+							
+							<table>
+								<tr>
 									<% @plasmid_batches.order(:id).each_with_index do |b, index|%>
+									<td>
 										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
 											title='
 												<div class="row"> 
@@ -39,11 +44,16 @@
 												</div>
 											'
 										>
-											<div class="col-lg-1">
-												<img src= <%=b.set_tube_status %> alt="not-empty" /><span><%= b.name %></span>
+											<div class="col-lg-1 center">
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><%= b.name %></p>
 											</div>
 										</a>	
+									</td>
+									<% if index == 12 %>
+										</tr>
+									<%end%>
 								<%end%>
+							</table>
 						</div><!--End of col-lg-3-->
 						<div class="row">
 							<div class="col-lg-11 right">

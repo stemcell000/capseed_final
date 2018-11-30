@@ -49,7 +49,8 @@ def without_box
 end
 
 def set_tube_status
-  str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png"
+  str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png
+  .png"
   return str
 end
 

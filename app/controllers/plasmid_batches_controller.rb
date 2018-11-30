@@ -29,6 +29,7 @@ end
 
 def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
+    @user = User.all
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     nb = @clone_batch.plasmid_batches.size+1
     @boxes = Box.all
@@ -59,7 +60,7 @@ def create_from_inventory
     if  @plasmid_batch.valid?
         @plasmid_batch.update_columns(:strict_validation => 0)
         last_number = PlasmidBatch.last.number.to_i
-        @plasmid_batch.update_columns(:number => (last-number+1).to_s)
+        @plasmid_batch.update_columns(:number => (last_number+1).to_s)
         @clone_batch.plasmid_batches << @plasmid_batch
         flash.keep[:success] = "Task completed!"
         @plasmid_batches = @clone_batch.plasmid_batches

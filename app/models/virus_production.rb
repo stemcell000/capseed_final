@@ -23,9 +23,6 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
  accepts_nested_attributes_for :sterilitytests, :allow_destroy => true, reject_if: :all_blank
  accepts_nested_attributes_for :virus_batches
  
- #validates :vol, :vol_unit, :user, :date_of_production, :presence => true 
- #validates :titer, :titer_atcc, :presence => true
- 
  private
  #Calulates the value of titer_to_atcc automately
    def titer_to_atcc

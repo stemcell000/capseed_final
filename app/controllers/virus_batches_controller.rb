@@ -1,7 +1,7 @@
 class VirusBatchesController < InheritedResources::Base
 
  def new_from_inventory
-    @virus_batch = PlasmidBatch.new
+    @virus_batch = VirusBatch.new
     @virus_production = VirusProduction.find(params[:virus_production_id])
     nb = @virus_production.virus_batches.size+1
     @boxes = Box.all
@@ -11,8 +11,7 @@ class VirusBatchesController < InheritedResources::Base
 end
 
 def create_from_inventory
-    @virus_batch = PlasmidBatch.create(set_params)
-    @viruses = User.all
+    @virus_batch = VirusBatch.create(virus_batch_params)
     @virus_production = VirusProduction.find(params[:virus_production_id])
     if  @virus_batch.valid?
         @virus_production.virus_batches << @virus_batch
@@ -23,37 +22,58 @@ def create_from_inventory
     end
 end
 
+
+def edit_from_inventory
+  @virus_batch = VirusBatch.find(params[:id])
+  @virus_production = VirusProduction.find(params[:virus_production_id])
+  #@virus_production = @virus_batch.virus_production
+end
+
+
+def update_from_inventory
+  @virus_batch = VirusBatch.find(params[:id])
+  @virus_production  = VirusProduction.find(params[:virus_production_id])
+  @virus_batches = @virus_production.virus_batches
+  @virus_batch.update_attributes(virus_batch_params)
+  if @virus_batch.valid?
+    @units = Unit.all
+    flash.keep[:success] = "Task completed!"
+  else
+    render :action => 'edit_from_inventory'
+   end
+end 
+
+
+ def destroy_from_inventory
+  @virus_batch = VirusBatch.find(params[:id])
+  @virus_production  = VirusProduction.find(params[:virus_production_id])
+  @virus_batches = @virus_production.virus_batches
+    @virus_batch.toggle!(:trash)
+    @virus_batch.update_columns(:volume => 0)
+    garbage = Box.find_by_name("Garbage")
+    
+    unless @virus_batch.trash
+      @virus_batch.update_columns(:volume => 0)
+      garbage.virus_batches << @virus_batch
+     else
+      garbage.virus_batches.delete(@virus_batch)
+     end
+     
+      @row = @virus_batch.row
+      @column = @virus_batch.column
+      if @row 
+        @row.virus_batches.delete(@virus_batch)
+      end
+      if @column
+        @column.virus_batches.delete(@virus_batch)
+      end
+  end
+  
   private
 
     def virus_batch_params
-      params.require(:virus_batch).permit(:name, :virus_production_id, :box_id, :row_id, :column_id)
+      params.require(:virus_batch).permit(:id, :name, :volume, :virus_production_id, :box_id, :row_id, :column_id, :vol_unit_id)
     end
     
-     def set_params
-      params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id,
-      :user_id, :strict_validation , :_destroy, :trash,
-      
-      :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy],
-      
-      :clone_attributes => [:id, :name, :assay_id],
-      
-      :assay_attributes => [:id, :name],
-      
-      :vol_unit_attributes =>[:id, :plasmid_batch_id, :name],
-      
-      :plasmid_batch_qcs_attributes =>[:id, :dig_saml, :dig_other, :comments, :conclusion],
-      
-      :production_attributes => [:id, :name, :plasmid_batch_id],
-      
-      :box_attributes => [:id, :name],
-      
-      :row_attributes => [:id, :name],
-      
-      :column_attributes => [:id, :name],
-      
-      :format_attributes => [:id, :name],
-      
-      :user_attributes => [:id, :username, :firstname, :lastname, :full_name])
-    end
 end
 

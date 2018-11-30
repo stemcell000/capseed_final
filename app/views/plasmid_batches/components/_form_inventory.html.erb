@@ -60,7 +60,7 @@
 		<div class ="row">
 							<div class="col-lg-5 col-md-5 col-sm-5">
 								   <%= f.association :user, :label => "Contact name",
-										:collection => @users, :label_method => :full_name, :value_method => :id,
+										:collection => User.all, :label_method => :full_name, :value_method => :id,
 										:input_html => { class:"select2-select" } %>
 							</div>
 		</div>

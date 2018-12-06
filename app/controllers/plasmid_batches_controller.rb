@@ -23,7 +23,7 @@ def new
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
     
-    @name = @clone_batch.id.to_s+"."+nb.to_s
+    @name = @clone_batch.number+"."+nb.to_s
 end
 
 
@@ -35,7 +35,7 @@ def new_from_inventory
     @boxes = Box.all
     @columns = Column.all
     @rows = Row.all
-    @name = @clone_batch.id.to_s+"."+nb.to_s
+    @name = @clone_batch.number+"."+nb.to_s
 end
 
   
@@ -82,6 +82,8 @@ def edit_from_inventory
   @boxes = Box.all
   @columnss = Column.all
   @rows = Row.all
+  @virus_list = @plasmid_batch.productions.pluck(:id).to_s
+   
 end
   
 def update
@@ -244,7 +246,7 @@ end
     @plasmid_batches = smart_listing_create(:plasmid_batches, @plasmid_batches, partial: "plasmid_batches/smart_listing/list", default_sort: {number: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
   end
   
-  def edit_pb_volume
+  def set_volume
     @plasmid_batch = PlasmidBatch.find(params[:id])
   end
   

@@ -5,7 +5,7 @@ class VirusBatchesController < InheritedResources::Base
     @virus_production = VirusProduction.find(params[:virus_production_id])
     nb = @virus_production.virus_batches.size+1
     @boxes = Box.all
-    @columnss = Column.all
+    @columns = Column.all
     @rows = Row.all
     @name = @virus_production.id.to_s+"."+nb.to_s
 end
@@ -26,7 +26,9 @@ end
 def edit_from_inventory
   @virus_batch = VirusBatch.find(params[:id])
   @virus_production = VirusProduction.find(params[:virus_production_id])
-  #@virus_production = @virus_batch.virus_production
+    @boxes = Box.all
+    @columns = Column.all
+    @rows = Row.all
 end
 
 
@@ -35,6 +37,7 @@ def update_from_inventory
   @virus_production  = VirusProduction.find(params[:virus_production_id])
   @virus_batches = @virus_production.virus_batches
   @virus_batch.update_attributes(virus_batch_params)
+  
   if @virus_batch.valid?
     @units = Unit.all
     flash.keep[:success] = "Task completed!"

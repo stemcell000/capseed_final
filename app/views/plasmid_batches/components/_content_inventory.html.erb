@@ -41,11 +41,16 @@
 																<%= link_to File.basename(a.attachment.to_s ) %><br />
 															<%end%>
 													<%end%>
+													<% v_array = []%>
+													<% b.productions.each do |p|%>
+														v_array = v_array + p.virus_productions.pluck(:id)
+													<%end%>
+													<%= v_array.empty? ? "" : "Virus production history: "+v_array.to_list   %>
 												</div>
 											'
 										>
 											<div class="col-lg-1 center">
-												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><%= b.name %></p>
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><strong><%= b.name %></strong></p>
 											</div>
 										</a>	
 									</td>

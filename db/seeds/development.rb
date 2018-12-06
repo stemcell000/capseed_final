@@ -88,21 +88,13 @@
   Target.create(name: "Bipolar cells on")
   Target.create(name: "Red cones")
   Target.create(name: "Blue cones")
+  Target.create( name: "Neuronal")
+  Target.create( name: "RGC")
   
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   
   #Add Projects to Assay
   Project.create( name:"Global project")
-  
-  #Target
-  Target.create( name: "Unknown")
-  Target.create( name: "Ubiquitous")
-  Target.create( name: "Bipolar cells on")
-  Target.create( name: "Cones")
-  Target.create( name: "Red cones")
-  Target.create( name: "Blue cones")
-  Target.create( name: "Neuronal")
-  Target.create( name: "RGC")
   
   #Add Users
     User.create! do |u|

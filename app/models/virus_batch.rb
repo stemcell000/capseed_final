@@ -16,7 +16,23 @@ class VirusBatch < ActiveRecord::Base
   
   def set_tube_status
     str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png"
-    return str
+  case self.volume
+  when 0
+    str="/images/empty-med.png"
+  when 0..50
+    str="/images/full-med-low.png"
+  when 50..100
+    str="/images/full-med-low.png"
+  when 100..500
+    str="/images/full-med-half.png"
+   when 100..500
+    str="/images/full-med-high.png"
+   when 500..1000
+    str="/images/full-med-high.png"
+  else
+    str = self.trash? ? "/images/empty-med.png" : "/images/trash-med.png"
+  end
+  return str
   end
   
 end

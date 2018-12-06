@@ -136,7 +136,6 @@ Rails.application.routes.draw do
   resources :productions do
     post :update_row_order, :on => :collection
     get :add_plasmid, :on => :member
-    patch :update_volumes, :on =>:member
     get :virus_production, :on => :member
     get :display_all, :on => :collection
     get :scheduler, :on => :collection
@@ -149,6 +148,9 @@ Rails.application.routes.draw do
     patch :pool
     get :close, :on => :member
     get :inform_closed_production, :on => :member
+    get :set_pb_volume, :on => :member
+    patch :update_pb_volume, :on => :member
+    get :reset_volume, :on => :member
       resources :plasmid_batches do
             get :edit_pb_volume, :on => :member
             patch :update_from_inventory, :on => :member 

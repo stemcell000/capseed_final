@@ -84,8 +84,7 @@ class ProductionsController < InheritedResources::Base
             
             @production.update_columns(:cbtag => @production.clone_batches.pluck(:id).join("-"))
             
-            
-            
+       
             #Recherche de doublons (Combinaison de plasmids)
             @trigger = Production.where(:cbtag => @production.cbtag).count
       
@@ -106,7 +105,6 @@ class ProductionsController < InheritedResources::Base
 
   end
   
-  
   def show
     redirect_to :action => :add_plasmid
   end
@@ -124,19 +122,6 @@ class ProductionsController < InheritedResources::Base
       #
   end
   
-  def update_volumes
-    @production = Production.find(params[:id])
-    @production.update_attributes(production_volumes_params)
-    
-    if @production.valid?
-      flash.keep[:success] = "Task completed!"
-      redirect_to :action => :add_plasmid
-    else
-      render :action => 'add_plasmid'
-    
-    end
-  end
- 
   def select_pbs
      @production = Production.find(params[:id])
       #
@@ -152,7 +137,19 @@ class ProductionsController < InheritedResources::Base
      
         @production.update_columns(:step => 0)
         @production.update_columns(:percentage => 40)
-        
+    #
+    PlasmidBatchProduction.where(:production_id => @production.id).each do |pbp|
+     @production.plasmid_batch_productions << PlasmidBatchProduction.where(:production_id => @production.id)
+    end
+   
+    @production.plasmid_batches.each do |pb|
+      pb.plasmid_batch_productions << @production.plasmid_batch_productions.where(:plasmid_batch_id=> pb.id)
+    end
+    
+    @production.plasmid_batches.each do |pb|
+      pb.plasmid_batch_productions.where(:production_id => @production.id)[0].update_columns(:starting_volume => pb.volume)
+    end
+    
     #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
      
             @trigger = Production.where(:pbtag => @production.pbtag).count
@@ -174,6 +171,32 @@ class ProductionsController < InheritedResources::Base
      @production.update_attributes(production_params)
    end
    
+    def set_pb_volume
+      @production = Production.find(params[:id])
+    end
+  
+  def update_pb_volume
+    @production = Production.find(params[:id])
+    @production.update_attributes(production_volumes_params)
+    new_volume = 0
+      @production.plasmid_batches.each do |pb|
+        new_volume = pb.volume - pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume
+        pb.update_columns(:volume => new_volume)
+      end
+      if @production.valid?
+        flash.keep[:success] = "Task completed!"
+      else
+        render :action => 'set_pb_volume'
+      end
+  end
+  
+  def reset_volume
+    @production = Production.find(params[:id])
+    @production.plasmid_batches.each do |pb|
+      starting_volume = pb.plasmid_batch_productions.where(:production_id => @production.id)[0].starting_volume
+      pb.update_columns(:volume => starting_volume)
+    end
+  end
  
   def virus_production
     @production = Production.find(params[:id])
@@ -195,11 +218,11 @@ class ProductionsController < InheritedResources::Base
     if !@a.empty?
       flash.keep[:warning] = "Add each  corresponding plasmid batches please: missing #@missing_plasmids"
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume.blank? }
-      flash.keep[:warning] = "Complete the volumes, please."
+    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume == 0 }
+      flash.keep[:warning] = "Complete the  production volumes, please."
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.plasmid_batch.volume - pbp.volume <0 }
-       flash.keep[:warning] = "Check the production's volumes, please."
+    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.plasmid_batch.volume - pbp.volume < 0 }
+       flash.keep[:warning] = "Check the production volumes, please."
       redirect_to :action => :add_plasmid
     else
       @production.update_columns(:step => 2)
@@ -368,9 +391,10 @@ class ProductionsController < InheritedResources::Base
   
   def production_volumes_params
     params.require(:production).permit(:id, 
-    :plasmid_batch_productions_attributes => [:id, :volume, :production_id, :plasmid_batch_id, :_destroy,
-      :plasmid_batch_attributes => [:id, :volume]],
-    plasmid_batch_production_ids: []
+      :plasmid_batches_attributes => [:id, :volume,
+        :plasmid_batch_productions_attributes => [:id, :volume, :starting_volume]
+        ],
+    
     )
   end
     

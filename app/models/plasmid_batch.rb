@@ -31,14 +31,15 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
-  accepts_nested_attributes_for :plasmid_batch_productions
+  accepts_nested_attributes_for :plasmid_batch_productions, :reject_if => :all_blank
   accepts_nested_attributes_for :productions
   
   #validations
   validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true
+  validates :volume, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
-  validates_with VolumeValidator
+  #validates_with VolumeValidator
   
  #pg_search
  include PgSearch
@@ -49,8 +50,24 @@ def without_box
 end
 
 def set_tube_status
-  str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png
-  .png"
+  str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png"
+  
+  if self.trash?
+    case self.volume
+    when 0
+      str="/images/empty-med.png"
+    when 0..50
+      str="/images/full-med-low.png"
+    when 50..100
+      str="/images/full-med-low.png"
+    when 100..500
+      str="/images/full-med-half.png"
+     when 500..1000
+      str="/images/full-med-high.png"
+    end
+   else
+     str= "/images/trash.png"
+   end
   return str
 end
 

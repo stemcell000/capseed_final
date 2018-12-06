@@ -82,6 +82,13 @@
 							</div>
 		
 		</div>
+		<div class ="row">
+			<%if @virus_list.nil? %>
+				<div class="col-lg-12">
+					Virus production history: <%= @virus_list%>
+				</div>
+			<%end%>
+		</div>
 	
 </small>
 <div class="panel-footer">

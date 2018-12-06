@@ -162,7 +162,7 @@ class CloneBatchesController < InheritedResources::Base
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
           
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
+      @clone_batches = @q.result.where.not(:name => nil).joins(:insert).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
       
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
@@ -187,7 +187,9 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
     @clone_batch.update_attributes(plasmid_params)
     insert = @clone_batch.insert
-    insert.update_attributes(:name => @clone_batch.name, :number => @clone_batch.number)
+   unless insert.nil?
+      insert.update_attributes(:name => @clone_batch.name, :number => @clone_batch.number)
+   end
   end
   
   def add_pb_from_inventory
@@ -225,12 +227,6 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
-    if CloneBatch.last
-     n = CloneBatch.where.not(:name =>"").last[:number].to_i
-     @nb = (n+1).to_s
-    else
-      @nb = "1"
-    end
    end
    
    def create_from_inventory
@@ -242,6 +238,7 @@ class CloneBatchesController < InheritedResources::Base
       #
       if  @clone_batch.valid?
           @clone_batch.update_columns(:strict_validation => 0)
+          @clone_batch.update_columns(:number => CloneBatch.last.number.to_i + 1)
           if @clone
             @clone.clone_batches << @clone_batch
           end

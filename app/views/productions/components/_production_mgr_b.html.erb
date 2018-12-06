@@ -5,7 +5,7 @@
         Plasmids
       </th>
       <th class="col-startdate">
-        ID
+        Name
       </th>
       <th class="col-startdate">
         Start date
@@ -26,7 +26,7 @@
           <%= cb_display(p.clone_batch) %>
         </td>
         <td>
-        	<%=p.id%>
+        	<%=p.name.blank? ? "no name" : p.name %>
     	</td>
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y at %H:%M") %>

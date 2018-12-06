@@ -1,0 +1,42 @@
+<%= simple_nested_form_for @production, url: update_pb_volume_production_path, :remote => true do |f|  %>
+		<%= f.error_notification %>
+		<ul class="errors"></ul>
+		<%= f.input :id , :as => :hidden %>
+			
+			<%= f.simple_fields_for :plasmid_batches do |ff| %>
+						
+						<%= ff.input :id , :as => :hidden %>
+					
+					<div class="row">
+						<div class="col-lg-12">
+							<span><strong><%= ff.object.name %></strong></span>
+							<span><strong>- <%= ff.object.clone_batch.name %></strong></span>
+							<span><strong>- <%= ff.object.clone_batch.type.name %></strong></span>
+						</div>
+					</div>
+						
+							<%=ff.simple_fields_for :plasmid_batch_productions do |fff| %>
+								<div class="row">
+									<div class="col-lg-5 col-md-5 col-sm-5 align-bottom">
+										<span><%=fff.input :volume, :label => "Prod. volume (#{ff.object.vol_unit.name})"%></span>
+									</div>
+								<%if ff.object.volume < 0  %>	
+									<div class="col-lg-5 col-md-5 col-sm-5 align-bottom">
+									<% new_volume = ff.object.volume - fff.object.volume%>
+										<span><%= ff.input :volume, :label => "Batch volume (#{ff.object.vol_unit.name})", :input_html =>{:value => new_volume, :class => "danger"} %></span>
+									</div>
+								<%end%>
+								</div>
+							
+							<%end%>
+			<%end%>
+				
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="btn-group" role="group" aria-label="...">
+				<%= f.submit("Save", class: "btn btn-default", title: "Save the changes.") %>
+		     	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+	        </div>
+	  	</div>
+	</div>
+<%end%>

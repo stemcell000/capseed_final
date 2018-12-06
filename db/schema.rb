@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181128150738) do
+ActiveRecord::Schema.define(version: 20181206123119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,15 +73,6 @@ ActiveRecord::Schema.define(version: 20181128150738) do
 
   add_index "assays_projects", ["assay_id"], name: "index_assays_projects_on_assay_id", using: :btree
   add_index "assays_projects", ["project_id"], name: "index_assays_projects_on_project_id", using: :btree
-
-  create_table "assets", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "vol_unit_id"
-    t.integer  "plasmid_batch_id"
-    t.decimal  "volume"
-    t.integer  "production_id"
-  end
 
   create_table "boxes", force: :cascade do |t|
     t.string   "name"
@@ -242,13 +233,6 @@ ActiveRecord::Schema.define(version: 20181128150738) do
 
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree
 
-  create_table "lists", force: :cascade do |t|
-    t.integer  "plasmid_batch_id"
-    t.string   "name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
   create_table "origins", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -358,7 +342,8 @@ ActiveRecord::Schema.define(version: 20181128150738) do
   create_table "plasmid_batches_productions", force: :cascade do |t|
     t.integer "plasmid_batch_id"
     t.integer "production_id"
-    t.decimal "volume"
+    t.decimal "volume",           default: 0.0
+    t.decimal "starting_volume"
   end
 
   add_index "plasmid_batches_productions", ["plasmid_batch_id"], name: "index_plasmid_batches_productions_on_plasmid_batch_id", using: :btree

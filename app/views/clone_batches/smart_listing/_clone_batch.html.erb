@@ -57,7 +57,7 @@
   			icon: "glyphicon glyphicon-th",
   			title: "Add batches"}]%>
   			
-  		<% if object.clone%>
+  		<% if object.clone %>
   		
   		<%= smart_listing_item_actions [
   		{name: :custom,    url: clone_design_assay_path(:id => object.clone.assay.id),
@@ -66,9 +66,10 @@
   			title: "View cloning"}
   			]%>
   		<%end%>
-  		
-  		<%= smart_listing_item_actions [
-		{name: :destroy, url: destroy_from_inventory_clone_batch_path(object),
-			title: "Destroy",
-			confirmation: "Are you sure you want to delete this?"}]%>
+  		<%unless object.clone %>
+	  		<%= smart_listing_item_actions [
+			{name: :destroy, url: destroy_from_inventory_clone_batch_path(object),
+				title: "Destroy",
+				confirmation: "Are you sure you want to delete this?"}]%>
+		<%end%>
 </td>

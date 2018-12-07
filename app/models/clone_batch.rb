@@ -46,7 +46,12 @@ class CloneBatch < ActiveRecord::Base
   #Validations
   validates :temp_name, :presence => true, :if => :enable_strict_validation?
   validates :name, :uniqueness => true, :if => :enable_strict_validation?, :allow_blank => true, :allow_nil => true
-  validates :name, :glyc_stock_box_as_plasmid, :strand, :type_id, :presence => true, :if => :enable_plasmid_validation?
+  validates :glyc_stock_box_as_plasmid, :strand, :type_id, :presence => true, :if => :enable_plasmid_validation?
+  
+  attr_accessor :skip_name_validation
+  attr_accessor :skip_type_validation
+  validates :name, presence: true, uniqueness: true, unless: :skip_name_validation
+  validates :type, presence: true, uniqueness: true, unless: :skip_type_validation
   
   #pg_search
   include PgSearch
@@ -72,7 +77,10 @@ class CloneBatch < ActiveRecord::Base
   def enable_plasmid_validation?
     self.plasmid_validation == 1
   end
-  
+
+  def enable_inventory_validation?
+    self.inventory_validation == 1
+  end
   def pb_count
     self.plasmid_batches.count
   end

@@ -19,13 +19,13 @@
 		<div class="row">
 				<%= f.input :clone_id, :as => :hidden%>
 			<div class = "col-lg-3">
-				<%=f.association :strand, :collection => @strands_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+				<%=f.association :strand, :collection => Strand.all, :placeholder => "Select strand.", input_html: { class: 'select2-select' }%>
 			</div>
 			<div class = "col-lg-3">
 				<%=f.input :date_as_plasmid, :label => "Date", :as => :string, :input_html => { :value => (f.object.date_as_plasmid.strftime("%B %e, %Y") if f.object.date_as_plasmid), "data-behaviour" => "datepicker" } %>
 			</div>
 			<div class = "col-lg-3">
-			 	<%=f.association :origin, :collection => @origins_all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+			 	<%=f.association :origin, :collection => Origin.all, :placeholder => "Select origin.", input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<div class="row">
@@ -33,19 +33,19 @@
 				<%=f.input :glyc_stock_box_as_plasmid, :label => "Stock Glycerol box #" %>
 			</div>
 			<div class = "col-lg-2">
-			 	<%=f.association :type, :label => "Type", :collection => @types_all, input_html: { class: 'select2-select' }%>
+			 	<%=f.association :type, :label => "Type", :collection => Type.all, input_html: { class: 'select2-select' }%>
 			</div>
 			<div class = "col-lg-2">
-			 	<%=f.association :target, :label => "Target", :collection => @targets_all, input_html: { class: 'select2-select' }%>
+			 	<%=f.association :target, :label => "Target", :collection => Target.all, input_html: { class: 'select2-select' }%>
 			</div>
 		</div>
 		<!--Add Promoter(s) & gene(s)-->
 		<div class= "row">
 			<div class="col-lg-6">
-				<%=f.association :promoters, :label => "Promoter", :collection => @promoters_all, input_html: { class: 'select2-select'} %>
+				<%=f.association :promoters, :label => "Promoter", :collection => Promoter.all, input_html: { class: 'select2-select'} %>
 			</div>
 			<div class="col-lg-6">
-				<%=f.association :genes, :label => "Gene", :collection => @genes_all, input_html: { class: 'select2-select'} %>	
+				<%=f.association :genes, :label => "Gene", :collection => Gene.all, input_html: { class: 'select2-select'} %>	
 			</div>
 		</div>
 		

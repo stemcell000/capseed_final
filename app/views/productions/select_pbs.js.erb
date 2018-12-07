@@ -1,9 +1,9 @@
 //Les donnees dans les champs du formulaire form_clone sont testées d'après les critères de validation
 //definis dans le model. Si ces criteres sont verifies, les donnees sont sauvees. Sinon, le formulaire
 //dans sa fenetre modale reste ouvert et les message d'erreur s'affichent en haut du formulaire.
-	$("#myPblabel").html("Add plasmid batch to production")
+	$("#myPblabel").html("Add plasmid batches to production")
 	$("#flash-msg-container").html("")
-	$("#inner-pb-modal").html("<%= escape_javascript( render :partial =>'/productions/components/form_cb' ) %>")
+	$("#inner-pb-modal").html("<%= escape_javascript( render :partial =>'/productions/components/form_pb' ) %>")
 	$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
 	$("#pb-modal").modal("show")
 	$("ul.errors").html("")

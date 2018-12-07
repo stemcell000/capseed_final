@@ -193,8 +193,10 @@ class ProductionsController < InheritedResources::Base
   def reset_volume
     @production = Production.find(params[:id])
     @production.plasmid_batches.each do |pb|
-      starting_volume = pb.plasmid_batch_productions.where(:production_id => @production.id)[0].starting_volume
+      pbp = pb.plasmid_batch_productions.where(:production_id => @production.id)[0]
+      starting_volume = pbp.starting_volume
       pb.update_columns(:volume => starting_volume)
+      pbp.update_columns(:volume => 0)
     end
   end
  
@@ -221,7 +223,7 @@ class ProductionsController < InheritedResources::Base
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume == 0 }
       flash.keep[:warning] = "Complete the  production volumes, please."
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.plasmid_batch.volume - pbp.volume < 0 }
+    elsif @production.plasmid_batches.any? { |pb| pb.volume < 0 }
        flash.keep[:warning] = "Check the production volumes, please."
       redirect_to :action => :add_plasmid
     else

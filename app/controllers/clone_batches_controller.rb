@@ -174,17 +174,21 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def edit_from_inventory
+      @clone_batch.skip_name_validation = false
+      @clone_batch.skip_type_validation = false
     if @clone_batch.genes.empty?
       #@clone_batch.genes.build
       #@clone_batch.promoters.build
       @units = Unit.all
       @users = User.all
    end
-   @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1)
+   @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1, :inventory_validation => 1)
   end
   
   def update_from_inventory
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
+    @clone_batch.skip_name_validation = false
+    @clone_batch.skip_type_validation = false
     @clone_batch.update_attributes(plasmid_params)
     insert = @clone_batch.insert
    unless insert.nil?
@@ -227,6 +231,8 @@ class CloneBatchesController < InheritedResources::Base
    def new_from_inventory
     @clone_batch = CloneBatch.new
     @clone_batch.clone_batch_attachments.build
+    @clone_batch.skip_name_validation = false
+    @clone_batch.skip_type_validation = false
    end
    
    def create_from_inventory
@@ -238,7 +244,7 @@ class CloneBatchesController < InheritedResources::Base
       #
       if  @clone_batch.valid?
           @clone_batch.update_columns(:strict_validation => 0)
-          @clone_batch.update_columns(:number => CloneBatch.last.number.to_i + 1)
+          @clone_batch.update_columns(:number => @clone_batch.id.to_s)
           if @clone
             @clone.clone_batches << @clone_batch
           end
@@ -248,7 +254,6 @@ class CloneBatchesController < InheritedResources::Base
       else
           render :action => :new_from_inventory
       end
-      
   end
   
   private
@@ -258,7 +263,7 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, 
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, :type_id,
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       
@@ -277,7 +282,7 @@ class CloneBatchesController < InheritedResources::Base
     
     def plasmid_params
       
-      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :origin_id, :plasmid_validation, :target_id ,:_destroy,
+      params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :origin_id, :strand_id, :type_id, :assay_id, :plasmid_validation, :target_id ,:_destroy,
       :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],

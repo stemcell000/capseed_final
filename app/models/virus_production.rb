@@ -23,6 +23,20 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
  accepts_nested_attributes_for :sterilitytests, :allow_destroy => true, reject_if: :all_blank
  accepts_nested_attributes_for :virus_batches
  
+ ransacker :id do
+    Arel::Nodes::SqlLiteral.new(
+      "regexp_replace(to_char(\"#{table_name}\".\"id\", '999'), ' ', '', 'g')"
+    )
+  end
+  
+  ransacker :id do
+    Arel::Nodes::SqlLiteral.new(
+      "regexp_replace(to_char(\"#{table_name}\".\"vol\", '999D99S'), ' ', '', 'g')"
+    )
+  end
+ 
+ 
+ 
  private
  #Calulates the value of titer_to_atcc automately
    def titer_to_atcc
@@ -30,5 +44,6 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
       (32800000000/dosage.titer_atcc.to_f)*dosage.titer.to_f
      end
    end
+   
 
 end

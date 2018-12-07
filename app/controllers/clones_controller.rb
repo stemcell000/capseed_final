@@ -198,7 +198,7 @@ def update_record_batch
   
  #TUTO: Ici on doit pouvoir changer le parametre batch_nb pour générer le nombre de batches correspondant.
  #Si par la suite on ajoute des données aux batches générés,
- #Il faut donc utiliser le module Dirty pour tracer si oui ou non il ya eu changement de valeurs pour batch_nb.
+ #Il faut donc utiliser le module Dirty pour tracer si oui ou non il y a eu changement de valeurs pour batch_nb.
  #Si oui, on génére de nouveau batches (et on efface toutes les données associées), si non, on ne fait rien.
  #si on utilise: @clone.update_attributes(clone_params), Dirty ne fonctionne pas car update_attributes réinitialise le modèle
  #Il faut donc utiliser assign_attributes + save
@@ -331,8 +331,12 @@ if @clone.changed?
         else
           new_nb = 1
         end
-        cb = CloneBatch.create(:temp_name => temp, :number => new_nb)
-        @clone.clone_batches << cb
+        cb = CloneBatch.new(:temp_name => temp, :number => new_nb)
+        cb.skip_name_validation = true
+        cb.skip_type_validation = true
+        if cb.save
+          @clone.clone_batches << cb
+        end
         i += 1
       end
   end

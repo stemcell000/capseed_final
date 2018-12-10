@@ -26,14 +26,8 @@ end
 #Import csv   
  active_admin_import validate: false,
               csv_options: {col_sep: ";" },
-              headers_rewrites: { 'username' => :user_id },
               before_batch_import: ->(importer) {
            
-                user_names = importer.values_at(:user_id)
-                users   = User.where(username: user_names).pluck(:username, :id)
-                options = Hash[*users.flatten]
-                importer.batch_replace(:user_id, options)     
-                
               },
               batch_size: 1000
               
@@ -42,7 +36,7 @@ action_item do
   link_to "View Site", "/"
 end
 
-permit_params :vol_unit, :name, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment, :gel_prot, :invoice, :batch_end, :l2, :hek_result, :target, :animal
+permit_params :vol_unit, :name, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment, :gel_prot, :invoice, :hek_result, :target, :animal
 
 end
 

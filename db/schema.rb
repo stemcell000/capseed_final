@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181206162944) do
+ActiveRecord::Schema.define(version: 20181210134646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,7 +204,8 @@ ActiveRecord::Schema.define(version: 20181206162944) do
     t.integer "virus_production_id"
     t.integer "user_id"
     t.date    "date"
-    t.string  "plate_nb"
+    t.string  "plate_name"
+    t.text    "comment"
   end
 
   create_table "enzymes", force: :cascade do |t|
@@ -440,6 +441,7 @@ ActiveRecord::Schema.define(version: 20181206162944) do
     t.integer  "virus_production_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.boolean  "l2"
   end
 
   create_table "strands", force: :cascade do |t|
@@ -518,6 +520,7 @@ ActiveRecord::Schema.define(version: 20181206162944) do
     t.text     "comment"
     t.integer  "vol_unit_id"
     t.boolean  "trash",               default: true
+    t.string   "barcode"
   end
 
   create_table "virus_productions", force: :cascade do |t|
@@ -529,7 +532,6 @@ ActiveRecord::Schema.define(version: 20181206162944) do
     t.string   "gel_prot"
     t.boolean  "invoice"
     t.string   "batch_end"
-    t.boolean  "l2"
     t.text     "hek_result"
     t.string   "animal"
     t.datetime "created_at",         null: false

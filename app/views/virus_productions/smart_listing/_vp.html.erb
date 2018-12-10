@@ -30,10 +30,8 @@
 								<strong>Date of the last sterility test: </strong><%=last_st.date.strftime("%b %e, %Y") %><br />
 								<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? "on-going" : int_to_string(last_st.sterility) %><br />
 								<%end%>
-								<strong>L2: </strong> <%= object.l2.nil? ? "none" : object.l2 %><br />
 								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
 								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />
-								<strong>Batch end: </strong> <%= object.batch_end.nil? ? "none" : object.batch_end %><br />
 								<% if !object.hek_result.blank? %>
 									<strong>HEK results: </strong><%= object.hek_result %><br />
 								<%end%>

@@ -36,13 +36,6 @@ class CloneBatchesController < InheritedResources::Base
   def edit_as_plasmid
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
- 
-    #if @clone_batch.genes.empty?
-      #@clone_batch.genes.build
-    #end
-    #if @clone_batch.promoters.empty?
-      #@clone_batch.promoters.build
-    #end
   end
   
   def update
@@ -72,12 +65,6 @@ class CloneBatchesController < InheritedResources::Base
          end
          #
         else
-          #if @clone_batch.genes.empty?
-           # @clone_batch.genes.build
-          #end
-          #if @clone_batch.promoters.empty?
-           # @clone_batch.promoters.build
-          #end
         render :action => 'edit_as_plasmid'
       end
   end
@@ -162,8 +149,8 @@ class CloneBatchesController < InheritedResources::Base
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
           
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.where.not(:name => nil).joins(:insert).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
-      
+      @clone_batches = @q.result.where.not(:name => :nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
+      #@clone_batches = CloneBatch.all
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [10, 20, 30, 50, 100])  
      
@@ -197,7 +184,6 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def add_pb_from_inventory
-    
     @units = Unit.all
     @users = User.all
     @clone_batch.plasmid_batches.build

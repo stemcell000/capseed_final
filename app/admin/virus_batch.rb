@@ -1,9 +1,10 @@
-ActiveAdmin.register PlasmidBatchProduction do
+ActiveAdmin.register VirusBatch do
 #Import csv   
  active_admin_import validate: false,
               csv_options: {col_sep: ";" },
               before_batch_import: ->(importer) {
    
+                
               },
               batch_size: 1000
               

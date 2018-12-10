@@ -7,6 +7,7 @@ ActiveAdmin.register Dosage do
     column :titer_to_atcc
     column :date
     column :virus_production_id
+    column :comment
     
 #actions
     actions defaults: false do |p|

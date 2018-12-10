@@ -13,7 +13,6 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :column
   belongs_to :row
   belongs_to :box
-  has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
   belongs_to :vol_unit
   belongs_to :format
   belongs_to :user

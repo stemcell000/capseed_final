@@ -26,11 +26,9 @@
 								</ul>
 								<%end%>
 								<% last_st = object.sterilitytests.last %>
-								<%if last_st.date %>
-								<strong>Date of the last sterility test: </strong><%=last_st.date.nil? ? "" : last_st.date.strftime("%b %e, %Y") %><br />
-								<%end%>
-								<%if last_st.sterility%>
-									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? "on-going" : int_to_string(last_st.sterility) %><br />
+								<%if last_st%>
+								<strong>Date of the last sterility test: </strong><%=last_st.date.nil? ? "" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
+									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? "<strong>Last result for sterility: </strong>on-going" : "<strong>Last result for sterility: </strong>"+int_to_string(last_st.sterility) %><br />
 								<%end%>
 								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
 								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />

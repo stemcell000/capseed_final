@@ -26,7 +26,8 @@
 												</div>'
 											data-content='
 												<div class="col-lg-12 text-left">
-													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Barcode: </strong><%= b.barcode.nil? ? "unknown" : b.barcode %><br />
+													<strong>Date of prod.: </strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />

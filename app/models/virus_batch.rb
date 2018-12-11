@@ -18,7 +18,7 @@ class VirusBatch < ActiveRecord::Base
   str=""    
   case self.volume
   when 0
-    str="/images/empty-med.png"
+    str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
   when 0..50
     str="/images/full-med-low.png"
   when 50..100
@@ -29,8 +29,6 @@ class VirusBatch < ActiveRecord::Base
     str="/images/full-med-high.png"
    when 500..1000
     str="/images/full-med-high.png"
-  else
-    str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
   end
   return str
   end

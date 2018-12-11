@@ -29,6 +29,12 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
     )
   end
   
+   ransacker :id do
+    Arel::Nodes::SqlLiteral.new(
+      "regexp_replace(to_char(\"#{table_name}\".\"production_id\", '999'), ' ', '', 'g')"
+    )
+  end
+  
   ransacker :id do
     Arel::Nodes::SqlLiteral.new(
       "regexp_replace(to_char(\"#{table_name}\".\"vol\", '999D99S'), ' ', '', 'g')"

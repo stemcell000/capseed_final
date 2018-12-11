@@ -15,7 +15,7 @@ class VirusBatch < ActiveRecord::Base
   validates :name, :uniqueness => {message: "This name is already taken."}
   
   def set_tube_status
-    str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash-med.png") : "/images/full-med.png"
+  str=""    
   case self.volume
   when 0
     str="/images/empty-med.png"
@@ -30,7 +30,7 @@ class VirusBatch < ActiveRecord::Base
    when 500..1000
     str="/images/full-med-high.png"
   else
-    str = self.trash? ? "/images/empty-med.png" : "/images/trash-med.png"
+    str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
   end
   return str
   end

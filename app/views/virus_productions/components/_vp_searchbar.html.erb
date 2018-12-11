@@ -8,7 +8,7 @@
 		
 <div class="row">
 		<div class="col-lg-12">
-				<%= f.search_field :id_or_comment_or_hek_result_or_animal_or_user_lastname_or_user_firstname_or_production_id_or_clone_batches_name_or_clone_batches_comment_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
+				<%= f.search_field :number_or_comment_or_hek_result_or_animal_or_user_lastname_or_user_firstname_or_clone_batches_name_or_clone_batches_comment_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
 			</div>
 </div>
 
@@ -29,7 +29,7 @@
 <div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-5">
 			<%= f.label "ID" %>
-  			<%= f.search_field :id_cont, :class => "col-lg-3" %>
+  			<%= f.search_field :number_cont, :class => "col-lg-3" %>
   	</div>
 	<div class="col-lg-3 col-md-3 col-sm-3">
 			<%= f.label 'Invoice'%>

@@ -356,7 +356,7 @@ class ProductionsController < InheritedResources::Base
     clone_batch_ids: [],
     plasmid_batch_ids: [],
     :assay_attributes => [:id, :name],
-    :virus_production_attributes => [:id, :production_id, :date_order, :date_production, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
+    :virus_production_attributes => [:id, :number, :production_id, :date_order, :date_production, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
     :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]],
     virus_production_ids: []

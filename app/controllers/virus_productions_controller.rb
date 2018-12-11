@@ -1,6 +1,6 @@
 class VirusProductionsController < InheritedResources::Base
  
-   before_action :virus_production_params, only:[:create, :update, :update_from_inventory, :destroy]
+   before_action :virus_production_params, only:[:create, :update, :update_from_inventory]
   
   #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -53,7 +53,6 @@ class VirusProductionsController < InheritedResources::Base
   
   def edit_from_inventory
       @vp = VirusProduction.find(params[:id])
-      #@vp.dosages.build
       @users = User.all
   end
   
@@ -71,11 +70,13 @@ class VirusProductionsController < InheritedResources::Base
   def new
     @vp = VirusProduction.new
     @users = User.all
+          n = VirusProduction.last.number.to_i
+          @nb = (n +1).to_s
   end
   
   def create
         @vp = VirusProduction.create(virus_production_params)
-
+          n = VirusProduction.last.number.to_i
       if  @vp.valid?
           flash.keep[:success] = "Task completed!"
       else
@@ -105,13 +106,15 @@ class VirusProductionsController < InheritedResources::Base
     @users = User.all
     @virus_production.virus_batches.build
     @virus_batches = @virus_production.virus_batches
+          n = VirusProduction.last.number.to_i
+          @nb = (n +1).to_s
   end
   
   private
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
+    params.require(:virus_production).permit(:id, :number, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
+    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_name, :_destroy, :remove_dosage],
     :sterilitytests_attributes => [:id, :virus_production_id, :sterility, :date, :_destroy, :remove_sterilitytest],
     :virus_batches_attributes => [:id, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id])

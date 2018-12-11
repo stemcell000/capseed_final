@@ -7,6 +7,9 @@
 			<%= f.input :id, :as => :hidden %>
 			<div class="row">
 				<div class="col-lg-2">
+					<%=f.input :number, :readonly => true %>
+				</div>
+				<div class="col-lg-2">
 					<%=f.input :invoice , :label => "Invoice"%>
 				</div>
 				<div class = "col-lg-2">
@@ -34,10 +37,13 @@
 		<div class="form-group ui-front well">
 			<div class="row">
 				<div class="col-lg-2">
+					<%=s.input :date, :label => "Date", :as => :string, :input_html => { :value => (s.object.date.strftime("%B %e, %Y") if s.object.date), "data-behaviour" => "datepicker" } %>
+				</div>
+				<div class="col-lg-2">
 					<%= s.input :sterility, label: "Sterility", collection: [["yes",1],["no",2]], input_html: {class: "select2-select"} %>
 				</div>
 				<div class="col-lg-2">
-					<%=s.input :date, :label => "Date", :as => :string, :input_html => { :value => (s.object.date.strftime("%B %e, %Y") if s.object.date), "data-behaviour" => "datepicker" } %>
+					<%= s.input :l2, label: "L2", collection: [["yes",1],["no",2]], input_html: {class: "select2-select"} %>
 				</div>
 			</div>
 			<%= s.link_to_remove "Remove test" %>

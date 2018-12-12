@@ -30,21 +30,19 @@
 													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
 													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
-													<% if !b.comment.blank? %>
-														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />
-													<%end%>
+													<strong>Comments: </strong><br /><%= b.comment.blank? ? "No comment" : b.comment %><br />
 													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
-																<%= link_to File.basename(a.attachment.to_s ) %><br />
+																<%= link_to File.basename(a.attachment.to_s ).truncate(25) %><br />
 															<%end%>
 													<%end%>
 												</div>
 											'
 										>
 											<div class="col-lg-1">
-												<img src= <%=b.set_tube_status %> alt="not-empty" /><span><%= b.name %></span>
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><strong><%= b.name %></strong></p>
 											</div>
 										</a>	
 								<%end%>

@@ -8,7 +8,7 @@
 			<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
 		</div>
 		<div class="col-lg-3 col-md-5 col-sm-3">
-			<%=f.input :date, :label => "Date of production", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
+			<%=f.input :date, :label => "Date", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
 		</div>
 	</div>
 	<div class="row">

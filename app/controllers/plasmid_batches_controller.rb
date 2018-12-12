@@ -117,10 +117,10 @@ end
    if @plasmid_batch.valid?
       box = Box.find(@plasmid_batch.box_id)
       if box.name == "Garbage"
-      @row = Row.find(@plasmid_batch.row_id)
-      @column = Column.find(@plasmid_batch.column_id)
-       @row.plasmid_batches.delete(@plasmid_batch)  
-       @column.plasmid_batches.delete(@plasmid_batch)
+      @row = @plasmid_batch.row
+      @column = @plasmid_batch.column
+       @row.plasmid_batches.delete(@plasmid_batch) unless @row.nil?
+       @column.plasmid_batches.delete(@plasmid_batch) unless @column.nil?
       end
       flash.keep[:success] = "Task completed!"
     else
@@ -264,7 +264,7 @@ end
   private
     def set_params
       params.require(:plasmid_batch).permit(:clone_batch_id, :id, :number, :name, :volume, :format, :concentration, :comment, :unit_id , :vol_unit_id, :box_id, :row_id, :column_id, :production_id, :format_id,
-      :user_id, :strict_validation , :_destroy, :trash,
+      :user_id, :strict_validation , :_destroy, :trash, :date,
       
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy],
       

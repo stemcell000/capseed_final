@@ -49,12 +49,10 @@
 			<div id="file_container" class="col-lg-5 well">
 				<%= f.simple_fields_for :clone_batch_as_plasmid_attachments do |a| %>
 					<div class="row">	
-						<div class="col-lg-7 vcenter">
+						<div class="col-lg-12 vcenter">
 							<%= File.basename(a.object.attachment.to_s).truncate(40) %>
 					       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
-						</div>
-						<div class="col-lg-1 vcenter">
-							<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
+					       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger" %>
 						</div>
 					</div>
 		<% end %>

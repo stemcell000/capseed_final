@@ -19,6 +19,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
+      
     if CloneBatch.where.not(:name =>"").last
       n = CloneBatch.where.not(:name =>"").last[:number].to_i
       @nb = (n+1).to_s
@@ -40,15 +41,18 @@ class CloneBatchesController < InheritedResources::Base
   
   def update
     #By pass validations
-    CloneBatch.skip_callback(:update)
-    #
+    #CloneBatch.skip_callback(:update)
+    
+    @clone_batch.skip_batch_validation = true
+    @clone_batch.skip_type_validation = true
+    @clone_batch.skip_strict_validation = true
+    
     @clone_batch.update_attributes(clone_batch_params)
     @clone = Clone.find(params[:clone_id])
     @clone_batches = @clone.clone_batches
-
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
-        CloneBatch.set_callback(:create)
+        #CloneBatch.set_callback(:create)
       else
         render :action => 'edit'
       end

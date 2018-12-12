@@ -3,7 +3,7 @@ ActiveAdmin.register PlasmidBatch do
   config.sort_order = 'id_asc'
 
   #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :name, :number, :format_id, :concentration, :unit_id, :box_id, :row_id, :column_id, :clone_batch_id, :vol_unit, :volume
+ permit_params :list, :of, :attributes, :on, :model, :trash, :name, :number, :format_id, :concentration, :unit_id, :box_id, :row_id, :column_id, :clone_batch_id, :vol_unit, :volume
    
   #filter
   filter :id

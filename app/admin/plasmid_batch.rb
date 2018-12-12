@@ -15,6 +15,7 @@ ActiveAdmin.register PlasmidBatch do
   filter :box
   filter :row
   filter :column
+  filter :trash
   filter :concentration
   filter :unit, :label => "conc. units"
   filter :volume

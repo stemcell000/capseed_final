@@ -42,6 +42,7 @@ ActiveAdmin.register PlasmidBatch do
     column :box
     column :row
     column :column
+    column :trash
    
    #actions
     actions defaults: false do |pb|

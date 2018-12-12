@@ -43,7 +43,7 @@
 						data-content='
 						<small>
 							<div class="col-md-12 text-left">
-								<div><strong>Dig. SMA1: </strong><%=qc.sma1%> <em>(<%=Type.find(cb.type_id).name = "Transgene"? "Transgene":Type.find(cb.type_id).name %>)</em></div>
+								<div><strong>Dig. SMA1: </strong><%=qc.sma1%> <em>(<%=cb.type.name = "Transgene"? "Transgene":cb.type.name %>)</em></div>
 								<div><strong>Dig. other: </strong><%= qc.dig_other.presence ? qc.dig_other : "no data"%></div>
 								<div><strong>Contact:</strong> <%= qc.user.nil? ? "none" : qc.user.firstname %> <%=qc.user.nil? ? "" : qc.user.lastname %> </div>
 								<% if !qc.comments.blank? %>

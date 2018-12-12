@@ -36,7 +36,7 @@
 									<%end%>	
 									<% cb.clone_batch_as_plasmid_attachments.each do |a|%>
 										<%mypath= a.attachment.to_s%>
-										<small><%= link_to File.basename(a.attachment.to_s)%></small> <br />
+										<small><%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %></small> <br />
 									<%end%>
 								<%end%>
 							</div>

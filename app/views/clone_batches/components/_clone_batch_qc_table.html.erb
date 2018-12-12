@@ -70,7 +70,7 @@
 																											<% if qc.qc_attachments.length>0%>
 																												<% qc.qc_attachments.each do |a|%>
 																													<% mypath= a.attachment.to_s%>
-																													<%= link_to File.basename(a.attachment.to_s)%><br />
+																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s %><br />
 																												<%end%>
 																												<%else%>
 																												<em>No attachment.</em>
@@ -122,7 +122,7 @@
 																											<% if qc.qc_attachments.length>0%>
 																												<% qc.qc_attachments.each do |a|%>
 																													<% mypath= a.attachment.to_s%>
-																													<%= link_to File.basename(a.attachment.to_s)%><br />
+																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s%><br />
 																												<%end%>
 																												<%else%>
 																												<em>No attachment.</em>

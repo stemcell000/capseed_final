@@ -29,13 +29,14 @@
 													<strong>Barcode: </strong><%= b.barcode.nil? ? "unknown" : b.barcode %><br />
 													<strong>Date of prod.: </strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
+													<strong>Contact: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%="No comment" || b.comment%><br />
 													<%end%>
 												</div>
 											'
 										>
-												<div class="col-lg-1 center">
+												<div class="col-lg-2 center">
 													<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><strong><%= b.name %></strong></p>
 												</div>
 										</a>	

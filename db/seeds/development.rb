@@ -23,9 +23,7 @@
 
   
    #Add boxes
-  Box.create(name: "box1")
-  Box.create(name: "box2")
-  Box.create(name: "box3")
+  Box.create(name: "Unknown")
   Box.create(name: "Garbage")
   
   #Add cloning methods

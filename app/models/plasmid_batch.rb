@@ -34,7 +34,7 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :productions
   
   #validations
-  validates :name, :format_id, :user_id, :unit_id, :concentration, :volume, :vol_unit_id, :presence => true
+  validates :name, :format_id, :user_id, :unit_id, :box_id, :concentration, :volume, :vol_unit_id, :presence => true
   validates :volume, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
@@ -51,6 +51,7 @@ end
 def set_tube_status
   str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash.png") : "/images/full-med.png"
   
+  unless self.box.name == "Garbage"
   if self.trash?
     case self.volume
     when 0
@@ -67,6 +68,9 @@ def set_tube_status
    else
      str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
    end
+      else
+     str = "/images/trash.png"
+  end
   return str
 end
 

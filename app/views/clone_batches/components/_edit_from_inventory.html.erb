@@ -91,8 +91,8 @@
 					<%f.object.plasmid_batches.each do |pb|%>
 					<tr>
 						<td><%= pb.name %></td>
-						<td><%= pb.box_id.nil? ? "unknown" : pb.box.name %></td>
-						<td><%= pb.row_id.nil? ? "unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+						<td><%= pb.box.nil? ? "unknown" : pb.box.name %></td>
+						<td><%= pb.row.nil? ? "unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
 						<td><%= pb.concentration.nil? ? "unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
 						<td><%= pb.date.nil? ? "unknown" : pb.date.strftime("%B %e, %Y") %></td>
 					</tr>

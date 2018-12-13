@@ -11,24 +11,28 @@ class VirusBatch < ActiveRecord::Base
   accepts_nested_attributes_for :row
   
   #validations
-  validates :name, :volume, :vol_unit_id, :presence => true
+  validates :name, :volume, :vol_unit_id, :box_id, :presence => true
   validates :name, :uniqueness => {message: "This name is already taken."}
   
   def set_tube_status
   str=""    
+ unless self.box.name == "Garbage"
   case self.volume
-  when 0
-    str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
-  when 0..50
-    str="/images/full-med-low.png"
-  when 50..100
-    str="/images/full-med-low.png"
-  when 100..500
-    str="/images/full-med-half.png"
-   when 100..500
-    str="/images/full-med-high.png"
-   when 500..1000
-    str="/images/full-med-high.png"
+    when 0
+      str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
+    when 0..50
+      str="/images/full-med-low.png"
+    when 50..100
+      str="/images/full-med-low.png"
+    when 100..500
+      str="/images/full-med-half.png"
+     when 100..500
+      str="/images/full-med-high.png"
+     when 500..1000
+      str="/images/full-med-high.png"
+    end
+   else
+     str = "/images/trash.png"
   end
   return str
   end

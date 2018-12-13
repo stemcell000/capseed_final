@@ -43,7 +43,7 @@
 		<div class="col-lg-5">
 			<%= f.simple_fields_for :qc_attachments do |a| %>
 								<div class="row">	
-										<%= File.basename(a.object.attachment.to_s), a.object.attachment.to_s %>
+										<%= link_to File.basename(a.object.attachment.to_s), a.object.attachment.to_s, :target => "_blank" %>
 										<% if a.object.id.nil? %>
 											<div class="col-xs-4">
 									       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>

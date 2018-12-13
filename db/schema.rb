@@ -370,8 +370,6 @@ ActiveRecord::Schema.define(version: 20181211094007) do
     t.decimal  "production_volume"
     t.string   "cbtag"
     t.string   "pbtag"
-    t.string   "cbarr",             default: [],                 array: true
-    t.string   "pbarr",             default: [],                 array: true
   end
 
   create_table "productions_projects", force: :cascade do |t|

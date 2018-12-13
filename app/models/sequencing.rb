@@ -5,5 +5,5 @@ class Sequencing < ActiveRecord::Base
  
  accepts_nested_attributes_for :qc_attachments, :allow_destroy => true, :reject_if => :all_blank
  
- validates :date_rec, :date => {:after_or_equal_to => :date_send, :message => 'must be after or equal to the date of sending.'}, :allow_blank => true
+# validates :date_rec, :date => {:before_or_equal_to => :date_send, :message => 'must be after or equal to the date of sending.'}, :allow_blank => true
 end

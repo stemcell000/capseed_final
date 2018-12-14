@@ -30,6 +30,8 @@ class VirusBatch < ActiveRecord::Base
       str="/images/full-med-high.png"
      when 500..1000
       str="/images/full-med-high.png"
+     else
+     str=  "/images/empty-med.png"
     end
    else
      str = "/images/trash.png"

@@ -52,8 +52,6 @@ def set_tube_status
   unless self.box.name == "Garbage"
   if self.trash?
     case self.volume
-    when :blank
-      str="/images/empty-med.png"
     when 0
       str="/images/empty-med.png"
     when 0..50
@@ -64,6 +62,8 @@ def set_tube_status
       str="/images/full-med-half.png"
      when 500..1000
       str="/images/full-med-high.png"
+    else
+     str=  "/images/empty-med.png"
     end
    else
      str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"

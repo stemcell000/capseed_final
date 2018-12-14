@@ -16,17 +16,14 @@
 					</div>
 						
 							<%=ff.simple_fields_for :plasmid_batch_productions do |fff| %>
+								<% if fff.object.production_id == @production.id%>
 								<div class="row">
 									<div class="col-lg-5 col-md-5 col-sm-5 align-bottom">
+									
 										<span><%=fff.input :volume, :label => "Prod. volume (#{ff.object.vol_unit.name})"%></span>
 									</div>
-								<%if ff.object.volume < 0  %>	
-									<div class="col-lg-5 col-md-5 col-sm-5 align-bottom">
-									<% new_volume = ff.object.volume - fff.object.volume%>
-										<span><%= ff.input :volume, :label => "Batch volume (#{ff.object.vol_unit.name})", :input_html =>{:value => new_volume, :class => "danger"} %></span>
-									</div>
-								<%end%>
 								</div>
+								<%end%>
 							
 							<%end%>
 			<%end%>

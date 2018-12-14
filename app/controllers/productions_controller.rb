@@ -223,8 +223,11 @@ class ProductionsController < InheritedResources::Base
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume == 0 }
       flash.keep[:warning] = "Complete the  production volumes, please."
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batches.any? { |pb| pb.volume < 0 }
+    elsif @production.plasmid_batches.any? { |pb| pb.volume.nil? }
        flash.keep[:warning] = "Check the production volumes, please."
+      redirect_to :action => :add_plasmid
+    elsif @production.plasmid_batches.any? { |pb| pb.volume < pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume }
+      flash.keep[:warning] = "There is not enough material."
       redirect_to :action => :add_plasmid
     else
       @production.update_columns(:step => 2)

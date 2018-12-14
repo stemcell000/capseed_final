@@ -34,18 +34,13 @@
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<strong>Comments: </strong><br /><%= b.comment.blank? ? "No comment" : b.comment %><br />
 													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
-													<strong>Contact: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
+													<strong>Box: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>
 																<%= link_to File.basename(a.attachment.to_s ).truncate(25), a.attachment.to_s, :target => "_blank" %><br />
 															<%end%>
 													<%end%>
-													<% v_array = []%>
-													<% b.productions.each do |p|%>
-														v_array = v_array + p.virus_productions.pluck(:id)
-													<%end%>
-													<%= v_array.empty? ? "" : "Virus production history: "+v_array.to_list   %>
 												</div>
 											'
 										>

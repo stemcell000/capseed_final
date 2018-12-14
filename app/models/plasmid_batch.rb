@@ -16,7 +16,6 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :vol_unit
   belongs_to :format
   belongs_to :user
-  belongs_to :virus_productions
 
  #
 
@@ -27,7 +26,6 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :row, :allow_destroy => true
   accepts_nested_attributes_for :column, :allow_destroy => true
   accepts_nested_attributes_for :vol_unit, :allow_destroy => true
-  accepts_nested_attributes_for :virus_productions, :allow_destroy => true
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
   accepts_nested_attributes_for :plasmid_batch_productions, :reject_if => :all_blank

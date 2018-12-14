@@ -160,3 +160,13 @@ def cb_flag(i)
  
 end
 
+def colorize(vol)
+  str=""
+  if vol.nil? || vol == 0
+    str="red"
+  else
+    str="#009933"
+  end
+  return str
+end
+

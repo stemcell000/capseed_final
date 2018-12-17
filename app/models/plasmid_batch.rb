@@ -49,7 +49,7 @@ end
 def set_tube_status
   str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash.png") : "/images/full-med.png"
   
-  unless self.box.name == "Garbage"
+  unless self.box_id == 2
   if self.trash?
     case self.volume
     when 0

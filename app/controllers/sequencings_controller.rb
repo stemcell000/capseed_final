@@ -103,7 +103,8 @@ class SequencingsController < ApplicationController
       :clone_batch_attributes => [:name, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :qc_attachments_attributes =>[:id,:sequencing_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
-      :assay_attributes => [:id, :name, :assay_id])
+      :assay_attributes => [:id, :name, :assay_id],
+      :primers_attributes => [:id, :name, :sequence])
     end
       
     def load_clone_batch 
@@ -119,6 +120,7 @@ class SequencingsController < ApplicationController
         @assay = Assay.find(params[:assay_id]) 
         @clones = @assay.clones
         @clone_batches = @clone.clone_batches
+        @primers = Primer.all
     end
     
     def load_users

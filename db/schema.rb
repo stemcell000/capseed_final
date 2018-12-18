@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218134918) do
+ActiveRecord::Schema.define(version: 20181218160209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,8 +247,6 @@ ActiveRecord::Schema.define(version: 20181218134918) do
     t.datetime "updated_at",        null: false
     t.integer  "clone_batch_qc_id"
     t.integer  "user_id"
-    t.string   "primer_F"
-    t.string   "primer_R"
     t.text     "comment"
     t.date     "date"
     t.string   "result"
@@ -352,12 +350,31 @@ ActiveRecord::Schema.define(version: 20181218134918) do
   add_index "plasmid_batches_productions", ["plasmid_batch_id"], name: "index_plasmid_batches_productions_on_plasmid_batch_id", using: :btree
   add_index "plasmid_batches_productions", ["production_id"], name: "index_plasmid_batches_productions_on_production_id", using: :btree
 
+  create_table "primer_fs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "sequence"
+    t.text     "comment"
+    t.integer  "pcr_colony_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "primer_rs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "sequence"
+    t.text     "comment"
+    t.integer  "pcr_colony_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "primers", force: :cascade do |t|
     t.string   "name"
     t.string   "sequence"
     t.text     "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "sequencing_id"
   end
 
   create_table "productions", force: :cascade do |t|

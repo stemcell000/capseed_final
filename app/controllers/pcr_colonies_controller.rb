@@ -102,7 +102,9 @@ class PcrColoniesController < ApplicationController
       :clone_batch_attributes => [:name, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :qc_attachments_attributes =>[:id,:pcr_colony_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
-      :assay_attributes => [:id, :name, :assay_id])
+      :assay_attributes => [:id, :name, :assay_id],
+      :primerF_attributes => [:id, :name, :sequence],
+      :primerR_attributes => [:id, :name, :sequence])
     end
       
     def load_clone_batch 

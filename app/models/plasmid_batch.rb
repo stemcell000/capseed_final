@@ -12,7 +12,7 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :unit
   belongs_to :column
   belongs_to :row
-  belongs_to :box
+  belongs_to :box, :inverse_of => :plasmid_batches
   belongs_to :vol_unit
   belongs_to :format
   belongs_to :user
@@ -49,28 +49,24 @@ end
 def set_tube_status
   str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash.png") : "/images/full-med.png"
   
-  unless self.box_id == 2
-  if self.trash?
+  unless self.trash?
     case self.volume
-    when 0
-      str="/images/empty-med.png"
-    when 0..50
-      str="/images/full-med-low.png"
-    when 50..100
-      str="/images/full-med-low.png"
-    when 100..500
-      str="/images/full-med-half.png"
-     when 500..1000
-      str="/images/full-med-high.png"
-    else
-     str=  "/images/empty-med.png"
-    end
-   else
-     str = self.trash? ? "/images/empty-med.png" : "/images/trash.png"
-   end
+      when 0
+        str="/images/empty-med.png"
+      when 0..50
+        str="/images/full-med-very-low.png"
+      when 50..100
+        str="/images/full-med-low.png"
+      when 100..500
+        str="/images/full-med-half.png"
+       when 500..1000
+        str="/images/full-med-high.png"
       else
-     str = "/images/trash.png"
-  end
+       str=  "/images/empty-med.png"
+     end
+   else
+       str = self.trash? ? "/images/trash.png":"/images/empty-med.png"
+   end
   return str
 end
 

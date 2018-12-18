@@ -75,7 +75,7 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
-							<%= f.object.clone_batches.empty? ? "No plasmid" : f.object.clone_batches.map { |cb| cb.name }.to_sentence %>
+							<%= f.object.clone_batches.empty? ? "No plasmid" : f.object.clone_batches.map { |cb| "["+cb.number+"]"+cb.name }.to_sentence %>
 						</div>
 					</div>
 					

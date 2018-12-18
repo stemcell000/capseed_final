@@ -10,5 +10,4 @@ class PlasmidBatchProduction < ActiveRecord::Base
   accepts_nested_attributes_for :plasmid_batch
   
 
-
 end

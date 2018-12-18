@@ -83,7 +83,6 @@ def edit_from_inventory
   @columnss = Column.all
   @rows = Row.all
   @virus_list = @plasmid_batch.productions.pluck(:id).to_s
-   
 end
   
 def update
@@ -91,6 +90,9 @@ def update
   if @plasmid_batch.valid?
     @clone_batch = CloneBatch.find(@plasmid_batch.clone_batch_id)
     @units = Unit.all
+    unless @plasmid_batch.plasmid_batch_productions.empty?
+      @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume)
+    end
     flash.keep[:success] = "Task completed!"
   else
     render :action => 'edit'
@@ -101,6 +103,9 @@ def update_from_inventory
   @plasmid_batch.update_attributes(set_params)
   if @plasmid_batch.valid?
     @units = Unit.all
+     unless @plasmid_batch.plasmid_batch_productions.empty?
+    @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume) 
+    end
     flash.keep[:success] = "Task completed!"
   else
     render :action => 'edit_from_inventory'
@@ -157,11 +162,11 @@ end
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @plasmid_batches = @clone_batch.plasmid_batches
     @plasmid_batch.toggle!(:trash)
-    @plasmid_batch.update_columns(:volume => 0)
     garbage = Box.find_by_name("Garbage")
     
-    unless @plasmid_batch.trash
+    if @plasmid_batch.trash
       @plasmid_batch.update_columns(:volume => 0)
+      @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume)
       garbage.plasmid_batches << @plasmid_batch
      else
       garbage.plasmid_batches.delete(@plasmid_batch)

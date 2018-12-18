@@ -156,7 +156,7 @@ class CloneBatchesController < InheritedResources::Base
       @clone_batches = @q.result.where.not(:name => :nil).includes(:clone, :target, :type, :strand, :genes, :promoters, :origin)
       #@clone_batches = CloneBatch.all
     #Config de l'affichage des résultats.
-      @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [30, 50, 100])  
+      @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [30, 50, 100])  
      
      respond_to do |format|
       format.js

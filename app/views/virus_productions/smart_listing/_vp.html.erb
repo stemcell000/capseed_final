@@ -1,7 +1,7 @@
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.id %></td>
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.created_at.strftime("%b %e, %Y") %></td>
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="col-lg-4 col-md-4 col-sm-4 center"><small><%= object.clone_batches.map {|cb| cb.name}.to_sentence %></small></td> 
+  <td class="col-lg-4 col-md-4 col-sm-4 center"><small><%= object.clone_batches.map {|cb| "["+cb.number+"]"+cb.name}.to_sentence %></small></td> 
   
   <td class="col-lg-5 col-md-5 col-sm-5 actions">
   	
@@ -27,7 +27,7 @@
 								<%end%>
 								<% last_st = object.sterilitytests.last %>
 								<%if last_st%>
-								<strong>Date of the last sterility test: </strong><%=last_st.date.nil? ? "unknown" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
+								<strong>Date of the last sterility test: </strong><%=last_st.date.nil? ? "none" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
 									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? "<strong>Last result for sterility: </strong>on-going" : "<strong>Last result for sterility: </strong>"+int_to_string(last_st.sterility) %><br />
 								<%end%>
 								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />

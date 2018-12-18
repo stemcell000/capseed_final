@@ -120,6 +120,8 @@ class ProductionsController < InheritedResources::Base
        @production.update_columns(:pbtag => pbtag_value)
       end
       #
+      @virus_lock = @production.virus_productions.empty? ? false : true
+      #
   end
   
   def select_pbs

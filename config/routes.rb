@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :virus_batches
   resources :origins
   resources :sterilitytests
+  resources :utilities
   get 'errors/not_found'
 
   get 'errors/internal_server_error'

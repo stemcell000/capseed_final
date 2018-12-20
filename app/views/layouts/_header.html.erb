@@ -18,26 +18,22 @@
 		        <li><%= link_to "Utilities", utilities_path %></li>
 		      </ul>
 		       <ul class="nav navbar-nav navbar-right">
-		        <li><a href="/">Help</a></li>
+		       
 		        <% if signed_in? %>
 		    		<li id="session_msg"><a class="inactivelink">Logged in as <%= "#{current_user.firstname}  #{current_user.lastname}" %></a></li>
-		    		<li>
-		    			<%= link_to destroy_user_session_path, method: :delete do %>
-		    			<span class="glyphicon glyphicon-log-out"></span>
+		    		<li><%= link_to destroy_user_session_path, method: :delete do %>
+		    				<span class="glyphicon glyphicon-log-out"></span>
 		    			<%end%>
 		    		</li>
-		    		<li><% if can? :update, @user %>
+		    		<%end%>
+		    		<% if can? :update, @user %>
+		    		<li>
 		   			<%= link_to  admin_root_path do %>
 		   				<span class="glyphicon glyphicon-tower"></span> Administration
 		   			<%end%>
-		    			<% end %></li>
-					<% else %>
 		    		<li>
-		    			<%= link_to new_user_session_path do %>
-		    			<span class="glyphicon glyphicon-log-in"></span>
-		    			<%end%>
+		    		<% end %>
 		    		</li>
-					<% end %>
 			
 				</ul>
 			</div>

@@ -5,7 +5,9 @@ class AddMelissa < ActiveRecord::Migration
             u.username = 'mdesrosiers'
             u.firstname = 'Melissa'
             u.lastname = 'Desrosiers'
-            u.password    = '2qg4Z2Jf'
+            u.encrypted_password   = '2qg4Z2Jf'
+            u.password = '2qg4Z2Jf'
+            u.password_confirmation = '2qg4Z2Jf'
             u.role = 'administrator'
         end
   end

@@ -45,7 +45,18 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  devise_for :users
+  devise_for :user, :controllers => { :confirmations => "confirmations" }
+  devise_scope :user do
+  put 'user/confirmation', to: 'confirmations#update'
+  end
+  
+  resources :users
+  resource :user, only: [:edit] do
+  collection do
+    patch 'update_password'
+  end
+  end 
+  
   ActiveAdmin.routes(self)
 
   resources :assays do

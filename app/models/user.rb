@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   has_many :virus_productions
   has_many :assays
   has_many :plasmid_batches
-  has_many :virus_productions
   has_many :sequencings
   has_many :pcr_colonies
   has_many :dosages
@@ -85,7 +84,21 @@ class User < ActiveRecord::Base
   # Devise::Models:unless_confirmed` method doesn't exist in Devise 2.0.0 anymore. 
   # Instead you should use `pending_any_confirmation`.  
   def only_if_unconfirmed
-    pending_any_confirmation {yield}
+   pending_any_confirmation {yield}
+   #unless_confirmed {yield}
   end
+  
+  def password_required?
+  # Password is required if it is being set, but not for new records
+    if !persisted? 
+      false
+    else
+      !password.nil? || !password_confirmation.nil?
+    end
+  end
+   
+   def dependencies
+     self.virus_productions.empty? || self.assays.empty? ||self.plasmid_batches.empty? || self.sequencings.empty? || self.pcr_colonies.empty || self.dosages.empty?
+   end
    
 end

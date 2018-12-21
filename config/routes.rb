@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :virus_batches
   resources :origins
   resources :sterilitytests
-  resources :utilities
   get 'errors/not_found'
 
   get 'errors/internal_server_error'
@@ -50,7 +49,10 @@ Rails.application.routes.draw do
   put 'user/confirmation', to: 'confirmations#update'
   end
   
-  resources :users
+  resources :users do
+    get :edit_user, :on => :member
+  end
+    
   resource :user, only: [:edit] do
   collection do
     patch 'update_password'

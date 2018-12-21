@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   
+  
   def inform_cloning
     @user = User.first
     UserNotifier.notify_cloning(@user).deliver_now
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
 # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.where.not(:role => "administrator")
   end
 
   # GET /users/1
@@ -67,6 +68,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user.destroy
+    @users = User.all
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
@@ -76,7 +78,10 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
   end
-
+  
+  def edit_user
+  end
+  
   def update_password
     @user = current_user
     if @user.update(user_params)

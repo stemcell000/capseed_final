@@ -2,8 +2,15 @@
 <td ><%= object.sequence%></td>
 <td ><%= object.created_at%></td>
 <td class="actions center">
+<%if object.clone.nil?%>
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_promoter_path(object), title: "Edit"},
 		{name: :destroy, url: promoter_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?", :if => current_user.role="administrator"}
 		]%>
+<%else%>
+		<%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_promoter_path(object), title: "Edit"},
+		{name: :destroy, url: promoter_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?", :if => current_user.role="administrator"}
+		]%>
+<%end%>
 </td>

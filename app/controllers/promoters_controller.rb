@@ -1,7 +1,7 @@
 class PromotersController < ApplicationController
   
   before_action :promoter_params, only:[:create, :update]
-  before_action :find_promoter, only: [:edit, :destroy, :update, :create]
+  before_action :find_promoter, only: [:edit, :destroy, :update]
   
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
@@ -15,7 +15,7 @@ class PromotersController < ApplicationController
  end
  
   def create
-    @promoter = promoter.create(promoter_params)
+    @promoter = Promoter.create(promoter_params)
     if @promoter.save
       flash.keep[:success] = "A new promoter has been successfully created!"
     else

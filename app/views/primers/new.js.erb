@@ -1,0 +1,5 @@
+	$("#myModalLabel").html("New Primer")
+	$("#flash-msg-container").html("")
+	$("#inner-assay-modal").html("<%= escape_javascript( render'primers/form' ) %>")
+	$("#assay-modal").modal("show")
+	$("ul.errors").html("")

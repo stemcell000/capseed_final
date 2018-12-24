@@ -1,0 +1,11 @@
+<td ><%= object.full_name%></td>
+<td ><%= object.id%></td>
+<td ><%= object.created_at%></td>
+<td ><%= object.role%></td>
+<td class="actions">
+	<%= smart_listing_item_actions [
+	  	{name: :custom, url: edit_user_user_path(object), method: :get, icon: "fa fa-user", title: "Edit user"},
+	  	{name: :custom, url: actual_member_switch_user_path(object), method: :patch, icon: object.actual_member? ? "fa fa-check":"fa fa-times", remote: true, title:  "This user ran away!"},
+		{name: :destroy, url: user_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?", if: object.role != "administrator"}
+		]%>
+</td>

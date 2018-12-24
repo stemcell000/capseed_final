@@ -1,0 +1,10 @@
+<td ><%= object.name%></td>
+<td ><%= object.sequence%></td>
+<td ><%= object.created_at%></td>
+<td class="actions center">
+	<%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_primer_path(object), title: "Edit"},
+	  	{name: :custom, url: availability_switch_primer_path(object), method: :patch, icon: object.available? ? "fa fa-check":"fa fa-times", remote: true, title:  "User ran away!"},
+		{name: :destroy, url: primer_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?", :if :can? :manage, :all }
+		]%>
+</td>

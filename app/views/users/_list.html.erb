@@ -1,0 +1,27 @@
+	  <table  class="table table-striped table-small">
+	    <thead>
+		    <th class="col-lg-2 center">
+		        <%= smart_listing.sortable "User", :fullname %>
+		    </th>
+		    <th class="col-lg-1 center">
+		        <%= smart_listing.sortable "ID", :id %>
+		    </th>
+		    <th class="col-lg-2 center">
+		        <%= smart_listing.sortable "Date of registration", :created_at %>
+		    </th>
+		    	<th class="col-lg-2 center">
+		        <%= smart_listing.sortable "status", :role %>
+		    </th>
+		  	<th class="col-lg-1 center"> Actions</th>
+	    </thead>
+	    <tbody>
+		  	<% smart_listing.collection.each do |e| %>
+	      		<tr class="editable" data-id = "<%= e.id %>">
+					<%= smart_listing.render object: e, partial: "users/user", locals: {object: e} %>
+	        		</tr>
+	      	<% end %>
+	     <%= smart_listing.item_new colspan: 9, link: new_user_path(:object) %>
+	    </tbody>
+	  </table>
+	  <%= smart_listing.paginate %>
+	  <%= smart_listing.pagination_per_page_links %>

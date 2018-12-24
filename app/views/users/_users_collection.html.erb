@@ -5,7 +5,7 @@
 		<th class="center">Actions</th>
 	<% @users.order(:role).each do |user|%>
 	<tr>
-		<td class="col-lg-3 col-md-4 col-sm-5"><%= user.firstname%> <%=user.lastname%></td>
+		<td class="col-lg-3 col-md-4 col-sm-5"><%=user.full_name %></td>
 		<td class="col-lg-2 col-md-4 col-sm-5 center"><%= user.role%></td>
 		<td class="col-lg-2 col-md-2 col-sm-2 center">
 		<%= link_to 'Edit', edit_user_user_path(user), :remote => true %>

@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
   
   def inform_cloning
     @user = User.first
@@ -20,8 +22,8 @@ class UsersController < ApplicationController
   
 # GET /users
   # GET /users.json
-  def index
-    @users = User.all.where.not(:role => "administrator")
+ def index
+    @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])   
   end
 
   # GET /users/1
@@ -92,6 +94,11 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+  
+ def actual_member_switch
+  @user.toggle! :actual_member
+  @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -101,7 +108,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :password, :password_confirmation, :current_password)
+      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :password, :password_confirmation, :current_password, :actual_member)
     end
   
 end

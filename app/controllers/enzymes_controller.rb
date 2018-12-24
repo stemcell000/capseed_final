@@ -1,7 +1,7 @@
 class EnzymesController < ApplicationController
   
   before_action :enzyme_params, only:[:create, :update]
-  before_action :find_enzyme, except: [:index, :new, :create]
+  before_action :find_enzyme, only: [:edit, :destroy, :update, :create]
   
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
@@ -27,7 +27,7 @@ class EnzymesController < ApplicationController
   end
  
  def index
-    @enzymes = smart_listing_create(:enzymes, Enzyme.all, partial: "enzymes/listing_enzymes", default_sort: {name: "asc"},  page_sizes: [30, 50, 100])   
+    @enzymes = smart_listing_create(:enzymes, Enzyme.all, partial: "enzymes/list", default_sort: {name: "asc"},  page_sizes: [10, 20, 30, 50, 100])   
  end
  
  def destroy
@@ -36,7 +36,7 @@ class EnzymesController < ApplicationController
   
   private
    def enzyme_params
-      params.require(:enzyme).permit(:id, :name, :_destroy, :clone_id)
+      params.require(:enzyme).permit(:name, :_destroy, :clone_id)
    end
    
    def find_enzyme

@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   
   resources :users do
     get :edit_user, :on => :member
+    patch :actual_member_switch, :on => :member
   end
     
   resource :user, only: [:edit] do
@@ -271,6 +272,9 @@ Rails.application.routes.draw do
   resources :genes
   resources :promoters
   resources :origins
+  resources :primers do
+   patch  :availability_switch, :on => :member
+  end
   
   #Home
   root 'clone_batches#index'

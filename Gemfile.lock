@@ -105,6 +105,7 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    clipboard-rails (1.7.1)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -354,6 +355,7 @@ DEPENDENCIES
   cancan
   cancancan (~> 2.0)
   carrierwave (>= 1.0.0.rc, < 2.0)
+  clipboard-rails
   coffee-rails (~> 4.1.0)
   date_validator
   devise
@@ -404,4 +406,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.16.2
+   1.17.1

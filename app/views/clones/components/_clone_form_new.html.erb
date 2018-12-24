@@ -81,12 +81,12 @@
 					</div>	
 					<div class="row">
 						<div class="col-lg-12">
-							<%= f.input :primerinsfor, :label => "Forward primer insert" %>
+							<%= f.association :primer_f, :collection => Primer.all, :label_method => lambda{|primer| "#{primer.1}|#{primer.name}|#{primer.sequence}"}, :value_method => :id,:label => "Forward primer insert" %>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-lg-12">
-							<%= f.input :primerinsrev, :label => "Reverse primer insert" %>
+							<%= f.asscoiation :primer_r, :collection => Primer.all, :label_method => lambda{|primer| "#{primer.1}|#{primer.name}|#{primer.sequence}"}, :value_method => :id, :label => "Reverse primer insert" %>
 						</div>
 					</div>
 					<div class="row">

@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-lg-7">
 							   <%= f.association :primer_fs, :label => "Primer Forward",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.name}|#{primer.sequence}"}, :value_method => :id,
+									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id}|#{primer.name}|#{primer.sequence}"}, :value_method => :id,
 									:input_html => { class:"select2-select" } %>
 			</div>
 		</div>

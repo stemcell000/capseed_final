@@ -1,6 +1,6 @@
 class PrimersController < ApplicationController
   before_action :primer_params, only:[:create, :update]
-  before_action :find_primer, only: [:edit, :destroy, :update, :create]
+  before_action :find_primer, only: [:edit, :destroy, :availability_switch, :update]
   
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
@@ -13,7 +13,7 @@ class PrimersController < ApplicationController
  end
  
   def create
-    @primer = primer.create(primer_params)
+    @primer = Primer.create(primer_params)
     if @primer.save
       flash.keep[:success] = "A new primer has been successfully created!"
     else
@@ -26,7 +26,7 @@ class PrimersController < ApplicationController
   end
  
  def index
-    @primers = smart_listing_create(:primers, Primer.all, partial: "primers/list", default_sort: {name: "asc"},  page_sizes: [10, 20, 30, 50, 100])   
+    @primers = smart_listing_create(:primers, Primer.all, partial: "primers/list", default_sort: {id: "asc"},  page_sizes: [20,30,50, 100, 200])   
  end
  
  def destroy
@@ -34,17 +34,17 @@ class PrimersController < ApplicationController
  end
  
 def availability_switch
-  @primer.toggle! :actual_member
-  @primers = smart_listing_create(:primers, Primer.all, partial: "primers/list", default_sort: {:name => "asc"},  page_sizes: [10, 20, 30, 50, 100])
+  @primer.toggle! :available
+  @primers = smart_listing_create(:primers, Primer.all, partial: "primers/list", default_sort: {id: "asc"},  page_sizes: [20,30,50, 100, 200])
 end
   
   private
    def primer_params
-      params.require(:primer).permit(:name, :sequence, :_destroy, :available)
+      params.require(:primer).permit(:id, :name, :sequence, :_destroy, :available)
    end
    
    def find_primer
-      @primer = primer.find(params[:id])
+      @primer = Primer.find(params[:id])
    end
 end
 

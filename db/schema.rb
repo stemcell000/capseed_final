@@ -372,10 +372,10 @@ ActiveRecord::Schema.define(version: 20181224105027) do
     t.string   "name"
     t.text     "sequence"
     t.text     "comment"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "sequencing_id"
-    t.boolean  "available"
+    t.boolean  "available",     default: true
   end
 
   create_table "productions", force: :cascade do |t|

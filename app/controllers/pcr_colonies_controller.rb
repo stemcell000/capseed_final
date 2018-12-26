@@ -98,13 +98,17 @@ class PcrColoniesController < ApplicationController
   
   private
     def set_params
-      params.require(:pcr_colony).permit(:clone_batch_id, :id, :name, :primer_f, :primer_r, :user_id, :date, :comment, :result, :conclusion,
+      params.require(:pcr_colony).permit(:clone_batch_id, :id, :name, :user_id, :date, :comment, :result, :conclusion,
       :clone_batch_attributes => [:name, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :qc_attachments_attributes =>[:id,:pcr_colony_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
       :assay_attributes => [:id, :name, :assay_id],
-      :primerF_attributes => [:id, :name, :sequence],
-      :primerR_attributes => [:id, :name, :sequence])
+      :primer_fs_attributes => [:id, :pcr_colony_id, :name, :sequence],
+      :primer_rs_attributes => [:id, :pcr_colony_id, :name, :sequence],
+      :primers_attributes => [:id, :pcr_colony_id, :name, :sequence],
+      primer_f_ids: [],
+      primer_r_ids: [],
+      primer_ids: [])
     end
       
     def load_clone_batch 

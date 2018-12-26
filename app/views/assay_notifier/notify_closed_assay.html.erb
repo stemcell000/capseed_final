@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hey |subme|! The production # <%=@assay.id%> is finished! </h3>
+    <table>
+    	<tr>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">ID</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@assay.id%></td>
+    	</tr>
+    	<tr>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Name</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@assay.clones.name %></td>
+		</tr>
+    	<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Date of order</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">
+    			<%= @assay.created_at.strftime("%B %e, %Y") %>		
+    		</td>
+    	</tr>
+    	<tr>
+    	</tr>
+    </table>
+  </body>
+</html>

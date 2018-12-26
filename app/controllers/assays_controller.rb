@@ -340,7 +340,7 @@ end
             @plasmid_batches = cb.plasmid_batches.where(:qc_validation => true).order(:id) + @plasmid_batches
          end
          
-    # conditions => pas de cloture avant d'avoir au moins créé un plasmide.     
+    # conditions => pas de cloture avant d'avoir au moins créé un plasmide (clone_batch).     
          if @assay.last_step > 5 
             @assay.update_columns(:step => 7)
             @assay.update_columns(:percentage => 80)
@@ -363,6 +363,7 @@ end
           redirect_to :action => 'close'
           set_plasmid_validation(1, @assay)
           set_strict_validation(0, @assay)
+          inform_closed_assay
    end
   
   def lock_process
@@ -394,6 +395,13 @@ end
           c.clone_batches.where.not(:name => nil).update_all(:strict_validation => i)
         end 
     end
+    
+  def inform_closed_assay
+    @assay = Assay.find(params[:id])
+    assay = @assay
+    AssayNotifier.notify_closed_assay(@assay).deliver_now
+    flash.keep[:success] = "Cloning closed. An e-mail has been sent to the administrators."
+  end
   
   private
     

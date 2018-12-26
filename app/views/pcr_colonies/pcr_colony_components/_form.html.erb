@@ -1,7 +1,6 @@
 <%= simple_nested_form_for ([@assay, @clone, @clone_batch, @pcr_colony]), remote: true, html: {class: 'horizontal-form'} do |f|  %>
 <%= f.error_notification %>
 <ul class="errors"></ul>
-<small>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="container">	
@@ -20,14 +19,16 @@
 		<div class="row">
 			<div class="col-lg-7">
 							   <%= f.association :primer_fs, :label => "Primer Forward",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id}|#{primer.name}|#{primer.sequence}"}, :value_method => :id,
+									:collection => PrimerF.all, :label_method => lambda{|primer_f| "#{primer_f.id} - #{primer_f.name}"},
+									:value_method => :id,
 									:input_html => { class:"select2-select" } %>
 			</div>
 		</div>
 		<div class="row">
 		<div class="col-lg-7">
 							   <%= f.association :primer_rs, :label => "Primer Rewind",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id}|#{primer.name}|#{primer.sequence}"}, :value_method => :id,
+									:collection => PrimerR.all, :label_method => lambda{|primer_r| "#{primer_r.id} - #{primer_r.name}"},
+									:value_method => :id,
 									:input_html => { class:"select2-select" } %>
 		</div>
 		</div>
@@ -58,12 +59,7 @@
 								<%= f.link_to_add "Add a file", :qc_attachments ,:class => 'btn btn-sm btn-success' %>
 							</div>
 					</div>
-				     
-			  		
-			  		
-			  		
-		 </div>
-		</small>
+		 	</div>
 		</div>
 	</div>
 	<div class="panel-footer">

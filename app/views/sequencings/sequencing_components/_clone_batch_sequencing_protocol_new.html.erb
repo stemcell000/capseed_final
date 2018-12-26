@@ -1,7 +1,6 @@
 <%= simple_nested_form_for ([@assay, @clone, @sequencing]), :url => create_sequencing_protocol_collection_assay_clone_sequencings_path, remote: true, html: {class: 'horizontal-form'} do |f|  %>
 <%= f.error_notification %>
 <ul class="errors"></ul>
-<small>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="container">	
@@ -23,7 +22,7 @@
 		<div class="row">
 			<div class="col-lg-7">
 							 <%= f.association :primers, :label => "Primer",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id}|#{primer.name}|#{primer.sequence}"}, :value_method => :id,
+									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id} - #{primer.name}"}, :value_method => :id,
 									:input_html => { class:"select2-select" } %>
 			</div>
 		</div>
@@ -58,7 +57,6 @@
 			  		
 			  		
 		 </div>
-		</small>
 		</div>
 	</div>
 	<div class="panel-footer">

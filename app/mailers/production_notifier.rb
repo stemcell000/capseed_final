@@ -11,7 +11,7 @@ class ProductionNotifier < ApplicationMailer
     sendgrid_substitute "|subme|", firstnames
     sendgrid_unique_args :key => production.id
     
-    mail :from => "mailer@capseed.net", :to => "noreply@address.com", :subject => "Production ##{production.id} is closed."
+    mail :from => "mailer@capseed.com", :to => "noreply@address.com", :subject => "Production ##{production.id} is closed."
   end
   
 end

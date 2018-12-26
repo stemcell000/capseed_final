@@ -1,7 +1,7 @@
 class EnzymesController < ApplicationController
   
   before_action :enzyme_params, only:[:create, :update]
-  before_action :find_enzyme, only: [:edit, :destroy, :update, :create]
+  before_action :find_enzyme, only: [:edit, :destroy, :update]
   
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper

@@ -1,4 +1,4 @@
-class PrimerR < ActiveRecord::Base
+class PrimerR < Primer
   belongs_to :pcr_colony
   belongs_to :clone
   accepts_nested_attributes_for :pcr_colony

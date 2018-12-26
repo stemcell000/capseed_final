@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181224105027) do
+ActiveRecord::Schema.define(version: 20181226161236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,24 +350,6 @@ ActiveRecord::Schema.define(version: 20181224105027) do
   add_index "plasmid_batches_productions", ["plasmid_batch_id"], name: "index_plasmid_batches_productions_on_plasmid_batch_id", using: :btree
   add_index "plasmid_batches_productions", ["production_id"], name: "index_plasmid_batches_productions_on_production_id", using: :btree
 
-  create_table "primer_fs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "sequence"
-    t.text     "comment"
-    t.integer  "pcr_colony_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "primer_rs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "sequence"
-    t.text     "comment"
-    t.integer  "pcr_colony_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "primers", force: :cascade do |t|
     t.string   "name"
     t.text     "sequence"
@@ -376,6 +358,8 @@ ActiveRecord::Schema.define(version: 20181224105027) do
     t.datetime "updated_at",                   null: false
     t.integer  "sequencing_id"
     t.boolean  "available",     default: true
+    t.integer  "pcr_colony_id"
+    t.integer  "clone_id"
   end
 
   create_table "productions", force: :cascade do |t|

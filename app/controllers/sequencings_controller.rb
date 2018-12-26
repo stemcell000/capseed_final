@@ -99,12 +99,13 @@ class SequencingsController < ApplicationController
   
   private
     def set_params
-      params.require(:sequencing).permit(:clone_batch_id, :id, :name, :primer, :user_id, :date_rec, :date_send, :comment, :result, :conclusion,
+      params.require(:sequencing).permit(:clone_batch_id, :id, :name, :user_id, :date_rec, :date_send, :comment, :result, :conclusion,
       :clone_batch_attributes => [:name, :comment, :qc_validation, :clone_batch_id, :clone_id],
       :qc_attachments_attributes =>[:id,:sequencing_id, :attachment, :remove_attachment, :_destroy],
       :clone_attributes => [:id, :name, :clone_id],
       :assay_attributes => [:id, :name, :assay_id],
-      :primers_attributes => [:id, :name, :sequence])
+      :primers_attributes => [:id, :name, :sequence, :sequencing_id],
+      primer_ids: [])
     end
       
     def load_clone_batch 

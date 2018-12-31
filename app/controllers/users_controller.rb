@@ -91,7 +91,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :encrypted_password, :actual_member)
+      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :current_password, :actual_member)
     end
   
 end

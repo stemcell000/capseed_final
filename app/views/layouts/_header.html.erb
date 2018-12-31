@@ -42,7 +42,7 @@
 		    			<%end%>
 		    		</li>
 		    		<%end%>
-		    		<% if can? :update, @user %>
+		    		<% if can? :manage, :all %>
 		    		<li>
 		   			<%= link_to  admin_root_path do %>
 		   				<span class="glyphicon glyphicon-tower"></span> Administration

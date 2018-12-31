@@ -48,8 +48,6 @@ Rails.application.routes.draw do
   
   resources :users
   
-  #get 'users/:id' => 'users#show', as: :user
-  
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
   end

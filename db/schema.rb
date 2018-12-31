@@ -333,7 +333,7 @@ ActiveRecord::Schema.define(version: 20181226161236) do
     t.integer  "user_id"
     t.integer  "box_id"
     t.date     "date"
-    t.boolean  "trash",             default: true
+    t.boolean  "trash",             default: false
     t.string   "barcode"
   end
 
@@ -530,11 +530,11 @@ ActiveRecord::Schema.define(version: 20181226161236) do
     t.integer  "column_id"
     t.date     "date"
     t.float    "volume"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.text     "comment"
     t.integer  "vol_unit_id"
-    t.boolean  "trash",               default: true
+    t.boolean  "trash",               default: false
     t.string   "barcode"
   end
 

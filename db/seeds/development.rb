@@ -101,7 +101,7 @@
         u.firstname = 'Camille'
         u.lastname = 'Robert'
         u.password  = 'YM26r9mt'
-        u.role = 'production_user'
+        u.role = 'user'
     end 
         User.create! do |u|
         u.email     = 'julien.murat@inserm.fr'
@@ -109,7 +109,7 @@
         u.firstname = 'Julien'
         u.lastname = 'Murat'
         u.password    = 'gVx29g2G'
-        u.role = 'production_user'
+        u.role = 'user'
     end 
         User.create! do |u|
         u.email     = 'emilie.mace@inserm.fr'
@@ -117,7 +117,7 @@
         u.firstname = 'Emilie'
         u.lastname = 'Macé'
         u.password    = 'C84r2mXs'
-        u.role = 'production_user'
+        u.role = 'user'
     end 
         User.create! do |u|
         u.email     = 'eleonore.duvelle@inserm.fr'

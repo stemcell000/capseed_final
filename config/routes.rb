@@ -45,7 +45,11 @@ Rails.application.routes.draw do
   get 'inserts/index'
 
   devise_for :user, :controllers => { :confirmations => "confirmations" }
-  get 'users/:id' => 'users#show', as: :user
+  
+  resources :users
+  
+  #get 'users/:id' => 'users#show', as: :user
+  
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
   end
@@ -56,10 +60,10 @@ Rails.application.routes.draw do
   end
     
   resource :user, only: [:edit] do
-  collection do
-    patch 'update_password'
+    collection do
+      patch 'update_password'
+    end
   end
-  end 
   
   ActiveAdmin.routes(self)
 

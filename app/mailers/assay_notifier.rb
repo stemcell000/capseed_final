@@ -3,8 +3,8 @@ class AssayNotifier < ApplicationMailer
   def notify_closed_assay(assay)
     #TUTO: ligne suivante nécessaire pour passer des variables (attributs de @production) dans le corps du message. 
     @assay = assay
-    recipients = User.where( :role => [ "administrator" ]).pluck(:email)
-    firstnames = User.where( :role => [ "administrator" ] ).pluck(:firstname)
+    recipients = User.where( :cloning_notify => true ).pluck(:email)
+    firstnames = User.where( :cloning_notify => true ).pluck(:firstname)
     sendgrid_category "Notification"
     
     sendgrid_recipients recipients

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit_user, :update, :destroy]
   
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
@@ -26,17 +26,12 @@ class UsersController < ApplicationController
     @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])   
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
-    @user = User.find(params[:id])
   end
-  # GET /users/new
+  
   def new
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
     respond_to do |format|
@@ -52,29 +47,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+     @user.update_attributes(user_params)
+     if @user.save
+      flash.keep[:success] = "User successfully updated."
+    else
+      render :action => 'edit'
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
   def destroy
     @user.destroy
-    @users = User.all
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
   
   def edit
@@ -108,7 +91,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :password, :password_confirmation, :current_password, :actual_member)
+      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :encrypted_password, :actual_member)
     end
   
 end

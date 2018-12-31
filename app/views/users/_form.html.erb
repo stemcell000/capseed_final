@@ -1,4 +1,5 @@
-<%= simple_form_for User.new, :remote => true do |f| %>
+<%= simple_form_for @user, :remote => true do |f| %>
+  
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -7,8 +8,12 @@
     <%= f.input :lastname, required: true %>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
     <%= f.input :password_confirmation, required: true %>
-    <%= f.input :role, :collection => [ "administrator", "user", "cloning_user", "production_user", "guest", "former member" ] ,required: true, :input_html => {:class => "select2-select"} %>
+    <%= f.input :role, :collection => [ "administrator", "user", "guest"] ,required: true, :input_html => {:class => "select2-select"} %>
     <%= f.input :email, required: true %>
+    <%= f.input :actual_member %>
+    <%= f.input :cloning_notify %>
+    <%= f.input :production_notify %>
+    
   </div>
 
   <div class="form-actions">

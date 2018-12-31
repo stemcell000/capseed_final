@@ -50,7 +50,8 @@ end
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :role ) }
       devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me, :firstname, :lastname, :role) }
-      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username, :password, :password_confirmation, :current_password, :firstname, :lastname, :role, :actual_member) }
+      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username, :password, :password_confirmation, :encrypted_password, :cloning_notify, :production_notify, :firstname,
+        :lastname, :role, :actual_member) }
     end
     
 end

@@ -4,8 +4,16 @@
 <td ><%= object.role%></td>
 <td class="actions">
 	<%= smart_listing_item_actions [
-	  	{name: :custom, url: edit_user_user_path(object), method: :get, icon: "fa fa-user", title: "Edit user"},
-	  	{name: :custom, url: actual_member_switch_user_path(object), method: :patch, icon: object.actual_member? ? "fa fa-check":"fa fa-times", remote: true, title:  "This user ran away!"},
-		{name: :destroy, url: user_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?", if: object.role != "administrator"}
-		]%>
+	  	{name: :custom, url: edit_user_user_path(object), method: :get, :remote=> true, icon: "fa fa-user", title: "Edit user"},
+	  	{name: :custom, url: actual_member_switch_user_path(object), method: :patch, icon: object.actual_member? ? "fa fa-check":"fa fa-times", remote: true},
+]%>
+<%if can? :manage, :all %>
+	<% unless object.role === 'administrator' %>
+		<% if object.virus_productions.empty? or object.plasmid_batches.empty? or object.sequencings.empty? or object.pcr_colonies.empty? or object.dosages.empty?%>
+			<%= smart_listing_item_actions [
+					{name: :destroy, url: user_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this user?"}
+			]%>
+		<%end%>
+	<%end%>
+<%end%>
 </td>

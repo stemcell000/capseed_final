@@ -4,7 +4,7 @@
 <td ><%= object.role%></td>
 <td class="actions">
 	<%= smart_listing_item_actions [
-	  	{name: :custom, url: edit_user_user_path(object), method: :get, :remote=> true, icon: "fa fa-user", title: "Edit user"},
+	  	{name: :custom, url: edit_user_user_path(object), :remote=> true, icon: "fa fa-user", title: "Edit user"},
 	  	{name: :custom, url: actual_member_switch_user_path(object), method: :patch, icon: object.actual_member? ? "fa fa-check":"fa fa-times", remote: true},
 ]%>
 <%if can? :manage, :all %>

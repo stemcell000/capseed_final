@@ -1,5 +1,19 @@
-		$("#myModalLabel").html("Plasmid: Add user.")
-		$("#flash-msg-container").html("")
-		$("#inner-user-modal").html("<%= escape_javascript( render :partial => 'users/form') %>")
-		$("#user-modal").modal("show")
-		$("ul.errors").html("")
+<%= smart_listing_item :users, :new, @user, "users/form" %>
+
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+
+$(document).on('nested:fieldAdded', function(event){
+			$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+})

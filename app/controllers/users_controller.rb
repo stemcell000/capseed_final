@@ -20,8 +20,6 @@ class UsersController < ApplicationController
     flash.keep[:success] = "Mail sent to production users!"
   end
   
-# GET /users
-  # GET /users.json
  def index
     @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])   
   end
@@ -30,11 +28,11 @@ class UsersController < ApplicationController
   end
   
   def new
-    @user = User.new
+    
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
   end
 
   def update
@@ -76,7 +74,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :current_password, :actual_member)
+      params.require(:user).permit(:id, :email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :current_password, :actual_member)
     end
   
 end

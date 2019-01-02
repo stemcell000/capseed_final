@@ -46,8 +46,6 @@ Rails.application.routes.draw do
 
   devise_for :user, :controllers => { :confirmations => "confirmations" }
   
-  resources :users
-  
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
   end

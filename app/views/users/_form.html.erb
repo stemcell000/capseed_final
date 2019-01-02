@@ -1,22 +1,59 @@
-<%= simple_form_for @user, :remote => true do |f| %>
-  
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :username, required: true, autofocus: true %>
-    <%= f.input :firstname, required: true %>
-    <%= f.input :lastname, required: true %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
-    <%= f.input :password_confirmation, required: true %>
-    <%= f.input :role, :collection => [ "administrator", "user", "guest"] ,required: true, :input_html => {:class => "select2-select"} %>
-    <%= f.input :email, required: true %>
-    <%= f.input :actual_member %>
-    <%= f.input :cloning_notify %>
-    <%= f.input :production_notify %>
-    
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
+<td colspan="9">
+	<%= simple_form_for User.new, :remote => true do |f| %>
+	  
+	  <%= f.error_notification %>
+	
+	  <div class="form-inputs">
+	  	<div class="row">
+	  		<div class="col-lg-12 col-md-12 col-sm-12">
+	    			<%= f.input :username, required: true, autofocus: true %>
+	    		</div>
+	    </div>
+	    <div class="row">
+	    		<div class="col-lg-6 col-md-6 col-sm-6">
+	   		 	<%= f.input :firstname, required: true %>
+	   		 </div>
+	   		 <div class="col-lg-6 col-md-6 col-sm-6">
+	   		 	<%= f.input :lastname, required: true %>
+   		 	</div>
+   		 </div>
+	    <div class="row">
+	    		<div class="col-lg-6">
+	    			<%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
+	    		</div>
+	    		<div class="col-lg-6">
+	    			<%= f.input :password_confirmation, required: true %>
+	    		</div>
+	    </div>
+	    	<div class="row">
+	    		<div class="col-lg-4">
+	    			<%= f.input :role, :collection => [ "administrator", "user", "guest"] ,required: true, :input_html => {:class => "select2-select"} %>
+	   		</div>
+	   	</div>
+	   	<div class="row">
+	   		<div class="col-lg-4">
+	    			<%= f.input :email, required: true %>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-lg-4">	
+	    			<%= f.input :actual_member %>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-lg-4">
+	    			<%= f.input :cloning_notify %>
+	    			<%= f.input :production_notify %>
+	    		</div>
+	    	</div>
+	    	
+	    
+	    
+	  </div>
+	
+	  <div class="form-actions">
+	    <%= f.button :submit, "Save" %>
+	    <%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+	  </div>
+	<% end %>
+</td>

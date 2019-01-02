@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  resource :user do
+  resources :users do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
   end
@@ -56,11 +56,11 @@ Rails.application.routes.draw do
   end
   
   
-  devise_for :user, :controllers => { :confirmations => "confirmations" }
+  devise_for :users, :controllers => { :confirmations => "confirmations" }
   
   devise_scope :user do
-  put 'user/confirmation', to: 'confirmations#update'
   get 'sign_in', to: 'devise/sessions#new'
+  put 'user/confirmation', to: 'confirmations#update'
   end
   
 

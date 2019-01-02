@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  resources :users do
+  resource :user do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
   end

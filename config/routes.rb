@@ -44,13 +44,6 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  devise_for :user, :controllers => { :confirmations => "confirmations" }
-  
-  devise_scope :user do
-  put 'user/confirmation', to: 'confirmations#update'
-  get 'sign_in', to: 'devise/sessions#new'
-  end
-  
   resources :users do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
@@ -61,6 +54,16 @@ Rails.application.routes.draw do
       patch 'update_password'
     end
   end
+  
+  
+  devise_for :user, :controllers => { :confirmations => "confirmations" }
+  
+  devise_scope :user do
+  put 'user/confirmation', to: 'confirmations#update'
+  get 'sign_in', to: 'devise/sessions#new'
+  end
+  
+
   
   ActiveAdmin.routes(self)
 

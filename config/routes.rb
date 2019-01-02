@@ -44,11 +44,11 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
   devise_for :user, :controllers => { :confirmations => "confirmations" }
   
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
+  get 'sign_in', to: 'devise/sessions#new'
   end
   
   resources :users do

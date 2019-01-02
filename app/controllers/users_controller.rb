@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   
   def inform_cloning
     @user = User.first
-    UserNotifier.notify_cloning(@user).deliver_now
+    UserNotifier.notify_assay(@user).deliver_now
     redirect_to(assays_path)
     flash.keep[:success] = "Mail sent to cloning users!"
   end
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
   
  def index
-    @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])   
+    @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [20, 30, 50, 100])   
   end
 
   def show
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
   
  def actual_member_switch
   @user.toggle! :actual_member
-  @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [10, 20, 30, 50, 100])
+  @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [20, 30, 50, 100])
 end
 
   private

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :users do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
+    get :actual_member_switch, :on => :collection
   end
     
   resource :user, only: [:edit] do

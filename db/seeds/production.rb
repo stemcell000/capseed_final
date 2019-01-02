@@ -95,7 +95,7 @@
   Project.create( name:"Global project")
   
   #Add Users
-    User.create! do |u|
+   User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'
         u.username = 'crobert'
         u.firstname = 'Camille'
@@ -103,15 +103,53 @@
         u.password  = 'YM26r9mt'
         u.role = 'user'
     end 
-        User.create! do |u|
+    
+       User.create! do |u|
+        u.email     = 'fiona.routet@inserm.fr'
+        u.username = 'froutet'
+        u.firstname = 'Fiona'
+        u.lastname = 'Routet'
+        u.password  = 'YM26r9mt'
+        u.role = 'user'
+    end  
+    
+      User.create! do |u|
         u.email     = 'julien.murat@inserm.fr'
         u.username = 'jmurat'
         u.firstname = 'Julien'
         u.lastname = 'Murat'
         u.password    = 'gVx29g2G'
+        u.role = 'guest'
+    end 
+    
+     User.create! do |u|
+        u.email     = 'muge.tenkisoy@inserm.fr'
+        u.username = 'mtenkisoy'
+        u.firstname = 'Müge'
+        u.lastname = 'Tenkisoy'
+        u.password    = 'gVx29g2G'
         u.role = 'user'
     end 
-        User.create! do |u|
+    
+    User.create! do |u|
+        u.email     = 'catherine.botto@inserm.fr'
+        u.username = 'cbotto'
+        u.firstname = 'Catherine'
+        u.lastname = 'Botto'
+        u.password    = 'gVx29g2G'
+        u.role = 'user'
+    end 
+    
+      User.create! do |u|
+        u.email     = 'cardillia.simon@inserm.fr'
+        u.username = 'csimon'
+        u.firstname = 'Cardillia'
+        u.lastname = 'Simon'
+        u.password    = 'gVx29g2G'
+        u.role = 'user'
+    end
+    
+      User.create! do |u|
         u.email     = 'emilie.mace@inserm.fr'
         u.username = 'emace'
         u.firstname = 'Emilie'
@@ -119,7 +157,8 @@
         u.password    = 'C84r2mXs'
         u.role = 'user'
     end 
-        User.create! do |u|
+    
+    User.create! do |u|
         u.email     = 'eleonore.duvelle@inserm.fr'
         u.username = 'eduvelle'
         u.firstname = 'Eléonore'
@@ -127,6 +166,7 @@
         u.password    = 'rr7A5Ke7'
         u.role = 'guest'
     end 
+    
     User.create! do |u|
         u.email     = 'celine.winkler@inserm.fr'
         u.username = 'cwinkler'
@@ -135,3 +175,30 @@
         u.password    = 'E2tah3Y7'
         u.role = 'guest'
     end 
+    
+    User.create! do |u|
+        u.email     = 'arthur.planul@inserm.fr'
+        u.username = 'aplanul'
+        u.firstname = 'Arthur'
+        u.lastname = 'Planul'
+        u.password    = 'E2tah3Y7'
+        u.role = 'guest'
+    end 
+    
+    User.create! do |u|
+        u.email     = 'hanen.khabou@inserm.fr'
+        u.username = 'hkhaboul'
+        u.firstname = 'Hanen'
+        u.lastname = 'Khabou'
+        u.password    = 'E2tah3Y7'
+        u.role = 'guest'
+    end
+
+    User.create! do |u|
+        u.email     = 'laure.pacot@inserm.fr'
+        u.username = 'lpacot'
+        u.firstname = 'Laure'
+        u.lastname = 'Pacot'
+        u.password    = 'E2tah3Y7'
+        u.role = 'guest'
+    end

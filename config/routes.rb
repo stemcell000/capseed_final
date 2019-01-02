@@ -44,13 +44,12 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
+  devise_for :users, :controllers => { :registrations => "users" }
   devise_for :user, :controllers => { :confirmations => "confirmations" }
   
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
   end
-  
-  resources :users
   
   resources :users do
     get :edit_user, :on => :member

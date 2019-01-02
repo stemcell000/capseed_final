@@ -49,7 +49,6 @@ Rails.application.routes.draw do
   
   devise_scope :user do
   put 'user/confirmation', to: 'confirmations#update'
-  get 'sign_in', to: 'devise/sessions#new'
   end
   
   resources :users do

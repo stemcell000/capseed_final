@@ -18,7 +18,7 @@ class UserNotifier < ApplicationMailer
   def notify_production(user)
     
     recipients = User.where( :production_notify => true).where.not(:role => "guest").pluck(:email)
-    firstnames = User.where( :production_notify => production ).where.not(:role => "guest").pluck(:firstname)
+    firstnames = User.where( :production_notify => true ).where.not(:role => "guest").pluck(:firstname)
     
     sendgrid_category "Notification"
     

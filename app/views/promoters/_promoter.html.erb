@@ -1,7 +1,6 @@
 <td ><%= object.id%></td>
 <td ><%= object.name%></td>
-<td ><%= object.sequence%></td>
-<td ><%= object.created_at%></td>
+<td ><%= object.created_at.strftime("%b %e, %Y")%></td>
 <td class="actions center">
 <%if object.clone.nil?%>
 	<%= smart_listing_item_actions [

@@ -93,9 +93,28 @@
   
   #Add Projects to Assay
   Project.create( name:"Global project")
-  
-  #Add Users
-   User.create! do |u|
+ 
+ #Add users 
+=begin  
+     # User.create! do |u|
+        u.email     = 'deniz.dalkara@inserm.fr'
+        u.username = 'ddalkara'
+        u.firstname = 'Deniz'
+        u.lastname = 'Dalkara'
+        u.password  = '123456789'
+        u.role = 'administrator'
+   # end 
+   
+      # User.create! do |u|
+        u.email     = 'melissa.desrosiers@inserm.fr'
+        u.username = 'mdesrosiers'
+        u.firstname = 'Mélissa'
+        u.lastname = 'Desrosiers'
+        u.password  = '123456789'
+        u.role = 'administrator'
+   # end 
+   
+  User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'
         u.username = 'crobert'
         u.firstname = 'Camille'
@@ -202,3 +221,4 @@
         u.password    = 'E2tah3Y7'
         u.role = 'guest'
     end
+=end

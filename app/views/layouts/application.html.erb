@@ -19,23 +19,28 @@
     	<div id='flash-msg-container'>
 			<%= render partial: "components/flash_messages", :flash => flash %>
 		</div>
-			 	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		    </button>
-	<nav class="navbar-default" role="navigation">
-    <div class="collapse navbar-collapse">
+<% if params[:controller] == "assays"%>
+<h4>Cloning manager</h4>
+<%elsif params[:controller] == "productions"%>
+<h4>Production manager</h4>
+<%end%>
+
 		<% if params[:controller] == "assays" || params[:controller] == "clones"%>
+		<nav class="navbar-cloning" role="navigation">
+    			<div class="collapse navbar-collapse navbar-cloning">
 				<%= render :partial => 'components/dynamic_menu' %>
 				<% provide(:title, "Cloning Manager") %>
+				</nav>
+				<div class="jumbotron container-fluid cloning-color" >
 		<%elsif params[:controller] == "productions" %>
+		<nav class="navbar-production" role="navigation">
+    			<div class="collapse navbar-collapse navbar-production">
 				<%= render :partial => 'components/dynamic_menu_prod' %>
 				<% provide(:title, "Production Manager") %>
+				</nav>
+				<div class="jumbotron container-fluid production-color" >
 		<%end%>
-	</nav>
-		<div class="jumbotron container-fluid <%= jumboclass(yield(:title)) %>" >
+	
 			<div class="spinner">
 			  <div class="cube1"></div>
 			  <div class="cube2"></div>

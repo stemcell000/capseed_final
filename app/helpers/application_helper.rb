@@ -9,18 +9,6 @@ module ApplicationHelper
     end
   end
   
-  # Change class from page title
-  def jumboclass(page_title ='')
-    color_class = ''
-    case page_title
-    when "Production"
-     color_class = "prod-bg-color"
-    else
-      color_class= "cloning-color"
-   end
-   return color_class
-  end
-  
   # Replace 
   def char_replace(str="")
     if str.present?
@@ -30,9 +18,13 @@ module ApplicationHelper
   
   #Current page helper
   def cp(path)
-  "current" if current_page?(path)
-  end
- end
+   if current_page?(path)
+    myclass= " nav-item active"
+   else
+     myclass="nav-item"
+    end
+    return myclass
+ end end
 
   def title(page_title, show_title = true)
     @show_title = show_title

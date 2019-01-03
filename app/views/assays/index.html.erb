@@ -1,27 +1,21 @@
 <% provide(:title, "Cloning Manager") %>
-
-	<div class="center jumbotron cloning-color">
+	<div class="center">
 		<div class="row expl">
 		<% if can? :update_row_order, @assays %>
-		<% if @assays.empty?%>
-		<%elsif can? :inform_cloning, @user %>
-		
-			<div class="row">
-				<div class= "col-lg-12 pull-left">
-					Drag and drop from bottom to top the rows to rank the priority.
+			<% unless @assays.empty?%>
+				<div class="row">
+					<div class= "col-lg-12 pull-left">
+						Drag and drop from bottom to top the rows by priority level.
+					</div>
 				</div>
-			</div>
 			<%end%>
+			
 			<div class="row">
 				<div class="col-lg-6 text-align-left">
-				<% if can? :assay_generator, @user %>
 					<%= link_to 'New cloning', assay_generator_assays_path , :class => "btn btn-primary" %>
-				<%end%>
 				</div>
-				<div class="col-lg-6 text_align-right">
-					<% if can? :inform_cloning, @user %>
-						<%= link_to 'Push!', users_inform_cloning_path(@user) , :class => "btn btn-success" %>
-					<% end %>
+				<div class="col-lg-6">
+					<%= link_to 'Push!', users_inform_cloning_path(@user) , :class => "btn btn-success" %>
 				</div>
 			</div>
 		</div> 

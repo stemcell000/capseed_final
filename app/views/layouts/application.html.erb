@@ -25,28 +25,61 @@
 <h4>Production manager</h4>
 <%end%>
 
-		<% if params[:controller] == "assays" || params[:controller] == "clones"%>
+<%case params[:controller] %>
+		<% when "assays" || params[:controller] == "clones"%>
 		<nav class="navbar-cloning" role="navigation">
     			<div class="collapse navbar-collapse navbar-cloning">
 				<%= render :partial => 'components/dynamic_menu' %>
 				<% provide(:title, "Cloning Manager") %>
 				</nav>
 				<div class="jumbotron container-fluid cloning-color" >
-		<%elsif params[:controller] == "productions" %>
+					<div class="spinner">
+					  <div class="cube1"></div>
+					  <div class="cube2"></div>
+					</div>
+				     <%= yield %>
+				 </div>
+		<% when "productions" %>
 		<nav class="navbar-production" role="navigation">
     			<div class="collapse navbar-collapse navbar-production">
 				<%= render :partial => 'components/dynamic_menu_prod' %>
 				<% provide(:title, "Production Manager") %>
 				</nav>
 				<div class="jumbotron container-fluid production-color" >
+					<div class="spinner">
+					  <div class="cube1"></div>
+					  <div class="cube2"></div>
+					</div>
+				      <%= yield %>
+				 </div>
+		<% when "clone_batches" %>
+				<div class="jumbotron container-fluid clone_batch-color" >
+					<div class="spinner">
+					  <div class="cube1"></div>
+					  <div class="cube2"></div>
+					</div>
+				      <%= yield %>
+				 </div>
+		
+		<% when "virus_productions" %>
+				<div class="jumbotron container-fluid virus_production-color" >
+					<div class="spinner">
+					  <div class="cube1"></div>
+					  <div class="cube2"></div>
+					</div>
+				      <%= yield %>
+				 </div>
+		<%else%>
+		<div class="jumbotron container-fluid white-bg" >
+					<div class="spinner">
+					  <div class="cube1"></div>
+					  <div class="cube2"></div>
+					</div>
+				      <%= yield %>
+				 </div>
 		<%end%>
 	
-			<div class="spinner">
-			  <div class="cube1"></div>
-			  <div class="cube2"></div>
-			</div>
-	      <%= yield %>
-	 	</div>
+
  	</body>
  	<div>
  		<div class="col-lg-12">

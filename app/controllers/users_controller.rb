@@ -28,15 +28,24 @@ class UsersController < ApplicationController
   end
   
   def new
-    
   end
 
   def create
     @user = User.create(user_params)
+    if @user.valid?
+        flash.keep[:success] = "User created!"
+     else
+        render action: :new
+    end
   end
 
   def update
      @user.update_attributes(user_params)
+     if @user.valid?
+        flash.keep[:success] = "User updated!"
+     else
+        render action: :new
+    end
   end
 
   def destroy

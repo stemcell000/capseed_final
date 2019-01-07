@@ -167,5 +167,5 @@ gem 'nprogress-rails'
   
   gem "font-awesome-rails"
   
-  
+  gem 'derailed', group: :development
   

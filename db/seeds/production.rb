@@ -95,7 +95,7 @@
   Project.create( name:"Global project")
  
  #Add users 
-=begin  
+ 
      # User.create! do |u|
         u.email     = 'deniz.dalkara@inserm.fr'
         u.username = 'ddalkara'
@@ -113,7 +113,7 @@
         u.password  = '123456789'
         u.role = 'administrator'
    # end 
-   
+=begin    
   User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'
         u.username = 'crobert'

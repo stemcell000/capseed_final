@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  #devise_for :user, :controllers => { :confirmations => "confirmations" }
+  devise_for :user, :controllers => { :confirmations => "confirmations" }
   
   devise_for :users do
     get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session

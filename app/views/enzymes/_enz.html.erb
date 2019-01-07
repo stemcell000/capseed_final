@@ -1,6 +1,6 @@
-<td ><%= object.id%></td>
-<td ><%= object.name%></td>
-<td ><%= object.created_at.strftime("%b %e, %Y")%></td>
+<td class="center"><%= object.id%></td>
+<td class="center"><%= object.name%></td>
+<td class="center"><%= object.created_at.strftime("%b %e, %Y")%></td>
 <td class="actions center">
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_enzyme_path(object), title: "Edit"},

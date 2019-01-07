@@ -96,23 +96,23 @@
  
  #Add users 
  
-     # User.create! do |u|
+      User.create! do |u|
         u.email     = 'deniz.dalkara@inserm.fr'
         u.username = 'ddalkara'
         u.firstname = 'Deniz'
         u.lastname = 'Dalkara'
         u.password  = '123456789'
         u.role = 'administrator'
-   # end 
+    end 
    
-      # User.create! do |u|
+       User.create! do |u|
         u.email     = 'melissa.desrosiers@inserm.fr'
         u.username = 'mdesrosiers'
         u.firstname = 'Mélissa'
         u.lastname = 'Desrosiers'
         u.password  = '123456789'
         u.role = 'administrator'
-   # end 
+       end 
 =begin    
   User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'

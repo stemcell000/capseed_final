@@ -2,7 +2,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row" >
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<strong><%= vbl > 1 ?  "Virus batches:" : "Virus batch:" %></strong><br />
 							
 							
@@ -27,7 +27,7 @@
 											data-content='
 												<div class="col-lg-12 text-left">
 													<strong>Barcode: </strong><%= b.barcode.nil? ? "unknown" : b.barcode %><br />
-													<strong>Date of prod.: </strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %><br />
+													<strong>Date of prod.: <small></strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %></small><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<strong>Contact: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
 													<% if !b.comment.blank? %>

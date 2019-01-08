@@ -24,8 +24,8 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :clone_attachments, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batches, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
-  accepts_nested_attributes_for :primer_fs, :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :primer_rs, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :primer_fs, :reject_if => :all_blank
+  accepts_nested_attributes_for :primer_rs, :reject_if => :all_blank
 
   #validations
     validates :name, :presence => true

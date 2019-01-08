@@ -18,15 +18,17 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-7">
-							   <%= f.association :primer_fs, :label => "Primer Forward",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id} - #{primer.name}"}, :value_method => :id,
+							 <%= f.association :primer_f, :label => "Primer Forward",
+									:collection => PrimerF.all, :label_method => lambda{|primer_f| "#{primer_f.id} | #{primer_f.name}"},
+									:value_method => :id,
 									:input_html => { class:"select2-select" } %>
 			</div>
 		</div>
 		<div class="row">
 		<div class="col-lg-7">
-							   <%= f.association :primer_rs, :label => "Primer Rewind",
-									:collection => Primer.all, :label_method => lambda{|primer| "#{primer.id} - #{primer.name}"}, :value_method => :id,
+ 							<%= f.association :primer_r, :label => "Primer Forward",
+									:collection => PrimerF.all, :label_method => lambda{|primer_r| "#{primer_r.id} | #{primer_r.name}"},
+									:value_method => :id,
 									:input_html => { class:"select2-select" } %>
 		</div>
 		</div>

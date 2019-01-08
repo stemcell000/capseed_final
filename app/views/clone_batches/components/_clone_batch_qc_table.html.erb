@@ -107,8 +107,8 @@
 																								<div class="col-lg-12 text-left">
 																										<div><strong>Contact</strong> <%= qc.user_id.nil? ? "No data" : qc.user.full_name %> </div>
 																										<div><strong>Date</strong> <%= qc.date.nil? ? "No data" : qc.date.strftime("%B %e, %Y") %> </div>
-																										<div><strong>Primer forward:</strong> <%= qc.primer_fs.empty? ? "No data" : qc.primer_fs.map{|primer| primer.name}.to_sentence.truncate(25) %></div>
-																										<div><strong>Primer reverse:</strong> <%= qc.primer_rs.empty? ? "No data" : qc.primer_rs.map{|primer| primer.name}.to_sentence.truncate(25) %></div>
+																										<div><strong>Primer forward:</strong> <%= qc.primer_f.nil? ? "No data" : qc.primer_f.name.truncate(25) %></div>
+																										<div><strong>Primer reverse:</strong> <%= qc.primer_r.nil? ? "No data" : qc.primer_r.name.truncate(25) %></div>
 																										<div><strong>Note:</strong> <%= qc.result.blank? ? "No data" : qc.result.truncate(27) %></div>
 																										<div><strong>Conclusion:</strong> 
 																											<%if qc.conclusion==true %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108110856) do
+ActiveRecord::Schema.define(version: 20190108113256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,6 +255,8 @@ ActiveRecord::Schema.define(version: 20190108110856) do
     t.boolean  "conclusion"
     t.string   "primer_r"
     t.string   "primer_f"
+    t.integer  "primer_f_id"
+    t.integer  "primer_r_id"
   end
 
   create_table "pcr_colonies_qc_attachments", force: :cascade do |t|
@@ -360,8 +362,6 @@ ActiveRecord::Schema.define(version: 20190108110856) do
     t.datetime "updated_at",                   null: false
     t.integer  "sequencing_id"
     t.boolean  "available",     default: true
-    t.integer  "pcr_colony_id"
-    t.integer  "clone_id"
   end
 
   create_table "productions", force: :cascade do |t|

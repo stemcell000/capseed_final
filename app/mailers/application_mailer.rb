@@ -12,8 +12,8 @@ class ApplicationMailer < ActionMailer::Base
   def notice(user)
     @user = user
     
-    recipients = User.all.where(:role => "user").pluck(:email)
-    firstnames = User.all.where(:role => "user").pluck(:firstname)
+    recipients = User.all.where([:cloning_notify => true, :production_notify => true, :actual_member => true]).pluck(:email)
+    firstnames = User.all.where([:cloning_notify => true, :production_notify => true, :actual_member => true]).pluck(:firstname)
     
     sendgrid_category "Notification"
     

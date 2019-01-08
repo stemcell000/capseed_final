@@ -11,5 +11,5 @@ ActiveAdmin.register Box do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-
+permit_params :id, :name, :created_at
 end

@@ -352,17 +352,13 @@ def load_assay
 end
 
 def clone_params
-  params.require(:clone).permit( :id, :assay_id, :clones_id, :project_id, :cmeth_id, :name, :bbnb, :primerinsfor, :primerinsrev, :comment, :comment_batch, :batch_nb, :strict_validation,
+  params.require(:clone).permit( :id, :assay_id, :clones_id, :project_id, :cmeth_id, :name, :bbnb, :primer_f_id, :primer_r_id, :comment, :comment_batch, :batch_nb, :strict_validation,
   enzyme_ids: [],
   insert_ids: [],
   backbone_ids: [],
   cmeth_ids: [],
   project_ids: [],
-  primer_f_ids: [],
-  primer_r_ids: [],
   :projects_attributes => [:id, :clone_id, :name],
-  :primer_rs_attributes =>[:id, :clone_id, :name],
-  :primer_fs_attributes =>[:id, :clone_id, :name],
   :enzymes_attributes =>[:id, :clone_id, :name],
   :cmeth_attributes =>[:id, :name],
   :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],

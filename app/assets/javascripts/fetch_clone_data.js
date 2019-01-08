@@ -9,8 +9,8 @@ function disableFormInputs(c){
 		$("#clone_backbone_ids").prop("disabled", c);
 		$("#clone_enzyme_ids").prop("disabled", c);
 		$("#clone_cmeth_id").prop("disabled", c);
-		$("#clone_primer_f_ids").prop("disabled", c);
-		$("#clone_primer_r_ids").prop("disabled", c);
+		$("#clone_primer_f_id").prop("disabled", c);
+		$("#clone_primer_r_id").prop("disabled", c);
 		$("#clone_comment").prop("readonly", c);
 		$("#clone_project_ids").prop("disabled", c);
 }

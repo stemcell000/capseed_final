@@ -11,8 +11,8 @@
   Type.create( name:"Transgene")
   Type.create(name:"Capsid")
   Type.create(name:"Library")
-  Type.create(name:"None")
-  Type.create(name:"Unknown")
+  Type.create(name:"Lenti")
+  Type.create(name:"Other | Unknown")
   
   #Add Strands
   Strand.create( name:"sc")

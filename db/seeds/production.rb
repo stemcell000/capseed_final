@@ -113,7 +113,7 @@
         u.password  = '123456789'
         u.role = 'administrator'
        end 
-=begin    
+   
   User.create! do |u|
         u.email     = 'camille.robert@inserm.fr'
         u.username = 'crobert'
@@ -221,4 +221,3 @@
         u.password    = 'E2tah3Y7'
         u.role = 'guest'
     end
-=end

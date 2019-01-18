@@ -8,7 +8,6 @@
 				<th>Current volume</th>
 				<th>Production volume</th>
 			</thead>
-		<% switch = true %>
 		<% @production.plasmid_batches.each do |pb| %>
 				<tr>
 					
@@ -17,24 +16,19 @@
 						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pb.clone_batch.type.name %></td>
 						<% if (pb.volume+pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume) < pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume %>
 							<td class="col-lg-3 col-md-3 col-sm-5 text-danger" ><%= pb.volume%> <%= pb.vol_unit.name  %> <span> "(not enough material!) </span></td>
-							<%switch = false %>
 						<%else%>
 							<td class="col-lg-3 col-md-3 col-sm-5" ><%= pb.volume%> <%= pb.vol_unit.name  %></td>
 						<%end%>
 						<td class="col-lg-2 col-md-2 col-sm-4"><%= @production.plasmid_batch_productions.where(:plasmid_batch_id => pb.id)[0].volume%> <%=pb.vol_unit.name %></td>
 			<%end%>
 					</tr>
-		
 </table>
+
 <div class="row pull-right">
 	<div class="col-lg-12">
 		<div class="btn-group" role="group" aria-label="...">
-<%if switch %>
 <%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :remote => true %>
 <%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
-<%else%>
-<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
-<%end%>
 </div>
 </div>
 								</div>

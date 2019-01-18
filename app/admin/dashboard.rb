@@ -2,6 +2,11 @@ ActiveAdmin.register_page "Dashboard" do
 
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
+  #Add Button to site
+  action_item do
+    link_to "View Site", "/"
+  end
+
           
    page_action :stats_data, :method => :get do
     @stats = Statistic.all

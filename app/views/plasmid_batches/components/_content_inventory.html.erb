@@ -27,14 +27,14 @@
 												</div>'
 											data-content='
 												<div class="col-lg-12 text-left">
-													<strong>Barcode: </strong><%= b.barcode.nil? ? "unknown" : b.barcode %><br />
-													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
-													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
-													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
-													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
+													<strong>Barcode: </strong><%= b.barcode.nil? ? "Unknown" : b.barcode %><br />
+													<strong>Date of prod.: </strong><%= b.date.nil? ?  "Unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name.nil? ? "Unknown" : b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration.nil? ? "Unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
+													<strong>Volume: </strong><%= b.volume.nil? ? "Unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<strong>Comments: </strong><br /><%= b.comment.blank? ? "No comment" : b.comment %><br />
-													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
-													<strong>Box: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
+													<strong>Contact: </strong><%= b.user.nil? ? "Unknown": "#{b.user.firstname} #{b.user.lastname}<br />" %>
+													<strong>Box: </strong><%= b.box.nil? ? "Unknown" : b.box.name %> <br />
 													<% if b.plasmid_batch_attachments.length>0 %>
 														<strong>Attached file(s): </strong><br />
 															<% b.plasmid_batch_attachments.each do |a|%>

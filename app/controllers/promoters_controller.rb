@@ -28,7 +28,7 @@ class PromotersController < ApplicationController
   end
  
  def index
-    @promoters = smart_listing_create(:promoters, Promoter.all, partial: "promoters/list", default_sort: {name: "asc"},  page_sizes: [10, 20, 30, 50, 100])   
+    @promoters = smart_listing_create(:promoters, Promoter.all, partial: "promoters/list", default_sort: {name: "asc"},  page_sizes: [100, 150, 200])   
  end
  
  def destroy
@@ -38,7 +38,7 @@ class PromotersController < ApplicationController
   private
    
    def find_promoter
-      @promoter = promoter.find(params[:id])
+      @promoter = Promoter.find(params[:id])
    end
  
    def promoter_params

@@ -19,7 +19,9 @@
 						<strong><%=object.name%></strong>
 					</div>
 				</div>'
-			data-content='		<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "No data" : object.number %><br />
+			data-content='		
+			<small>
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "No data" : object.number %><br />
 								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.nil? ? "No data" : object.date_as_plasmid.strftime("%b %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid.nil? ? "No data" : object.glyc_stock_box_as_plasmid %><br />
 								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "No data" : object.origin.name %><br />
@@ -32,6 +34,30 @@
 								<% if !object.comment_as_plasmid.blank? %>
 									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
 								<%end%>
+								<% unless object.plasmid_batches.empty? %>
+								<table class="table table-bordered">
+									<thead>
+										<th>Batch</th>
+										<th>Box</th>
+										<th>Location</th>
+										<th>Conc.</th>
+										<th>Date of production</th>
+										<th>Volume</th>
+									</thead>
+									<%object.plasmid_batches.each do |pb|%>
+									<tr>
+										<td><%= pb.name %></td>
+										<td><%= pb.box.nil? ? "Unknown" : pb.box.name %></td>
+										<td><%= pb.row.nil? ? "Unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+										<td><%= pb.concentration.nil? ? "Unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+										<td><%= pb.date.nil? ? "Unknown" : pb.date.strftime("%B %e, %Y") %></td>
+										<td><%= pb.volume.nil? ? "Unknown":"#{pb.volume} #{pb.vol_unit.name}" %></td>
+									</tr>
+									<%end%>
+								</table>
+							<%else%>
+							no batch
+							<%end%>
 								<div class="col-lg-12">
 								<% if !object.clone_batch_as_plasmid_attachments.empty? %>
 								<% if object.clone_batch_as_plasmid_attachments.length>1%>

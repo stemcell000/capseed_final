@@ -41,11 +41,14 @@
 		</div>
 		<!--Add Promoter(s) & gene(s)-->
 		<div class= "row">
-			<div class="col-lg-6">
+			<div class="col-lg-3">
 				<%=f.association :promoters, :label => "Promoter", :collection => Promoter.all, input_html: { class: 'select2-select'} %>
 			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-3">
 				<%=f.association :genes, :label => "Gene", :collection => Gene.all, input_html: { class: 'select2-select'} %>	
+			</div>
+			&<div class="col-lg-6">
+				<%=f.input :comment_as_plasmid, :label => "Comment" %>
 			</div>
 		</div>
 		
@@ -74,27 +77,25 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-5">
-				<%=f.input :comment_as_plasmid, :label => "Comment" %>
-			</div>
-			<div class="col-lg-6">
+			<div class="col-lg-8">
 				<h6><strong> Plasmid batches </strong></h6>
-			<% if !f.object.plasmid_batches.empty? %>
+			<% unless f.object.plasmid_batches.empty? %>
 				<table class="table table-bordered">
 					<thead>
 						<th>Batch</th>
 						<th>Box</th>
 						<th>Location</th>
 						<th>Conc.</th>
-						<th>Date of prod..</th>
+						<th>Date of production</th>
 					</thead>
 					<%f.object.plasmid_batches.each do |pb|%>
 					<tr>
 						<td><%= pb.name %></td>
-						<td><%= pb.box.nil? ? "unknown" : pb.box.name %></td>
-						<td><%= pb.row.nil? ? "unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
-						<td><%= pb.concentration.nil? ? "unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
-						<td><%= pb.date.nil? ? "unknown" : pb.date.strftime("%B %e, %Y") %></td>
+						<td><%= pb.box.nil? ? "Unknown" : pb.box.name %></td>
+						<td><%= pb.row.nil? ? "Unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+						<td><%= pb.concentration.nil? ? "Unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+						<td><%= pb.volume.nil? ? "Unknown" : "#{pb.volume} #{pb.vol_unit.name}" %></td>
+						<td><%= pb.date.nil? ? "Unknown" : pb.date.strftime("%B %e, %Y") %></td>
 					</tr>
 					<%end%>
 				</table>
@@ -102,8 +103,6 @@
 			no batch
 			<%end%>
 			</div>
-		</div>
-		<div class="row">
 		</div>
 		
 	</small>

@@ -12,7 +12,6 @@ ActiveAdmin.register VirusProduction do
     column :comment
     column :gel_prot
     column :invoice
-    column :batch_end
     column :l2
     column :hek_result
     column :target

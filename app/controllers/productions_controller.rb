@@ -119,9 +119,6 @@ class ProductionsController < InheritedResources::Base
        pbtag_value = @production.plasmid_batches.pluck(:id).sort.join('-')
        @production.update_columns(:pbtag => pbtag_value)
       end
-      #
-      @virus_lock = @production.virus_productions.empty? ? false : true
-      #
   end
   
   def select_pbs
@@ -222,19 +219,20 @@ class ProductionsController < InheritedResources::Base
     if !@a.empty?
       flash.keep[:warning] = "Add each  corresponding plasmid batches please: missing #@missing_plasmids"
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume == 0 }
+    elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume <= 0 }
       flash.keep[:warning] = "Complete the  production volumes, please."
       redirect_to :action => :add_plasmid
     elsif @production.plasmid_batches.any? { |pb| pb.volume.nil? }
        flash.keep[:warning] = "Check the production volumes, please."
       redirect_to :action => :add_plasmid
-    elsif @production.plasmid_batches.any? { |pb| pb.volume < pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume }
-      flash.keep[:warning] = "There is not enough material."
-      redirect_to :action => :add_plasmid
     else
       @production.update_columns(:step => 2)
-      update_last_step(@production, 2)
-      @production.update_columns(:percentage => 75)
+        update_last_step(@production, 2)
+        @production.update_columns(:percentage => 75)
+          if @production.plasmid_batches.any? { |pb| pb.volume.negative? }
+          flash.keep[:warning] = "There is not enough material."
+          redirect_to :action => :add_plasmid
+      end
       #@production.update_columns( :locked => true )
     end
     
@@ -249,6 +247,16 @@ class ProductionsController < InheritedResources::Base
   end
   
  def destroy
+  pbs = @production.plasmid_batches
+  pbps = @production.plasmid_batch_productions
+  pbps.each do |pbp|
+    pb = pbs.where(:id => pbp.plasmid_batch_id)[0]
+    backward_volume = pb.volume + pbp.volume
+    pb.update_columns(:volume => backward_volume)
+  end
+  @production.virus_productions.each do |vp|
+    vp.destroy
+  end
   @production.destroy
   @productions = Production.where.not(:last_step => 3).rank(:row_order).all
  end
@@ -392,7 +400,7 @@ class ProductionsController < InheritedResources::Base
   def production_vp_params
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :batch_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
+    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]])
   end
   

@@ -4,7 +4,7 @@
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
 		<div class="panel-body">
 				<div id="cb-container">
-					<%unless @virus_lock %>
+					<%unless @production.last_step >=2 %>
 						<%= render :partial => "productions/components/table", :locals => { :production => @production }%>
 					<%else%>
 						<%= render :partial => "productions/components/table_frozen", :locals => { :production => @production }%>	

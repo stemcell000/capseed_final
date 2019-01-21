@@ -8,6 +8,7 @@ ActiveAdmin.register Dosage do
     column :date
     column :virus_production_id
     column :comment
+    column :inactivation
     
 #actions
     actions defaults: false do |p|

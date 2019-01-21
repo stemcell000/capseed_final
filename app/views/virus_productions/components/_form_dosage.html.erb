@@ -12,6 +12,9 @@
 									<%= ff.input :plate_name, :label => "Plate#" %>
 									<div class="help-block">As Year + number (yy-##)</div>
 								</div>
+								<div class="col-lg-4">
+									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%B %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
+								</div>
 							</div>
 							<div class="row">
 								<%= ff.input :id, :as => :hidden %>

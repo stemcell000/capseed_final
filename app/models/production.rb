@@ -13,7 +13,7 @@ class Production < ActiveRecord::Base
   has_and_belongs_to_many :plasmid_batches, :join_table => "plasmid_batches_productions", :uniq => true
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
-  has_many :virus_productions
+  has_many :virus_productions, :dependent => :delete_all
   has_many :plasmid_batch_productions
   
   accepts_nested_attributes_for :projects

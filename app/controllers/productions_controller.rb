@@ -254,9 +254,11 @@ class ProductionsController < InheritedResources::Base
     backward_volume = pb.volume + pbp.volume
     pb.update_columns(:volume => backward_volume)
   end
-  @production.virus_productions.each do |vp|
-    vp.destroy
-  end
+  
+#  @production.virus_productions.each do |vp|
+ #   vp.destroy
+#  end
+
   @production.destroy
   @productions = Production.where.not(:last_step => 3).rank(:row_order).all
  end
@@ -371,7 +373,7 @@ class ProductionsController < InheritedResources::Base
     :assay_attributes => [:id, :name],
     :virus_production_attributes => [:id, :number, :production_id, :date_order, :date_production, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
     :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id,
-    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]],
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]],
     virus_production_ids: []
     )
   end
@@ -401,7 +403,7 @@ class ProductionsController < InheritedResources::Base
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
     :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
-    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy]])
+    :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]])
   end
   
   def production_volumes_params

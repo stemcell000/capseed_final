@@ -8,6 +8,7 @@
 				<th>Titer to ATCC</th>
 				<th>Contact</th>
 				<th>Date</th>
+				<th>Inactivation</th>
 			</thead>
 				<% dosages.each do |dosage| %>
 					<tr>
@@ -16,6 +17,7 @@
 						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer_to_atcc.to_s+" vg/ml" %></td>
 						<td class="col-lg-2 text-center"><%= dosage.user_id.nil? ? "No data" : dosage.user.full_name %></td>
 						<td class="col-lg-1 text-center"><%= dosage.date.nil? ? "No data" : dosage.date.strftime("%B %e, %Y") %></td>
+						<td class="col-lg-1 text-center"><%= dosage.inactovation.nil? ? "No data" : dosage.inactivation.strftime("%B %e, %Y") %></td>
 					</tr>
 				<%end%>
 				

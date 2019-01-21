@@ -16,7 +16,7 @@
 			<%=f.input :date, :label => "Date of production", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-4">
-			<%=f.input :date, :label => "Date of thawing", :as => :string, :input_html => { :value => (f.object.date_of_thawing.strftime("%B %e, %Y") if f.object.date_of_thawing), "data-behaviour" => "datepicker" } %>
+			<%=f.input :date_of_thawing, :label => "Date of thawing", :as => :string, :input_html => { :value => (f.object.date_of_thawing.strftime("%B %e, %Y") if f.object.date_of_thawing), "data-behaviour" => "datepicker" } %>
 		</div>
 	</div>
 	<div class="row">

@@ -9,10 +9,19 @@
 				<div class="col-lg-2">
 					<%=f.input :number, :readonly => true %>
 					</div>
-			<div class="col-lg-8 pull-right">
+				<div class="col-lg-2" >
 							<strong>Associated plasmids :</strong>
-							<%= f.object.clone_batches.empty? ? "No plasmid" : f.object.clone_batches.map { |cb| "["+cb.number+"]"+cb.name+"<br/>" } %>
+				</div>
+				<div class="col-lg-8">
+								<% if f.object.clone_batches.empty? %>
+										No plasmid
+									<%else%>
+										<% f.object.clone_batches.each do |cb| %> 
+										<h5><%=cb.number%> | <%= cb.name%></h5> <br />
+										<%end%>
+									<%end%>
 						</div>
+				</div>
 			</div>
 			<small>
 			<div class="row">
@@ -81,6 +90,9 @@
 								<div class="col-lg-4">
 									<%= ff.input :plate_name, :label => "Plate#" %>
 									<div class="help-block">As Year + number (yy-##)</div>
+								</div>
+								<div class="col-lg-4">
+									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%B %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
 								</div>
 							</div>
 							<div class="row">

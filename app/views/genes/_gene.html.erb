@@ -1,14 +1,15 @@
 <td class="center"><%= object.id%></td>
 <td class="center"><%= object.name%></td>
 <td class="actions center">
-<%if object.clone.nil?%>
+<%unless object.clone_batch.nil?%>
 	<%= smart_listing_item_actions [
-	  	{name: :edit,    url: edit_gene_path(object), title: "Edit"},
-		{name: :destroy, url: gene_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?"}
+	  	{name: :edit,    url: edit_gene_path(object), title: "Edit"}
+		
 		]%>
 <%else%>
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_gene_path(object), title: "Edit"},
+	  	{name: :destroy, url: gene_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?"}
 		]%>
 <%end%>
 </td>

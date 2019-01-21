@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   
+  ActiveRecord::Base.connection.tables.each do |t|
+   ActiveRecord::Base.connection.reset_pk_sequence!(t)
+  end
   
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

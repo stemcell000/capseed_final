@@ -10,7 +10,7 @@
 							<div class="row">
 								<div class="col-lg-6">
 									<strong># </strong><%= vp.id.nil? ? "No data" : vp.id %></strong><br />
-									<strong>User: </strong><%= vp.user_id.nil? ? "No data" : "#{vp.user.firstname} #{vp.user.lastname}" %><br />
+									<strong>User: </strong><%= vp.user.nil? ? "No data" : vp.user.full_name %><br />
 									<strong>Invoice: </strong><%= vp.invoice.nil? ? "No data" : vp.invoice %><br />
 									<strong>Volume: </strong><%= vp.vol.nil? ? "No data" : vp.vol %> <%=vp.vol_unit.nil? ? "" : vp.vol_unit.name%><br />
 									<strong>Date of prod.:</strong> <%=vp.date_of_production.nil? ? "No Data" : formatDate(vp.date_of_production)%><br />

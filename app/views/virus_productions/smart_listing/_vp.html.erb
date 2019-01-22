@@ -18,18 +18,33 @@
 								
 								<strong>Associated plasmids: </strong>
 								<% if object.clone_batches.empty? %>
-										No plasmid
+										No plasmid<br />
 									<%else%>
 										<% object.clone_batches.each do |cb| %> 
-										<%=cb.number%> | <%= cb.name%> <br />
+											<%=cb.number%> | <%= cb.name%> <br />
 										<%end%>
-									<%end%>
+								<%end%>
 								<strong>Date of prod.: </strong> <%= object.date_of_production.nil? ? "none" : object.date_of_production.strftime("%b %e, %Y") %><br />
 								<strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
+								<%unless object.sterilitytests.nil? %>
+								<% last_st = object.sterilitytests.last %>
+								<%if last_st%>
+								<%=last_st.date.nil? ? "none" : last_st.date.strftime("%b %e, %Y") %><br />
+									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? ">on-going" : int_to_string(last_st.sterility) %><br />
+								<%end%>
+								<%end%>
+								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
+								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />
+								<% unless object.hek_result.blank? %>
+									<strong>HEK results: </strong><%= object.hek_result %><br />
+								<%end%>
+								<% unless object.comment.blank? %>
+									<strong>Comment: </strong><%= object.comment %><br />
+								<%end%>
+								<% last_dosage = object.dosages.last %>
 								<% unless object.dosages.nil?%>
 								<strong> <%= pluralize_without_count(object.dosages.count, 'Inactivation' , ' :')%> </strong><%= object.dosages.map {|dosage| dosage.inactivation.nil? ? "Unknown" : dosage.inactivation.strftime("%b %e, %Y")}.to_sentence %><br />
-								
-									<% last_dosage = object.dosages.last %>
+									
 									<% if last_dosage%>
 									<strong> Date of the last titration: </strong><%= last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y") %><br />
 									<ul>	
@@ -38,21 +53,6 @@
 										<li><strong> Titer to ATCC: </strong> <%= last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml" %></li>
 									</ul>
 									<%end%>
-								<%end%>
-								<%unless object.sterilitytests.nil? %>
-								<% last_st = object.sterilitytests.last %>
-								<%if last_st%>
-									<%=last_st.date.nil? ? "none" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
-									<%= last_st.sterility.nil? ? "<strong>Last result for sterility: </strong>on-going" : "<strong>Last result for sterility: </strong>"+int_to_string(last_st.sterility) %><br />
-								<%end%>
-								<%end%>
-								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />
-								<strong>User: </strong><%= object.user.nil? ? "none" : object.user.full_name %><br />
-								<% if !object.hek_result.blank? %>
-									<strong>HEK results: </strong><%= object.hek_result %><br />
-								<%end%>
-								<% unless object.comment.blank? %>
-									<strong>Comment: </strong><%= object.comment %><br />
 								<%end%>
 
 			<div>								
@@ -83,7 +83,7 @@
 					<%end%>
 				</table>
 			<%else%>
-			no batch
+			No batch
 			<%end%>
 			</div>
 		</div>

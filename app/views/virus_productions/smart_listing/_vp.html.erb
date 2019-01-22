@@ -42,8 +42,8 @@
 								<%unless object.sterilitytests.nil? %>
 								<% last_st = object.sterilitytests.last %>
 								<%if last_st%>
-								<strong>Date of the last sterility test: </strong><%=last_st.date.nil? ? "none" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
-									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? "<strong>Last result for sterility: </strong>on-going" : "<strong>Last result for sterility: </strong>"+int_to_string(last_st.sterility) %><br />
+									<%=last_st.date.nil? ? "none" : "<strong>Date of the last sterility test: </strong>"+last_st.date.strftime("%b %e, %Y") %><br />
+									<%= last_st.sterility.nil? ? "<strong>Last result for sterility: </strong>on-going" : "<strong>Last result for sterility: </strong>"+int_to_string(last_st.sterility) %><br />
 								<%end%>
 								<%end%>
 								<strong>Gel (Prot.): </strong> <%= object.gel_prot.nil? ? "none" : object.gel_prot %><br />

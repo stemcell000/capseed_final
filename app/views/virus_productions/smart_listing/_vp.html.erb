@@ -42,21 +42,21 @@
 									<strong>Comment: </strong><%= object.comment %><br />
 								<%end%>
 								<% last_dosage = object.dosages.last %>
-								<% unless object.dosages.nil?%>
-								<strong> <%= pluralize_without_count(object.dosages.count, 'Inactivation' , ' :')%> </strong><%= object.dosages.map {|dosage| dosage.inactivation.nil? ? "Unknown" : dosage.inactivation.strftime("%b %e, %Y")}.to_sentence %><br />
+								<% if last_dosage %>
+									<strong> <%= pluralize_without_count(object.dosages.count, 'Inactivation' , ' :')%> </strong><%= object.dosages.map {|dosage| dosage.inactivation.nil? ? "Unknown" : dosage.inactivation.strftime("%b %e, %Y")}.to_sentence %><br />
 									
-									<% if last_dosage%>
-									<strong> Date of the last titration: </strong><%= last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y") %><br />
-									<ul>	
-										<li><strong> Titer: </strong> <%= last_dosage.titer.nil? ? "none" : "%.2e" %last_dosage.titer+"vg/ml" %></li>
-										<li><strong> Titer ATCC: </strong> <%= last_dosage.titer_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_atcc+"vg/ml" %></li>
-										<li><strong> Titer to ATCC: </strong> <%= last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml" %></li>
-									</ul>
-									<%end%>
+										<strong> Date of the last titration: </strong><%= last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y") %><br />
+										<ul>	
+											<li><strong> Titer: </strong> <%= last_dosage.titer.nil? ? "none" : "%.2e" %last_dosage.titer+"vg/ml" %></li>
+											<li><strong> Titer ATCC: </strong> <%= last_dosage.titer_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_atcc+"vg/ml" %></li>
+											<li><strong> Titer to ATCC: </strong> <%= last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml" %></li>
+										</ul>
+								<%else%>
+									<strong>Titer :</strong>None<br />
 								<%end%>
 
 			<div>								
-			<h6><strong> Virus batches </strong></h6>
+			<h6><strong> Virus batches: </strong></h6>
 			<% unless object.virus_batches.empty? %>
 				<table class="table table-bordered">
 					<thead>

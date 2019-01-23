@@ -32,7 +32,7 @@
 													<strong>Date of prod.: </strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %><br />
 													<strong>Date of thaw.: </strong><%= b.date_of_thawing.nil? ?  "unknown" : b.date_of_thawing.strftime("%h %e, %Y ") %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
-													<strong>Contact: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
+													<strong>Box: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%= b.comment || "No comment" %><br />
 													<%end%>

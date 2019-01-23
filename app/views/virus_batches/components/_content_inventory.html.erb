@@ -12,6 +12,7 @@
 									<td>
 										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
 											title='
+												<small>
 												<div class="row"> 
 													<div class="col-lg-4 text-left">
 														<strong><%=b.name%></strong>
@@ -28,14 +29,15 @@
 											data-content='
 												<div class="col-lg-12 text-left">
 													<strong>Barcode: </strong><%= b.barcode.nil? ? "unknown" : b.barcode %><br />
-													<strong>Date of prod.: <small></strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %></small><br />
-													<strong>Date of thaw.: <small></strong><%= b.date_of_thawing.nil? ?  "unknown" : b.date_of_thawing.strftime("%h %e, %Y ") %></small><br />
+													<strong>Date of prod.: </strong><%= b.virus_production.date_of_production.nil? ?  "unknown" : b.virus_production.date_of_production.strftime("%h %e, %Y ") %><br />
+													<strong>Date of thaw.: </strong><%= b.date_of_thawing.nil? ?  "unknown" : b.date_of_thawing.strftime("%h %e, %Y ") %><br />
 													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
 													<strong>Contact: </strong><%= b.box.nil? ? "unknown" : b.box.name %> <br />
 													<% if !b.comment.blank? %>
 														<strong>Comments: </strong><br /><%= b.comment || "No comment" %><br />
 													<%end%>
 												</div>
+												</small>
 											'
 										>
 												<div class="col-lg-2 center">

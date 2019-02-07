@@ -17,7 +17,7 @@
   	<%= render :partial => 'components/modal_user' %>
     <div class="container">
     	<div id='flash-msg-container'>
-			<%= render partial: "components/flash_messages", :flash => flash %>
+			<%= render partial: "layouts/flash_messages", :flash => flash %>
 		</div>
 <% if params[:controller] == "assays"%>
 <h4>Cloning manager</h4>

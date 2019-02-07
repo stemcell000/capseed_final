@@ -7,6 +7,7 @@ class PlasmidBatch < ActiveRecord::Base
   
   has_many :plasmid_batch_attachments, :dependent => :destroy
   has_many :plasmid_batch_productions
+  has_many :virus_productions, :through=> :productions
   has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
   has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
   belongs_to :unit

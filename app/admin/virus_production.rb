@@ -17,6 +17,8 @@ ActiveAdmin.register VirusProduction do
     column :target
     column :animal
     column :production_id
+    column :plasmid_tag
+    column :plasmid_batch_tag
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_virus_production_path(p)

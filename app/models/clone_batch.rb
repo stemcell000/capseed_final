@@ -11,6 +11,7 @@ class CloneBatch < ActiveRecord::Base
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
   has_many :plasmid_batches, -> { uniq }, :dependent => :destroy
   has_and_belongs_to_many :productions, :join_table => "clone_batches_productions"
+  has_many :virus_production, :through => :productions
   belongs_to :target
       
   has_many :clone_batch_attachments, :dependent => :destroy

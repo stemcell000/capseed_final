@@ -244,6 +244,13 @@ class ProductionsController < InheritedResources::Base
       @production.virus_productions.build
       @vps = @production.virus_productions
       @last_virus = VirusProduction.all.last
+      
+    #Tags en vue de la recherche avec Ransack
+      @plasmid_tag = @production.clone_batches.map{|object| [object.number] }
+      @plasmid_tag.sort.join(' ').to_s
+    
+      @plasmid_batch_tag = @production.plasmid_batches.map{|object| [object.name]}
+      @plasmid_batch_tag.sort.join(' ').to_s
   end
   
  def destroy
@@ -265,12 +272,14 @@ class ProductionsController < InheritedResources::Base
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
      #titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])
-     
+     @vp_last = @vps.last
+             
      if @production.valid?
-      flash.keep[:success] = "Task completed!"
-    else
-      render :action => 'spawn_vp'
-    end
+       flash.keep[:success] = "Task completed!"
+     else
+       render :action => 'spawn_vp'
+     end
+     
   end
   
   def remove_vp_from_prod
@@ -334,10 +343,7 @@ class ProductionsController < InheritedResources::Base
       
       #Config de l'affichage des résultats.
       @productions = smart_listing_create(:productions, @productions, partial: "productions/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [ 10, 20, 30, 50, 100])  
-  
   end
-  
-
   
   def scheduler
     
@@ -398,7 +404,7 @@ class ProductionsController < InheritedResources::Base
   def production_vp_params
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id,
+    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]])
   end
   

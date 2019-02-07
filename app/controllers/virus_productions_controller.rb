@@ -24,6 +24,9 @@ class VirusProductionsController < InheritedResources::Base
     
       @users_all = User.all.order(lastname: "asc").uniq
       @users_all = @users_all.map{ |obj| [(obj['firstname']+" "+obj['lastname']), obj['id']] }
+
+      @plasmid_batches_all = PlasmidBatch.all.order(:id)
+      @plasmid_batches_all = @plasmid_batches_all.map{|obj| [obj['name']] }
       
       #          
       @q = VirusProduction.ransack(params[:q])
@@ -70,8 +73,8 @@ class VirusProductionsController < InheritedResources::Base
   def new
     @vp = VirusProduction.new
     @users = User.all
-          n = VirusProduction.last.number.to_i
-          @nb = (n +1).to_s
+    n = VirusProduction.last.number.to_i
+    @nb = (n +1).to_s
   end
   
   def create
@@ -96,7 +99,7 @@ class VirusProductionsController < InheritedResources::Base
      @virus_production.update_attributes(virus_production_params)
      if @virus_production.valid?
       flash.keep[:success] = "Task completed!"
-    else
+     else
       render :action => 'spawn_dosage'
     end
   end
@@ -114,7 +117,7 @@ class VirusProductionsController < InheritedResources::Base
  
   def virus_production_params
     params.require(:virus_production).permit(:id, :number, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy,
+    :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy, :plasmid_tag, :plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_name, :_destroy, :remove_dosage, :inactivation],
     :sterilitytests_attributes => [:id, :virus_production_id, :sterility, :date, :_destroy, :remove_sterilitytest],
     :virus_batches_attributes => [:id, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id, :date_of_thawing ])

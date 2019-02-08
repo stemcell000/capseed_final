@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190206142926) do
+ActiveRecord::Schema.define(version: 20190208105909) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,9 @@ ActiveRecord::Schema.define(version: 20190206142926) do
     t.string  "plate_name"
     t.text    "comment"
     t.date    "inactivation"
+    t.date    "inactivation_atcc"
+    t.date    "inactivation_standard"
+    t.boolean "accepted"
   end
 
   create_table "enzymes", force: :cascade do |t|

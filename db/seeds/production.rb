@@ -179,10 +179,10 @@
     end 
     
     User.create! do |u|
-        u.email     = 'eleonore.duvelle@inserm.fr'
-        u.username = 'eduvelle'
+        u.email     = 'eleonore.bombard@inserm.fr'
+        u.username = 'ebombard'
         u.firstname = 'Eléonore'
-        u.lastname = 'Duvelle'
+        u.lastname = 'Bombard'
         u.password    = 'rr7A5Ke7'
         u.role = 'guest'
     end 

@@ -64,7 +64,7 @@ class CloneBatchesController < InheritedResources::Base
         flash.keep[:success] = "Task completed!"
          #
          if @clone_batch.insert.nil?
-          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number.to_i)
+          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number.to_i+1)
           @clone_batch.insert = @insert
          end
          #
@@ -223,6 +223,9 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.build
     @clone_batch.skip_name_validation = false
     @clone_batch.skip_type_validation = false
+    @number = CloneBatch.last.number.to_i
+    @number = @number+1
+    @number = @number.to_s
    end
    
    def create_from_inventory

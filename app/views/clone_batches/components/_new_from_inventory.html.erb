@@ -1,9 +1,10 @@
 <td colspan="9">
-<%= simple_nested_form_for @clone_batch, html: { class: 'form-vertical' }, url: create_from_inventory_clone_batches_path(@number), :remote => true do |f|  %>
+<%= simple_nested_form_for @clone_batch, html: { class: 'form-vertical' }, url: create_from_inventory_clone_batches_path(), :remote => true do |f|  %>
 	
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<small>
+		<% nb = (CloneBatch.last.number.to_i+1).to_s %>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
 			<div class="col-lg-5">
@@ -13,7 +14,7 @@
 				<%= f.input :temp_name, :label => "Temporary name", :readonly => true %>
 			</div>
 			<div class="col-lg-2">
-				<%= f.input :number, :input_html => { :value => f.object.number || @nb}, :readonly => true%>
+				<%= f.input :number, :input_html => { :value => f.object.number || nb}, :readonly => true%>
 			</div>
 		</div>
 		<div class="row">

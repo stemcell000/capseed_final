@@ -10,7 +10,7 @@
 				<th>Date</th>
 				<th>Inact.</th>
 				<th>Inact. atcc</th>
-				<th>Inact.standard</th>
+				<th>Inact. strd</th>
 				<th>Validation</th>
 			</thead>
 				<% dosages.each do |dosage| %>
@@ -18,7 +18,7 @@
 						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer+" vg/ml" %></td>
 						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer_atcc.to_s+" vg/ml" %></td>
 						<td class="col-lg-3 text-center"><%= "%.2e" %dosage.titer_to_atcc.to_s+" vg/ml" %></td>
-						<td class="col-lg-2 text-center"><%= dosage.user_id.nil? ? "No data" : dosage.user.full_name %></td>
+						<td class="col-lg-2 text-center"><%= dosage.user.nil? ? "No data" : dosage.user.full_name %></td>
 						<td class="col-lg-1 text-center"><%= dosage.date.nil? ? "No data" : dosage.date.strftime("%B %e, %Y") %></td>
 						<td class="col-lg-1 text-center"><%= dosage.inactivation.nil? ? "No data" : dosage.inactivation.strftime("%B %e, %Y") %></td>
 						<td class="col-lg-1 text-center"><%= dosage.inactivation_atcc.nil? ? "No data" : dosage.inactivation_atcc.strftime("%B %e, %Y") %></td>

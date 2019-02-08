@@ -20,8 +20,8 @@ class CloneBatch < ActiveRecord::Base
   has_one :insert, :dependent => :destroy
   belongs_to :strand
   belongs_to :origin
-  has_many :genes, :dependent => :destroy
-  has_many :promoters, :dependent => :destroy  
+  has_many :genes
+  has_many :promoters
 
   def normalize_blank_values
     attributes.each do |column, value|

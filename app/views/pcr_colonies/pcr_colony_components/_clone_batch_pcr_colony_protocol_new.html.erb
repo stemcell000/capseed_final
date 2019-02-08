@@ -26,7 +26,7 @@
 		</div>
 		<div class="row">
 		<div class="col-lg-7">
- 							<%= f.association :primer_r, :label => "Primer Forward",
+ 							<%= f.association :primer_r, :label => "Primer Rewind",
 									:collection => PrimerF.all, :label_method => lambda{|primer_r| "#{primer_r.id} | #{primer_r.name}"},
 									:value_method => :id,
 									:input_html => { class:"select2-select" } %>

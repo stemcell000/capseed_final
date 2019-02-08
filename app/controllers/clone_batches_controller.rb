@@ -223,9 +223,6 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.build
     @clone_batch.skip_name_validation = false
     @clone_batch.skip_type_validation = false
-    @number = CloneBatch.last.number.to_i
-    @number = @number+1
-    @number = @number.to_s
    end
    
    def create_from_inventory

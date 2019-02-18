@@ -2,10 +2,6 @@ class Clone < ActiveRecord::Base
  #pg_search
  include PgSearch
  
- #Nested models relationships
- #ancienne relation avec assay (faux en plus puisque assayS ici. Je ne comprends pas comment ça a pu marcher...)
-  #has_one :assays
-  
   belongs_to :assay
   has_and_belongs_to_many :enzymes, :join_table => "clones_enzymes"
   has_and_belongs_to_many :projects, :join_table => "clones_projects"

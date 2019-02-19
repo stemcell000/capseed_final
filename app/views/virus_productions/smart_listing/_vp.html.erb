@@ -1,6 +1,6 @@
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.number %></td>
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="col-lg-4 col-md-4 col-sm-4 text-left"><small><% object.clone_batches.each do |cb| %>
+  <td class="col-lg-4 col-md-4 col-sm-4 text-left"><% object.clone_batches.each do |cb| %>
 												  				<span class="text-success"><strong><%=cb.number %></strong></span> <span> <%=cb.name %> </span><br />
 												  	<%end%>
   </td> 
@@ -60,6 +60,7 @@
 			<div>								
 			<h6><strong> Virus batches: </strong></h6>
 			<% unless object.virus_batches.empty? %>
+			<small>
 				<table class="table table-bordered">
 					<thead>
 						<th>Batch</th>

@@ -4,9 +4,8 @@ ActiveAdmin.register VirusProduction do
     column :id, sortable: :id do |vp|
       link_to vp.id, admin_virus_production_path(vp)
     end
-    column :name
+    column :number
     column :vol_unit
-    column :name
     column :vol
     column :sterility
     column :comment
@@ -19,6 +18,8 @@ ActiveAdmin.register VirusProduction do
     column :production_id
     column :plasmid_tag
     column :plasmid_batch_tag
+    column :rev_plasmid_tag
+    column :rev_plasmid_batch_tag
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_virus_production_path(p)
@@ -37,7 +38,7 @@ action_item do
   link_to "View Site", "/"
 end
 
-permit_params :vol_unit, :name, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment, :gel_prot, :invoice, :hek_result, :target, :animal
+permit_params :vol_unit, :number, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment, :gel_prot, :invoice, :hek_result, :target, :animal
 
 end
 

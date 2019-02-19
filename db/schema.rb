@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190208105909) do
+ActiveRecord::Schema.define(version: 20190219093224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -556,12 +556,14 @@ ActiveRecord::Schema.define(version: 20190208105909) do
     t.boolean  "invoice"
     t.text     "hek_result"
     t.string   "animal"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.date     "date_of_production"
     t.string   "number"
     t.string   "plasmid_tag"
     t.string   "plasmid_batch_tag"
+    t.string   "rev_plasmid_tag"
+    t.string   "rev_plasmid_batch_tag"
   end
 
   add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree

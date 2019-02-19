@@ -247,10 +247,16 @@ class ProductionsController < InheritedResources::Base
       
     #Tags en vue de la recherche avec Ransack
       @plasmid_tag = @production.clone_batches.map{|object| [object.number] }
-      @plasmid_tag.sort.join(' ').to_s
+      @plasmid_tag = @plasmid_tag.sort
+    #Tag dans l'ordre inverse pour recherche dans tous les sens
+      @rev_plasmid_tag = @plasmid_tag.sort{|x,y| y <=> x }.join(' ').to_s
+      @plasmid_tag = @plasmid_tag.join(' ').to_s
     
       @plasmid_batch_tag = @production.plasmid_batches.map{|object| [object.name]}
-      @plasmid_batch_tag.sort.join(' ').to_s
+      @plasmid_batch_tag.sort
+     #Tag dans l'ordre inverse pour recherche dans tous les sens
+      @rev_plasmid_tag = @plasmid_batch_tag.sort{|x,y| y <=> x}.join(' ').to_s
+      @plasmid_batch_tag = @plasmid_batch_tag.join(' ').to_s
   end
   
  def destroy
@@ -271,7 +277,6 @@ class ProductionsController < InheritedResources::Base
      #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
-     #titer_to_attc = params[:titer]*(32800000000/params[:titer_atcc])
      @vp_last = @vps.last
              
      if @production.valid?
@@ -403,8 +408,8 @@ class ProductionsController < InheritedResources::Base
     
   def production_vp_params
     params.require(:production).permit(:id,
-    :virus_productions_attributes => [:id, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag,
+    :virus_productions_attributes => [:id, :number, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
+    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]])
   end
   

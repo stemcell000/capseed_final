@@ -1,7 +1,9 @@
-  <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.id %></td>
-  <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.created_at.strftime("%b %e, %Y") %></td>
+  <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.number %></td>
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="col-lg-4 col-md-4 col-sm-4 center"><small><%= object.clone_batches.map {|cb| "["+cb.number+"]"+cb.name}.to_sentence %></small></td> 
+  <td class="col-lg-4 col-md-4 col-sm-4 text-left"><small><% object.clone_batches.each do |cb| %>
+												  				<span class="text-success"><strong><%=cb.number %></strong></span> <span> <%=cb.name %> </span><br />
+												  	<%end%>
+  </td> 
   
   <td class="col-lg-5 col-md-5 col-sm-5 actions">
   	

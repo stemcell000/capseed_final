@@ -9,7 +9,7 @@
 				<div class="row">
 				<% if vp_builder.object.id.nil? %>
 					<div class="col-lg-4">
-						<%= vp_builder.input :id, :readonly => true, :label => "Number" %>
+						<%= vp_builder.input :number, :readonly => true, :label => "Number", :input_html => {:value => f.object.id}  %>
 					</div>
 				<div class="col-lg-4">
 						<%= vp_builder.input :date_of_production, :label => "Date of production:", :as => :string, :input_html => { :value => (vp_builder.object.date_of_production.strftime("%B %e, %Y") if vp_builder.object.date_of_production), "data-behaviour" => "datepicker" } %>
@@ -51,17 +51,21 @@
 				</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<%=f.input :plasmid_tag, :input_html => {:value =>  f.object.clone_batches.map{|object| object.number}.sort{ |a, b| b <=> a }}, :as => :hidden %>
-					<%=f.input :plasmid_batch_tag, :input_html => {:value => f.object.plasmid_batches.map{|object| [object.name]}.sort{ |a, b| b <=> a }}, :as => :hidden %>
+					<%=vp_builder.input :plasmid_tag, :input_html => {:value =>  f.object.clone_batches.map{|object| object.number}.sort } %>
+					<%=vp_builder.input :plasmid_batch_tag, :input_html => {:value => f.object.plasmid_batches.map{|object| [object.name]}.sort }%>
+					<%=vp_builder.input :rev_plasmid_tag, :input_html => {:value =>  (f.object.clone_batches.map{|object| object.number}.sort).sort{|x,y| y <=> x } } %>
+					<%=vp_builder.input :rev_plasmid_batch_tag, :input_html => {:value => (f.object.plasmid_batches.map{|object| [object.name]}.sort).sort{|x,y| y <=> x } } %>
 				</div>
 			</div>
+			<%end%>
 			<div class="modal-footer" id="myPbButtons">	
 				<div class="btn-group" role="group" aria-label="...">
-			    		<%= vp_builder.submit("Save", :class => "btn btn-default") %>
-			        	<%= vp_builder.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+			    		<%= f.submit("Save", :class => "btn btn-default") %>
+			        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
 			    </div>
 		    </div>
+		  	
 		  <%end%>
-		  <%end%><%end%>
+		<%end%>
 	</small>
 <%end%>

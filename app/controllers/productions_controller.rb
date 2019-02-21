@@ -244,19 +244,6 @@ class ProductionsController < InheritedResources::Base
       @production.virus_productions.build
       @vps = @production.virus_productions
       @last_virus = VirusProduction.all.last
-      
-    #Tags en vue de la recherche avec Ransack
-      @plasmid_tag = @production.clone_batches.map{|object| [object.number] }
-      @plasmid_tag = @plasmid_tag.sort
-    #Tag dans l'ordre inverse pour recherche dans tous les sens
-      @rev_plasmid_tag = @plasmid_tag.sort{|x,y| y <=> x }.join(' ').to_s
-      @plasmid_tag = @plasmid_tag.join(' ').to_s
-    
-      @plasmid_batch_tag = @production.plasmid_batches.map{|object| [object.name]}
-      @plasmid_batch_tag.sort
-     #Tag dans l'ordre inverse pour recherche dans tous les sens
-      @rev_plasmid_tag = @plasmid_batch_tag.sort{|x,y| y <=> x}.join(' ').to_s
-      @plasmid_batch_tag = @plasmid_batch_tag.join(' ').to_s
   end
   
  def destroy

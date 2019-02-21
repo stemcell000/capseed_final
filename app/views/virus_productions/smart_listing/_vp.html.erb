@@ -1,11 +1,11 @@
   <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.number %></td>
-  <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="col-lg-4 col-md-4 col-sm-4 text-left"><% object.clone_batches.each do |cb| %>
+  <td class="col-lg-2 col-md-2 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
+  <td class="col-lg-6 col-md-6 col-sm-4 text-left"><% object.clone_batches.each do |cb| %>
 												  				<span class="text-primary"><strong><%=cb.number %></strong></span> <span> <%=cb.name %> </span><br />
 												  	<%end%>
   </td> 
   
-  <td class="col-lg-5 col-md-5 col-sm-5 actions">
+  <td class="col-lg-6 col-md-6 col-sm-6 actions text-right">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='

@@ -1,4 +1,4 @@
-<%= smart_listing_item :clone_batches, :create, @clone_batch, @clone_batch.valid? ? "clone_batches/smart_listing/clone_batch" : "clone_batches/components/edit_from_inventory" %>
+<%= smart_listing_item :clone_batches, :create, @clone_batch, @clone_batch.valid? ? "clone_batches/smart_listing/clone_batch" : "clone_batches/components/new_from_inventory" %>
 
 //Flash messages
 $("#flash-msg-container").html("")
@@ -6,3 +6,4 @@ $('#flash-msg-container').html("<%= escape_javascript(render partial: "component
 
 //Popover
  $('[data-toggle="popover"]').popover({html:true});
+ 

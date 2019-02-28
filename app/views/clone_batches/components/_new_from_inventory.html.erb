@@ -4,7 +4,6 @@
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<small>
-		<% nb = (CloneBatch.last.number.to_i+1).to_s %>
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
 			<div class="col-lg-5">
@@ -14,7 +13,7 @@
 				<%= f.input :temp_name, :label => "Temporary name", :readonly => true %>
 			</div>
 			<div class="col-lg-2">
-				<%= f.input :number, :input_html => { :value => nb}, :readonly => true%>
+				<%= f.input :nb, :input_html => { :value => CloneBatch.last.nb+1 }, :readonly => true%>
 			</div>
 		</div>
 		<div class="row">

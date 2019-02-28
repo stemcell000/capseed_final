@@ -64,7 +64,7 @@ class CloneBatchesController < InheritedResources::Base
         flash.keep[:success] = "Task completed!"
          #
          if @clone_batch.insert.nil?
-          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number.to_i+1)
+          @insert = Insert.new(:name => @clone_batch.name, :number => CloneBatch.count+1)
           @clone_batch.insert = @insert
          end
          #
@@ -234,11 +234,11 @@ class CloneBatchesController < InheritedResources::Base
       #
       if  @clone_batch.valid?
           @clone_batch.update_columns(:strict_validation => 0)
-          @clone_batch.update_columns(:number => @clone_batch.id.to_s)
+          @clone_batch.update_columns(:number => @clone_batch.nb.to_s)
           if @clone
             @clone.clone_batches << @clone_batch
           end
-          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number.to_i)
+          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number)
           @clone_batch.insert = @insert
           flash.keep[:success] = "Task completed!"
       else
@@ -273,7 +273,7 @@ class CloneBatchesController < InheritedResources::Base
     def plasmid_params
       
       params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :origin_id, :strand_id, :type_id, :assay_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name, :nb,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
      
@@ -298,7 +298,7 @@ class CloneBatchesController < InheritedResources::Base
     
     def plasmid_pb_params
       params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :type_id, :assay_id, :strand_id, :origin_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid,:comment_as_plasmid, :production_id, :template, :temp_name,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid,:comment_as_plasmid, :production_id, :template, :temp_name, :nb,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
      

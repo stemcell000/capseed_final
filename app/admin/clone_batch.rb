@@ -8,6 +8,7 @@ ActiveAdmin.register CloneBatch do
     end
     column :name
     column :id
+    column :nb
     column :temp_name
     column :comment
     column :date_as_plasmid

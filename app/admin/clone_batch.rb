@@ -36,11 +36,7 @@ end
               headers_rewrites: { 'clone' => :clone_id,  'type' => :type_id, 'strand' => :strand_id, 'comment' => :comment_as_plasmid, 'target' => :target_id },
               before_batch_import: ->(importer) {
                 CloneBatch.where(id: importer.values_at('id')).delete_all
-                
-                clone_names = importer.values_at(:clone_id)
-                clones   = Clone.where(name: clone_names).pluck(:name, :id)
-                options = Hash[*clones.flatten]
-                importer.batch_replace(:clone_id, options)
+     
                 
                 type_names = importer.values_at(:type_id)
                 types   = Type.where(name: type_names).pluck(:name, :id)
@@ -52,10 +48,6 @@ end
                 options = Hash[*strands.flatten]
                 importer.batch_replace(:strand_id, options)
                 
-                strand_names = importer.values_at(:strand_id)
-                strands   = Strand.where(name: strand_names).pluck(:name, :id)
-                options = Hash[*strands.flatten]
-                importer.batch_replace(:strand_id, options)
                 
                 target_names = importer.values_at(:target_id)
                 targets   = Target.where(name: target_names).pluck(:name, :id)

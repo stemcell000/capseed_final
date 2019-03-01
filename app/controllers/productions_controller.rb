@@ -155,8 +155,8 @@ class ProductionsController < InheritedResources::Base
             @prod_array_pb = Production.where(:pbtag => @production.pbtag).pluck(:id).sort.to_sentence
       
             unless @production.plasmid_batches.empty?
-              unless @trigger <= 1
-                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists (peoduction # #@prod_array_pb). Are you sure you want to do it again?"
+              unless @trigger >= 1
+                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists (production # #@prod_array_pb). Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed."                
              end

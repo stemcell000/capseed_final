@@ -7,14 +7,17 @@ ActiveAdmin.register Sterilitytest do
                 
               },
               batch_size: 1000
-              
+ 
+ batch_action :approve, :if => true do
+
+end             
 #Add Button to site
 action_item do
   link_to "View Site", "/"
 end
 
  index do
-    column :id
+    selectable_column :id
     column :name
     column :created_at
     column :updated_at

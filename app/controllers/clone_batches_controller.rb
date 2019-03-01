@@ -286,7 +286,7 @@ class CloneBatchesController < InheritedResources::Base
       :insert_attributes => [:id, :name, :number],
       :strand_attributes => [:id, :name],
       :origin_attributes => [:id, :name],
-      :genes_attributes => [:id, :name, :clone_batch_id, :_destroy],
+      :genes_attributes => [:id, :name, :clone_batch_id],
       :promoters_attributes => [:id, :name, :clone_batch_id, :_destroy],
       :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
       :box_attributes => [:id, :name],

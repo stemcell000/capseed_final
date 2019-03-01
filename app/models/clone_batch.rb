@@ -20,8 +20,8 @@ class CloneBatch < ActiveRecord::Base
   has_one :insert, :dependent => :destroy
   belongs_to :strand
   belongs_to :origin
-  has_many :genes
-  has_many :promoters
+  has_and_belongs_to_many :genes, :join_table => "clone_batches_genes"
+  has_and_belongs_to_many :promoters, :join_table => "clone_batches_promoters"
 
   def normalize_blank_values
     attributes.each do |column, value|
@@ -38,8 +38,8 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :insert
   accepts_nested_attributes_for :strand
   accepts_nested_attributes_for :type
-  accepts_nested_attributes_for :genes
-  accepts_nested_attributes_for :promoters
+  accepts_nested_attributes_for :genes, :allow_destroy => false, :reject_if => :all_blank
+  accepts_nested_attributes_for :promoters, :allow_destroy => false, :reject_if => :all_blank
   accepts_nested_attributes_for :origin
   
   

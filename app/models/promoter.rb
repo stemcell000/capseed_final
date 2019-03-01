@@ -1,7 +1,5 @@
 class Promoter < ActiveRecord::Base
   
-#pg_search
-include PgSearch
   
 belongs_to :clone_batch
 

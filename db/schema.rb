@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190228183139) do
+ActiveRecord::Schema.define(version: 20190301141907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,14 @@ ActiveRecord::Schema.define(version: 20190228183139) do
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
 
+  create_table "clone_batches_genes", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "gene_id"
+  end
+
+  add_index "clone_batches_genes", ["clone_batch_id"], name: "index_clone_batches_genes_on_clone_batch_id", using: :btree
+  add_index "clone_batches_genes", ["gene_id"], name: "index_clone_batches_genes_on_gene_id", using: :btree
+
   create_table "clone_batches_pcr_colonies", force: :cascade do |t|
     t.integer "clone_batch_id"
     t.integer "pcr_colony_id"
@@ -140,6 +148,14 @@ ActiveRecord::Schema.define(version: 20190228183139) do
 
   add_index "clone_batches_productions", ["clone_batch_id"], name: "index_clone_batches_productions_on_clone_batch_id", using: :btree
   add_index "clone_batches_productions", ["production_id"], name: "index_clone_batches_productions_on_production_id", using: :btree
+
+  create_table "clone_batches_promoters", force: :cascade do |t|
+    t.integer "clone_batch_id"
+    t.integer "promoter_id"
+  end
+
+  add_index "clone_batches_promoters", ["clone_batch_id"], name: "index_clone_batches_promoters_on_clone_batch_id", using: :btree
+  add_index "clone_batches_promoters", ["promoter_id"], name: "index_clone_batches_promoters_on_promoter_id", using: :btree
 
   create_table "clone_batches_sequencings", force: :cascade do |t|
     t.integer "clone_batch_id"

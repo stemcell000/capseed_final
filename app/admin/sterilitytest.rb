@@ -13,4 +13,8 @@ action_item do
   link_to "View Site", "/"
 end
 
+    column :id
+    column :virus_production_id
+    column :created_at
+
 end

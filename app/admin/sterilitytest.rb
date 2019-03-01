@@ -13,8 +13,18 @@ action_item do
   link_to "View Site", "/"
 end
 
+ index do
     column :id
-    column :virus_production_id
+    column :name
     column :created_at
+    column :updated_at
+    column :virus_production_id
+
+   #actions
+    actions defaults: false do |pb|
+    link_to "Edit", edit_admin_plasmid_batch_path(pb)
+  end
+   
+ end
 
 end

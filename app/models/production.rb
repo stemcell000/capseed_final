@@ -25,7 +25,7 @@ class Production < ActiveRecord::Base
   # validations
   # validates :projects, :presence => true
   # validates :clone_batches, :presence => true
-  #  validates_associated :plasmid_batch_productions
+  # validates_associated :plasmid_batch_productions
   # validates_associated :plasmid_batches
     
   

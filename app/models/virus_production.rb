@@ -43,8 +43,9 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
     )
   end
  
- 
- 
+ #validations
+ validates :date_of_production, :presence => true
+ validates :user, :presence => true
  private
  #Calulates the value of titer_to_atcc automately
    def titer_to_atcc

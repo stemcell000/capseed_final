@@ -72,7 +72,6 @@ class VirusProductionsController < InheritedResources::Base
   
   def new
     @vp = VirusProduction.new
-    @users = User.all
   end
   
   def create

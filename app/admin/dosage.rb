@@ -21,7 +21,9 @@ end
               csv_options: {col_sep: ";" },
               headers_rewrites: { 'username' => :user_id },
               before_batch_import: ->(importer) {
-           
+                
+                Dosage.where(id: importer.values_at('id')).delete_all
+                
                 user_names = importer.values_at(:user_id)
                 users   = User.where(username: user_names).pluck(:username, :id)
                 options = Hash[*users.flatten]

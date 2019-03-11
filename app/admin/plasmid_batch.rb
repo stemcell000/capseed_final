@@ -8,7 +8,6 @@ ActiveAdmin.register PlasmidBatch do
   #filter
   filter :id
   filter :name
-  filter :number
   filter :temp_name
   filter :clone_batch, :label => "plasmid"
   filter :format

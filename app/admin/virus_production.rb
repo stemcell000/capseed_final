@@ -4,6 +4,7 @@ ActiveAdmin.register VirusProduction do
     column :id, sortable: :id do |vp|
       link_to vp.id, admin_virus_production_path(vp)
     end
+    column :nb
     column :number
     column :vol_unit
     column :vol

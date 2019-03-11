@@ -21,7 +21,7 @@ class CloneBatchesController < InheritedResources::Base
     @assay = Assay.find(params[:assay_id])
       
     if CloneBatch.where.not(:name =>"").last
-      n = CloneBatch.where.not(:name =>"").last[:number].to_i
+      n = CloneBatch.where.not(:name =>"").last[:nb].to_i
       @nb = (n+1).to_s
     else
       @nb = 1

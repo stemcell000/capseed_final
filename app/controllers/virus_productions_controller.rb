@@ -73,14 +73,13 @@ class VirusProductionsController < InheritedResources::Base
   def new
     @vp = VirusProduction.new
     @users = User.all
-    n = VirusProduction.last.number.to_i
-    @nb = (n +1).to_s
   end
   
   def create
         @vp = VirusProduction.create(virus_production_params)
           n = VirusProduction.last.number.to_i
       if  @vp.valid?
+          @vp.update_columns(:number => @vp.nb.to_s)
           flash.keep[:success] = "Task completed!"
       else
           render :action => :new
@@ -109,7 +108,7 @@ class VirusProductionsController < InheritedResources::Base
     @users = User.all
     @virus_production.virus_batches.build
     @virus_batches = @virus_production.virus_batches
-          n = VirusProduction.last.number.to_i
+          n = VirusProduction.last.nb
           @nb = (n +1).to_s
   end
   

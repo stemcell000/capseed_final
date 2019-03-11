@@ -261,12 +261,16 @@ class ProductionsController < InheritedResources::Base
   
  def create_vp
      @production = Production.find(params[:id])
-     #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)Sinon impossible d'ajouter nouveau virus_production
+     #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)
+     #Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
      @vps = @production.virus_productions
      @vp_last = @vps.last
              
      if @production.valid?
+       @production.virus_productions.each do |vp|
+         vp.update_columns(:number => vp.nb.to_s)
+       end
        flash.keep[:success] = "Task completed!"
      else
        render :action => 'spawn_vp'

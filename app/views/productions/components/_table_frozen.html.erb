@@ -12,7 +12,7 @@
 		<% @production.plasmid_batches.each do |pb| %>
 				<tr>
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pb.name%></strong></td>
-						<td class="col-lg-3 col-md-3 col-sm-4 center"><%= pb.clone_batch.name %></td>
+						<td class="col-lg-3 col-md-3 col-sm-4 center"><strong></strong><%= pb.clone_batch.nb %></strong> <%= pb.clone_batch.name %></td>
 						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pb.clone_batch.type.name %></td>
 						<td class="col-lg-3 col-md-3 col-sm-5" ><%= pb.volume%> <%= pb.vol_unit.name  %></td>
 						<td class="col-lg-2 col-md-2 col-sm-4"><%= @production.plasmid_batch_productions.where(:plasmid_batch_id => pb.id)[0].volume%> <%=pb.vol_unit.name %></td>

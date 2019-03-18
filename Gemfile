@@ -53,6 +53,7 @@ gem 'nprogress-rails'
   
   gem 'devise'
   
+  
   #gem 'activeadmin', github: 'gregbell/active_admin'
   gem 'activeadmin'
   #Select2 pour activeadmin

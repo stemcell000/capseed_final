@@ -9,7 +9,7 @@
 				<div class="row">
 				<% if ff.object.id.nil? %>
 					<div class="col-lg-4">
-						<%= ff.input :nb, :input_html => { :value => VirusProduction.last.nb+1 }, :readonly => true%>
+						<%= ff.input :nb, :input_html => { :value => VirusProduction.last.nb.nil? ? 1 : VirusProduction.last.nb+1 }, :readonly => true%>
 					</div>
 				<div class="col-lg-4">
 						<%= ff.input :date_of_production, :label => "Date of production:", :as => :string, :input_html => { :value => (ff.object.date_of_production.strftime("%B %e, %Y") if ff.object.date_of_production), "data-behaviour" => "datepicker" } %>

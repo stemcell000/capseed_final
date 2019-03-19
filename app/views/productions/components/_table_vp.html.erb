@@ -9,7 +9,7 @@
 						<td class="col-lg-9">
 							<div class="row">
 								<div class="col-lg-6">
-									<strong># </strong><%= vp.number.blank? ? "No data" : vp.number %></strong><br />
+									<strong># <%= vp.number.blank? ? "No data" : vp.number %></strong><br />
 									<strong>User: </strong><%= vp.user.nil? ? "No data" : vp.user.full_name %><br />
 									<strong>Invoice: </strong><%= vp.invoice.nil? ? "No data" : vp.invoice %><br />
 									<strong>Volume: </strong><%= vp.vol.nil? ? "No data" : vp.vol %> <%=vp.vol_unit.nil? ? "" : vp.vol_unit.name%><br />

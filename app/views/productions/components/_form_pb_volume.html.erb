@@ -12,7 +12,7 @@
 							<span><strong><%= ff.object.name %></strong></span>
 							<span><strong>- <%= ff.object.clone_batch.name %></strong></span>
 							<span><strong>- <%= ff.object.clone_batch.type.name %></strong></span>
-							<span><strong><%= ff.object.concentration.nil? ? "":'- #{ff.object.cconcentration} #{ff.object.unit.name}' %> </strong></span>
+							<span><strong><%= ff.object.concentration.nil? ? "":'- '+ff.object.cconcentration +' '+{ff.object.unit.name} %> </strong></span>
 						</div>
 					</div>
 						

@@ -14,10 +14,12 @@
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pb.name%></strong></td>
 						<td class="col-lg-3 col-md-3 col-sm-4 center"></strong><%= pb.clone_batch.nb %></strong> <%= pb.clone_batch.name %></td>
 						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pb.clone_batch.type.name %></td>
-						<% if (pb.volume&pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume) < pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume %>
+						<% if pb.volume %>
+						<% if (pb.volume+pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume) < pb.plasmid_batch_productions.where(:production_id => @production.id)[0].volume %>
 							<td class="col-lg-3 col-md-3 col-sm-5 text-danger" ><%= pb.volume%> <%= pb.vol_unit.name  %> <span> "(not enough material!) </span></td>
 						<%else%>
 							<td class="col-lg-3 col-md-3 col-sm-5" ><%= pb.volume%> <%= pb.vol_unit.name  %></td>
+						<%end%>
 						<%end%>
 						<td class="col-lg-2 col-md-2 col-sm-4"><%= @production.plasmid_batch_productions.where(:plasmid_batch_id => pb.id)[0].volume%> <%=pb.vol_unit.name %></td>
 			<%end%>

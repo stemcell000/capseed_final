@@ -105,7 +105,7 @@ end
   r = ""
   
   if !collection.empty?
-    r = collection.map {|c| c.type.name+": "+c.id.to_s+"|"+ c.name}.to_sentence
+    r = collection.map {|c| c.type.name+": "+c.nb.to_s+"|"+ c.name}.to_sentence
   else
     r = "No data yet"
   end

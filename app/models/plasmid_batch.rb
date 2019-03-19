@@ -34,7 +34,7 @@ class PlasmidBatch < ActiveRecord::Base
   
   #validations
   validates :name, :format_id, :user_id, :unit_id, :concentration, :presence => true
-  #validates :volume, :presence => true
+  validates :volume, :presence => true
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
   #validates_with VolumeValidator

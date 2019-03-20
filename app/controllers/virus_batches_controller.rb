@@ -7,7 +7,7 @@ class VirusBatchesController < InheritedResources::Base
     @boxes = Box.all
     @columns = Column.all
     @rows = Row.all
-    @name = @virus_production.id.to_s+"."+nb.to_s
+    @name = @virus_production.number+"."+nb.to_s
 end
 
 def create_from_inventory

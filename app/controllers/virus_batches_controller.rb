@@ -4,7 +4,7 @@ class VirusBatchesController < InheritedResources::Base
     @virus_batch = VirusBatch.new
     @virus_production = VirusProduction.find(params[:virus_production_id])
     nb = @virus_production.virus_batches.size+1
-    @boxes = Box.all
+    @boxes = Box.where.not(:name => "Garbage")
     @columns = Column.all
     @rows = Row.all
     @name = @virus_production.number+"."+nb.to_s

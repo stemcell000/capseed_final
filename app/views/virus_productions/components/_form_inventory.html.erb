@@ -84,7 +84,8 @@
 			</div>
 			
 <%=f.simple_fields_for :dosages do |ff|%>
-					<div class="row  well">
+			<div class="form-group ui-front well">
+					<div class="row">
 									<div class="col-lg-4">
 										<%= ff.input :plate_name, :label => "Plate#" %>
 										<div class="help-block">As Year + number (yy-##)</div>
@@ -144,6 +145,7 @@
 							
 							
 								<%= ff.link_to_remove "Remove titer" %>
+					</div>
 				<%end%>
 				
 								<%= f.link_to_add "Add titers", :dosages %>

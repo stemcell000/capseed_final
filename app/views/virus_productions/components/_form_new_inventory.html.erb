@@ -95,7 +95,7 @@
 								<div class ="col-lg-3">
 								<% if ff.object.titer.nil? %>
 									<%= ff.input :titer, :label => "Titer (vg/mL)", as: :string %>
-									<div class="help-block">Example of titer: 4e13</div>
+									<div class="help-block">Example of titer: 4.2e13 (please use a dot for decimals)</div>
 								<%else%>
 									<%= ff.input :titer, :label => "Titer (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer } %>
 								<%end%>
@@ -103,7 +103,7 @@
 								<div class ="col-lg-4">
 								<% if ff.object.titer_atcc.nil? %>
 									<%= ff.input :titer_atcc , :label => "Titer ATCC (vg/mL)", as: :string %>
-									<div class="help-block">Example of titer: 4e13</div>
+									<div class="help-block">Example of titer: 4.2e13 (please use a dot for decimals)</div>
 								<%else%>
 									<%= ff.input :titer, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_atcc } %>
 								<%end%>

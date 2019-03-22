@@ -33,7 +33,7 @@
 												include_hidden: false %>
 							<% if @clone.id.present? %>
 							<%= f.association :backbones, :label => "Backbones",
-												:collection => @inserts_all,
+												:collection => Insert.all.where(:dismissed => false).order(:id),
 												:label_method => :clone_batch_id.to_s,
 												:placeholder => "Select a backbone.",
 												:as => :hidden %>
@@ -47,11 +47,12 @@
 												:value_method => :id,
 												:prompt => 'Select insert(s)',
 												:input_html => {class: "select2-select"},
+												:collection => Insert.all.where(:dismissed => false).order(:id),
 												include_blank: false,
 												include_hidden: false %>
 							<% if @clone.id.present? %>
 							<%= f.association :inserts, :label => "Inserts",
-												:collection => @inserts_all,
+												:collection => Insert.all.where(:dismissed => false).order(:id),
 												:label_method => :clone_batch_id.to_s,
 												:placeholder => "Select insert(s).",
 												:as => :hidden %>

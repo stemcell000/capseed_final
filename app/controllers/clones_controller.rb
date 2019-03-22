@@ -25,10 +25,10 @@ def index
     @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }
     
   #Champ inserts
-    @inserts_all = Insert.all.order(:id)
+    @inserts_all = Insert.all.where(:dismissed => false).order(:id)
     
   #Champ backbones
-    @backbones_all = Insert.all.order(:id)
+    @backbones_all = Insert.all.where(:dismissed => false).order(:id)
   
   #Recherche sur tables multiples.
     @q = Clone.ransack(params[:q])

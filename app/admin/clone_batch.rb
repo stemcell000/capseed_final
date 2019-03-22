@@ -24,6 +24,7 @@ ActiveAdmin.register CloneBatch do
     column :strict_validation
     column :plasmid_validation
     column :target
+    column :dismissed
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_clone_batch_path(p)

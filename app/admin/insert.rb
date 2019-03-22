@@ -13,7 +13,7 @@ index do
              csv_options: {col_sep: ";" },
              before_batch_import: ->(importer) {
                
-               
+               Insert.where(id: importer.values_at('id')).delete_all
 
               },
               batch_size: 1000 

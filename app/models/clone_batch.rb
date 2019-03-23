@@ -17,7 +17,7 @@ class CloneBatch < ActiveRecord::Base
   has_many :clone_batch_attachments, :dependent => :destroy
   has_many :clone_batch_as_plasmid_attachments, :dependent => :destroy
   belongs_to :type
-  has_one :insert, :dependent => :destroy
+  has_one :insert, :dependent => :destroy, :autosave => true
   belongs_to :strand
   belongs_to :origin
   has_and_belongs_to_many :genes, :join_table => "clone_batches_genes"

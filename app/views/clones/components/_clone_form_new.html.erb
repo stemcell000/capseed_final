@@ -29,7 +29,7 @@
 												:value_method => :id,
 												:prompt => 'Select a backbone.',
 												:input_html => {class: "select2-select"},
-												:collection => Insert.isNotDismissed.order(:id),
+												:collection => Insert.isNotDismissed,
 												include_blank: false,
 												include_hidden: false %>
 							<% if @clone.id.present? %>
@@ -47,7 +47,7 @@
 												:value_method => :id,
 												:prompt => 'Select insert(s)',
 												:input_html => {class: "select2-select"},
-												:collection => Insert.isNotDismissed.order(:id),
+												:collection => Insert.isNotDismissed,
 												include_blank: false,
 												include_hidden: false %>
 							<% if @clone.id.present? %>

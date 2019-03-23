@@ -27,7 +27,7 @@
 												:value_method => :id,
 												:prompt => 'Select a backbone.',
 												:input_html => {class: "select2-select"},
-												:collection => Insert.all.where(:dismissed => false).order(:id),
+												:collection => Insert.isNotDismissed.order(:nb),
 												include_blank: false,
 												include_hidden: false %>
 						</div>
@@ -39,7 +39,7 @@
 												:value_method => :id,
 												:prompt => 'Select insert(s)',
 												:input_html => {class: "select2-select"},
-												:collection => Insert.all.where(:dismissed => false).order(:id),
+												:collection => Insert.isNotDismissed.order(:nb),
 												include_blank: false,
 												include_hidden: false %>
 						</div>

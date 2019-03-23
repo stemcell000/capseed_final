@@ -45,7 +45,7 @@ def new
     #initialisation de la liste des méthodes
     @cmeths_all = Cmeth.all.order(:name)
     #initialisation de la liste des inserts
-    @inserts_all = Insert.all.order(:name)
+
     #initialisation de la liste des projets
     @projects_all =Project.all.order(:name)
     
@@ -122,7 +122,7 @@ def update
   #initialisation de la liste des méthodes
   @cmeths_all = Cmeth.all.order(:name)
   #initialisation de la liste des inserts.
-  @inserts_all = Insert.all.order(:name)
+  #@inserts_all = Insert.all.order(:name)
   #initialisation de la liste des projets
   @projects_all =Project.all.order(:name)
   #

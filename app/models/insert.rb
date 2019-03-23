@@ -1,4 +1,5 @@
 class Insert < ActiveRecord::Base
+ scope :isNotDismissed,  ->{ joins(:clone_batch).where(clone_batch: { dismissed: false }) }
  #
  belongs_to :clone_batch
  has_and_belongs_to_many :clones

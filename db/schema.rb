@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190322161939) do
+ActiveRecord::Schema.define(version: 20190323221951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 20190322161939) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "number"
+    t.boolean  "dismissed",      default: false
   end
 
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree

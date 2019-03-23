@@ -182,7 +182,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.update_attributes(plasmid_params)
     insert = @clone_batch.insert
    unless insert.nil?
-      insert.update_attributes(:name => @clone_batch.name, :number => @clone_batch.number)
+      insert.update_attributes(:name => @clone_batch.name, :number => @clone_batch.number, :dismissed => @clone_batch.dismissed)
    end
   end
   
@@ -215,6 +215,7 @@ class CloneBatchesController < InheritedResources::Base
      @clone_batch = CloneBatch.find(params[:id])
      @clone_batches = CloneBatch.all
      @clone_batch.destroy
+     @clone_batch.insert.destroy
    end
    
    def new_from_inventory
@@ -237,7 +238,7 @@ class CloneBatchesController < InheritedResources::Base
           if @clone
             @clone.clone_batches << @clone_batch
           end
-          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number)
+          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number, :dismissed => @clone_batch.dismissed)
           @clone_batch.insert = @insert
           flash.keep[:success] = "Task completed!"
       else
@@ -263,7 +264,7 @@ class CloneBatchesController < InheritedResources::Base
       :clone_attributes => [:id, :name, :assay_id],
       :assay_attributes => [:id, :name],
       :type_attributes => [:id, :name],
-      :insert_attributes => [:id, :name, :number, :clone_batch_id],
+      :insert_attributes => [:id, :name, :number, :clone_batch_id, :dismissed],
       :productions_attributes => [:id]
       )
       

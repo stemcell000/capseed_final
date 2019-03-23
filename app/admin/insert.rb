@@ -5,6 +5,7 @@ index do
   column :number
   column :created_at
   column :updated_at
+  column :dismissed
   actions
  end
  

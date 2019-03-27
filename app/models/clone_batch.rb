@@ -6,7 +6,7 @@ class CloneBatch < ActiveRecord::Base
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
-  belongs_to :clone, :autosave => true
+  belongs_to :clone
   has_and_belongs_to_many :sequencings, :dependent => :destroy
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
   has_many :plasmid_batches, -> { uniq }, :dependent => :destroy
@@ -54,7 +54,7 @@ class CloneBatch < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true unless :skip_name_validation
   validates :type, presence: true, uniqueness: true unless :skip_type_validation
   validates :glyc_stock_box_as_plasmid, :strand, :presence => true unless :skip_batch_validation
-  validates_format_of :name, :with => /(\w|\s)/, :multiline => true
+  validates_format_of :name, :with => /(\w|\s)/, :multiline => true unless :skip_name_validation
    
   #pg_search
   include PgSearch

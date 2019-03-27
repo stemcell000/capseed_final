@@ -17,12 +17,6 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-4 well">
-					<%= f.association :clone, :label => "Construction", :collection => Clone.order(:name) , :label_method=> :name, :value_method=> :id %>
-			</div>
-		</div>
-
-		<div class="row">
 				<%= f.input :clone_id, :as => :hidden%>
 			<div class = "col-lg-3">
 				<%=f.association :strand, :collection => Strand.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>

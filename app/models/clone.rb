@@ -6,7 +6,7 @@ class Clone < ActiveRecord::Base
   has_and_belongs_to_many :enzymes, :join_table => "clones_enzymes"
   has_and_belongs_to_many :projects, :join_table => "clones_projects"
   has_many :clone_attachments, :dependent => :destroy
-  has_many :clone_batches, :autosave => true
+  has_many :clone_batches
   belongs_to :cmeth
   has_and_belongs_to_many :inserts, :join_table => "clones_inserts"
   has_and_belongs_to_many :backbones, :join_table => "clones_inserts"
@@ -18,7 +18,7 @@ class Clone < ActiveRecord::Base
   accepts_nested_attributes_for :inserts
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :clone_attachments, :allow_destroy => true, reject_if: :all_blank
-  accepts_nested_attributes_for :clone_batches, :allow_destroy => true, reject_if: :all_blank
+  accepts_nested_attributes_for :clone_batches, :allow_destroy => true
   accepts_nested_attributes_for :cmeth, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :primer_f, :reject_if => :all_blank
   accepts_nested_attributes_for :primer_r, :reject_if => :all_blank

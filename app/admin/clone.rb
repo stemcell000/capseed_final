@@ -20,5 +20,4 @@ end
               },
               batch_size: 1000
               
-permit_params :list, :of, :attributes, :on, :model, :id, :name, :bbnb, :comment, :strict_validation, :created_at, :updated_at, :cmeth_id, :primer_f_id, :primer_f_id     
 end

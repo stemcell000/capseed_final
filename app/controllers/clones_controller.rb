@@ -322,7 +322,8 @@ def edit_from_inventory
 end
 
 def update_from_inventory
-  if @clone.update_attributes(clone_params)
+  @clone.attributes = clone_params
+  if @clone.save!(validate: false)
       flash.keep[:success] = "Task completed!"
   else
     render :action => 'edit_from_inventory'
@@ -360,7 +361,7 @@ if @clone.changed?
       @clone.batch_nb.times do
         temp =@clone.name+'_'+i.to_s
         if CloneBatch.count > 0
-          new_nb = CloneBatch.last.nb+1
+          new_nb = CloneBatch.last.number.to_i+1
         else
           new_nb = 1
         end
@@ -371,6 +372,8 @@ if @clone.changed?
         
         if cb.save
           @clone.clone_batches << cb
+         else
+           flash.keep[:danger] = "Nothing happened!"
         end
         i += 1
       end
@@ -392,13 +395,14 @@ def clone_params
   backbone_ids: [],
   cmeth_ids: [],
   project_ids: [],
+  
   :projects_attributes => [:id, :clone_id, :name],
   :enzymes_attributes =>[:id, :clone_id, :name],
   :cmeth_attributes =>[:id, :name],
   :inserts_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :bs_attributes =>[:id, :name, :clone_batch_id, :clone_id, :number],
   :assay_attributes => [:id, :name, :step],
-  :clone_batches_attributes => [:id, :clone_id, :unit_id, :name, :temp_name, :comment, :_destroy,
+  :clone_batches_attributes => [:clone_id, :name, :temp_name, :_destroy,
   :plasmid_batch_attributes => [:id, :clone_batch_id, :name, :format, :concentration, :_destroy],
   :unit_attributes =>[:id, :clone_batch_id, :name]],
   :clone_attachments_attributes =>[:id,:clone_id, :attachment, :remove_attachment, :_destroy])

@@ -1,35 +1,6 @@
 ActiveAdmin.register CloneBatch do
  config.sort_order = 'id_asc'
 
-   #index columns
-  index do
-    column :number, sortable: :number do |cb|
-      link_to cb.number, admin_clone_batch_path(cb)
-    end
-    column :name
-    column :id
-    column :nb
-    column :temp_name
-    column :comment
-    column :date_as_plasmid
-    column :glyc_stock_box_as_plasmid
-    column :comment_as_plasmid
-    column :created_at
-    column :updated_at
-    column :strand
-    column :origin
-    column :type
-    column :clone
-    column :qc_validation
-    column :strict_validation
-    column :plasmid_validation
-    column :target
-    column :dismissed
-   #actions
-    actions defaults: false do |p|
-    link_to "Edit", edit_admin_clone_batch_path(p)
-  end
-end
 
  
  #Import csv   
@@ -62,7 +33,7 @@ end
 
 permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand_id, :temp_name, :comment, :qc_validation, :strict_validation, :plasmid_validation,
 :date_as_plasmid, :glyc_stock_box_as_plasmid, :origin, :origin_id, :type_id, :type, :strand, :target, :target_id, :comment_as_plasmid, :promoters,
-:genes, :created_at, :updated_at, :clone_id, :number, :dismissed
+:genes, :created_at, :updated_at, :clone_id, :number, :dismissed, :nb
 
 #Add Button to site
 action_item do

@@ -3,13 +3,5 @@
   	$('#flash-msg-container').html("<%= escape_javascript(render :partial => "components/flash_messages", :flash => flash ) %>" );
   	$('#assay-modal').modal("hide");
   	
-<% if remotipart_submitted? %>
-	console.log("submitted via remotipart");
-<% else %>
-	console.log("submitted via native jquery-ujs");
-<% end %>
 
-$(form).on("ajax:remotipartComplete", function(e, data){
-  console.log(e, data)
-});
 	

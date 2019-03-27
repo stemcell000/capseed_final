@@ -34,7 +34,6 @@ class ProductionsController < InheritedResources::Base
  def new
     @production = Production.new
     @production.projects.build
-    @plasmids_collection = CloneBatch.where.not(:name => "").where.not(:type => nil).where(:dismissed => 0).order(:nb)
  end
  
  def create

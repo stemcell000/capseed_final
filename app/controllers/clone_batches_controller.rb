@@ -178,6 +178,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.skip_name_validation = false
     @clone_batch.skip_type_validation = false
     @clone_batch.update_attributes(plasmid_params)
+    
     insert = @clone_batch.insert
    unless insert.nil?
       insert.update_attributes(:name => @clone_batch.name, :number => @clone_batch.number, :dismissed => @clone_batch.dismissed)
@@ -278,7 +279,7 @@ class CloneBatchesController < InheritedResources::Base
       :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
       
-      :clone_attributes => [:id, :name],
+      :clone_attributes => [:id, :name, :assay_id, :clone_id],
       :assay_attributes => [:id, :name ],
       :type_attributes => [:id, :name ],
       :insert_attributes => [:id, :name, :number ],

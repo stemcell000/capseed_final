@@ -71,6 +71,11 @@
 												:input_html => {class: "select2-select"} %>
 						</div>
 					</div>
+					<div class="row">
+					<%= f.fields_for :clone_batch do |ff|%>
+				 		<%ff.input :name, :collection => CloneBatch.all %>
+				 	<%end%>
+					</div>
 							</div>
 					</div>
 	<div class="row">

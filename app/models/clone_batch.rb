@@ -6,7 +6,7 @@ class CloneBatch < ActiveRecord::Base
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
-  belongs_to :clone
+  belongs_to :clone, :autosave => true
   has_and_belongs_to_many :sequencings, :dependent => :destroy
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
   has_many :plasmid_batches, -> { uniq }, :dependent => :destroy

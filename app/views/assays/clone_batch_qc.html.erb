@@ -1,5 +1,4 @@
-<%= render :partial => 'components/process_pills' %>
-<div id="mainPanel">
+<%= render 'components/process_pills' %>
 	<div class="panel panel-primary">
 		<div class="panel-heading"> Cloning: <%= @assay.id %></div>
 		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
@@ -7,12 +6,10 @@
 				<div id="clone-list-container">
 						<%= render :partial => "clone_batches/components/clone_batch_qc_list" , :locals => {:clones => @clones, :assay => @assay}%>
 				</div>
-		</div>
 		<div class="panel-footer row">
 			    <div class="btn-group col-md-5" role="group" aria-label="...">
-			    	<%= link_to 'Previous', clone_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+			    		<%= link_to 'Previous', clone_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 					<%= link_to 'Next', plasmid_design_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
 			  	</div>
 		</div>
 	</div>
-</div>

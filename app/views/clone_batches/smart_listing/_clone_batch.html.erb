@@ -86,14 +86,22 @@
   			title: "Add batches"}]%>
   			
   		<% if object.clone %>
-  		
-  		<%= smart_listing_item_actions [
-  		{name: :custom,    url: clone_design_assay_path(:id => object.clone.assay.id),
-	  		method: :get, 
-  			icon: "fa fa-wrench", 
-  			title: "View cloning"}
-  			]%>
-  		<%end%>
+  			<%if object.clone.assay %>
+		  		<%= smart_listing_item_actions [
+		  		{name: :custom,    url: clone_design_assay_path(:id => object.clone.assay.id),
+			  		method: :get, 
+		  			icon: "fa fa-wrench", 
+		  			title: "View cloning"}
+		  			]%>
+		  	<%else%>
+		  		<%= smart_listing_item_actions [
+		  		{name: :custom,    url: clone_path(:id => object.clone.id),
+			  		method: :get, 
+		  			icon: "fa fa-clone", 
+		  			title: "View clone"}
+		  			]%>
+	  		<%end%>
+	  	<%end%>
   	<%end%>
   	<%if can? :destroy_clone_batch, @clone_batch %>
   		<%unless object.clone %>

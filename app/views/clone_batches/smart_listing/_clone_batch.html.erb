@@ -1,7 +1,7 @@
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.nb %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.name || object.temp_name %></small></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><% if object.clone_id.to_i>0 %>
-  						<%= object.clone.name %>
+  							<%= object.clone.name %>
   						<%else%>
   							-
   						<%end%>
@@ -27,6 +27,7 @@
 								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "No data" : object.origin.name %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "No data" : object.type.name %><br />
 								<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= object.plasmid_batches.empty? ? "No data" : object.plasmid_batches.length %><br />
+								<strong>Clone: </strong><%= object.clone.nil? ? "No data" : object.clone.name %><br />
 								<strong>Target: </strong> <%= object.target.nil? ? "No data" : object.target.name %><br />
 								<strong>Strand: </strong><%= object.strand.nil? ? "No data" : object.strand.name %><br />
 								<strong>Promoter: </strong><%= object.promoters.empty? ? "No data" : object.promoters.map {|promoter| promoter.name}.to_sentence %><br />
@@ -75,6 +76,7 @@
 		>
 			<span class="fa_icon fa fa-eye"></span>
 	</a>
+	<% if can? :update_clone_batch, @clone_batch %>
 	  	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_from_inventory_clone_batch_path(object),
 	  		title: "Edit"},
@@ -92,10 +94,13 @@
   			title: "View cloning"}
   			]%>
   		<%end%>
+  	<%end%>
+  	<%if can? :destroy_clone_batch, @clone_batch %>
   		<%unless object.clone %>
 	  		<%= smart_listing_item_actions [
 			{name: :destroy, url: destroy_from_inventory_clone_batch_path(object),
 				title: "Destroy",
 				confirmation: "Are you sure you want to delete this?"}]%>
 		<%end%>
+	<%end%>
 </td>

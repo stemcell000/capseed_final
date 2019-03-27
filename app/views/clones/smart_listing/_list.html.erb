@@ -4,15 +4,20 @@
      <th class="col-lg-1 center">
       	<%= smart_listing.sortable "ID", :id %>
   	</th>
-      <th class="col-lg-3 center">
+      <th class="col-lg-2 center">
         <%= smart_listing.sortable "Name", :name %>
     </th>
+    <th class="col-lg-1 center">
+        <%= smart_listing.sortable "Cloning Method", :cmeth %>
+    </th>
+     <th class="col-lg-3 center">
+        <%= smart_listing.sortable "Inserts", :inserts %>
+    </th>
       <th class="col-lg-3 center">
-		<%= smart_listing.sortable "Date of creation", :created_at %>
-  	</th>
-  	 <th class="col-lg-3 center">
-		Project(s)
-  	</th>
+        <%= smart_listing.sortable "Backbones", :backbones %>
+    </th>
+    <th class="col-lg-2 center">
+    	</th>
     </thead>
     <tbody>
 	  	<% smart_listing.collection.each do |s| %>
@@ -20,6 +25,7 @@
           		<%= smart_listing.render object: s, partial: "clones/smart_listing/clone", locals: {object: s} %>
         	</tr>
       	<% end %>
+      	<%= smart_listing.item_new colspan: 9, link: new_from_inventory_new_clone_path(:object) %>
     </tbody>
   </table>
   <%= smart_listing.paginate %>

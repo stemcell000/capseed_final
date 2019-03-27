@@ -23,6 +23,7 @@
             				<li><%=link_to "Promoters", promoters_path %></li>
             				<li><%=link_to "Genes", genes_path %></li>
 			            <li><%=link_to "Enzymes", enzymes_path %></li>
+			            <li><%=link_to "Clones", clones_path%></li>
 			            <% if can? :manage, @user %>
 			            <li role="separator" class="divider"></li>
 			            <li><%=link_to "User management", users_path %></li>

@@ -103,9 +103,9 @@
 			<%end%>
 			</div>
 		</div>
-			<div class="row">
-			<div class="col-lg-6">
-				<%=f.input :dismissed %>
+		<div class="row">
+			<div class="col-lg-2">
+				<%=f.input :dismissed, collection: CloneBatch.statuses, input_html: { class: 'select2-select'}%>
 			</div>
 		</div>
 		

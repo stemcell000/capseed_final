@@ -6,7 +6,7 @@ def number_generator
 end 
 
 def dismissedOrNot(d)
-  if d == true
+  if d == 1
      "alert alert-warning"
    end
 end

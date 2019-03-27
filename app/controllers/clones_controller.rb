@@ -6,8 +6,10 @@ autocomplete :clone, :name, :full => true, :extra_data => [:id], :display_value 
  include SmartListing::Helper::ControllerExtensions
  helper  SmartListing::Helper
     
-before_action :load_assay, only:[:edit, :new, :edit_record, :edit_batch, :edit_batch_select, :update, :create, :autocm, :destroy, :replicate, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc, :clone_info]
-before_action :set_param, only: [:update, :edit, :cb_generator, :edit_record, :edit_batch_select, :update_record, :update_record_batch, :update_record_batch_select, :update_record_batch_qc]
+before_action :load_assay, only:[:edit, :new, :edit_record, :edit_batch, :edit_batch_select, :update, :create, :autocm, :destroy, :replicate, :update_record, :update_record_batch, :update_record_batch_select,
+  :update_record_batch_qc, :clone_info]
+before_action :set_param, only: [:update, :edit, :cb_generator, :edit_record, :edit_batch_select, :update_record, :update_record_batch, :update_record_batch_select,
+  :update_from_inventory, :edit_from_inventory]
 before_action :clone_params, only: [:update, :update_clone, :create, :edit, :update_record_batch]
 skip_before_filter :verify_authenticity_token, :only => :update_record_batch
 
@@ -25,14 +27,12 @@ def index
     @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }
     
   #Champ inserts
-    @inserts_all = Insert.all.where(:dismissed => false).order(:id)
-    
-  #Champ backbones
-    @backbones_all = Insert.all.where(:dismissed => false).order(:id)
+    @inserts_all = Insert.all.where(:dismissed => 0).order(:name)
+    @inserts_all = @inserts_all.map{ |obj| [obj['name'], obj['id']] }
   
   #Recherche sur tables multiples.
     @q = Clone.ransack(params[:q])
-    @clones = @q.result(distinct: true).includes(:assay, :inserts, :backbones)
+    @clones = @q.result(distinct: true).includes(:inserts, :backbones)
   
   #Config de l'affichage des résultats.
     @clones = smart_listing_create(:clones, @clones, partial: "clones/smart_listing/list", default_sort: {id: "asc"}, page_sizes: [20, 30, 50, 100])
@@ -314,6 +314,39 @@ def plasmid_batch_qc_info
   end
 end
 
+def edit_from_inventory
+  @inserts_all = Insert.where(:dismissed => 0)
+  @cmeths_all = Cmeth.all
+  @primerf_all = PrimerF.all
+  @primerr_all= PrimerR.all
+end
+
+def update_from_inventory
+  if @clone.update_attributes(clone_params)
+      flash.keep[:success] = "Task completed!"
+  else
+    render :action => 'edit_from_inventory'
+  end
+end
+
+def new_from_inventory
+  @clone = Clone.new
+  @inserts_all = Insert.where(:dismissed => 0)
+  @cmeths_all = Cmeth.all
+  @primerf_all = PrimerF.all
+  @primerr_all= PrimerR.all
+end
+
+def create_from_inventory
+    @clone = Clone.create(clone_params)
+    #
+    if  @clone.valid?
+        flash.keep[:success] = "Task completed!"
+    else
+        render :action => :new_from_inventory
+    end
+end
+
 private
 
 def cb_generator
@@ -344,7 +377,6 @@ end
 
 def set_param
   @clone = Clone.find(params[:id])
-  
 end
 
 def load_assay 

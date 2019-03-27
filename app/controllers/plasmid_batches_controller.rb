@@ -22,7 +22,7 @@ def new
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
     nb = @clone_batch.plasmid_batches.length+1
-    
+ 
     @name = @clone_batch.number+"."+nb.to_s
 end
 
@@ -80,7 +80,7 @@ def edit_from_inventory
   @units = Unit.all
   @users = User.all
   @boxes = Box.all
-  @columnss = Column.all
+  @columns = Column.all
   @rows = Row.all
   @virus_list = @plasmid_batch.productions.pluck(:id).to_s
 end

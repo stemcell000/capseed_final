@@ -3,7 +3,6 @@ module AssaysHelper
   def top_menu
     [
       "On-going cloning" , assays_path,
-      #"Search" , clones_path,
       "Scheduler", scheduler_assays_path
     ].each_slice(2).map do |name, path| content_tag(:li, link_to(name, path, :class => "navbar-link"), :class =>(cp(path)))
     end.join('').html_safe

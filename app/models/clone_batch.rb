@@ -88,5 +88,10 @@ class CloneBatch < ActiveRecord::Base
   def pb_count
     self.plasmid_batches.count
   end
+  
+  enum status: {
+    yes: 1,
+    no: 0
+  }
 
 end

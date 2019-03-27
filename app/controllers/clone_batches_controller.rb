@@ -167,8 +167,6 @@ class CloneBatchesController < InheritedResources::Base
       @clone_batch.skip_name_validation = false
       @clone_batch.skip_type_validation = false
     if @clone_batch.genes.empty?
-      #@clone_batch.genes.build
-      #@clone_batch.promoters.build
       @units = Unit.all
       @users = User.all
    end
@@ -280,11 +278,11 @@ class CloneBatchesController < InheritedResources::Base
       :plasmid_batches_attributes => [:id, :name, :clone_batch_id, :comment, :concentration, :user_id, :box_id, :row_id, :column_id, :unit_id, :format_id, :_destroy,
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
       
-      :clone_attributes => [:id, :name, :assay_id],
-      :assay_attributes => [:id, :name],
-      :type_attributes => [:id, :name],
-      :insert_attributes => [:id, :name, :number],
-      :strand_attributes => [:id, :name],
+      :clone_attributes => [:id, :name],
+      :assay_attributes => [:id, :name ],
+      :type_attributes => [:id, :name ],
+      :insert_attributes => [:id, :name, :number ],
+      :strand_attributes => [:id, :name ],
       :origin_attributes => [:id, :name],
       :genes_attributes => [:id, :name],
       :promoters_attributes => [:id, :name],

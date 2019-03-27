@@ -1,15 +1,14 @@
+ <small>
   <td class="center"><%= object.id %></td>
-  <td class="center"><%= object.name %></td>
-  <td class="center"><%= object.created_at.strftime("%B %e, %Y") %></td>
-  <td class="center"><%= object.projects.map{|p| p.name }.to_sentence %></td>
+  <td class="center"><small><%= object.name %></small></td>
+  <td class="center"><small><%= object.cmeth.nil? ? "Unknown" :  object.cmeth.name %></small></td>
+  <td class="center"><small><%= object.inserts.map{|p| "#{p.number} #{p.name}"}[0] %></small><br /></td>
+  <td class="center"><small><%= object.backbones.map{|p| "#{p.number} #{p.name}"}[0] %></small><br /></td>
+ </small>
   <td class="actions center">
 	  <%= smart_listing_item_actions [
-	  { name:   :custom, 
-  		url:  clone_design_assay_path(:id => object.assay_id),
-  		method: :get, 
-  		icon: "fa_icon fa fa-pencil-square-o",
-  		remote: false, 
-  		title:  "Edit cloning"
+	  { name:   :edit, 
+  		url:  edit_from_inventory_clone_path(object),
   		},
 		{name: :destroy, url: clone_path(object),
 			title: "Destroy",

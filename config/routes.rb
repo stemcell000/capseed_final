@@ -218,6 +218,10 @@ Rails.application.routes.draw do
    get :edit_record, :on => :member
    put :update_record, :on => :member
    patch :update_record_batch, :on => :member
+   get :edit_from_inventory, :on => :member
+   patch :update_from_inventory, :on => :member
+   get :new_from_inventory, :on => :new
+   post :create_from_inventory, :on => :collection
    
   resources :enzymes 
   resources :inserts

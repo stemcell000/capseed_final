@@ -17,6 +17,12 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-lg-4 well">
+					<%= f.association :clone, :label => "clone name", :collection => Clone.order(:name) , :label_method=> :name, :value_method=> :id %>
+			</div>
+		</div>
+
+		<div class="row">
 				<%= f.input :clone_id, :as => :hidden%>
 			<div class = "col-lg-3">
 				<%=f.association :strand, :collection => Strand.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
@@ -105,10 +111,11 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-6">
-				<%=f.input :dismissed %>
+			<div class="col-lg-2">
+				<%=f.input :dismissed, collection: CloneBatch.statuses, input_html: { class: 'select2-select'}%>
 			</div>
 		</div>
+		
 	</small>
 	<div class="row">
 	 		<div class="btn-group pull-right" role="group" aria-label="...">
@@ -119,7 +126,7 @@
 	        		<%= link_to "Cancel", :back, :class => "btn btn-default btn-sm", :remote => true %>
 	        	</div>
 	        </div>
-	      </div>
+	  </div>
 	</div>
 
 <%end%>

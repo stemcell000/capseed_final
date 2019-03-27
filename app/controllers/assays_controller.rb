@@ -183,6 +183,7 @@ end
  end
     
 #PAGES
+
 #page clone design
  def clone_design
     #@clones = @assay.clones.build provoque la construction d'un array vide => pb

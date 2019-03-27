@@ -98,6 +98,7 @@
 		>
 			<span class="fa_icon fa fa-eye"></span>
 	</a>
+	<% if can? :update_virus_production, @virus_production %>
 	  <%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_from_inventory_virus_production_path(object),
 	  		title: "Edit"},
@@ -117,13 +118,14 @@
   			]%>
   			  		
   		<%end%>
-  		
+  	<%end%>
+  	<% if can? :destroy_virus_production, @virus_production %>
   			 <%= smart_listing_item_actions [
 			{name: :destroy,
 			url: virus_production_path(object.id),
 			title: "Destroy",
 			confirmation: "Are you sure you want to delete this?"}
   			]%>
-  		
+  	<%end%>
   		<%end%>
 </td>

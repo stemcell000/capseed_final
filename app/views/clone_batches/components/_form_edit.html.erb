@@ -9,7 +9,13 @@
 							<span><em>Set to blank to reset final name.</em></span><br />
 					       	<strong>Temporary name: </strong><%= f.object.temp_name %><br />
 					       	<strong>Notes: </strong><%= f.object.comment.presence || 'no comment' %><br />
+					     <%if f.object.name.nil?%>  	
+					       	<%= f.input :nb, :input_html => { :value => @nb }, :as => :hidden %>
 					       	<%= f.input :number, :input_html => { :value => @nb }, :as => :hidden %>
+					       	<strong>Number: </strong><%=@nb%>
+					     <%else%>
+					     	<strong>Number: </strong><%=f.object.nb%>
+					     <%end%>
 				</div>
 				</div>
 		

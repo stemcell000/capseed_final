@@ -359,7 +359,7 @@ def cb_generator
 if @clone.changed?
       #Suppression de touts les batches avant recréation
       if !@clone.clone_batches.empty?
-        @clone.clone_batches.delete_all
+        @clone.clone_batches.destroy_all
       end
       #Nommage (temp_name) et création du nombre de batch indiqués +  ajout à la collection.
       i = 1

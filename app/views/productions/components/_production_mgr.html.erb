@@ -13,6 +13,9 @@
       <th class="col-startdate">
         Start date
       </th>
+      <th class="col-startdate">
+        Previsional end date
+      </th>
       <th  class="col-step">
         Current step
       </th>
@@ -32,7 +35,10 @@
         	<%=p.name.blank? ? "no name" : p.name %>
     		</td>
       	<td id="startdate"%>
-          <%= p.created_at.strftime("%d %b %y at %H:%M") %>
+          <%= p.created_at.strftime("%d %b %y") %>
+         </td>
+           <td id="startdate"%>
+          <%= p.order_date.strftime("%d %b %y") %>
          </td>
         <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
           <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>
@@ -41,10 +47,12 @@
           <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
         </td>
         <td id="Action">
+        	<small>
           <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %> 
           <% if can? :inform_production, @user %>
           <%= link_to "Remove", p, :method => :delete, :class =>"btn btn-danger", :remote => true  %>
         		<%end%>
+        	</small>
         </td>
       </tr>
     <% end %>

@@ -19,13 +19,13 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-      
-    if CloneBatch.where.not(:name =>"").last
-      n = CloneBatch.where.not(:name =>"").last[:nb].to_i
-      @nb = (n+1).to_s
-    else
-      @nb = 1
-    end
+     
+      if CloneBatch.all.size > 0
+          n = CloneBatch.where.not(:nb => nil).last.nb
+          @nb = n+1
+          else
+            @nb = 1
+          end
   end
   
   def new
@@ -40,9 +40,6 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def update
-    #By pass validations
-    #CloneBatch.skip_callback(:update)
-    
     @clone_batch.skip_batch_validation = true
     @clone_batch.skip_type_validation = true
     @clone_batch.skip_strict_validation = true
@@ -52,7 +49,6 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batches = @clone.clone_batches
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
-        #CloneBatch.set_callback(:create)
       else
         render :action => 'edit'
       end
@@ -153,7 +149,7 @@ class CloneBatchesController < InheritedResources::Base
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
           
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin).distinct
+      @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin).where.not(:nb => nil).distinct
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [20,30, 50, 100])  
      
@@ -252,7 +248,7 @@ class CloneBatchesController < InheritedResources::Base
     end
     
     def clone_batch_params
-      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, :type_id, :dismissed,
+      params.require(:clone_batch).permit(:id, :name, :number, :comment, :qc_validation, :clone_id, :assay_id, :plasmid_validation, :temp_name, :type_id, :dismissed, :nb,
       :clone_batch_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
       

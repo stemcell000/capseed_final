@@ -1,11 +1,6 @@
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.nb %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.name || object.temp_name %></small></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><% if object.clone_id.to_i>0 %>
-  							<%= object.clone.name %>
-  						<%else%>
-  							-
-  						<%end%>
-  						</td>
+  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.clone.nil? ? "-" : object.clone.name %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.promoters.empty? ? "N/A" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.genes.empty? ? "N/A" : object.genes.map {|gene| gene.name}.to_sentence %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches.length %></td>

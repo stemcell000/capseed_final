@@ -38,7 +38,9 @@
           <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
         </td>
         <td id="Action">
-          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %> 
+        	<small>
+          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %>
+         </small>
         </td>
       </tr>
     <% end %>

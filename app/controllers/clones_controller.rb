@@ -186,6 +186,11 @@ def destroy
   @clone.destroy
 end
 
+def destroy_from_inventory
+  @clone = Clone.find(params[:id])
+  @clone.destroy
+end
+
 def edit_batch
   @clones = @assay.clones.build
   @clones = @assay.clones.order(:id)

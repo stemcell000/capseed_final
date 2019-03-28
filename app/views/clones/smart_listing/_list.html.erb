@@ -23,7 +23,6 @@
           		<%= smart_listing.render object: s, partial: "clones/smart_listing/clone", locals: {object: s} %>
         	</tr>
       	<% end %>
-      	<%= smart_listing.item_new colspan: 9, link: new_from_inventory_new_clone_path(:object) %>
     </tbody>
   </table>
   <%= smart_listing.paginate %>

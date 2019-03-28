@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  
+  devise_for :users do
+    get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
+  end
+  
+  devise_scope :user do
+  put 'user/confirmation', to: 'confirmations#update'
+  end
+  
+    ActiveAdmin.routes(self)
+    
   resources :virus_batches
   resources :origins
   resources :sterilitytests
@@ -44,16 +55,6 @@ Rails.application.routes.draw do
   
   get 'inserts/index'
 
-  #devise_for :user, :controllers => { :confirmations => "confirmations" }
-  
-  devise_for :users do
-    get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
-  end
-  
-  devise_scope :user do
-  put 'user/confirmation', to: 'confirmations#update'
-  end
-  
   resources :users do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
@@ -66,7 +67,7 @@ Rails.application.routes.draw do
     end
   end
   
-  ActiveAdmin.routes(self)
+
 
   resources :assays do
     collection do
@@ -222,6 +223,8 @@ Rails.application.routes.draw do
    patch :update_from_inventory, :on => :member
    get :new_from_inventory, :on => :new
    post :create_from_inventory, :on => :collection
+   delete :destroy_from_inventory, :on => :member
+
    
   resources :enzymes 
   resources :inserts

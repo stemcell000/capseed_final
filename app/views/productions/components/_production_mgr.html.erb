@@ -14,7 +14,7 @@
         Start date
       </th>
       <th class="col-startdate">
-        Previsional end date
+        Expected end
       </th>
       <th  class="col-step">
         Current step
@@ -37,7 +37,7 @@
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y") %>
          </td>
-           <td id="Expected end date"%>
+           <td id="Expected end"%>
           <%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
          </td>
         <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>

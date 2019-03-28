@@ -37,8 +37,8 @@
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y") %>
          </td>
-           <td id="startdate"%>
-          <%= p.order_date.strftime("%d %b %y") %>
+           <td id="Expected end date"%>
+          <%=P.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
          </td>
         <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
           <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>

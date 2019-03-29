@@ -9,7 +9,7 @@
 				<th>Production volume</th>
 			</thead>
 		<% switch = true %>
-		<% @production.plasmid_batches.each do |pb| %>
+		<% @production.plasmid_batches.order(:name).each do |pb| %>
 				<tr>
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pb.name%></strong></td>
 						<td class="col-lg-3 col-md-3 col-sm-4 center"><strong></strong><%= pb.clone_batch.nb %></strong> <%= pb.clone_batch.name %></td>

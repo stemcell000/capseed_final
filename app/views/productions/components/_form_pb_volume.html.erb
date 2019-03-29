@@ -3,31 +3,15 @@
 		<ul class="errors"></ul>
 		<%= f.input :id , :as => :hidden %>
 			
-			<%= f.simple_fields_for :plasmid_batches do |ff| %>
-						
-						<%= ff.input :id , :as => :hidden %>
-					
-					<div class="row">
-						<div class="col-lg-12">
-							<span><strong><%= ff.object.name %></strong></span>
-							<span><strong>- <%= ff.object.clone_batch.name %></strong></span>
-							<span><strong>- <%= ff.object.clone_batch.type.name %></strong></span>
-							<span><strong><%= ff.object.concentration.nil? ? "": "- #{ff.object.concentration} #{ff.object.unit.name}" %> </strong></span>
-						</div>
-					</div>
-						
-							<%=ff.simple_fields_for :plasmid_batch_productions do |fff| %>
-								<% if fff.object.production_id == @production.id%>
+							<%=f.fields_for :plasmid_batch_productions do |ff| %>
 								<div class="row">
 									<div class="col-lg-5 col-md-5 col-sm-5 align-bottom">
-									
-										<span><%=fff.input :volume, :label => "Prod. volume (#{ff.object.vol_unit.name})"%></span>
+											<strong><%=ff.object.plasmid_batch.name%> - <%= ff.object.plasmid_batch.concentration %> <%= ff.object.plasmid_batch.unit.name %> - <%= ff.object.plasmid_batch.volume %> <%= ff.object.plasmid_batch.vol_unit.name %></strong>
+											<%= ff.input :id , :as => :hidden %>
+											<%= ff.input :volume %>
 									</div>
 								</div>
-								<%end%>
-							
 							<%end%>
-			<%end%>
 				
 	<div class="row">
 		<div class="col-lg-12">

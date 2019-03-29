@@ -6,7 +6,7 @@
 				<th>Type</th>
 				<th>Clone</th>
 			</thead>
-				<% collection.each do |plasmid_batch| %>
+				<% collection.order(:name).each do |plasmid_batch| %>
 					<tr>
 						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.name %></td>
 						<td class="col-lg-6 col-md-6 col-sm-6"></strong><%= plasmid_batch.clone_batch.nb %></strong><%= plasmid_batch.clone_batch.name %></td>

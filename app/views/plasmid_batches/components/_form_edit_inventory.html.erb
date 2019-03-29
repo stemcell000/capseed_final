@@ -24,7 +24,7 @@
 	</div>
 	<div class="row">
   		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%= f.input :volume, :label => "Volume: ", :input_html => {:value => 0.0} %>
+  				<%= f.input :volume, :label => "Volume: "%>
   		</div>
   		<div class="col-lg-2 col-sm-2 col-md-2">
   			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>

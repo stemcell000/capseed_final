@@ -9,7 +9,9 @@ class PlasmidBatch < ActiveRecord::Base
   has_many :plasmid_batch_productions
   has_many :virus_productions, :through=> :productions
   has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
+  
   has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
+  
   belongs_to :unit
   belongs_to :column
   belongs_to :row
@@ -29,15 +31,14 @@ class PlasmidBatch < ActiveRecord::Base
   accepts_nested_attributes_for :vol_unit, :allow_destroy => true
   accepts_nested_attributes_for :format, :allow_destroy => true
   accepts_nested_attributes_for :user, :allow_destroy => true
-  accepts_nested_attributes_for :plasmid_batch_productions, :reject_if => :all_blank
   accepts_nested_attributes_for :productions
   
   #validations
   validates :name, :format_id, :user_id, :unit_id, :concentration, :presence => true
-  validates :volume, :presence => true
+  validates :volume, :presence => true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
-  #validates_with VolumeValidator
+  validates_associated :plasmid_batch_productions
   
  #pg_search
  include PgSearch
@@ -63,7 +64,7 @@ def set_tube_status
        when 500..1000
         str="/images/full-med-high.png"
       else
-       str=  "/images/empty-med.png"
+        str="/images/full-med-high.png"
      end
    else
        str = self.trash? ? "/images/trash.png":"/images/empty-med.png"

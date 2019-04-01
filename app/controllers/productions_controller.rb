@@ -56,7 +56,7 @@ class ProductionsController < InheritedResources::Base
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
-              unless @trigger < 1
+              unless @trigger <= 1
                 flash.keep[:warning] = "You did this before! This combination of plasmids already exists. Are you sure you want to do it again?"
               else
                flash.discard(:success) 
@@ -92,7 +92,7 @@ class ProductionsController < InheritedResources::Base
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
-              unless @trigger == 0
+              unless @trigger <= 1
                 flash.discard(:success)
                 flash.keep[:warning] = "You did this before! This combination of plasmids already exists. Are you sure you want to do it again?"
               else
@@ -142,17 +142,16 @@ class ProductionsController < InheritedResources::Base
     #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
             prod_array = Production.where(:pbtag => @production.pbtag)
             @trigger = prod_array.count
-            #@vps = prod_array.joins(:virus_productions).pluck(:number).sort.to_sentence
-      
+            
+                 @production.plasmid_batches.each do |pb|
+                 new_starting_v = pb.volume
+                 pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:starting_volume => new_starting_v)
+               end  
             unless @production.plasmid_batches.empty?
-              unless @trigger > 1
+              unless @trigger <= 1
                 flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed." 
-               @production.plasmid_batches.each do |pb|
-                 new_starting_v = pb.volume
-                 pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:starting_volume => new_starting_v)
-               end               
              end
             end
    end

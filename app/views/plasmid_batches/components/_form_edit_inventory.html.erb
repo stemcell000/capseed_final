@@ -24,12 +24,19 @@
 	</div>
 	<div class="row">
   		<div class="col-lg-2 col-sm-2 col-md-2">
-  				<%= f.input :volume, :label => "Volume: "%>
+  			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 3).any? %>
+  				<%= f.input :volume, :readonly => isInvolvedinOpenProds %>
   		</div>
   		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
+  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1', :disabled => isInvolvedinOpenProds%>
 		</div>
+		<div class="col-lg-4 col-sm-4 col-md-4 dismissed">
+		<% if isInvolvedinOpenProds %>
+  			<small> This batch is involved in one or more productions. Close them to mofify the volume.</small>
+  		<%end%>
+  		</div>
 	</div>
+
 	<div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6">
 		<%= f.input :comment, :label => "Comment:" %>

@@ -4,7 +4,6 @@ class VirusProduction < ActiveRecord::Base
  belongs_to :user
  belongs_to :vol_unit
  has_many :clone_batches, :through => :production
- has_many :clone_batches, :through => :production
  has_many :plasmid_batches, :through => :production
  has_many :dosages
  has_many :sterilitytests

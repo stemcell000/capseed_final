@@ -143,16 +143,16 @@ class ProductionsController < InheritedResources::Base
             prod_array = Production.where(:pbtag => @production.pbtag)
             @trigger = prod_array.count
             
-                 @production.plasmid_batches.each do |pb|
-                 new_starting_v = pb.volume
-                 pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:starting_volume => new_starting_v)
-               end  
             unless @production.plasmid_batches.empty?
               unless @trigger <= 1
                 flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed." 
              end
+                #@production.plasmid_batches.each do |pb|
+                # new_starting_v = pb.volume
+                # pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:starting_volume => new_starting_v)
+               # end
             end
    end
    
@@ -194,9 +194,13 @@ class ProductionsController < InheritedResources::Base
     @plasmid_batches = @production.plasmid_batches.order(:id)
     
     #Sauvegarde du volume restant pour chaque batch impliqué
-    @plasmid_batches.each do |pb|
-      remaining_volume = pb.plasmid_batch_productions[0].starting_volume - pb.plasmid_batch_productions[0].volume
-      pb.update_columns(:volume => remaining_volume)
+    #@plasmid_batches.each do |pb|
+     # remaining_volume = pb.plasmid_batch_productions[0].starting_volume - pb.plasmid_batch_productions[0].volume
+     # pb.update_columns(:volume => remaining_volume)
+    #end
+    @production.plasmid_batch_productions.each do |pbp|
+     remaining_volume = pbp.starting_volume - pbp.volume
+     pbp.plasmid_batch.update_columns(:volume => remaining_volume)
     end
     
     #Collection de virus (en fait un virus seulement par production)
@@ -412,7 +416,7 @@ class ProductionsController < InheritedResources::Base
   
    def production_volumes_params
     params.require(:production).permit(:id, 
-        :plasmid_batch_productions_attributes => [:id, :volume, :production_id, :plasmid_batch_id, :_destroy ]
+        :plasmid_batch_productions_attributes => [:id, :volume, :starting_volume, :production_id, :plasmid_batch_id, :_destroy ]
     )
   end
     

@@ -1,5 +1,7 @@
 class Production < ActiveRecord::Base
   
+  before_update :set_starting_volumes
+  
   #pg_search
   include PgSearch
   multisearchable :against => [:name, :id, :step, :projects],
@@ -58,5 +60,10 @@ class Production < ActiveRecord::Base
     self.strict_validation == 1
   end
   
+  def set_starting_volumes
+    self.plasmid_batch_productions.each do |pbp|
+      pbp.starting_volume = pbp.plasmid_batch.volume.nil? ? 0 : pbp.plasmid_batch.volume
+    end
+  end
   
 end

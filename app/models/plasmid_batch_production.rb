@@ -9,9 +9,6 @@ class PlasmidBatchProduction < ActiveRecord::Base
   validates :volume, :presence => true
   validate :remaining_volume_validator
   
-  accepts_nested_attributes_for :production
-  accepts_nested_attributes_for :plasmid_batch
-  
   private
   
   def remaining_volume_validator

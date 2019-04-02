@@ -1,4 +1,14 @@
 ActiveAdmin.register VirusBatch do
+ csv do
+   column :name
+   column :virus_production_id
+   column( :box ) {|vb| vb.box.name}
+   column(:volume)
+   column(:date)
+   column(:vol_unit_id)
+   column(:trash)
+   column(:date_of_thawing)
+ end
 #Import csv   
  active_admin_import validate: false,
               csv_options: {col_sep: ";" },

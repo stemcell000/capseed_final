@@ -3,7 +3,7 @@ ActiveAdmin.register VirusBatch do
    column :id
    column :name
    column :virus_production_id
-   column :box
+   column :box.map{|b| b.name}
    column :volume
    column :date 
    column :vol_unit_id

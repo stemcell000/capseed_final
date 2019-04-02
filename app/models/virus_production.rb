@@ -42,6 +42,12 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
     )
   end
  
+ def isInTrash?
+  virus_batches.where(:volume => 0).any?
+ end
+ 
+ 
+ 
  #validations
  validates :date_of_production, :presence => true
  validates :user, :presence => true

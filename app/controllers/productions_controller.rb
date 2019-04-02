@@ -149,10 +149,6 @@ class ProductionsController < InheritedResources::Base
               else
                flash.now[:success] = "Task completed." 
              end
-                #@production.plasmid_batches.each do |pb|
-                # new_starting_v = pb.volume
-                # pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:starting_volume => new_starting_v)
-               # end
             end
    end
    

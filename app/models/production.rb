@@ -17,8 +17,8 @@ class Production < ActiveRecord::Base
   has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
   has_many :virus_productions, :dependent => :delete_all
   
-  has_many :plasmid_batch_productions
-  has_many :plasmid_batches, :through => :plasmid_batch_productions
+#  has_many :plasmid_batch_productions
+ # has_many :plasmid_batches, :through => :plasmid_batch_productions
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :plasmid_batches, :reject_if => :all_blank

@@ -52,6 +52,4 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
       (32800000000/dosage.titer_atcc.to_f)*dosage.titer.to_f
      end
    end
-   
-
 end

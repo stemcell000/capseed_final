@@ -1,6 +1,6 @@
-  <td class="col-lg-1 col-md-1 col-sm-2 center"><%= object.nb %></td>
-  <td class="col-lg-2 col-md-2 col-sm-2 center"><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
-  <td class="col-lg-6 col-md-6 col-sm-4 text-left">
+  <td class="col-lg-1 col-md-1 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"><%= object.nb %></td>
+  <td class="col-lg-2 col-md-2 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"> <%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
+  <td class="col-lg-6 col-md-6 col-sm-4 text-left <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
   	<% unless object.production.nil?%>
   	<% object.production.clone_batches.each do |cb| %>
 												  				<span class="text-primary"><strong><%=cb.nb %></strong></span> <span> <%=cb.name %> </span><br />
@@ -8,7 +8,7 @@
 	<%else%>
 			<span>Unknown set of plasmids</span>
 	<%end%>
-  <td class="col-lg-6 col-md-6 col-sm-6 actions text-right">
+  <td class="col-lg-6 col-md-6 col-sm-6 actions text-right <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='

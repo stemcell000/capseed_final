@@ -9,8 +9,8 @@
 			</thead>
 		<% @production.plasmid_batches.order(:name).each do |pb| %>
 				<tr>
-					<% current_starting_volume= pb.plasmid_batch_productions.where(:production_id => @production.id).first.starting_volume %>
-					<% current_production_volume = pb.plasmid_batch_productions.where(:production_id => @production.id).first.volume %>
+					<% current_starting_volume= @production.plasmid_batch_productions.where(:plasmid_batch_id => pb.id).first.starting_volume %>
+					<% current_production_volume = @production.plasmid_batch_productions.where(:plasmid_batch_id => pb.id).first.volume %>
 					<% remaining_volume =  current_starting_volume - current_production_volume %>
 						
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pb.name%></strong></td>

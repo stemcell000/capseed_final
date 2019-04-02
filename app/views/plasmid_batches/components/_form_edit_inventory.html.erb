@@ -30,7 +30,7 @@
   		<div class="col-lg-2 col-sm-2 col-md-2">
   			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
 		</div>
-		<div class="col-lg-3 col-sm-3 col-md-3 dismissed">
+		<div class="col-lg-2 col-sm-2 col-md-2 dismissed">
 		<% if isInvolvedinOpenProds %>
   			<small> This batch is involved in one or more productions. Close them to mofify the volume.</small>
   		<%end%>

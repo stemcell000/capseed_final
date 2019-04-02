@@ -2,7 +2,7 @@ ActiveAdmin.register VirusBatch do
  csv do
    column :name
    column :virus_production_id
-   column( :box ) {|vb| vb.box.name}
+   column( :box ) {|vb| vb.box.id}
    column(:volume)
    column(:date)
    column(:vol_unit_id)

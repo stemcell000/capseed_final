@@ -42,12 +42,13 @@
 									</thead>
 									<%object.plasmid_batches.each do |pb|%>
 									<tr>
+										<% involved = pb.productions.where('last_step < ?', 3).any?  %>
 										<td><%= pb.name %></td>
 										<td><%= pb.box.nil? ? "Unknown" : pb.box.name %></td>
 										<td><%= pb.row.nil? ? "Unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
 										<td><%= pb.concentration.nil? ? "Unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
 										<td><%= pb.date.nil? ? "Unknown" : pb.date.strftime("%B %e, %Y") %></td>
-										<td><%= pb.volume.nil? ? "Unknown":"#{pb.volume} #{pb.vol_unit.name}" %></td>
+										<td class = <%= "dismissed" if involved %>><%= pb.volume.nil? ? "Unknown":"#{pb.volume} #{pb.vol_unit.name}" %></td>
 									</tr>
 									<%end%>
 								</table>

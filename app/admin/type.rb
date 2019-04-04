@@ -12,7 +12,7 @@ ActiveAdmin.register Type do
 #   permitted
 # end
 
-permit_params :list, :of, :attributes, :on, :model, :id, :name
+permit_params :list, :of, :attributes, :on, :model, :id, :name, :order_set
 
 #Add Button to site
 action_item do

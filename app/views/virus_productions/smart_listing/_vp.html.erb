@@ -2,7 +2,7 @@
   <td class="col-lg-2 col-md-2 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"> <%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></td>
   <td class="col-lg-6 col-md-6 col-sm-4 text-left <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
   	<% unless object.production.nil?%>
-  	<% object.production.clone_batches.each do |cb| %>
+  	<% object.production.clone_batches.order('type.order_set').each do |cb| %>
 												  				<span class="text-primary"><strong><%=cb.nb %></strong></span> <span> <%=cb.name %> </span><br />
 												  	<%end%>
 	<%else%>

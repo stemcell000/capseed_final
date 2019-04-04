@@ -14,7 +14,19 @@
     		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Name</th>
     		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.name%></td>
 		</tr>
-
+		<% unless @production.virus_productions.first.vol.nil? %>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Volume</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.virus_productions.first.vol%> @production.virus_production.first.vol_unit.name%> </td>
+		</tr>
+		<%end%>
+		<% unless @production.virus_productions.first.dosages.last.nil? %>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Titre</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">Titer<%= "%.2e" %@production.virus_productions.first.dosages.last.titer_to_atcc+" vg/ml" %></td>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">Titer to ATCC<%= "%.2e" %@production.virus_production.first.dosages.last.titer_to_atcc+" vg/ml"%></td>
+		</tr>
+		<%end%>
 		<tr>
 			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Comment</th>
 			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.comment%></td>
@@ -28,7 +40,7 @@
     		</td>
     	</tr>
     	<tr>
-			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Previsional end date</th>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Expected end date</th>
     		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">
     			<%= @production.virus_productions.first.date_of_production.strftime("%B %e, %Y") %>		
     		</td>

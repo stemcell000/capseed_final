@@ -55,12 +55,12 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-6">
-					<%= f.label "Gene*" %>
-				  	<%= f.select(:genes_id_eq, @genes_all, {:include_blank => " "}, {:class=>"select2-select col-lg-12" }) %>	
-			</div>
-			<div class="col-lg-6">
 					<%= f.label "Promoter*"%>
 				  	<%= f.select(:promoters_id_eq, @promoters_all, {:include_blank=> " "}, {:class => "select2-select col-lg-12"}) %>
+			</div>
+			<div class="col-lg-6">
+					<%= f.label "Gene*" %>
+				  	<%= f.select(:genes_id_eq, @genes_all, {:include_blank => " "}, {:class=>"select2-select col-lg-12" }) %>	
 			</div>
 		</div>
 		<div class="row">

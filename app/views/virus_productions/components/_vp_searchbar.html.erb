@@ -56,18 +56,19 @@
   	</div>
   	<div class="col-lg-6">
 			<%= f.label "Any terms in plasmid batch number" %>
-  			<%= f. :plasmid_batch_tag_or_rev_plasmid_batch_tag_cont, :class=>"col-lg-6"%>
+  			<%= f.search_field :plasmid_batch_tag_or_rev_plasmid_batch_tag_cont, :class=>"col-lg-6"%>
   	</div>
  </div>
  <div class="row">
-	<div class="col-lg-6">
-			<%= f.label "Promoter"%>
-			<%= f.search_field :clone_batches_promoters_name_cont %>
-			</div>
-	<div class="col-lg-6">
-			<%= f.label "Gene" %>
-			<%= f.search_field :clone_batches_genes_name_cont %>	
+ 	  	<div class="col-lg-6">
+			<%= f.label "Promoter" %>
+  			<%= f.search_field :clone_batches_promoters_name_cont, :class=>"col-lg-6" %>
   	</div>
+	<div class="col-lg-6">
+			<%= f.label "Genes" %>
+  			<%= f.search_field :clone_batches_genes_name_cont, :class=>"col-lg-6" %>
+  	</div>
+
  </div>
  
 <div class="row">

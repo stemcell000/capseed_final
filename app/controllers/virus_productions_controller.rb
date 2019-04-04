@@ -36,7 +36,7 @@ class VirusProductionsController < InheritedResources::Base
       @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
       #          
       @q = VirusProduction.ransack(params[:q])
-      @vps = @q.result(distinct: true).includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes, :promoters ])
+      @vps = @q.result(distinct: true).includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests ])
     
       #Config de l'affichage des résultats.
       @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [ 20, 30, 50, 100])  

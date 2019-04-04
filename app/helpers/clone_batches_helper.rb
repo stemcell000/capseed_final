@@ -7,7 +7,7 @@ end
 
 def dismissedOrNot(d)
   if d == 1
-     "alert alert-warning"
+     "alert alert-danger"
    end
 end
   

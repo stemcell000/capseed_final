@@ -25,9 +25,14 @@
 								<% if object.clone_batches.empty? %>
 										No plasmid<br />
 									<%else%>
+									<table>
 										<% object.clone_batches.each do |cb| %> 
-											<%=cb.number%> | <%= cb.name%> <br />
+										<tr>
+											<td><%=cb.number%></td>
+											<td><%= cb.name%></td>
+										<tr>
 										<%end%>
+									</table>
 								<%end%>
 								<strong>Date of prod.: </strong> <%= object.date_of_production.nil? ? "none" : object.date_of_production.strftime("%b %e, %Y") %><br />
 								<strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />

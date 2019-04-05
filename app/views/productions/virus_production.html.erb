@@ -27,7 +27,9 @@
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
 				<%= link_to 'Previous', add_plasmid_production_path, :class => "btn btn-default btn-sm" %>
-				<%= link_to 'Close', close_production_path, :class => "btn btn-default btn-sm" %>
+				<% if @production.last_step<3%>
+					<%= link_to 'Close', close_production_path, :class => "btn btn-default btn-sm" %>
+				<%end%>
 		  	</div>
 	  	</div>
 

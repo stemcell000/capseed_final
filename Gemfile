@@ -114,7 +114,7 @@ gem 'nprogress-rails'
   gem 'bower-rails'
   
   #Nécessaire pour utiliser Amazon S3
-    gem "fog-aws", require: false #require: 'fog/aws'
+    gem "fog-aws"
   #Nécessaire pour utiliser d'autre plateformes de stockage
     #gem "fog"
   

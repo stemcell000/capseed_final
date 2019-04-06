@@ -5,7 +5,7 @@ CarrierWave.configure do |config|
       :provider => 'AWS',
       :aws_access_key_id => ENV['AWS_ACCESS_KEY'],
       :aws_secret_access_key => ENV['AWS_SECRET_KEY'],
-      :region => 'eu-west-3' # Tokyo
+      :region => 'AWS-REGION'
     }
     config.fog_directory = ENV['AWS_BUCKET']
     config.storage = :fog

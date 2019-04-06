@@ -105,7 +105,6 @@ gem 'nprogress-rails'
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
   gem "jquery-fileupload-rails"
   #gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
-  gem "fog-aws"
   gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
   gem 'remotipart'
   gem 'mini_magick'
@@ -115,7 +114,7 @@ gem 'nprogress-rails'
   gem 'bower-rails'
   
   #Nécessaire pour utiliser Amazon S3
-    #gem "fog-aws"
+    gem "fog-aws", require: 'fog/aws'
   #Nécessaire pour utiliser d'autre plateformes de stockage
     #gem "fog"
   

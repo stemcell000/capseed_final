@@ -8,7 +8,7 @@
     provider:              'AWS',                        # required
     aws_access_key_id:     ENV["AWS_ACCESS_KEY"],        # required
     aws_secret_access_key: ENV["AWS_SECRET_KEY"],        # required
-    #region: 'eu-west-3',
+    region: 'eu-west-3',
     #host: 's3-eu-west-3.amazonaws.com'
   }
   config.fog_directory  = ENV["AWS_BUCKET"]              # required

@@ -8,8 +8,8 @@
     provider:              'AWS',                        # required
     aws_access_key_id:     ENV["AWS_ACCESS_KEY"],        # required
     aws_secret_access_key: ENV["AWS_SECRET_KEY"],        # required
-    region: ENV['AWS_REGION']
-    host: ENXV['AWS_HOST']
+    region: ENV['AWS_REGION'],
+    host: ENV['AWS_HOST']
   }
   config.fog_directory  = ENV["AWS_BUCKET"]              # required
 

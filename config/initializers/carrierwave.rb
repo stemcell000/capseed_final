@@ -25,7 +25,6 @@
         :aws_secret_access_key => ENV['AWS_SECRET_KEY']
     }
     config.fog_directory     =  ENV['S3_BUCKET_NAME']
-    config.storage           =  :fog
   else
     config.fog_credentials = {
         :provider               => 'AWS',

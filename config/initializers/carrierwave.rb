@@ -6,8 +6,8 @@
   config.fog_provider = 'fog/aws'                        # required
   config.fog_credentials = {
     provider:              'AWS',                        # required
-    aws_access_key_id:     ENV["AWS_ACCESS_KEY"],        # required
-    aws_secret_access_key: ENV["AWS_SECRET_KEY"],        # required
+    aws_access_key_id:     'AKIAYXZCZOJKVTZDNDUD',        # required
+    aws_secret_access_key: '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',        # required
     region: 'eu-west-3',
     host: 's3-eu-west-3.amazonaws.com'
   }

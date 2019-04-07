@@ -40,7 +40,7 @@
 																											<% if qc.qc_attachment.length>0%>
 																												<% qc.qc_attachment.each do |a|%>
 																													<% mypath= a.attachment.to_s%>
-																													<%= link_to File.basename(a.attachment.to_s), a.attachment.to_s, :target => "_blank"%><br />
+																													<%= link_to File.basename(a.attachment.path), a.attachment.to_s, :target => "_blank"%><br />
 																												<%end%>
 																												<%else%>
 																												<em>No attachment.</em>

@@ -40,7 +40,7 @@
 									<% else %>
 										<strong>Attached files: </strong><br />	
 										<% clone.clone_attachments.each do |clone_attachment|%>
-												<%= link_to File.basename(clone_attachment.attachment.to_s), clone_attachment.attachment.to_s, :target => "_blank"%><br />
+												<%= link_to File.basename(clone_attachment.attachment.path), clone_attachment.attachment.to_s, :target => "_blank"%><br />
 										<%end%>
 									<%end%>
 			</div>

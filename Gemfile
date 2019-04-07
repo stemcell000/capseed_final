@@ -106,6 +106,7 @@ gem 'nprogress-rails'
   gem "jquery-fileupload-rails"
   #gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
   gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+  #gem 'carrierwave-aws'
   gem 'remotipart'
   gem 'mini_magick'
   gem 'date_validator'

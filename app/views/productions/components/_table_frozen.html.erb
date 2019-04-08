@@ -16,7 +16,7 @@
 					<%if pbp.starting_volume.nil? %>
 						<%remaining_volume = pbp.plasmid_batch.volume %>
 					<%else%>
-						<% remaining_volume =  pbp.starting_volume - pbp.volume %>
+						<% remaining_volume =  pbp.starting_volume %>
 					<%end%>
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pbp.plasmid_batch.name%></strong></td>
 						<td class="col-lg-3 col-md-3 col-sm-4 center"></strong><%= pbp.plasmid_batch.clone_batch.nb %></strong> <%= pbp.plasmid_batch.clone_batch.name %></td>

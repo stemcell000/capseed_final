@@ -49,7 +49,6 @@ class ProductionsController < InheritedResources::Base
             @production.update_attributes(:cbtag => @production.clone_batches.pluck(:id).sort.join("-"))
             redirect_to @production
             
-                        
             #Recherche de doublons (Combinaison de plasmids)
             prod_array = Production.where(:cbtag => @production.cbtag)
             @vps = prod_array.joins(:virus_productions).pluck(:number)
@@ -76,7 +75,7 @@ class ProductionsController < InheritedResources::Base
  
  def update
    @projects_all = Project.all
-   @production.update_attributes(production_params)
+   @production.update_all(production_params)
      if @production.valid?
             redirect_to @production
             @production.update_columns(:step => 0)

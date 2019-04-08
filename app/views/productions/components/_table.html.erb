@@ -24,11 +24,18 @@
 </table>
 
 <div class="row pull-right">
-	<div class="col-lg-12">
+	<div class="col-lg-12 col-sm-12 col-md-12">
+	<% if @swicth %>
 		<div class="btn-group" role="group" aria-label="...">
-<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :remote => true %>
-<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
-</div>
+			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :remote => true %>
+			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
+		</div>
+	<%else%>
+		<div class="col-lg-12 col-sm-12 col-md-12 dismissed">
+			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :disabled => true %>
+			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :disabled => true %>
+		</div>
+	<%end%>
 </div>
 								</div>
 

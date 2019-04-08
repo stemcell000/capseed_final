@@ -25,10 +25,12 @@
 	<div class="row">
   		<div class="col-lg-2 col-sm-2 col-md-2">
   			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 3).any? %>
-  				<%= f.input :volume %>
+  				<%= f.input :volume, :readonly => isInvolvedinOpenProds %>
   		</div>
   		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
+  			<%= f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all,
+  			:placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1',
+  			:disabled => isInvolvedinOpenProds %>
 		</div>
 		<div class="col-lg-2 col-sm-2 col-md-2 dismissed">
 		<% if isInvolvedinOpenProds %>

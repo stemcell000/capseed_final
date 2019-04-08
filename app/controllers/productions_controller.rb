@@ -123,6 +123,10 @@ class ProductionsController < InheritedResources::Base
        pbtag_value = @production.plasmid_batches.pluck(:id).sort.join('-')
        @production.update_columns(:pbtag => pbtag_value)
       end
+      
+      pbs = @production.plasmid_batches
+      @switch = pbs.taken.any?
+      
   end
   
   def select_pbs
@@ -154,7 +158,6 @@ class ProductionsController < InheritedResources::Base
    end
    
    def reset_volume
-     
      @production.plasmid_batches.each do |pb|
        pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:volume => 0)
      end
@@ -190,11 +193,6 @@ class ProductionsController < InheritedResources::Base
     #Collection des plasmids batches
     @plasmid_batches = @production.plasmid_batches.order(:id)
     
-    #Sauvegarde du volume restant pour chaque batch impliqué
-    #@plasmid_batches.each do |pb|
-     # remaining_volume = pb.plasmid_batch_productions[0].starting_volume - pb.plasmid_batch_productions[0].volume
-     # pb.update_columns(:volume => remaining_volume)
-    #end
     @production.plasmid_batch_productions.each do |pbp|
      remaining_volume = pbp.starting_volume - pbp.volume
      pbp.plasmid_batch.update_columns(:volume => remaining_volume)
@@ -227,7 +225,6 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 2)
         update_last_step(@production, 2)
         @production.update_columns(:percentage => 75)
-      #@production.update_columns( :locked => true )
     end
     
   end
@@ -396,7 +393,7 @@ class ProductionsController < InheritedResources::Base
   def production_vp_params
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :nb, :number, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
+    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag, :genes_tag, :promoters_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]])
   end
   

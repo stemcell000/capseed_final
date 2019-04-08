@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190404161406) do
+ActiveRecord::Schema.define(version: 20190408112022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
+  enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
   enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -585,6 +586,8 @@ ActiveRecord::Schema.define(version: 20190404161406) do
     t.string   "rev_plasmid_tag"
     t.string   "rev_plasmid_batch_tag"
     t.integer  "nb"
+    t.string   "genes_tag"
+    t.string   "promoters_tag"
   end
 
   add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree

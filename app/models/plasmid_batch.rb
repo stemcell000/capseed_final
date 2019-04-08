@@ -3,15 +3,15 @@ class PlasmidBatch < ActiveRecord::Base
   belongs_to :clone_batch
   belongs_to :type
   
-  default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fiels_for)
+  default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fields_for)
+  
+  scope :taken,  -> { joins(:productions).where("productions.last_step < 3") }
   
   has_many :plasmid_batch_attachments, :dependent => :destroy
   has_many :plasmid_batch_productions, :dependent => :destroy
   has_many :productions, :through => :plasmid_batch_productions
   has_many :virus_productions, :through=> :productions
   has_and_belongs_to_many :plasmid_batch_qcs, :dependent => :destroy
-  
- # has_and_belongs_to_many :productions, :join_table => "plasmid_batches_productions"
   
   belongs_to :unit
   belongs_to :column

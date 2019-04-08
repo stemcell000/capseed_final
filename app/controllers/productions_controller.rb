@@ -225,8 +225,6 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 2)
         update_last_step(@production, 2)
         @production.update_columns(:percentage => 75)
-          if @production.plasmid_batches.any? { |pb| pb.volume.negative? }
-          flash.keep[:warning] = "There is not enough material."
           redirect_to :action => :add_plasmid
       end
       #@production.update_columns( :locked => true )

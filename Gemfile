@@ -114,11 +114,6 @@ gem 'nprogress-rails'
   #Nécessaire pour installer AngularJS
   gem 'bower-rails'
   
-  #Nécessaire pour utiliser Amazon S3
-    gem "fog-aws"
-  #Nécessaire pour utiliser d'autre plateformes de stockage
-    #gem "fog"
-  
   #Utilitaires pour routage
     gem 'sextant'
     gem 'traceroute'

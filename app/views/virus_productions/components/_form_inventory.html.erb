@@ -16,10 +16,15 @@
 								<% if f.object.clone_batches.empty? %>
 										No plasmid
 									<%else%>
-										<% f.object.clone_batches.each do |cb| %> 
-										<h5><%=cb.number%> | <%= cb.name%></h5> <br />
+									 <table>
+									 	<tr>
+											<% f.object.clone_batches.each do |cb| %> 
+												<td><%=cb.number%></td>
+												<td><%= cb.name%></td>
 										<%end%>
-									<%end%>
+										</tr>
+									</table>
+								<% end %>
 						</div>
 				</div>
 			</div>

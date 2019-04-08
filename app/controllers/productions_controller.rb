@@ -225,8 +225,6 @@ class ProductionsController < InheritedResources::Base
       @production.update_columns(:step => 2)
         update_last_step(@production, 2)
         @production.update_columns(:percentage => 75)
-          redirect_to :action => :add_plasmid
-      end
       #@production.update_columns( :locked => true )
     end
     

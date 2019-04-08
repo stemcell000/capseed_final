@@ -75,7 +75,7 @@ class ProductionsController < InheritedResources::Base
  
  def update
    @projects_all = Project.all
-   @production.update_all(production_params)
+   @production.update_attributes(production_params)
      if @production.valid?
             redirect_to @production
             @production.update_columns(:step => 0)

@@ -17,8 +17,8 @@
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pbp.plasmid_batch.name%></strong></td>
 						<td class="col-lg-3 col-md-3 col-sm-4 center"></strong><%= pbp.plasmid_batch.clone_batch.nb %></strong> <%= pbp.plasmid_batch.clone_batch.name %></td>
 						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pbp.plasmid_batch.clone_batch.type.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-4"><%= remaining_volume %> <%= pbp.plasmid_batch.clone_batch.vol_unit.name %></td>
-						<td class="col-lg-2 col-md-2 col-sm-4"><%= pbp.volume %> <%= pbp.plasmid_batch.clone_batch.vol_unit.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-4"><%= remaining_volume %> <%= pbp.plasmid_batch.vol_unit.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-4"><%= pbp.volume %> <%= pbp.plasmid_batch.vol_unit.name %></td>
 			<%end%>
 					</tr>
 </table>

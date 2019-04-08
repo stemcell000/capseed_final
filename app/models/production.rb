@@ -29,8 +29,8 @@ class Production < ActiveRecord::Base
   # validations
   # validates :projects, :presence => true
   # validates :clone_batches, :presence => true
-   validates_associated :plasmid_batch_productions
-   validates_associated :plasmid_batches
+  # validates_associated :plasmid_batch_productions
+  # validates_associated :plasmid_batches
     
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"

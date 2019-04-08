@@ -13,17 +13,9 @@
 		<% switch = true %>
 		<% @production.plasmid_batch_productions.order(:id).each do |pbp| %>
 				<tr>
-					<%if pbp.starting_volume.nil? %>
-						<%remaining_volume = pbp.plasmid_batch.volume %>
-					<%else%>
-						<% remaining_volume =  pbp.starting_volume %>
-					<%end%>
 						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pbp.plasmid_batch.name%></strong></td>
 						<td class="col-lg-3 col-md-3 col-sm-4 center"></strong><%= pbp.plasmid_batch.clone_batch.nb %></strong> <%= pbp.plasmid_batch.clone_batch.name %></td>
 						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pbp.plasmid_batch.clone_batch.type.name %></td>
-						<% if @production.last_step < 3 %>
-						<td class="col-lg-2 col-md-2 col-sm-4"><%= remaining_volume %></td>
-						<%end%>
 						<td class="col-lg-2 col-md-2 col-sm-4"><%= pbp.volume %></td>
 			<%end%>
 				</tr>

@@ -110,7 +110,7 @@ gem 'nprogress-rails'
   gem 'remotipart'
   gem 'mini_magick'
   gem 'date_validator'
-  
+  gem 'fog-aws'
   #Nécessaire pour installer AngularJS
   gem 'bower-rails'
   

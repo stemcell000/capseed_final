@@ -14,6 +14,8 @@
 						label_method: lambda { |clone_batch| "#{clone_batch.number} | #{clone_batch.name} | #{clone_batch.type.name}".html_safe },
 						:disabled => f.object.last_step >=2 %>
 					</div>
+						<%= f.association :clone_batches, :include_blank => false, :label => "Add plasmid", :collection => CloneBatch.where.not(:name => "").where.not(:type => nil).where(:dismissed => 0).order(:nb), input_html: { class: 'select2-select' },
+						label_method: lambda { |clone_batch| "#{clone_batch.number} | #{clone_batch.name} | #{clone_batch.type.name}".html_safe }, :as => :hidden %>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">

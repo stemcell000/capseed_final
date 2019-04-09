@@ -51,7 +51,7 @@ class Ability
         cannot :update_row_order, :production
         cannot :destroy, :virus_production
         cannot :destroy, :clone
-        cannort :create, :user
+        cannot :create, :user
     else
         can :read, :all
     end

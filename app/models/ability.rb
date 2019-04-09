@@ -46,7 +46,6 @@ class Ability
         can :manage, :plasmid_batch_attachment
         can :manage, :plasmid_batch_qc
         can :manage, :plasmid_batch_qc_attachment
-        can :manage, :all, :production
         cannot :update_row_order, :assay
         cannot :update_row_order, :production
         cannot :destroy, :virus_production

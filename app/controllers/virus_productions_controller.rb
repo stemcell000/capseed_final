@@ -30,10 +30,8 @@ class VirusProductionsController < InheritedResources::Base
       
       #Champs genes
       @genes_all = Gene.all.order(name: "asc").uniq
-      @genes_all = @genes_all.map{ |obj| [obj['name'], obj['id']] }
      #Champs promoters
       @promoters_all = Promoter.all.order(name: "asc").uniq
-      @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
       #          
       @q = VirusProduction.ransack(params[:q])
       

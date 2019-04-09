@@ -38,6 +38,7 @@ class Ability
         can :manage, :clone_attachment
         can :manage, :clone_batch_attachment
         can :manage, :sequencing
+        can :manage, :clone_batch
         can :manage, :pcr_colony
         can :manage, :qc_attachment
         can :manage, :clone_batch_as_plasmid_attchment

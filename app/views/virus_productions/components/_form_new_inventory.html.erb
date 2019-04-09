@@ -7,6 +7,7 @@
 			<div class="row">
 				<div class="col-lg-2">
 					<%= f.input :nb, :input_html => { :value => VirusProduction.last.nb+1 }, :readonly => true%>
+					<%= f.input :nb, :input_html => { :value => VirusProduction.last.nb+1 }, :as => hidden %>
 				</div>
 				<div class="col-lg-2">
 					<%=f.input :invoice , :label => "Invoice"%>

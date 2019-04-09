@@ -3,37 +3,37 @@
 	    <thead>
 	     
 	    <th class="col-lg-1 col-md-1 col-sm-A center">
-	        <%= smart_listing.sortable "number", :nb %>
+	        <%= smart_listing.sortable "number", :id %>
 	    </th>
 	      
-	    <th class="col-lg-3 col-md-3 col-sm-3 center">
+	    <th class="col-lg-2 col-md-2 col-sm-2 center">
 	        <%= smart_listing.sortable "name", :name %>
 	    </th>
 	    
 	     <th class="col-lg-2 col-md-2 col-sm-2 center">
-	        <%= smart_listing.sortable "clone", :clone_id %>
+	        <%= smart_listing.sortable "construction", :clone %>
 	    </th>
 	    
-	    <th class="col-lg-2 col-md-2 col-sm-2 center">
-	        	<%= smart_listing.sortable "genes", :genes_name %>
+	    <th class="col-lg-1 col-md-2 col-sm-2 center">
+	       <%= sort_link(@q, :promoters_id, 'promoter') %>
 	    </th>
 	    
-	     <th class="col-lg-2 col-md-2 col-sm-2 center">
-	        				 promoter
+	     <th class="col-lg-1 col-md-2 col-sm-2 center">
+	       <%= sort_link(@q, :genes_id, 'gene') %>
+	    </th>
+	    
+	    	 <th class="col-lg-2 col-md-2 col-sm-2 center">
+	       <%= sort_link(@q, :plasmid_batches_count, 'batches') %>
 	    </th>
 	    
 	    <th class="col-lg-1 col-md-1 col-sm-1 center">
-	    					number of batch(es)
-		</th>
-	    
-	    <th class="col-lg-1 center">
-			<%= smart_listing.sortable "Created at:", :created_at %>
+			<%= smart_listing.sortable "date", :created_at %>
 	  	</th>
 	  	<th class="col-lg-2 col-md-2 col-sm-2 center"></th>
 	    </thead>
 	    <tbody>
 	    	 <% unless smart_listing.empty? %>
-		  	<% smart_listing.collection.each do |s| %>
+		  	<% smart_listing.collection.to_a.uniq.each do |s| %>
 	      		<tr class="editable" data-id = "<%= s.id %>">
 	          		<%= smart_listing.render object: s, partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
 	        		</tr>

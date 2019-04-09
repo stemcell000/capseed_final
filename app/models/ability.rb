@@ -51,7 +51,6 @@ class Ability
         cannot :update_row_order, :assay
         cannot :destroy, :virus_production
         cannot :destroy, :clone
-        cannot :update, :clone_batch
     else
         can :read, :all
     end

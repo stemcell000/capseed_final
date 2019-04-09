@@ -9,7 +9,7 @@
 	<%else%>
 			<span>Unknown set of plasmids</span>
 	<%end%>
-	<td class="col-lg-2 col-md-2 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"><small><%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></small></td>
+	<td class="col-lg-2 col-md-2 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"><%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
   <td class="col-lg-2 col-md-2 col-sm-2 actions text-right <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"

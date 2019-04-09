@@ -2,34 +2,34 @@
 	  <table class="table table-striped">
 	    <thead>
 	     
-	    <th class="col-lg-1 center">
+	    <th class="col-lg-1 col-md-1 col-sm-A center">
 	        <%= smart_listing.sortable "number", :nb %>
 	    </th>
 	      
-	    <th class="col-lg-3 center">
+	    <th class="col-lg-3 col-md-3 col-sm-3 center">
 	        <%= smart_listing.sortable "name", :name %>
 	    </th>
 	    
-	     <th class="col-lg-3 center">
+	     <th class="col-lg-2 col-md-2 col-sm-2 center">
 	        <%= smart_listing.sortable "clone", :clone_id %>
 	    </th>
 	    
-	    <th class="col-lg-2 center">
+	    <th class="col-lg-2 col-md-2 col-sm-2 center">
 	        	<%= smart_listing.sortable "genes", :genes_name %>
 	    </th>
 	    
-	     <th class="col-lg-2 center">
+	     <th class="col-lg-2 col-md-2 col-sm-2 center">
 	        				 promoter
 	    </th>
 	    
-	    <th class="col-lg-1 center">
+	    <th class="col-lg-1 col-md-1 col-sm-1 center">
 	    					number of batch(es)
 		</th>
 	    
 	    <th class="col-lg-1 center">
 			<%= smart_listing.sortable "Created at:", :created_at %>
 	  	</th>
-	  	<th class="col-lg-1 center"></th>
+	  	<th class="col-lg-2 col-md-2 col-sm-2 center"></th>
 	    </thead>
 	    <tbody>
 	    	 <% unless smart_listing.empty? %>

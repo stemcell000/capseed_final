@@ -36,7 +36,6 @@ class Ability
         can :update, :assay
         can :update, :clone
         can :manage, :clone_attachment
-        can :manage, :clone_batch
         can :manage, :clone_batch_attachment
         can :manage, :sequencing
         can :manage, :pcr_colony

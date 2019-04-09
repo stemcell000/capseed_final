@@ -20,7 +20,7 @@
 	    </thead>
 	    <tbody>
 	    	 <% unless smart_listing.empty? %>
-		  	<% smart_listing.collection.each do |s| %>
+		  	<% smart_listing.collection.to_a.uniq.each do |s| %>
 	      		<tr class="editable" data-id = "<%= s.id %>">
 	          		<%= smart_listing.render object: s, partial: "virus_productions/smart_listing/vp", locals: {object: s} %>
 	        		</tr>

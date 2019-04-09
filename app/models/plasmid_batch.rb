@@ -42,8 +42,8 @@ class PlasmidBatch < ActiveRecord::Base
   validates_associated :plasmid_batch_productions
   
  #pg_search
- include PgSearch
- multisearchable :against => [:name, :comment, :id], :if => lambda { |record| record.id > 0 }
+ #include PgSearch
+ #multisearchable :against => [:name, :comment, :id], :if => lambda { |record| record.id > 0 }
  
 def without_box
   includes(:box).where(box: {plasmid_batch_id: nil})

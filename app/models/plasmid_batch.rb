@@ -64,6 +64,8 @@ def set_tube_status
         str="/images/full-med-half.png"
        when 500..1000
         str="/images/full-med-high.png"
+       when -3000..0
+         str="/images/negative-vol.png"
       else
         str="/images/full-med-high.png"
      end

@@ -162,6 +162,7 @@ end
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @plasmid_batches = @clone_batch.plasmid_batches
     @plasmid_batch.toggle!(:trash)
+    
     garbage = Box.find_by_name("Garbage")
     
     if @plasmid_batch.trash

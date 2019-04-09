@@ -218,7 +218,6 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.build
     @clone_batch.skip_name_validation = false
     @clone_batch.skip_type_validation = false
-    @nb = @clone_batch.increment(:nb)
    end
    
    def create_from_inventory
@@ -229,7 +228,7 @@ class CloneBatchesController < InheritedResources::Base
       end
       #
       if  @clone_batch.valid?
-          @clone_batch.increment!(:nb)
+          @clone_batch.update_columns(:nb => CloneBatch.last.nb + 1)
           @clone_batch.update_columns(:strict_validation => 0)
           @clone_batch.update_columns(:number => @clone_batch.nb.to_s)
           if @clone

@@ -1,9 +1,18 @@
 ActiveAdmin.register PlasmidBatch do
-  
-  config.sort_order = 'id_asc'
-
+# See permitted parameters documentation:
+# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+#
+# permit_params :list, :of, :attributes, :on, :model
+#
+# or
+#
+# permit_params do
+#   permitted = [:permitted, :attributes]
+#   permitted << :other if params[:action] == 'create' && current_user.admin?
+#   permitted
+# end
   #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :trash, :name, :number, :format_id, :concentration, :unit_id, :box_id, :row_id, :column_id, :clone_batch_id, :vol_unit, :volume
+ permit_params :list, :of, :attributes, :on, :model, :trash, :name, :volume
    
  
  #Import csv   
@@ -21,4 +30,5 @@ ActiveAdmin.register PlasmidBatch do
   action_item do
     link_to "View Site", "/"
   end
+
 end

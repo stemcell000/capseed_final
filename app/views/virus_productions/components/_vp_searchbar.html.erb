@@ -8,7 +8,7 @@
 		
 <div class="row">
 		<div class="col-lg-12">
-				<%= f.search_field :number_or_comment_or_hek_result_or_animal_or_user_lastname_or_user_firstname_or_plasmid_tag_or_plasmid_batch_tag_or_rev_plasmid_tag_or_rev_plasmid_batch_tag_or_clone_batches_name_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
+				<%= f.search_field :number_or_comment_or_hek_result_or_animal_or_user_lastname_or_user_firstname_or_plasmid_tag_or_plasmid_batch_tag_or_rev_plasmid_tag_or_rev_plasmid_batch_tag_or_clone_batches_name_or_clone_batches_promoters_name_or_clone_batches_genes_name_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
 			</div>
 </div>
 
@@ -62,11 +62,11 @@
  <div class="row">
  	  	<div class="col-lg-6">
 			<%= f.label "Promoter" %>
-  			<%= f.search_field :clone_batches_promoters_name_cont %>
+  			<%= f.select(:clone_batches_promoters_id_eq, @promoters_all,{:include_blank => " "}, {:class => "select2-select col-lg-6"})%>
   	</div>
 	<div class="col-lg-6">
 			<%= f.label "Genes" %>
-  			<%= f.collection_select :clone_batches_genes_id_eq, Gene.order(:name), :id, :name, :class=>"col-lg-6", :class=>"col-lg-6" %>
+  			<%= f.select(:clone_batches_genes_id_eq, @genes_all,{:include_blank => " "}, {:class => "select2-select col-lg-6"})%>
   	</div>
 
  </div>

@@ -1,7 +1,6 @@
 class PlasmidBatch < ActiveRecord::Base
  
   belongs_to :clone_batch
-  belongs_to :type
   
   default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fields_for)
   

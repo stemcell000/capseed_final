@@ -26,7 +26,7 @@
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
         <td id="plasmid">
-          <%= cb_display(p.clone_batch) %>
+          <%= cb_display(p.clone_batches) %>
         </td>
         <td>
         	<%=p.name.blank? ? "no name" : p.name %>

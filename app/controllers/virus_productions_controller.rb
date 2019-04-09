@@ -36,6 +36,7 @@ class VirusProductionsController < InheritedResources::Base
       @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
       #          
       @q = VirusProduction.ransack(params[:q])
+      
       @vps = @q.result(distinct: true).includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests ])
     
       #Config de l'affichage des résultats.

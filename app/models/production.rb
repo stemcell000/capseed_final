@@ -12,9 +12,10 @@ class Production < ActiveRecord::Base
    ranks :row_order
   
   #Nested models relationships
-  #has_and_belongs_to_many :plasmid_batches, :join_table => "plasmid_batches_productions", :uniq => true
   has_and_belongs_to_many :projects
+  
   has_and_belongs_to_many :clone_batches, :join_table => "clone_batches_productions"
+  #has_many :clone_batches, :through => :clone_batch_productions
   has_many :virus_productions, :dependent => :delete_all
   
   has_many :plasmid_batch_productions, :dependent => :destroy

@@ -6,7 +6,6 @@ class VirusProduction < ActiveRecord::Base
  has_many :clone_batches, :through => :production
  has_many :genes, :through => :clone_batches
  has_many :promoters, :through => :clone_batches
- has_many :plasmid_batches, :through => :production
  has_many :dosages
  has_many :sterilitytests
  has_many :plasmid_batches, :through => :production

@@ -2,6 +2,7 @@
 <%= simple_form_for @user, :remote => true do |f| %>
 
   <%= f.error_notification %>
+  <%= devise_error_messages! %>
 
   <div class="form-inputs">
     	<div class="row">
@@ -21,7 +22,7 @@
     		</div>
     </div>
     <div class="row">
-    		<div class="col-lg-4">
+    		<div class="col-lg-4 col-md-4 col-sm-5">
     			<% unless f.object.role == "administrator" %>
     				<%= f.input :role, :collection => [ "administrator", "guest", "user" ] ,required: true, :input_html => {:class => "select2-select"} %>
 			<%else%>

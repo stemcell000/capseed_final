@@ -2,6 +2,7 @@
 	<%= simple_form_for User.new, :remote => true do |f| %>
 	  
 	  <%= f.error_notification %>
+	  <%= devise_error_messages! %>
 	
 	  <div class="form-inputs">
 	  	<div class="row">

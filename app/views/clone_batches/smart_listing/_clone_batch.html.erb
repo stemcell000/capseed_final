@@ -3,7 +3,7 @@
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.clone.nil? ? "-" : object.clone.name %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.promoters.empty? ? "N/A" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.genes.empty? ? "N/A" : object.genes.map {|gene| gene.name}.to_sentence %></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches.length %></td>
+  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches_count %></td>
   <td class="center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.created_at.strftime("%b %e, %Y") %></small></td>
 <td class="actions <%= dismissedOrNot(object.dismissed) %>">
 		 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190408112022) do
+ActiveRecord::Schema.define(version: 20190410080021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20190408112022) do
     t.integer  "inventory_validation",      default: 0
     t.integer  "nb"
     t.integer  "dismissed",                 default: 0
+    t.integer  "plasmid_batches_count",     default: 0,     null: false
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree

@@ -21,7 +21,9 @@
 				</div>
 		</div>
 			<div id="add-button-container">
+				<%unless @production.last_step == 3 %>
 						<%= render :partial => "productions/components/add_vp_button" , :locals => { :vps => @vps }%>
+				<%end%>
 			</div>
 		</div>
 		<div class="panel-footer">

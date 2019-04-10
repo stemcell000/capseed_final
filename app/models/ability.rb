@@ -46,13 +46,13 @@ class Ability
         can :manage, :plasmid_batch_attachment
         can :manage, :plasmid_batch_qc
         can :manage, :plasmid_batch_qc_attachment
-        #cannot [:destroy], User, :id => user.id
+        cannot [:destroy], User, :id => user.id
         cannot :update_row_order, :assay
         cannot :update_row_order, :production
         cannot :destroy, :virus_production
         cannot :destroy, :clone
         cannot :destroy, :clone_batch
-        #cannot :create, :user
+        cannot :create, :user
     else
         can :read, :all
     end

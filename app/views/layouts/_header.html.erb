@@ -44,6 +44,10 @@
 	    					<span class="glyphicon glyphicon-user"></span>
 		    			<%end%>
 		    		</li>
+		    		<li>	<%= link_to edit_notif_user_path(current_user) do %>
+	    					<span class="glyphicon glyphicon-bell"></span>
+		    			<%end%>
+		    		</li>
 		    		<%end%>
 		    		<% if can? :manage, :all %>
 		    		<li>

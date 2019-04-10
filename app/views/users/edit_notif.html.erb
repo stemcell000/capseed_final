@@ -1,5 +1,5 @@
 <td colspan="9">
-<%= simple_form_for @user, :remote => true do |f| %>
+<%= simple_form_for @user, :url => { :action => "update_notif" }  do |f| %>
 
   <%= f.error_notification %>
 

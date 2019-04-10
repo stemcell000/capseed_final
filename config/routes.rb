@@ -59,11 +59,13 @@ Rails.application.routes.draw do
     get :edit_user, :on => :member
     patch :actual_member_switch, :on => :member
     get :actual_member_switch, :on => :collection
+    get :edit_notif, :on => :member
   end
     
-  resource :user, only: [:edit] do
+  resource :user, only: [:edit, :edit_notif] do
     collection do
       patch 'update_password'
+      patch 'update_notif'
     end
   end
   

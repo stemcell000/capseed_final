@@ -6,6 +6,18 @@ class UsersController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  
   def inform_cloning
     @user = User.first
     UserNotifier.notify_assay(@user).deliver_now
@@ -70,6 +82,21 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit_notif
+    @user = current_user
+  end
+  
+  def update_notif
+      @user = current_user
+    if @user.update(user_params)
+      # Sign in the user by passing validation in case their password changed
+      bypass_sign_in(@user)
+      redirect_to root_path
+    else
+      render "edit_notif"
+    end
+  end
+  
  def actual_member_switch
   @user.toggle! :actual_member
   @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [20, 30, 50, 100])
@@ -84,6 +111,10 @@ end
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:id, :email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :current_password, :actual_member)
+    end
+    
+    def user_notic_params
+      params.require(:user).permit(:id, :cloning_notify, :production_notify, :firstname, :lastname, :email)
     end
   
 end

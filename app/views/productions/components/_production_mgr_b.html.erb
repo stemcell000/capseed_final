@@ -8,15 +8,16 @@
     		<th class="col-name">
         ID
       </th>
+      <th class="col-startdate">
+        Name
+      </th>
       <th class="col-name">
         Plasmids
       </th>
       <th class="col-name">
         Batches
       </th>
-      <th class="col-startdate">
-        Name
-      </th>
+
       <th class="col-startdate">
         Start date
       </th>
@@ -35,18 +36,32 @@
   <tbody>
     <% @productions.each do |p| %>
       <tr>
-        <td id="plasmid">
+        <td id="id">
         	<%= p.id %>
-        </td>
-        <td id="plasmid">
-        	<%= cb_display(p.clone_batches) %>
-        </td>
-        <td id="plasmid">
-        	<%= p.plasmid_batches.pluck(:name).to_sentence %>
+        	<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
+        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
+        <%end%>
+    		    	
         </td>
         <td>
-        	<%=p.name.blank? ? "no name" : p.name %>
-    		</td>
+        	<%=p.name%>
+        </td>
+        <td id="plasmids" class="text-justify">
+	        	<%if p.clone_batches.empty?%>
+	        	-
+	        	<%else%>
+	        	<% p.clone_batches.each do |c| %>
+	        		<span class="text-primary"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name if c.name%> [<%=c.type.name[0..3] if c.type.name%>.]</span><br />
+	        	<%end%>
+        	<%end%>
+        </td>
+        <td>
+        		<%if p.plasmid_batches.empty?%>
+	        	-
+	        	<%else%>
+				<%= p.plasmid_batches.pluck(:name).join(',')%>
+        		<%end%>
+        	</td>
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y") %>
          </td>
@@ -64,9 +79,6 @@
           <% if can? :inform_production, @user %>
           	<%= link_to "Remove", p, :method => :delete, :class =>"btn btn-xs btn-danger", :remote => true  %>
         		<%end%>
-        	<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
-        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
-        <%end%>
         </td>
       </tr>
     <% end %>

@@ -38,7 +38,7 @@
       <tr data-item-id=<%= p.id %> class="item">
         <td id="id">
         	<%= p.id %>
-        	<%unless p p.pbtag.nil? %>
+        	<%unless p.pbtag.blank? %>
         		<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
         		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
         <%end%>

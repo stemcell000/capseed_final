@@ -1,6 +1,6 @@
 ActiveAdmin.register Production do
 #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :id, :name, :locked, :today_date
+ permit_params :list, :of, :attributes, :on, :model, :id, :name, :locked, :pbtag, :cbtag, :today_date
   #
  action_item do
   link_to "View Site", "/"
@@ -18,6 +18,8 @@ ActiveAdmin.register Production do
     column :id
     column :created_at
     column :updated_at
+    column :pbtag
+    column :cbtag
     actions
 end
 

@@ -39,19 +39,21 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @projects_all = Project.all
-    @production = Production.new(production_create_params)
+    @production = Production.create(production_create_params)
+    
     if @production.valid?
             flash.keep[:success] = "Task completed!"
-            @production.update_attributes(:step => 0)
+            @production.update_columns(:step => 0)
             update_last_step(@production, 0)
-            @production.update_attributes(:percentage => 10)
+            @production.update_columns(:percentage => 10)
             
-            @production.update_attributes(:cbtag => @production.clone_batches.pluck(:id).sort.join("-"))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).sort.join("-"))
             redirect_to @production
             
             #Recherche de doublons (Combinaison de plasmids)
             prod_array = Production.where(:cbtag => @production.cbtag)
-            @vps = prod_array.joins(:virus_productions).pluck(:number)
+            #@vps = prod_array.joins(:virus_productions).pluck(:number)
+            
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
@@ -84,7 +86,7 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.pluck(:id).join("-"))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).join("-"))
             
        
             #Recherche de doublons (Combinaison de plasmids)
@@ -116,28 +118,28 @@ class ProductionsController < InheritedResources::Base
   def add_plasmid
       @clone_batches = @production.plasmid_batches.order(:id).map {|object| object.clone_batch}
       #
-      @production.update_columns(:step => 1)
-      unless @production.clone_batches.empty?
+       @production.update_columns(:step => 1)
+       unless @production.clone_batches.empty?
        update_last_step(@production, 1)
        @production.update_columns(:percentage => 50)
-       pbtag_value = @production.plasmid_batches.pluck(:id).sort.join('-')
-       @production.update_columns(:pbtag => pbtag_value)
+       #
       end
       
-      pbs = @production.plasmid_batches
-      @switch = pbs.taken.any?
       
   end
   
   def select_pbs
-    # @production = Production.find(params[:id])
       @plasmids = PlasmidBatch.where(:trash => false).where('volume > ?', 0)
   end
   
   def add_pbs
     @production = Production.find(params[:id])
     @production.update_attributes(production_params)
-
+    
+    pbs = @production.plasmid_batches
+    pbtag_value = pbs.order(:name).pluck(:id).sort.join('-')
+    @production.update_columns(:pbtag => pbtag_value)
+    
     flash.discard[:success]
     flash.discard[:warning]
      

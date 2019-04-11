@@ -2,6 +2,8 @@ class Production < ActiveRecord::Base
   
   before_update :set_starting_volumes
   
+  scope :all_except, ->(production) { where.not(id: production) }
+  
   #pg_search
   include PgSearch
   multisearchable :against => [:name, :id, :step, :projects],

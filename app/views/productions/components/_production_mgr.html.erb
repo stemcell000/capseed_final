@@ -1,15 +1,23 @@
 <% if @productions.empty?%>
 			<p>No production to display!</p>
 <%else%>
+<small>
 <table class="table table-bordered table-striped table-hover prod_table" id="sortable-production">
   <thead>
     <tr>
-      <th class="col-name">
-        Plasmids
+    		<th class="col-name">
+        ID
       </th>
       <th class="col-startdate">
         Name
       </th>
+      <th class="col-name">
+        Plasmids
+      </th>
+      <th class="col-name">
+        Batches
+      </th>
+
       <th class="col-startdate">
         Start date
       </th>
@@ -28,12 +36,32 @@
   <tbody>
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
-        <td id="plasmid">
-        	<small><%= cb_display(p.clone_batches) %></small>
+        <td id="id">
+        	<%= p.id %>
+        	<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
+        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
+        <%end%>
+    		    	
         </td>
         <td>
-        	<%=p.name.blank? ? "no name" : p.name %>
-    		</td>
+        	<%=p.name%>
+        </td>
+        <td id="plasmids" class="text-justify">
+	        	<%if p.clone_batches.empty?%>
+	        	-
+	        	<%else%>
+	        	<% p.clone_batches.each do |c| %>
+	        		<span class="text-primary"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name if c.name%> [<%=c.type.name[0..3] if c.type.name%>.]</span><br />
+	        	<%end%>
+        	<%end%>
+        </td>
+        <td>
+        		<%if p.plasmid_batches.empty?%>
+	        	-
+	        	<%else%>
+				<%= p.plasmid_batches.pluck(:name).join(',')%>
+        		<%end%>
+        	</td>
       	<td id="startdate"%>
           <%= p.created_at.strftime("%d %b %y") %>
          </td>
@@ -47,16 +75,14 @@
           <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
         </td>
         <td id="Action">
-        	<small>
-          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %> 
+          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-xs btn-default" %> 
           <% if can? :inform_production, @user %>
-          <%= link_to "Remove", p, :method => :delete, :class =>"btn btn-danger", :remote => true  %>
+          	<%= link_to "Remove", p, :method => :delete, :class =>"btn btn-xs btn-danger", :remote => true  %>
         		<%end%>
-        	</small>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</small>
 <%end%>

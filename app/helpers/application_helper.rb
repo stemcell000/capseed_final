@@ -104,8 +104,8 @@ end
  def cb_display(collection)
   r = ""
   
-  if !collection.empty?
-    r = collection.map {|c| c.type.name+": "+c.nb.to_s+" | "+ c.name}.to_sentence
+  unless collection.empty?
+    r = collection.map {|c| c.number+c.name+"- "+c.type.name[0..3]}
   else
     r = "No data yet"
   end

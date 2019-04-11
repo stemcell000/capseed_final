@@ -4,7 +4,7 @@ class PlasmidBatch < ActiveRecord::Base
   
   default_scope { order(:name) } #défini l'ordre d'affichage de pb par ex. dans les form (fields_for)
   
-  scope :taken,  -> { joins(:productions).where("productions.last_step < 3") }
+ # scope :taken,  -> { joins(:productions).where("productions.last_step = 1") }
   
   has_many :plasmid_batch_attachments, :dependent => :destroy
   has_many :plasmid_batch_productions, :dependent => :destroy

@@ -1,8 +1,18 @@
-<table class="table table-bordered table-striped table-hover prod_table" id="notsortable-production">
+<% if @productions.empty?%>
+			<p>No production to display!</p>
+<%else%>
+<small>
+<table class="table table-bordered table-striped table-hover prod_table" id="sortable-production">
   <thead>
     <tr>
+    		<th class="col-name">
+        ID
+      </th>
       <th class="col-name">
         Plasmids
+      </th>
+      <th class="col-name">
+        Batches
       </th>
       <th class="col-startdate">
         Name
@@ -10,8 +20,8 @@
       <th class="col-startdate">
         Start date
       </th>
-       <th class="col-startdate">
-        Expected end date
+      <th class="col-startdate">
+        Expected end
       </th>
       <th  class="col-step">
         Current step
@@ -24,18 +34,25 @@
   </thead>
   <tbody>
     <% @productions.each do |p| %>
-      <tr data-item-id=<%= p.id %> class="item">
+      <tr>
         <td id="plasmid">
-          <%= cb_display(p.clone_batches) %>
+        	<%= p.id %>
+        </td>
+        <td id="plasmid">
+        	<%= cb_display(p.clone_batches) %>
+        </td>
+        <td id="plasmid">
+        	<%= p.plasmid_batches.pluck(:name).to_sentence %>
         </td>
         <td>
         	<%=p.name.blank? ? "no name" : p.name %>
-    	</td>
+    		</td>
       	<td id="startdate"%>
-          <%= p.created_at.strftime("%d %b %y at %H:%M") %>
+          <%= p.created_at.strftime("%d %b %y") %>
          </td>
-         <td id="Expected end"%>
-          <%= p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
+           <td id="Expected end"%>
+          <%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
+         </td>
         <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
           <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>
         </td>
@@ -43,12 +60,17 @@
           <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
         </td>
         <td id="Action">
-        	<small>
-          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-default" %>
-         </small>
+          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-xs btn-default" %> 
+          <% if can? :inform_production, @user %>
+          	<%= link_to "Remove", p, :method => :delete, :class =>"btn btn-xs btn-danger", :remote => true  %>
+        		<%end%>
+        	<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
+        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
+        <%end%>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+</small>
+<%end%>

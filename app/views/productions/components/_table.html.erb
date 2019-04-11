@@ -25,19 +25,41 @@
 
 <div class="row pull-right">
 	<div class="col-lg-12 col-sm-12 col-md-12">
-	<% if @swicth %>
+		
+		
+		<% busy_prods= Production.where('last_step < 2').where(:pbtag => @production.pbtag) %>
+		
+		<% disable_switch = busy_prods.count > 1 %>
+
+	<% if disable_switch == true %>
+	
+		<% if @production == busy_prods.first %>
+		
+			<div class="btn-group" role="group" aria-label="...">
+				<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-sm", :remote => true %>
+				<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-sm", :remote => true %>
+			</div>
+			
+		<%else%>
 		<div class="btn-group" role="group" aria-label="...">
-			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :remote => true %>
-			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
+			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-sm", :disabled => disable_switch %>
+			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-sm", :disabled => disable_switch %>
 		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 dismissed">
+			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.where.not(id: @production.id))%> (#<%= busy_prods.where.not(id: @production.id).pluck(:id).to_sentence%>)
+			</div>
+		</div>
+		<%end%>
 	<%else%>
-		<div class="col-lg-12 col-sm-12 col-md-12 dismissed">
-			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :disabled => true %>
-			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :disabled => true %>
+		<div class="btn-group" role="group" aria-label="...">
+				<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-md", :remote => true %>
+				<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-md", :remote => true %>
 		</div>
 	<%end%>
+	
 </div>
-								</div>
+</div>
 
 <%else%>
 			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid batch</div></div>

@@ -47,11 +47,11 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).sort.join("-"))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).sort.join(" "))
             redirect_to @production
             
             #Recherche de doublons (Combinaison de plasmids)
-            prod_array = Production.where(:cbtag => @production.cbtag)
+            prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
             #@vps = prod_array.joins(:virus_productions).pluck(:number)
             
             @trigger = prod_array.count
@@ -86,11 +86,11 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).join("-"))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).join(" "))
             
        
             #Recherche de doublons (Combinaison de plasmids)
-             prod_array = Production.where(:cbtag => @production.cbtag)
+             prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
             #@vps = prod_array.joins(:virus_productions).pluck(:number).sort.to_sentence
             @trigger = prod_array.count
       
@@ -147,7 +147,7 @@ class ProductionsController < InheritedResources::Base
         @production.update_columns(:percentage => 40)
         
     #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
-            prod_array = Production.where(:pbtag => @production.pbtag)
+            prod_array = VirusProduction.where(:plasmid_batch_tag => @production.pbtag)
             @trigger = prod_array.count
             
             unless @production.plasmid_batches.empty?

@@ -4,19 +4,19 @@
 	    <th class="col-lg-1 center">
 			<%= smart_listing.sortable "number", :nb %>
 	  	</th>
-	  	<th class="col-lg-2 center">
+	  	<th class="col-lg-1 center">
 			<%= smart_listing.sortable "date of prod.", :date_of_production %>
 	  	</th>
-	  	<th>
+	  	<th class="col-lg-1 center">
 	  		<%= sort_link(@q, :production_name, 'production') %>
 	  	</th>
 	   <th class="col-lg-4 center">
-	    		<%= sort_link(@q, :clone_batches_nb, 'plasmid') %>
+	    		<%= sort_link(@q, :clone_batches_nb, 'plasmids') %>
 	    </th>
-	    	 <th class="col-lg-1 center">
+	    	 <th class="col-lg-3 center">
 		<%= sort_link(@q, :dosages_accepted, 'titer to ATCC (validated)') %>
 	  	</th>
-	    <th class="col-lg-4 center"></th>
+	    <th class="col-lg-3 text-left"></th>
 	    </thead>
 	    <tbody>
 	    	 <% unless smart_listing.empty? %>

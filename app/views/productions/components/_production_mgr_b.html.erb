@@ -37,13 +37,24 @@
     <% @productions.each do |p| %>
       <tr>
         <td id="id">
-        	<%= p.id %>
-        	<%unless p.pbtag.blank? %>
-        		<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
-        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
+        	<strong><%= p.id %></strong>
+        	<%unless p.last_step > 1%>
+        	<% busy_batches =[] %>
+        	
+			<% busy_batches = p.plasmid_batches.pluck(:id).uniq unless p.plasmid_batches.nil? %>
+			<% busy_prods = Production.where(:last_step => 1).from_plasmid_batches(busy_batches) %>
+			<% busy_prods_a = busy_prods.pluck(:id).uniq %>
+		
+		<% disable_switch = (busy_prods_a-[p.id]).count > 0 %>
+		
+			<%if disable_switch %>
+	        		<span class="<%= p == busy_prods.first ?  "glyphicon glyphicon-ok text-success" : "glyphicon glyphicon-lock text-danger" %>"></span>
+	        	<%else%>
+	        		<span class="glyphicon glyphicon-ok text-success"></span>
+	        <%end%>
+        
         <%else%>
-        		<span class="glyphicon glyphicon-ok text-success" %>"></span>
-        <%end%>
+        		<span class="glyphicon glyphicon-ok text-success" %></span>
         <%end%>
     		    	
         </td>

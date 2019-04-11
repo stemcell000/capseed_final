@@ -3,6 +3,7 @@ class Production < ActiveRecord::Base
   before_update :set_starting_volumes
   
   scope :all_except, ->(production) { where.not(id: production) }
+  scope :from_plasmid_batches, -> pb_array {joins(:plasmid_batch_productions).where(:plasmid_batches_productions => {plasmid_batch_id: pb_array})}
   
   #pg_search
   include PgSearch

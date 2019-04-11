@@ -38,9 +38,11 @@
       <tr>
         <td id="id">
         	<%= p.id %>
-	        	<% <% unless p.pbtag.nil? || unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
-	        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
-	        <%end%>
+        	<%unless p p.pbtag.nil? %>
+        		<% unless p == Production.where('last_step < 2').where(:pbtag => p.pbtag).first %>
+        		<span class="<%= Production.where('last_step < 2').where(:pbtag => p.pbtag).count > 1 ? "glyphicon glyphicon-lock text-danger" : "glyphicon glyphicon-ok text-success" %>"></span>
+        <%end%>
+        <%end%>
     		    	
         </td>
         <td>

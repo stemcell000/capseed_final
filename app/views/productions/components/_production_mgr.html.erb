@@ -65,7 +65,7 @@
 	        	<%if p.clone_batches.empty?%>
 	        	-
 	        	<%else%>
-	        	<% p.clone_batches.each do |c| %>
+	        	<% p.clone_batches.joins(:type).order('order_set').each do |c| %>
 	        		<span class="text-primary"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name if c.name%> [<%=c.type.name[0..3] if c.type.name%>.]</span><br />
 	        	<%end%>
         	<%end%>

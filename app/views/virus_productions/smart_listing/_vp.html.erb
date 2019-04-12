@@ -38,6 +38,7 @@
 									</table>
 								<%end%>
 								<strong>Date of prod.: </strong> <%= object.date_of_production.nil? ? "none" : object.date_of_production.strftime("%b %e, %Y") %><br />
+								<strong>Project: </strong> <%= object.production.nil? ? "none" : "#{object.production.projects.pluck(:name).to_sentence}" %><br />
 								<strong>Volume: </strong> <%= object.vol.nil? ? "none" : "#{object.vol} #{object.vol_unit.name}" %><br />
 								<%unless object.sterilitytests.nil? %>
 								<% last_st = object.sterilitytests.last %>

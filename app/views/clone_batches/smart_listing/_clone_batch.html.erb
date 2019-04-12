@@ -1,11 +1,11 @@
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.nb %></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.name || object.temp_name %></small></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.clone.nil? ? "-" : object.clone.name %></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.promoters.empty? ? "N/A" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.genes.empty? ? "N/A" : object.genes.map {|gene| gene.name}.to_sentence %></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches_count %></td>
-  <td class="center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.created_at.strftime("%b %e, %Y") %></small></td>
-<td class="actions <%= dismissedOrNot(object.dismissed) %>">
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.nb %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.name || object.temp_name %></small></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.clone.nil? ? "-" : object.clone.name %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.promoters.empty? ? "N/A" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.genes.empty? ? "N/A" : object.genes.map {|gene| gene.name}.to_sentence %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches_count %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.created_at.strftime("%b %e, %Y") %></small></td>
+<td class="actions text-right <%= dismissedOrNot(object.dismissed) %>">
 		 
 	<a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='

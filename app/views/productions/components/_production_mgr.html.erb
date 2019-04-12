@@ -37,7 +37,7 @@
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
         <td id="id">
-        	<strong><%= p.id %></strong>
+        	<strong>Prod.-<%= p.id %></strong>
         	<%unless p.last_step > 1%>
         	<% busy_batches =[] %>
         	

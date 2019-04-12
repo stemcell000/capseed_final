@@ -124,8 +124,6 @@ class ProductionsController < InheritedResources::Base
        @production.update_columns(:percentage => 50)
        #
       end
-      
-      
   end
   
   def select_pbs
@@ -145,13 +143,15 @@ class ProductionsController < InheritedResources::Base
      
         @production.update_columns(:step => 0)
         @production.update_columns(:percentage => 40)
+        @production.update_columns(:pbtag => @production.plasmid_batches.order(:name).pluck(:id).join(" "))
         
     #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
+            
             prod_array = VirusProduction.where(:plasmid_batch_tag => @production.pbtag)
             @trigger = prod_array.count
             
             unless @production.plasmid_batches.empty?
-              unless @trigger <= 1
+              if @trigger > 1
                 flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed." 

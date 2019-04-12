@@ -10,7 +10,7 @@
 	<div class="row">
 	 	<div class="col-lg-12 col-md-12 col-sm-12">
 	 	<% @production.clone_batches.each do |a|%>
-			<%= f.association :plasmid_batches, :label => "Add #{a.type.name}", :collection => PlasmidBatch.all.includes(:clone_batch).where(:clone_batch => a).where(:trash => false),
+			<%= f.association :plasmid_batches, :label => "Add #{a.type.name}", :collection => PlasmidBatch.all.includes(:clone_batch).where(:clone_batch => a).where(:trash => false).where('volume > 0'),
 			input_html: { class: 'select2-select' },
 			:label_method => lambda { |plasmid_batch| "#{plasmid_batch.name} | #{plasmid_batch.clone_batch.name} - #{plasmid_batch.clone_batch.type.name}  | volume: #{plasmid_batch.volume} #{plasmid_batch.vol_unit.name}"}%>
 		<%end%>

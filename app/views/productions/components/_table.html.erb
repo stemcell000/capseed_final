@@ -41,11 +41,18 @@
 		<div class="row pull-right">
 		<div class="btn-group col-lg-12" role="group" aria-label="...">
 			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-sm", :remote => true, :disabled => disable_switch %>
-			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-sm", :disabled => disable_switch %>
+			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-sm", :remote => true, :disabled => disable_switch %>
 		</div>
 		</div>
 		<div class="col-lg-12 text-justify dismissed <%=disable_switch ? "":"hidden" %>">
-			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.count)%> (<%= (busy_prods_a-[@production.id]).join(", ") %>)
+			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.count)%> (<%= (busy_prods_a-[@production.id]).sort.join(", ") %>)
+		</div>
+		<%else%>
+		<div class="row pull-right">
+		<div class="btn-group col-lg-12" role="group" aria-label="...">
+			<%= link_to "Set production volumes", set_pb_volume_production_path(@production), :class =>"btn btn-primary btn-sm", :remote => true %>
+			<%= link_to "Reset volumes", reset_volume_production_path(@production), :class =>"btn btn-default btn-sm", :remote => true %>
+		</div>
 		</div>
 		<%end%>
 	<%end%>

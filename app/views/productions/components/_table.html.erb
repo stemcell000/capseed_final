@@ -45,7 +45,7 @@
 		</div>
 		</div>
 		<div class="col-lg-12 text-justify dismissed <%=disable_switch ? "":"hidden" %>">
-			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.count)%> (<%= (busy_prods_a-[@production.id]).sort.join(", ") %>)
+			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.count)%> (<%= (busy_prods_a-[@production.id]).sort.map{|x| 'Prod.'+x.to_s}.join(',') %>)
 		</div>
 		<%else%>
 		<div class="row pull-right">

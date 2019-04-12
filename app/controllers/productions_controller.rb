@@ -47,18 +47,18 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).sort.join(" "))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:id).pluck(:id).sort.join(" "))
             redirect_to @production
             
             #Recherche de doublons (Combinaison de plasmids)
             prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
-            #@vps = prod_array.joins(:virus_productions).pluck(:number)
+            @vps = prod_array.pluck(:number).sort.join(',')
             
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
-              unless @trigger <= 1
-                flash.keep[:warning] = "You did this before! This combination of plasmids already exists. Are you sure you want to do it again?"
+              if @trigger >= 1
+                flash.keep[:warning] = "You did this before! This combination of plasmids already exists (virus # #{@vps}) . Are you sure you want to do it again?"
               else
                flash.discard(:success) 
                flash[:success] = "Task completed."                
@@ -86,18 +86,18 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:name).pluck(:id).join(" "))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:id).pluck(:id).join(" "))
             
-       
             #Recherche de doublons (Combinaison de plasmids)
              prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
-            #@vps = prod_array.joins(:virus_productions).pluck(:number).sort.to_sentence
+            @vps = prod_array.pluck(:number).sort.join(',')
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
-              unless @trigger <= 1
+              if @trigger >= 1
                 flash.discard(:success)
-                flash.keep[:warning] = "You did this before! This combination of plasmids already exists. Are you sure you want to do it again?"
+                flash[:success] = "Task completed."
+                flash.keep[:warning] = "You did this before! This combination of plasmids already exists (virus # #{@vps}). Are you sure you want to do it again?"
               else
                flash.discard(:success) 
                flash[:success] = "Task completed."                
@@ -143,16 +143,17 @@ class ProductionsController < InheritedResources::Base
      
         @production.update_columns(:step => 0)
         @production.update_columns(:percentage => 40)
-        @production.update_columns(:pbtag => @production.plasmid_batches.order(:name).pluck(:id).join(" "))
+        @production.update_columns(:pbtag => @production.plasmid_batches.order(:name).pluck(:name).join(" "))
         
     #Recherche de l'existence d'une combinaison de plasmid_batches identique dans la DB
             
             prod_array = VirusProduction.where(:plasmid_batch_tag => @production.pbtag)
+            @vps = prod_array.pluck(:number).sort.join(',')
             @trigger = prod_array.count
             
             unless @production.plasmid_batches.empty?
-              if @trigger > 1
-                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists. Are you sure you want to do it again?"
+              if @trigger >= 1
+                flash.keep[:alert] = "You did this before! This combination of plasmid batches already exists (virus # #{@vps}). Are you sure you want to do it again?"
               else
                flash.now[:success] = "Task completed." 
              end

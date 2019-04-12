@@ -26,7 +26,15 @@ class PrimersController < ApplicationController
   end
  
  def index
-    @primers = smart_listing_create(:primers, Primer.all, partial: "primers/list", default_sort: {id: "asc"},  page_sizes: [20,30,50, 100, 200])   
+      @q = Primer.ransack(params[:q])
+      @primers = @q.result(distinct: true)
+     
+      @primers = smart_listing_create(:primers, @primers, partial: "primers/list", default_sort: {id: "asc"},  page_sizes: [20,30,50, 100, 200])  
+     
+     respond_to do |format|
+      format.js
+      format.html
+    end
  end
  
  def destroy

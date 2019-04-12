@@ -1,0 +1,19 @@
+<%= simple_form_for @project, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+			<div class="form-group ui-front">
+				<div class="row">
+						<div class="col-md-4">
+							<%= f.input :name,
+							:label => "Name"
+							 %>
+					 	</div>
+				 </div>
+ 		<div class="btn-group" role="group" aria-label="...">
+        	<%= f.submit("Save", :id => "add_btn", :class => "btn btn-default", :title => "Save the changes.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-danger", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<%end%>
+
+

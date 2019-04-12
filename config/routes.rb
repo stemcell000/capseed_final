@@ -286,6 +286,7 @@ Rails.application.routes.draw do
   resources :enzymes
   resources :genes
   resources :promoters
+  resources :projects
   resources :origins
   resources :primers do
    patch  :availability_switch, :on => :member

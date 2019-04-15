@@ -3,7 +3,7 @@ class ProductionsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update, :add_pbs, :update_pb_volumes]
-  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs, :destroy, :reset_volume]
+  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs, :destroy, :reset_volume, :close, :create_vp, :update_pb_volume, :set_pb_volume, :add_pbs]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -120,8 +120,14 @@ class ProductionsController < InheritedResources::Base
       #
        @production.update_columns(:step => 1)
        unless @production.clone_batches.empty?
-       update_last_step(@production, 1)
+       
        @production.update_columns(:percentage => 50)
+       
+       if @production.plasmid_batches.nil?
+         @production.update_columns(:last_step => 1)
+       elsif @production.plasmid_batch_productions.where(:volume=>0).any?
+         @production.update_columns(:last_step => 1)
+       end
        #
       end
   end
@@ -131,7 +137,6 @@ class ProductionsController < InheritedResources::Base
   end
   
   def add_pbs
-    @production = Production.find(params[:id])
     @production.update_attributes(production_params)
     
     pbs = @production.plasmid_batches
@@ -164,6 +169,7 @@ class ProductionsController < InheritedResources::Base
      @production.plasmid_batches.each do |pb|
        pb.plasmid_batch_productions.where(:production_id => @production.id).first.update_columns(:volume => 0)
      end
+      @production.update_column(:last_step => 1)
    end
    
    def pool
@@ -174,25 +180,22 @@ class ProductionsController < InheritedResources::Base
    end
    
     def set_pb_volume
-      @production = Production.find(params[:id])
     end
   
   def update_pb_volume
-    @production = Production.find(params[:id])
-
     @production.update_attributes(production_volumes_params)
-    #@production.attributes = production_volumes_params
-    #@production.save(:validate => false)
+
       if @production.valid?
-        flash.keep[:success] = "Task completed!"
+        flash.keep[:success] = "Task completed!"   
+        if @production.plasmid_batch_productions.where(:volume=>0).any?
+          @production.update_column(:last_step => 1)
+        end
       else
         render :action => 'set_pb_volume'
-      end
+     end
   end
  
   def virus_production
-    @production = Production.find(params[:id])
-    
     #Collection des plasmids batches
     @plasmid_batches = @production.plasmid_batches.order(:id)
     
@@ -254,7 +257,6 @@ class ProductionsController < InheritedResources::Base
  end
   
  def create_vp
-     @production = Production.find(params[:id])
      #production_vp_params doit contenir production_id dans les attribut de virus_production (nested)
      #Sinon impossible d'ajouter nouveau virus_production
      @production.update_attributes(production_vp_params)
@@ -280,8 +282,6 @@ class ProductionsController < InheritedResources::Base
  end
  
  def close
-    @production = Production.find(params[:id])
-    #
     if @production.virus_productions.empty?
       flash.keep[:notice] = "Add at least one virus please."
       redirect_to :action => :virus_production
@@ -345,6 +345,7 @@ class ProductionsController < InheritedResources::Base
   
 
   private
+  
   def set_production
     @production = Production.find(params[:id])
        #
@@ -352,6 +353,7 @@ class ProductionsController < InheritedResources::Base
     redirect_to :controller => "virus_productions", :action => "index"
     flash[:alert] = "Production not found."
    return
+   
   end
 
   def production_params
@@ -432,5 +434,5 @@ class ProductionsController < InheritedResources::Base
     d = d.strftime('%Y-%m-%d')
   end
 
-end
+  end
 

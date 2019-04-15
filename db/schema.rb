@@ -246,8 +246,7 @@ ActiveRecord::Schema.define(version: 20190415165400) do
   end
 
   create_table "genes", force: :cascade do |t|
-    t.string  "name"
-    t.integer "clone_batch_id"
+    t.string "name"
   end
 
   create_table "inserts", force: :cascade do |t|
@@ -424,8 +423,7 @@ ActiveRecord::Schema.define(version: 20190415165400) do
   end
 
   create_table "promoters", force: :cascade do |t|
-    t.string  "name"
-    t.integer "clone_batch_id"
+    t.string "name"
   end
 
   create_table "qc_attachments", force: :cascade do |t|

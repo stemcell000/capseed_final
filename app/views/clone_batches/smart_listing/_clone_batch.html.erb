@@ -16,17 +16,17 @@
 				</div>'
 			data-content='		
 			<small>
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "No data" : object.number %><br />
-								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.nil? ? "No data" : object.date_as_plasmid.strftime("%b %e, %Y") %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "-" : object.number %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.nil? ? "-" : object.date_as_plasmid.strftime("%b %e, %Y") %><br />
 								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid.nil? ? "No data" : object.glyc_stock_box_as_plasmid %><br />
-								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "No data" : object.origin.name %><br />
-								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "No data" : object.type.name %><br />
-								<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= object.plasmid_batches.empty? ? "No data" : object.plasmid_batches.length %><br />
-								<strong>Clone: </strong><%= object.clone.nil? ? "No data" : object.clone.name %><br />
-								<strong>Target: </strong> <%= object.target.nil? ? "No data" : object.target.name %><br />
-								<strong>Strand: </strong><%= object.strand.nil? ? "No data" : object.strand.name %><br />
-								<strong>Promoter: </strong><%= object.promoters.empty? ? "No data" : object.promoters.uniq.map {|promoter| promoter.name}.to_sentence %><br />
-								<strong>Gene: </strong><%= object.genes.empty? ? "No data" : object.genes.uniq.map {|gene| gene.name}.to_sentence %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "-" : object.origin.name %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "-" : object.type.name %><br />
+								<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= object.plasmid_batches.empty? ? "-" : object.plasmid_batches.length %><br />
+								<strong>Clone: </strong><%= object.clone.nil? ? "-" : object.clone.name %><br />
+								<strong>Target: </strong> <%= object.target.nil? ? "-" : object.target.name %><br />
+								<strong>Strand: </strong><%= object.strand.nil? ? "-" : object.strand.name %><br />
+								<strong>Promoter: </strong><%= object.promoters.nil? ? "-" : object.promoters.uniq.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= object.genes.nil? ? "-" : object.genes.uniq.map {|gene| gene.name}.to_sentence %><br />
 								<% if !object.comment_as_plasmid.blank? %>
 									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
 								<%end%>

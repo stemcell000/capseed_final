@@ -365,11 +365,11 @@ if @clone.changed?
       i = 1
       @clone.batch_nb.times do
         temp =@clone.name+'_'+i.to_s
-        if CloneBatch.count > 0
-          new_nb = CloneBatch.last.number.to_i+1
-        else
-          new_nb = 1
-        end
+        #if CloneBatch.count > 0
+         # new_nb = CloneBatch.last.number.to_i+1
+        #else
+         # new_nb = 1
+        #end
         cb = CloneBatch.new(:temp_name => temp, :number => new_nb)
         
         cb.skip_name_validation = true

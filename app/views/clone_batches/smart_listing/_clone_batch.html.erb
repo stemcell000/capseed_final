@@ -25,8 +25,8 @@
 								<strong>Clone: </strong><%= object.clone.nil? ? "No data" : object.clone.name %><br />
 								<strong>Target: </strong> <%= object.target.nil? ? "No data" : object.target.name %><br />
 								<strong>Strand: </strong><%= object.strand.nil? ? "No data" : object.strand.name %><br />
-								<strong>Promoter: </strong><%= object.promoters.empty? ? "No data" : object.promoters.map {|promoter| promoter.name}.to_sentence %><br />
-								<strong>Gene: </strong><%= object.genes.empty? ? "No data" : object.genes.map {|gene| gene.name}.to_sentence %><br />
+								<strong>Promoter: </strong><%= object.promoters.empty? ? "No data" : object.promoters.uniq.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= object.genes.empty? ? "No data" : object.genes.uniq.map {|gene| gene.name}.to_sentence %><br />
 								<% if !object.comment_as_plasmid.blank? %>
 									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
 								<%end%>

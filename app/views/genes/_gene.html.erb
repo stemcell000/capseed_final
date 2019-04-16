@@ -1,7 +1,7 @@
 <td class="center"><%= object.id%></td>
 <td class="center"><%= object.name%></td>
 <td class="actions center">
-<%unless object.clone_batch.nil?%>
+<%unless object.clone_batches.nil?%>
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_gene_path(object), title: "Edit"}
 		

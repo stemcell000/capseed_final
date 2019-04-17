@@ -3,13 +3,6 @@
 <td ><small><%= object.sequence.nil? ? "":object.sequence.upcase%></small></td>
 <td ><small><%= object.comment%></small></td>
 <td class="actions center">
-	<%if can? :manage, :all %>
-	<%= smart_listing_item_actions [
-	  	{name: :edit,    url: edit_primer_path(object), title: "Edit"},
-	  	{name: :custom, url: availability_switch_primer_path(object), method: :patch, icon: object.available? ? "fa fa-check":"fa fa-times", remote: true},
-		{name: :destroy, url: primer_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?"}
-		]%>
-	<%else%>
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_primer_path(object), title: "Edit"},
 	  	{name: :custom, url: availability_switch_primer_path(object), method: :patch, icon: object.available? ? "fa fa-check":"fa fa-times", remote: true},

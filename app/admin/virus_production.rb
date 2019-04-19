@@ -45,7 +45,6 @@ permit_params :vol_unit, :number, :nb, :plate_id, :vol, :sterility, :plate_id, :
   csv do
     column :id
     column :nb
-    column :target
     column :production_id
   end
 end

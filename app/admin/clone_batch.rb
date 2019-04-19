@@ -38,12 +38,12 @@ action_item do
   link_to "View Site", "/"
 end
 
-  csv do
-    column :id
-    column :nb
-    column :name
-    column :type_id
-    
-  end
+#FOR DATA ANALYSIS 
+  #csv do
+  #  column :id
+  #  column :nb
+  #  column :name
+  #  column :type_id 
+  #end
 
 end

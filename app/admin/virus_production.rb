@@ -41,5 +41,12 @@ end
 
 permit_params :vol_unit, :number, :nb, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment, :gel_prot, :invoice, :hek_result, :target, :animal
 
+#FOR DATA ANALYSIS 
+  csv do
+    column :id
+    column :nb
+    column :target
+    column :production_id
+  end
 end
 

@@ -37,6 +37,13 @@ action_item do
   link_to "View Site", "/"
 end
 
-permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :user_id
+permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :user_id, :accepted
 
+end
+
+#FOR DATA ANALYSIS
+csv do
+  column :id
+  column :titer_to_atcc
+  column :accepted
 end

@@ -45,7 +45,22 @@ permit_params :vol_unit, :number, :nb, :plate_id, :vol, :sterility, :plate_id, :
   csv do
     column :id
     column :nb
+    column :number
+    column :vol_unit
+    column :vol
+    column :sterility
+    column :comment
+    column :gel_prot
+    column :invoice
+    column :l2
+    column :hek_result
+    column :target
+    column :animal
     column :production_id
+    column :plasmid_tag
+    column :plasmid_batch_tag
+    column :rev_plasmid_tag
+    column :rev_plasmid_batch_tag
   end
 end
 

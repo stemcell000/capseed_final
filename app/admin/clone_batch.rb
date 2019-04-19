@@ -1,8 +1,6 @@
 ActiveAdmin.register CloneBatch do
  config.sort_order = 'id_asc'
 
-
- 
  #Import csv   
  active_admin_import validate: false,
               csv_options: {col_sep: ";" },
@@ -39,5 +37,11 @@ permit_params :list, :of, :attributes, :on, :model, :id, :name, :strand_id, :tem
 action_item do
   link_to "View Site", "/"
 end
+
+  csv do
+    column :id
+    column :name
+    column :type_id
+  end
 
 end

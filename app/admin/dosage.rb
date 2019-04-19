@@ -39,7 +39,6 @@ end
 
 permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :user_id, :accepted
 
-end
 
 #FOR DATA ANALYSIS
 csv do
@@ -47,4 +46,5 @@ csv do
   column :titer_to_atcc
   column :accepted
   column :virus_production_id
+end
 end

@@ -46,4 +46,5 @@ csv do
   column :id
   column :titer_to_atcc
   column :accepted
+  column :virus_production_id
 end

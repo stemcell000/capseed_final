@@ -40,8 +40,10 @@ end
 
   csv do
     column :id
+    column :nb
     column :name
     column :type_id
+    
   end
 
 end

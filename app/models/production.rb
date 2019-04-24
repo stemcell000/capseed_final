@@ -58,9 +58,6 @@ class Production < ActiveRecord::Base
       "regexp_replace(to_char(\"#{table_name}\".\"id\", '99999999'), ' ', '', 'g')"
     )
   end
-
-#Dashboard  
-  acts_as_list scope: [:last_step =>'? > 3']
   
   
   private

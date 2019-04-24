@@ -375,7 +375,7 @@ class ProductionsController < InheritedResources::Base
 
   def production_params
     params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
-    :disable_switch, :position,
+    :disable_switch,
     project_ids: [],
     :projects_attributes => [:id, :name],
     :clone_batches_attributes => [:id, :name, :_destroy],
@@ -393,7 +393,6 @@ class ProductionsController < InheritedResources::Base
   
     def production_create_params
       params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
-      :position,
       project_ids: [],
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],
@@ -435,7 +434,7 @@ class ProductionsController < InheritedResources::Base
   end
   
   def production_position_params
-    params.permit(:id, :position)
+    params.permit(:id, :row_order_position)
   end
     
   def formatProdStepName(i)

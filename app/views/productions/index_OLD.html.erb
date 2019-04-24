@@ -1,6 +1,14 @@
 <% provide(:title, "Production Manager") %>
 	<div class="center" >
 		<div class="row expl">
+		<% if can? :update_row_order, @productions %>
+			<% unless @productions.empty?%>
+				<div class="row">
+					<div class= "col-lg-12 pull-left ">
+						Drag and drop from bottom to top the rows by priority level.
+					</div>
+				</div>
+			<%end%>
 			
 			<div class="row">
 				<div class="col-lg-6 text-align-left">
@@ -11,11 +19,16 @@
 				</div>
 			</div>
 		</div>
+		<%end%>
 		<% if @productions.empty?%>
 			<p>No production to display</p>
 		<%else%>
 				<div class="row" id="production_todo">
+					<% if can? :update_row_order, @productions %>
 						<%= render :partial => 'productions/components/production_mgr'%>
+					<%else%>
+						<%= render :partial => 'productions/components/production_mgr_b'%>
+					<%end%>
 				</div>
 		<%end%>
 </div>

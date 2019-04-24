@@ -68,6 +68,8 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    acts_as_list (0.9.19)
+      activerecord (>= 3.0)
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
     arbre (1.1.1)
@@ -395,6 +397,7 @@ DEPENDENCIES
   activeadmin
   activeadmin-select2!
   acts-as-taggable-on (~> 3.4)
+  acts_as_list
   amoeba
   bcrypt
   better_errors

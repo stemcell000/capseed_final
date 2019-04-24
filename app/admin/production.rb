@@ -20,6 +20,11 @@ ActiveAdmin.register Production do
     column :updated_at
     column :pbtag
     column :cbtag
+    column :position
+    column :name
+    column :last_step
+    column :row_order
+    column :row_order_position
     actions
 end
 

@@ -157,10 +157,14 @@
 							
 								<%= ff.link_to_remove "Remove titer" %>
 					</div>
+				</div>
 				<%end%>
-				
-								<%= f.link_to_add "Add titers", :dosages %>
-				
+		<div class="row">	
+			<div class="col-lg-12">
+				<%= f.link_to_add "Add a titer", :dosages, :class => "btn btn-info btn-sm" %>
+			</div>
+		</div>
+	</div>
 		<div class="row">
 			<div class="col-lg-8">
 			<h6><strong> Virus batches </strong></h6>

@@ -1,34 +1,23 @@
 <% if @productions.empty?%>
 			<p>No production to display!</p>
 <%else%>
-<small>
-<table class="table table-bordered table-striped table-hover prod_table" id="sortable-production">
+<table class="table table-bordered table-hover" id="sortable-production">
   <thead>
     <tr>
-    		<th class="col-name">
+    		<th>
         ID
       </th>
-      <th class="col-startdate">
+      <th >
         Name
       </th>
-      <th class="col-name">
+      <th>
         Plasmids
       </th>
-      <th class="col-name">
+      <th>
         Batches
       </th>
-
-      <th class="col-startdate">
-        Start date
-      </th>
-      <th class="col-startdate">
-        Expected end
-      </th>
-      <th  class="col-step">
-        Current step
-      </th>
       <th>
-      	Last validated step
+        Exp. end
       </th>
       <th></th>
     </tr>
@@ -36,68 +25,54 @@
   <tbody>
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
-        <td id="id">
+        <td id="id" class="col-lg-1 col-md-1 col-sm-1 <%= "bg-primary" unless p.virus_productions.empty? %>">
         	<strong>Prod.-<%= p.id %></strong>
-        	<%unless p.last_step > 1%>
-        	<% busy_batches =[] %>
-        	
-			<% busy_batches = p.plasmid_batches.pluck(:id).uniq unless p.plasmid_batches.nil? %>
-			<% busy_prods = Production.where(:last_step => 1).from_plasmid_batches(busy_batches) %>
-			<% busy_prods_a = busy_prods.pluck(:id).uniq %>
-		
-		<% disable_switch = (busy_prods_a-[p.id]).count > 0 %>
-		
-			<%if disable_switch %>
-	        		<span class="<%= p == busy_prods.first ?  "glyphicon glyphicon-ok text-success" : "glyphicon glyphicon-lock text-danger" %>"></span>
+	    <%unless p.last_step > 1%>
+	        	<%busy_batches =[]%>
+			<%if p.disable_switch %>
+	        		<span class= "glyphicon glyphicon-lock text-danger"></span>
 	        	<%else%>
 	        		<span class="glyphicon glyphicon-ok text-success"></span>
 	        <%end%>
-        
-        <%else%>
-        		<span class="glyphicon glyphicon-ok text-success" %></span>
         <%end%>
     		    	
         </td>
-        <td>
-        	<%=p.name%>
+        <td class="col-lg-2 col-md-2 col-sm-2 <%= "bg-primary" unless p.virus_productions.empty? %>">
+        	<small><%=p.name%></small>
         </td>
-        <td id="plasmids" class="text-justify">
+        <td class="text-justify col-lg-3 col-md-3 col-sm-3 <%= "bg-primary" unless p.virus_productions.empty? %>">
 	        	<%if p.clone_batches.empty?%>
 	        	-
 	        	<%else%>
 	        	<% p.clone_batches.joins(:type).order('order_set').each do |c| %>
-	        		<span class="text-primary"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name if c.name%> [<%=c.type.name[0..3] if c.type.name%>.]</span><br />
+	        		<small><span class="<%=  p.virus_productions.empty? ? "text-primary" : "white" %>"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name.truncate(20, omission:'...') if c.name%></span></small><br />
 	        	<%end%>
         	<%end%>
         </td>
-        <td>
+        <td class="text-justify col-lg-1 col-md-1 col-sm-2 <%= "bg-primary" unless p.virus_productions.empty? %>">
         		<%if p.plasmid_batches.empty?%>
 	        	-
 	        	<%else%>
-				<%= p.plasmid_batches.pluck(:name).join(',')%>
+				<% p.plasmid_batches.each do |pb|%>
+					<small><strong><%= pb.name %></strong><br /></small>
+				<%end%>
         		<%end%>
         	</td>
-      	<td id="startdate"%>
-          <%= p.created_at.strftime("%d %b %y") %>
+           <td id="Exp. end" class="col-lg-1 col-md-1 col-sm-1 <%= "bg-primary" unless p.virus_productions.empty? %>">
+          <small><%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %></small>
          </td>
-           <td id="Expected end"%>
-          <%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
-         </td>
-        <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
-          <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>
-        </td>
-         <td id="laststep" class=<%= formatProdStep(p.last_step, p.id)[:step_class] %>>
-          <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
-        </td>
-        <td id="Action">
-          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-xs btn-default" %> 
+        <td class="<%= "bg-primary" unless p.virus_productions.empty? %>">
+            <%= link_to edit_production_path(p.id)  do %>
+				    <i class="glyphicon glyphicon-pencil <%= "white" unless p.virus_productions.empty? %>"></i>
+			<% end %>
           <% if can? :inform_production, @user %>
-          	<%= link_to "Remove", p, :method => :delete, :class =>"btn btn-xs btn-danger", :remote => true  %>
-        		<%end%>
-        </td>
+        		<%= link_to p, :method => :delete do %>
+				    <i class="glyphicon glyphicon-trash <%= "white" unless p.virus_productions.empty? %>"></i>
+			<% end %>
+		<%end%>
+		<%end%>
+		</td>
       </tr>
-    <% end %>
   </tbody>
 </table>
-</small>
 <%end%>

@@ -3,7 +3,9 @@ class ProductionsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update, :add_pbs, :update_pb_volumes]
-  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs, :destroy, :reset_volume, :close, :create_vp, :update_pb_volume, :set_pb_volume, :add_pbs]
+  before_action :production_position_params, only:[:move_higher, :move_lower, :move_highest, :move_lowest]
+  before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs, :destroy, :reset_volume, :close, :create_vp, :update_pb_volume, :set_pb_volume,
+    :add_pbs, :move_higher, :move_lower, :move_highest, :move_lowest]
   
 #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -11,11 +13,27 @@ class ProductionsController < InheritedResources::Base
   
   def index
     @productions = Production.where("last_step <?", 3 ).rank(:row_order).all
-    #update des dates de process en cours
       @productions.each do |p|
         if !p.locked
           p.update_columns(:today_date => Date.today)
         end
+     #
+      busy_batches =[]
+      @productions.each do |prod|
+         busy_batches = prod.plasmid_batches.pluck(:id).uniq unless prod.plasmid_batches.nil? 
+         busy_prods = Production.where(:last_step => 1).from_plasmid_batches(busy_batches)
+         busy_prods_a = busy_prods.pluck(:id).uniq
+         
+         # si la production n'est pas la première de celles qui utilisent au moins un batch de plasmide en commun 
+         
+           if (busy_prods_a-busy_batches).count > 0
+             unless prod == busy_prods.first
+                prod.update_columns(:disable_switch => true)
+             else
+                prod.update_columns(:disable_switch => false)
+             end
+           end
+       end
     end
   end
   
@@ -39,7 +57,8 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @projects_all = Project.all
-    @production = Production.create(production_create_params)
+    
+    @production.create(production_params, position: 1)
     
     if @production.valid?
             flash.keep[:success] = "Task completed!"
@@ -76,10 +95,8 @@ class ProductionsController < InheritedResources::Base
  end
  
  def update
-   @projects_all = Project.all
-   @production.update_attributes(production_params)
-
-   
+      @projects_all = Project.all
+      @production.update_attributes(production_params)
      if @production.valid?
             redirect_to @production
             @production.update_columns(:step => 0)
@@ -358,6 +375,7 @@ class ProductionsController < InheritedResources::Base
 
   def production_params
     params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
+    :disable_switch, :position,
     project_ids: [],
     :projects_attributes => [:id, :name],
     :clone_batches_attributes => [:id, :name, :_destroy],
@@ -375,6 +393,7 @@ class ProductionsController < InheritedResources::Base
   
     def production_create_params
       params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
+      :position,
       project_ids: [],
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],
@@ -413,6 +432,10 @@ class ProductionsController < InheritedResources::Base
     params.require(:production).permit(:id, 
         :plasmid_batch_productions_attributes => [:id, :volume, :starting_volume, :production_id, :plasmid_batch_id, :_destroy ]
     )
+  end
+  
+  def production_position_params
+    params.permit(:id, :position)
   end
     
   def formatProdStepName(i)

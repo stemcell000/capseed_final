@@ -10,9 +10,11 @@ class Production < ActiveRecord::Base
   multisearchable :against => [:name, :id, :step, :projects],
   :if => lambda { |record| record.id > 0 }
   
+  scope :on_going,-> {where("last_step < ?", 3)}
+  
   #order
   include RankedModel
-   ranks :row_order
+   ranks :row_order, :scope => :on_going
   
   #Nested models relationships
   has_and_belongs_to_many :projects
@@ -56,6 +58,10 @@ class Production < ActiveRecord::Base
       "regexp_replace(to_char(\"#{table_name}\".\"id\", '99999999'), ' ', '', 'g')"
     )
   end
+
+#Dashboard  
+  acts_as_list scope: [:last_step =>'? > 3']
+  
   
   private
   
@@ -68,5 +74,7 @@ class Production < ActiveRecord::Base
       pbp.starting_volume = pbp.plasmid_batch.volume.nil? ? 0 : pbp.plasmid_batch.volume
     end
   end
+  
+
   
 end

@@ -1,0 +1,95 @@
+<% if @productions.empty?%>
+			<p>No production to display!</p>
+<%else%>
+<small>
+<table class="table table-bordered table-striped table-hover prod_table" id="sortable-production">
+  <thead>
+    <tr>
+    		<th class="col-name">
+        ID
+      </th>
+      <th class="col-startdate">
+        Name
+      </th>
+      <th class="col-name">
+        Plasmids
+      </th>
+      <th class="col-name">
+        Batches
+      </th>
+
+      <th class="col-startdate">
+        Start date
+      </th>
+      <th class="col-startdate">
+        Expected end
+      </th>
+      <th  class="col-step">
+        Current step
+      </th>
+      <th>
+      	Last validated step
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @productions.each do |p| %>
+      <tr data-item-id=<%= p.id %> class="item">
+        <td id="id">
+        	<strong>Prod.-<%= p.id %></strong>
+        	<%unless p.last_step > 1%>
+        	<% busy_batches =[] %>
+        	
+			Disable : <%=p.disable_switch%>
+			<%if p.disable_switch %>
+	        		<span class= "glyphicon glyphicon-lock text-danger"></span>
+	        	<%else%>
+	        		<span class="glyphicon glyphicon-ok text-success"></span>
+	        <%end%>
+        <%end%>
+    		    	
+        </td>
+        <td>
+        	<%=p.name%>
+        </td>
+        <td id="plasmids" class="text-justify">
+	        	<%if p.clone_batches.empty?%>
+	        	-
+	        	<%else%>
+	        	<% p.clone_batches.joins(:type).order('order_set').each do |c| %>
+	        		<span class="text-primary"><strong><%=c.nb if c.number%></strong></span>-<span><%=c.name if c.name%> [<%=c.type.name[0..3] if c.type.name%>.]</span><br />
+	        	<%end%>
+        	<%end%>
+        </td>
+        <td>
+        		<%if p.plasmid_batches.empty?%>
+	        	-
+	        	<%else%>
+				<%= p.plasmid_batches.pluck(:name).join(',')%>
+        		<%end%>
+        	</td>
+      	<td id="startdate"%>
+          <%= p.created_at.strftime("%d %b %y") %>
+         </td>
+           <td id="Expected end"%>
+          <%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %>
+         </td>
+        <td id="step" class=<%= formatProdStep(p.step, p.id)[:step_class] %>>
+          <%= link_to formatProdStep(p.step, p.id)[:step_name], formatProdStep(p.step, p.id)[:step_path] %>
+        </td>
+         <td id="laststep" class=<%= formatProdStep(p.last_step, p.id)[:step_class] %>>
+          <%= link_to formatProdStep(p.last_step, p.id)[:step_name], formatProdStep(p.last_step, p.id)[:step_path] %>
+        </td>
+        <td id="Action">
+          <%= link_to 'Edit', edit_production_path(p.id) , class: "btn btn-xs btn-default" %> 
+          <% if can? :inform_production, @user %>
+          	<%= link_to "Remove", p, :method => :delete, :class =>"btn btn-xs btn-danger", :remote => true  %>
+        		<%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</small>
+<%end%>

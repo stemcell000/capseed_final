@@ -66,7 +66,7 @@
 				    <i class="glyphicon glyphicon-pencil <%= "white" unless p.virus_productions.empty? %>"></i>
 			<% end %>
           <% if can? :inform_production, @user %>
-        		<%= link_to p, :method => :delete do %>
+        		<%= link_to p, :method => :delete, :remote => true do %>
 				    <i class="glyphicon glyphicon-trash <%= "white" unless p.virus_productions.empty? %>"></i>
 			<% end %>
 		<%end%>

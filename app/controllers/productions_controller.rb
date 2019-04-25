@@ -58,7 +58,7 @@ class ProductionsController < InheritedResources::Base
     #Create new production
     @projects_all = Project.all
     
-    @production.create(production_params, position: 1)
+    @production.create(production_params)
     
     if @production.valid?
             flash.keep[:success] = "Task completed!"

@@ -15,9 +15,9 @@
 				<%end%>
 			</div>
 			<div class="col-lg-2">
-				<%= f.input :nb, :input_html => { :value => CloneBatch.last.nb+1 }, :readonly => true%>
-				<%= f.input :nb, :input_html => { :value => CloneBatch.last.nb+1 }, :as => :hidden %>
-				<%= f.input :number, :input_html => { :value => CloneBatch.last.nb+1 }, :as => :hidden %>
+				<%= f.input :nb, :input_html => { :value => CloneBatch.where.not(:name => nil).last.nb+1 }, :readonly => true%>
+				<%= f.input :nb, :input_html => { :value => CloneBatch.where.not(:name => nil).last.nb+1 }, :as => :hidden %>
+				<%= f.input :number, :input_html => { :value => CloneBatch.where.not(:name => nil).last.nb+1 }, :as => :hidden %>
 			</div>
 		</div>
 		<div class="row">

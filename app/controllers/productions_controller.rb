@@ -66,7 +66,7 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:id).pluck(:id).sort.join(" "))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:nb).pluck(:nb).sort.join(" "))
             redirect_to @production
             
             #Recherche de doublons (Combinaison de plasmids)
@@ -103,7 +103,7 @@ class ProductionsController < InheritedResources::Base
             update_last_step(@production, 0)
             @production.update_columns(:percentage => 10)
             
-            @production.update_columns(:cbtag => @production.clone_batches.order(:id).pluck(:id).join(" "))
+            @production.update_columns(:cbtag => @production.clone_batches.order(:nb).pluck(:nb).join(" "))
             
             #Recherche de doublons (Combinaison de plasmids)
              prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)

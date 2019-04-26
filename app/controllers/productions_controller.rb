@@ -268,7 +268,6 @@ class ProductionsController < InheritedResources::Base
     backward_volume = pb.volume + pbp.volume
     pb.update_columns(:volume => backward_volume)
   end
-
   @production.destroy
   @productions = Production.where.not(:last_step => 3).rank(:row_order).all
  end

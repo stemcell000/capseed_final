@@ -1,4 +1,4 @@
-$('#production_todo').html("<%= escape_javascript(render :partial => 'productions/components/production_mgr', locals: {:assays => @assay}) %>");
+$('#production_todo').html("<%= escape_javascript(render :partial => 'productions/components/production_mgr', locals: {:productions => @productions}) %>");
 	
 	
 $(document).ready(function() {

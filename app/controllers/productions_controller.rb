@@ -270,6 +270,7 @@ class ProductionsController < InheritedResources::Base
   end
   @production.destroy
   @productions = Production.where.not(:last_step => 3).rank(:row_order).all
+  redirect_to :action => 'index'
  end
   
  def create_vp

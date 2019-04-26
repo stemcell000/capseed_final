@@ -1,16 +1,12 @@
-$('#production_todo').html("<%= escape_javascript(render :partial => 'productions/components/production_mgr', locals: {:productions => @productions}) %>");
-	
-	
 $(document).ready(function() {
-//sortable table
 	jQuery(function() {
 	  var cells, desired_width, table_width;
 	  if ($('#sortable-production').length > 0) {
-	    table_width = $('#sortable').width();
+	    table_width = $('#sortable-production').width();
 	    cells = $('.table').find('tr')[0].cells.length;
 	    desired_width = table_width / cells + 'px';
 	    $('.table td').css('width', desired_width);
-	    return $('#sortable').sortable({
+	    return $('#sortable-production').sortable({
 	      axis: 'y',
 	      items: '.item',
 	      cursor: 'move',
@@ -31,8 +27,8 @@ $(document).ready(function() {
 	          url: '/productions/update_row_order',
 	          dataType: 'json',
 	          data: {
-	            assay: {
-	              assay_id: item_id,
+	            production: {
+	              production_id: item_id,
 	              row_order_position: position
 	            }
 	          }
@@ -42,11 +38,8 @@ $(document).ready(function() {
 	    });
 	  }
 	});
-
-//Popover
-$(function () {
-  $('[data-toggle="popover"]').popover({html:true});
 });
 
-});
+$('#production_todo').html("<%= escape_javascript(render :partial => 'productions/components/production_mgr', locals: {:productions => @productions}) %>");
+console.debug('refreshing production dashboard');
 

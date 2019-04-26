@@ -8,7 +8,7 @@
 						<%= f.input :name, :disabled => @production.locked %>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-4">
-						<%= f.input :created_at, :disabled => @production.locked, :label => "Start date" %>
+						<%= f.input :created_at, :label => "Start date", :as => :hidden %>
 					</div>
 				</div>
 				<div class="row">

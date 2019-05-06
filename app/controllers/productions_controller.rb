@@ -271,9 +271,8 @@ class ProductionsController < InheritedResources::Base
   
  def destroy
   pbs = @production.plasmid_batches
-  pbps = @production.plasmid_batch_productions
-  pbps.each do |pbp|
-    pb = pbs.where(:id => pbp.plasmid_batch_id)[0]
+  @production.plasmid_batch_productions.each do |pbp|
+    pb = pbs.where(:id => pbp.plasmid_batch_id).last
     backward_volume = pb.volume + pbp.volume
     pb.update_columns(:volume => backward_volume)
   end

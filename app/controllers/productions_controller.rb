@@ -106,12 +106,12 @@ class ProductionsController < InheritedResources::Base
             @production.update_columns(:cbtag => @production.clone_batches.order(:nb).pluck(:nb).join(" "))
             
             #Recherche de doublons (Combinaison de plasmids)
-             prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
+            prod_array = VirusProduction.where(:plasmid_tag => @production.cbtag)
             @vps = prod_array.pluck(:number).sort.join(',')
             @trigger = prod_array.count
       
             unless @production.clone_batches.empty?
-              if @trigger >= 1
+              if @trigger > 1
                 flash.discard(:success)
                 flash[:success] = "Task completed."
                 flash.keep[:warning] = "You did this before! This combination of plasmids already exists (virus # #{@vps}). Are you sure you want to do it again?"

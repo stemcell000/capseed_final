@@ -1,6 +1,8 @@
 <%= render 'components/prod_process_pills' %>
 	<div class="panel panel-info">
-		<div class="panel-heading"> Production: <%= @production.name %> (#<%=@production.id%>)</div>
+			<div class="panel-heading"><strong>Editing Prod.-<%=@production.id%> <%= "| Virus-#{@production.virus_productions.last.id}" unless @production.virus_productions.empty? %></strong>
+				<br />Name : <%= @production.name %>
+			</div>
 		<%= content_tag "div", id: "production_data_id", data:{production_data_id: @production.id.to_i} do %><%end%>
 		<div class="panel-body">
 				<div id="cb-container">

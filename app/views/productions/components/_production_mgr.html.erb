@@ -35,7 +35,7 @@
 	        		<span class="glyphicon glyphicon-ok text-success"></span>
 	        <%end%>
         <%end%><br />
-        	<strong><%= "Virus-#{p.virus_productions.last.id}" unless p.virus_productions.empty?%></strong>
+        	<strong><%= "Virus-#{p.virus_productions.last.number}" unless p.virus_productions.empty?%></strong>
     		    	
         </td>
         <td class="col-lg-2 col-md-2 col-sm-2 <%= "bg-primary" unless p.virus_productions.empty? %>">

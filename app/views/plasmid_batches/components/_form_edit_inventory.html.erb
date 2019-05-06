@@ -24,7 +24,7 @@
 	</div>
 	<div class="row">
   		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 3).any? %>
+  			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 2).any? %>
   				<%= f.input :volume, :readonly => isInvolvedinOpenProds %>
   		</div>
   		<div class="col-lg-2 col-sm-2 col-md-2">

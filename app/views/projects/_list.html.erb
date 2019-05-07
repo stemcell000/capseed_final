@@ -14,7 +14,7 @@
 					<%= smart_listing.render object: p, partial: "projects/project", locals: {object: p} %>
 	        		</tr>
 	      	<% end %>
-	     <%= smart_listing.item_new colspan: 9, link: new_promoter_path(:object) %>
+	     <%= smart_listing.item_new colspan: 9, link: new_project_path(:object) %>
 	    </tbody>
 	  </table>
 	  <%= smart_listing.paginate %>

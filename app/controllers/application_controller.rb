@@ -42,10 +42,6 @@ end
       end
     end
   end
-  
-ActiveRecord::Base.connection.tables.each do |t|
-  ActiveRecord::Base.connection.reset_pk_sequence!(t)
-end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|

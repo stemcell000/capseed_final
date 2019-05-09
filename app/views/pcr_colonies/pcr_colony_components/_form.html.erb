@@ -47,7 +47,9 @@
 						<div class="col-lg-12">
 						   <strong>File</strong><br />
 						     	<%= f.simple_fields_for :qc_attachments do |a| %>	
-								<%= link_to File.basename(a.object.attachment.path ), a.object.attachment.to_s, :target => "_blank"%>
+								<%if a.object.attachment.present?%>
+									<%= link_to File.basename(a.object.attachment.path ), a.object.attachment.to_s, :target => "_blank"%>
+							    <%end%>
 							    <%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %> 
 							    <%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
 								<% end %>

@@ -64,7 +64,7 @@ class SequencingsController < ApplicationController
     #TUTO:Duplication totale (+association) sauf attachement
             cbseq = @sequencing.amoeba_dup
     #TUTO:association des attachement du sequencing modèle
-            @sequencing.qc_attachments.each do |a|
+           @sequencing.qc_attachments.each do |a|
                 cbseq.qc_attachments << a
             end
               cb.sequencings << cbseq

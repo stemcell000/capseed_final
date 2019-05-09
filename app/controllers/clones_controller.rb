@@ -370,7 +370,7 @@ if @clone.changed?
         #else
          # new_nb = 1
         #end
-        cb = CloneBatch.new(:temp_name => temp, :number => new_nb)
+        cb = CloneBatch.new(:temp_name => temp)
         
         cb.skip_name_validation = true
         cb.skip_type_validation = true

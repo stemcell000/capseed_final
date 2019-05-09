@@ -1,4 +1,4 @@
   	$("#flash-msg-container").html("")
   	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
   	$('#assay-modal').modal("hide");
-	<%= smart_listing_item :promoters, :create, @promoter, @promoter.valid? ? "projetcs/project" : "projects/form" %>
+	<%= smart_listing_item :promoters, :create, @project, @project.valid? ? "projects/project" : "projects/form" %>

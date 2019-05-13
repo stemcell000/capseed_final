@@ -89,7 +89,7 @@
 					
 			</div>
 			
-<%=f.simple_fields_for :dosages do |ff|%>
+<%= f.simple_fields_for :dosages do |ff| %>
 			<div class="form-group ui-front well">
 					<div class="row">
 									<div class="col-lg-4">
@@ -155,7 +155,8 @@
 									</div>
 					</div>
 							
-							
+					</div>
+					</div>
 								<%= ff.link_to_remove "Remove titer" %>
 				<%end%>
 		<div class="row">	

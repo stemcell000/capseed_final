@@ -19,13 +19,6 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch = CloneBatch.find(params[:id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-     
-      if CloneBatch.all.size > 0
-          n = CloneBatch.where.not(:nb => nil).last.nb
-          @nb = n+1
-          else
-            @nb = 1
-          end
   end
   
   def new
@@ -229,7 +222,6 @@ class CloneBatchesController < InheritedResources::Base
       #
       if  @clone_batch.valid?
           @clone_batch.update_columns(:strict_validation => 0)
-          #@clone_batch.update_columns(:number => @clone_batch.nb.to_s)
           if @clone
             @clone.clone_batches << @clone_batch
           end

@@ -24,13 +24,13 @@
 							<div class="form-group ui-front well">
 								<div class="row">
 								<div class="col-lg-3">
-									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%B %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
+									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%b %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
 								</div>
 								<div class="col-lg-3">
-									<%=ff.input :inactivation_atcc, :label => "Date of inact. ATCC)", :as => :string, :input_html => { :value => (ff.object.inactivation_atcc.strftime("%B %e, %Y") if ff.object.inactivation_atcc), "data-behaviour" => "datepicker" } %>
+									<%=ff.input :inactivation_atcc, :label => "Date of inact. ATCC)", :as => :string, :input_html => { :value => (ff.object.inactivation_atcc.strftime("%b %e, %Y") if ff.object.inactivation_atcc), "data-behaviour" => "datepicker" } %>
 								</div>
 								<div class="col-lg-3">
-									<%=ff.input :inactivation_standard, :label => "Date of inact. standard", :as => :string, :input_html => { :value => (ff.object.inactivation_standard.strftime("%B %e, %Y") if ff.object.inactivation_standard), "data-behaviour" => "datepicker" } %>
+									<%=ff.input :inactivation_standard, :label => "Date of inact. standard", :as => :string, :input_html => { :value => (ff.object.inactivation_standard.strftime("%b %e, %Y") if ff.object.inactivation_standard), "data-behaviour" => "datepicker" } %>
 								</div>
 							</div>
 							<div class="row">

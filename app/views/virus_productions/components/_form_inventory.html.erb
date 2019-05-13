@@ -89,7 +89,7 @@
 					
 			</div>
 			
-<%= f.simple_fields_for :dosages do |ff| %>
+<%=f.simple_fields_for :dosages do |ff|%>
 			<div class="form-group ui-front well">
 					<div class="row">
 									<div class="col-lg-4">
@@ -106,7 +106,6 @@
 										<div class="help-block">As Year + number (yy-##)</div>
 									</div>
 					</div>
-					
 					<div class="row">
 								<div class="col-lg-3">
 									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%B %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
@@ -155,9 +154,10 @@
 									</div>
 					</div>
 							
-					</div>
-					</div>
+							
 								<%= ff.link_to_remove "Remove titer" %>
+					</div>
+				</div>
 				<%end%>
 		<div class="row">	
 			<div class="col-lg-12">

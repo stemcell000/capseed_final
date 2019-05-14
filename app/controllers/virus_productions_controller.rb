@@ -83,9 +83,7 @@ class VirusProductionsController < InheritedResources::Base
   
   def create
         @vp = VirusProduction.create(virus_production_params)
-          n = VirusProduction.last.number.to_i
       if  @vp.valid?
-          @vp.update_columns(:number => @vp.nb.to_s)
           flash.keep[:success] = "Task completed!"
       else
           render :action => :new

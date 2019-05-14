@@ -7,10 +7,15 @@
 			<% if ff.object.id.nil? %>
 			
 				<div class="row">
-				<% if ff.object.id.nil? %>
+							<% unless VirusProduction.last.nil?%>
+						     	<% n = VirusProduction.maximum("nb")+1 %>
+					     	<%else%>
+					     		<% n = 1 %>
+					     	<%end%>
 					<div class="col-lg-4">
-						<%= ff.input :nb, :input_html => { :value => VirusProduction.last.nil? ? 1 : VirusProduction.last.nb+1 }, :readonly => true%>
-						<%= ff.input :nb, :input_html => { :value => VirusProduction.last.nil? ? 1 : VirusProduction.last.nb+1 }, :as => :hidden %>
+						<%= ff.input :nb, :input_html => { :value => n }, :readonly => true%>
+						<%= ff.input :nb, :input_html => { :value => n }, :as => :hidden%>
+						<%= ff.input :number, :input_html => { :value => n.to_s }, :as => :hidden %>
 					</div>
 				<div class="col-lg-5">
 						<%= ff.input :date_of_production, :label => "Date of production:", :as => :string, :input_html => { :value => (ff.object.date_of_production.strftime("%B %e, %Y") if ff.object.date_of_production), "data-behaviour" => "datepicker" } %>
@@ -69,4 +74,3 @@
 		  <%end%>
 		<%end%>
 	</small>
-<%end%>

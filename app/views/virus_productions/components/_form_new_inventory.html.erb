@@ -7,7 +7,16 @@
 			<%= f.input :id, :as => :hidden %>
 			<div class="row">
 				<div class="col-lg-2">
-					<%=f.input :number, :readonly => true %>
+					<% unless VirusProduction.nil? %>
+						<% n = VirusProduction.maximum("nb")+1 %>
+					 <%else%>
+					     <% n = 1 %>
+					 <%end%>
+					  
+					<%= f.input :nb, :input_html => { :value => n }, :readonly => true%>
+					<%= f.input :nb, :input_html => { :value => n }, :as => :hidden%>
+					<%= f.input :number, :input_html => { :value => n.to_s }, :as => :hidden %>
+					
 					</div>
 				<div class="col-lg-2" >
 							<strong>Associated plasmids :</strong>

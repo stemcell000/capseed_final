@@ -4,11 +4,8 @@
 <table class="table table-bordered table-hover" id="sortable">
   <thead>
     <tr>
-      <th class="col-name col col-lg-1">
+      <th class="col-name col">
         Construction
-      </th>
-      <th class="col-startdate col-lg-2">
-        Start date
       </th>
        <th  class="col-step">
         Step
@@ -20,12 +17,12 @@
   <tbody>
     <% @assays.each do |assay| %>
       <tr data-item-id=<%= assay.id %> class="item">
-        <td id="clone_collection" class="col-lg-3">
+        <td id="clone_collection" class="col-lg-1">
           <small><%= clone_display(assay.clones) %></small>
         </td>
-      	<td id="startdate" class="col-lg-2"%>
-          <%= assay.created_at.strftime("%d %b %y at %H:%M") %>
-         </td>
+        <td id="step" class=<%= formatStep(assay.step, assay.id)[:step_class] %>>
+          <%= link_to formatStep(assay.step, assay.id)[:step_name], formatStep(assay.step, assay.id)[:step_path] %>
+        </td>
          <td id="laststep" class=<%= formatStep(assay.last_step, assay.id)[:step_class] %>>
           <%= link_to formatStep(assay.last_step, assay.id)[:step_name], formatStep(assay.last_step, assay.id)[:step_path] %>
         </td>

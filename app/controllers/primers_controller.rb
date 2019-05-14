@@ -48,7 +48,7 @@ end
   
   private
    def primer_params
-      params.require(:primer).permit(:id, :name, :sequence, :_destroy, :available)
+      params.require(:primer).permit(:id, :name, :sequence, :_destroy, :available, :comment)
    end
    
    def find_primer

@@ -26,9 +26,6 @@
       	<td id="startdate" class="col-lg-2"%>
           <%= assay.created_at.strftime("%d %b %y at %H:%M") %>
          </td>
-        <td id="step" class=<%= formatStep(assay.step, assay.id)[:step_class] %>>
-          <%= link_to formatStep(assay.step, assay.id)[:step_name], formatStep(assay.step, assay.id)[:step_path] %>
-        </td>
          <td id="laststep" class=<%= formatStep(assay.last_step, assay.id)[:step_class] %>>
           <%= link_to formatStep(assay.last_step, assay.id)[:step_name], formatStep(assay.last_step, assay.id)[:step_path] %>
         </td>

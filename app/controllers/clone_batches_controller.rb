@@ -38,6 +38,10 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.skip_strict_validation = true
     
     @clone_batch.update_attributes(clone_batch_params)
+    if @clone_batch.name.blank? 
+      @clone_batch.update_columns(:nb => nil)
+      @clone_batch.update_columns(:number => "")
+    end
     @clone = Clone.find(params[:clone_id])
     @clone_batches = @clone.clone_batches
       if @clone_batch.valid?

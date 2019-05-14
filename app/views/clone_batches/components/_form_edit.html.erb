@@ -17,7 +17,7 @@
 					     	<% unless CloneBatch.last.nil?%>
 						     	<% n = CloneBatch.where.not(:name => nil).last.nb+1 %>
 					     	<%else%>
-					     		<% n %>
+					     		<% n = 1 %>
 					     	<%end%>
 					     	<%= f.input :nb, :input_html => { :value => n }, :readonly => true%>
 							<%= f.input :nb, :input_html => { :value => n }, :as => :hidden %>

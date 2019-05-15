@@ -25,7 +25,7 @@
   <tbody>
     <% @productions.each do |p| %>
       <tr data-item-id=<%= p.id %> class="item">
-        <td id="id" class="col-lg-1 col-md-1 col-sm-1 <%= "bg-primary" unless p.virus_productions.empty? %>">
+        <td id="id" class=" <%= "bg-primary" unless p.virus_productions.empty? %>">
         	<strong>Prod.-<%= p.id %></strong>
 	    <%unless p.last_step > 1%>
 	        	<%busy_batches =[]%>
@@ -38,10 +38,10 @@
         	<strong><%= "Virus-#{p.virus_productions.last.number}" unless p.virus_productions.empty?%></strong>
     		    	
         </td>
-        <td class="col-lg-2 col-md-2 col-sm-2 <%= "bg-primary" unless p.virus_productions.empty? %>">
+        <td class=" <%= "bg-primary" unless p.virus_productions.empty? %>">
         	<small><%=p.name%></small>
         </td>
-        <td class="text-justify col-lg-3 col-md-3 col-sm-3 <%= "bg-primary" unless p.virus_productions.empty? %>">
+        <td class=" <%= "bg-primary" unless p.virus_productions.empty? %>">
 	        	<%if p.clone_batches.empty?%>
 	        	-
 	        	<%else%>
@@ -50,7 +50,7 @@
 	        	<%end%>
         	<%end%>
         </td>
-        <td class="text-justify col-lg-1 col-md-1 col-sm-2 <%= "bg-primary" unless p.virus_productions.empty? %>">
+        <td class=" <%= "bg-primary" unless p.virus_productions.empty? %>">
         		<%if p.plasmid_batches.empty?%>
 	        	-
 	        	<%else%>
@@ -59,7 +59,7 @@
 				<%end%>
         		<%end%>
         	</td>
-           <td id="Exp. end" class="col-lg-1 col-md-1 col-sm-1 <%= "bg-primary" unless p.virus_productions.empty? %>">
+           <td id="Exp. end" class=" <%= "bg-primary" unless p.virus_productions.empty? %>">
           <small><%=p.order_date.nil? ? "-" : p.order_date.strftime("%d %b %y") %></small>
          </td>
         <td class="<%= "bg-primary" unless p.virus_productions.empty? %>">

@@ -3,10 +3,12 @@ class Assay < ActiveRecord::Base
   #pg_search
   include PgSearch
   multisearchable :against => [ :name, :step, :last_step, :created_at, :id, :locked ]
-
+  
+  scope :on_going,-> {where("last_step < ?", 8)}
+  
   #order
   include RankedModel
-  ranks :row_order
+  ranks :row_order, :scope => :on_going
   
   #Nested models relationships
   #-> { uniq } empêche l'enregistrement de duplicats identifiés par l'id de clone, ici.

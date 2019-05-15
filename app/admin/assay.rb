@@ -20,11 +20,12 @@ index do
   column :last_step
   column :created_at
   column :updated_at
+  column :row_order
 
   actions
  end
  
-permit_params :list, :of, :attributes, :on, :model, :id, :name, :display, :step, :last_step, :created_at, :updated_at
+permit_params :list, :of, :attributes, :on, :model, :id, :name, :display, :step, :last_step, :created_at, :row_order_position, :updated_at
 
 #Add Button to site
 action_item do

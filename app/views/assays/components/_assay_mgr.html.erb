@@ -17,15 +17,16 @@
   <tbody>
     <% @assays.each do |assay| %>
       <tr data-item-id=<%= assay.id %> class="item">
-        <td>
-          <small>
+        <td class="text-align-left">
+          <small><strong>
 			  <% unless assay.clones.empty? %>
 			    <% assay.clones.order(:id).each do |c|%>
-			    	<%= c.id%> | <%= c.name%><br />
+			    <span class="text-primary"><%= c.id%></span> | <%= c.name%><br />
 			    	<%end%>
 			  <%else%>
 			    "Add a construction!"
 			  <%end%>
+			  </strong>
           </small>
         </td>
          <td>

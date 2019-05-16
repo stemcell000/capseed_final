@@ -1,5 +1,6 @@
 <small>
-<% @cb_collection.each do |cb| %><!--loop1-->
+<% cb_collection = clone.clone_batches.where.not(:name => nil).order(:id) %>
+<% cb_collection.each do |cb| %><!--loop1-->
 
 	<% pbl = cb.plasmid_batches.length %>
 	
@@ -24,7 +25,7 @@
 						<div class="row">
 								<div class="col-lg-1">
 									<%if !cb.plasmid_batches.empty?%>
-										<%= link_to "Add QC protocol for all", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id), :class => "btn btn-info btn-xs", :remote => true, :disabled => @assay.locked %>
+										<%= link_to "Add QC protocol for all", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id ), :class => "btn btn-info btn-xs", :remote => true, :disabled => @assay.locked %>
 									<%end%>
 								</div>
 						</div>

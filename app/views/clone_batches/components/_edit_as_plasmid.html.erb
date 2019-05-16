@@ -8,10 +8,10 @@
 		<%= f.input :id, :label =>"id", :as => :hidden %>
 		<div class="row">
 			<div class="col-lg-2">
-				<%= f.input :name%>
+				<%= f.input :name, :readonly => true %>
 			</div>
 			<div class="col-lg-2">
-				<%= f.input :temp_name%>
+				<%= f.input :temp_name, :readonly => true%>
 			</div>
 			<div class="col-lg-1">
 				<%= f.input :number, :readonly => true%>

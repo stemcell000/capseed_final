@@ -210,7 +210,7 @@ def update_record_batch
  
   @clone.assign_attributes(clone_params)
   cb_generator
-     if @clone.valid?
+     if @clone.save(validate: false)
        flash.keep[:success] = "Task completed!"
        @clone.save
       else
@@ -375,7 +375,7 @@ if @clone.changed?
         cb.skip_name_validation = true
         cb.skip_type_validation = true
         
-        if cb.save
+        if cb.save(validate: false)
           @clone.clone_batches << cb
          else
            flash.keep[:danger] = "Nothing happened!"

@@ -34,17 +34,14 @@ class CloneBatchesController < InheritedResources::Base
   
   def update
     @clone_batch.skip_batch_validation = true
-    @clone_batch.skip_type_validation = true
+    #@clone_batch.skip_type_validation = true
     @clone_batch.skip_strict_validation = true
     
-    @clone_batch.update_attributes(clone_batch_params)
-    if @clone_batch.name.blank? 
-      @clone_batch.update_columns(:nb => nil)
-      @clone_batch.update_columns(:number => "")
-    end
-    @clone = Clone.find(params[:clone_id])
-    @clone_batches = @clone.clone_batches
-      if @clone_batch.valid?
+    @clone_batch.attributes = clone_batch_params
+    if @clone_batch.save(validate: false)
+      if @clone_batch.name.blank?
+        remove_plasmid_data
+      end
         flash.keep[:success] = "Task completed!"
       else
         render :action => 'edit'
@@ -104,7 +101,7 @@ class CloneBatchesController < InheritedResources::Base
     #effacement des données de plasmid uniquement
     @clone_batch.update_columns(:strand_id =>nil , :date_as_plasmid=>nil,
                                 :glyc_stock_box_as_plasmid=>nil, :origin_id=>nil, :type_id=>nil, 
-                                :comment_as_plasmid=>nil, :number => nil)
+                                :comment_as_plasmid=>nil, :number => nil, :nb => nil)
     #destruction des associations
     @clone_batch.clone_batch_as_plasmid_attachments.each do |cba|
       cba.update_columns(:attachment => nil)
@@ -112,6 +109,7 @@ class CloneBatchesController < InheritedResources::Base
     @clone_batch.clone_batch_attachments.destroy_all
     @clone_batch.genes.destroy_all
     @clone_batch.promoters.destroy_all
+    @clone_batch.plasmid_batches.destroy_all
     #destruction de l'insert correspondant
     @clone_batch.insert.destroy
   end

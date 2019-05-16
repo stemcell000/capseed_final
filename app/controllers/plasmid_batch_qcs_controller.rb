@@ -124,10 +124,10 @@ end
       @clone = Clone.find(params[:clone_id])
       @assay = Assay.find(params[:assay_id])
       @clones = @assay.clones.all
-      @cb_collection = []
-      @clones.each do |c|
-        @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-      end
+      #@cb_collection = []
+      #@clones.each do |c|
+       # @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
+      #end
     end
     
     def load_plasmid_batch_qc

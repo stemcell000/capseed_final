@@ -241,11 +241,21 @@ end
  #page plasmid_design
   def plasmid_design
      @clones = @assay.clones.order(:id)
-      @cb_collection = []
-    @clones.each do |c|
-      @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-    end
-      if @cb_collection.any? {|cb| !cb.name.blank?}
+      clone_ids = []
+      cb_collection = []
+      clone_ids = @clones.pluck(:id)
+      cb_collection = CloneBatch.joins(:clone).where(clones: {id: clone_ids})
+      
+      if @clones.any? {|c| c.clone_batches.where.not(:name => nil).size == 0 }
+        #
+        redirect_to :action => :clone_batch_qc
+        flash[:notice] = "Add a final name for each batch (click 'Rename')."
+        set_plasmid_validation(0, @assay)
+        set_strict_validation(1, @assay)
+        @assay.clones.update_all(:strict_validation => 1)
+        #
+      else
+        #
         @assay.update_columns(:step => 4)
         @assay.update_columns(:percentage => 50)
         update_last_step(@assay, 4)
@@ -253,29 +263,17 @@ end
         set_strict_validation(0, @assay)
         @assay.clones.update_all(:strict_validation => 0)
         #
-      else
-        #
-        redirect_to :action => :clone_batch_qc
-        flash[:notice] = "Add a final name for validated batch (click 'Rename')."
-        set_plasmid_validation(0, @assay)
-        set_strict_validation(1, @assay)
-        @assay.clones.update_all(:strict_validation => 1)
-        #
      end
   end
   
   def plasmid_batch
+    clone_ids= []
     @clones = @assay.clones.order(:id)
-      @cb_collection = []
-    @clones.each do |c|
-      @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-    end
-    if @cb_collection.empty?
-        flash[:notice] = "Add at least one plasmid."
-        redirect_to :action => :plasmid_design
-        set_plasmid_validation(0, @assay)
-        set_strict_validation(1, @assay)
-    elsif @cb_collection.any? {|cb| cb.strand.nil?}
+    clone_id = @clones.pluck(:id)
+    cb_collection = CloneBatch.joins(:clone).where(clones: {id: clone_ids}).where.not(nb: nil) 
+    switch = cb_collection.any?{|cb| cb.strand.nil? || cb.type.nil?}
+   
+    if cb_collection.any?{|cb| cb.strand.nil? || cb.type.nil?}
         flash[:notice] = "Complete information for each plasmid."
         redirect_to :action => :plasmid_design
         set_plasmid_validation(1, @assay)
@@ -291,36 +289,32 @@ end
   end
   
   def plasmid_batch_qc
-     @clones = @assay.clones.order(:id)
-      @cb_collection = []
-      
-      @clones.each do |c|
-          @cb_collection = c.clone_batches.where.not(:name => nil).order(:id) + @cb_collection
-       end
-       
-       pb_collection = []
-       
-      @cb_collection.each do |cb|
-        pb_collection = cb.plasmid_batches + pb_collection
-      end
     
-    if !pb_collection.empty?
+   @clones = @assay.clones.order(:id)
+   clone_ids= []
+   clone_batch_ids =[]
+   pb_collection = []
+     
+    @clones = @assay.clones.order(:id)
+    #Array des ids de clones de cet assay.
+    clone_ids = @clones.pluck(:id)
+    #collection de clone batches qui ont un numéros rattachés au clones.
+    cb_collection = CloneBatch.joins(:clone).where(clones: {id: clone_ids}).where.not(nb: nil)
+    
+    clone_batch_ids = cb_collection.pluck(:id) 
+       
+    if cb_collection.any? {|cb| cb.plasmid_batches.empty?}
+        flash[:notice] = "Add at least one batch for each plasmid."
+        redirect_to :action => :plasmid_batch
+    else 
        @assay.update_columns(:step => 6)
        @assay.update_columns(:percentage => 70)
        update_last_step(@assay, 6)
        set_plasmid_validation(1, @assay)
        set_strict_validation(0, @assay)
        @assay.clones.update_all(:strict_validation => 1)
-       
-    elsif @cb_collection.any? {|pb| !pb.name == ""}
-        flash[:notice] = "Complete information for each plasmid."
-        redirect_to :action => :plasmid_design
-            set_plasmid_validation(1, @assay)
-            set_strict_validation(0, @assay)
-    else 
-        flash[:notice] = "Add at least one batch."
-        redirect_to :action => :plasmid_batch
      end
+     
   end
   
   def close

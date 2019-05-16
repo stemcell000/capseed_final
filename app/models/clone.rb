@@ -77,5 +77,4 @@ def display_method
   "#{self.name} (#{self.id})"
 end
 
-  
 end

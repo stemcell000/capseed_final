@@ -52,7 +52,8 @@ class CloneBatch < ActiveRecord::Base
   
   validates :temp_name, :presence => true unless :skip_strict_validation
   validates :name, presence: true, uniqueness: true unless :skip_name_validation
-  validates :type, presence: true, uniqueness: true unless :skip_type_validation
+  validates :type, presence: true
+  validates :strand, presence: true
   validates :glyc_stock_box_as_plasmid, :strand, :presence => true unless :skip_batch_validation
   validates_format_of :name, :with => /(\w|\s)/, :multiline => true unless :skip_name_validation
    

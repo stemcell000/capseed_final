@@ -116,11 +116,11 @@ end
 
 def clone_display(collection)
    r = ""
-  if !collection.empty?
-    r = collection.order(:id).map {|c| c.name+" | "+c.id.to_s}.to_sentence
-  else
-    r="Add a construction!"
-  end
+    if !collection.empty?
+      r = collection.order(:id).map {|c| c.name+" | "+c.id.to_s}.to_sentence
+    else
+      r="Add a construction!"
+    end
   return r
 end
 
@@ -167,4 +167,5 @@ def pluralize_without_count(count, noun, text = nil)
     count == 1 ? "#{noun}#{text}" : "#{noun.pluralize}#{text}"
   end
 end
+
 

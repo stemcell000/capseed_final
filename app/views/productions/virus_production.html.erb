@@ -30,10 +30,10 @@
 		</div>
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
+		    	<% btn_name = @production.last_step < 3 ? "Close" : "Push"%>
 				<%= link_to 'Previous', add_plasmid_production_path, :class => "btn btn-default btn-sm" %>
-				<% if @production.last_step<3%>
-					<%= link_to 'Close', close_production_path, :class => "btn btn-default btn-sm" %>
-				<%end%>
+				<%= link_to btn_name, close_production_path, :class => "btn btn-default btn-sm" %>
+					
 		  	</div>
 	  	</div>
 

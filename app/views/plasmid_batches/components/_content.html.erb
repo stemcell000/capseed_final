@@ -1,4 +1,5 @@
-<% @cb_collection.each do |cb| %>
+<% cb_collection = clone.clone_batches.where.not(:name => nil).order(:id) %>
+<% cb_collection.each do |cb| %>
 	<% pbl = cb.plasmid_batches.length %>
 			<div class="panel panel-default">
 				<div class="panel-body">

@@ -1,28 +1,32 @@
 <small>
-	<% @cb_collection.each do |cb| %>
-	<div id="cb_container<%=cb.id%>">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-md-3">
-							<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
-						</div>
-						<div class="col-md-9">
-							<div class="row"><strong>Batches:</strong></div>
-							<div class="row">
-							<div class="col-md-12">
-								<div id="cb_container<%=cb.id%>">
-											<%= render :partial => "plasmid_batches/components/list_closed", :locals => {:clone => clone, :assay => @assay, :cb => cb} %>
-								</div>
-							</div><!--End of col-md-4-->
-					</div><!--End pf row-->
+<% if clone.clone_batches.where.not(:nb => nil) %>
+	<% clone.clone_batches.where.not(:nb=>nil).each do |cb| %>
+		<div id="cb_container<%=cb.id%>">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-3">
+								<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
+							</div>
+							<div class="col-md-9">
+								<div class="row"><strong>Batches:</strong></div>
+								<div class="row">
+								<div class="col-md-12">
+									<div id="cb_container<%=cb.id%>">
+												<%= render :partial => "plasmid_batches/components/list_closed", :locals => {:clone => clone, :assay => @assay, :cb => cb} %>
+									</div>
+								</div><!--End of col-md-4-->
+						</div><!--End pf row-->
+						
+					</div><!--End of panel body-->
 					
-				</div><!--End of panel body-->
-				
-			</div><!--End of row-->
-	
-		</div><!--End of panel-body-->
+				</div><!--End of row-->
 		
-	</div><!--End of panel-->
+			</div><!--End of panel-body-->
+			
+		</div><!--End of panel-->
+		<%end%>
+	<%else%>
+	Add plasmid!
 	<%end%>
 </small>

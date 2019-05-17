@@ -57,7 +57,6 @@ class ProductionsController < InheritedResources::Base
  def create
     #Create new production
     @projects_all = Project.all
-    
     @production = Production.create(production_params)
     
     if @production.valid?

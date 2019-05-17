@@ -64,6 +64,7 @@ end
      
       @row = @virus_batch.row
       @column = @virus_batch.column
+      
       if @row 
         @row.virus_batches.delete(@virus_batch)
       end

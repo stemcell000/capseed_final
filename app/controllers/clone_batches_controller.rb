@@ -142,16 +142,13 @@ class CloneBatchesController < InheritedResources::Base
      #Champs origins
       @origins_all = Origin.all.order(name: "asc").uniq
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
-          
+      
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
       @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil)
+    
     #Config de l'affichage des résultats.
       @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [20,30, 50, 100])  
-     
-     respond_to do |format|
-      format.js
-      format.html
-    end
+   
   end
   
   def edit_from_inventory

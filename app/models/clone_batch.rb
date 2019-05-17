@@ -72,6 +72,16 @@ class CloneBatch < ActiveRecord::Base
     self.uniq
   end
   
+  
+    def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |clone_batch|
+        csv << clone_batch.attributes.values_at(*column_names)
+      end
+    end
+  end
+  
   private
   
   def enable_strict_validation?

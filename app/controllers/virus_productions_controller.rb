@@ -41,6 +41,14 @@ class VirusProductionsController < InheritedResources::Base
     
       #Config de l'affichage des résultats.
       @all_vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [ 20, 30, 50, 100])  
+ 
+     respond_to do |format|
+      format.html
+      format.text
+      format.js
+      format.csv { send_data CloneBatch.to_csv(@clone_batches) }
+      format.xls
+    end
  end
  
  def edit

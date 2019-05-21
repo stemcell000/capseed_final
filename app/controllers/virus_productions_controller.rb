@@ -46,7 +46,7 @@ class VirusProductionsController < InheritedResources::Base
       format.html
       format.text
       format.js
-      format.csv { send_data CloneBatch.to_csv(@clone_batches) }
+      format.csv { send_data CloneBatch.to_csv(@vps) }
       format.xls
     end
  end

@@ -3,6 +3,10 @@ class CloneBatch < ActiveRecord::Base
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
   
+  #scopes
+  scope :from_productions, -> production_array {joins(:clone_batch_production).where(:clone_batch_production => {production_id: production_array}).order(:id)}
+  scope :by_production,  ->(production_id) { joins(:productions).where(productions: { id: production_id }) }
+  
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
@@ -72,10 +76,10 @@ class CloneBatch < ActiveRecord::Base
     self.uniq
   end
   
-  def self.to_csv(records= [], options = {})
+  def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
-      records.each do |clone_batch|
+      all.each do |clone_batch|
         csv << clone_batch.attributes.values_at(*column_names)
       end
     end

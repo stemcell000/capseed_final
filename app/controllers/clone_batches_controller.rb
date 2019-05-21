@@ -153,7 +153,7 @@ class CloneBatchesController < InheritedResources::Base
       format.html
       format.text
       format.js
-      format.csv { send_data CloneBatch.to_csv(@clone_batches) }
+      format.csv { send_data @clone_batches.to_csv }
       format.xls
     end
     

@@ -47,7 +47,14 @@ multisearchable :against => [ :comment, :id, :user, :clone_batches],
   virus_batches.where(:volume => 0).any?
  end
  
- 
+ def self.to_csv(records= [], options = {})
+  CSV.generate(options) do |csv|
+    csv << column_names
+    records.each do |virus_production|
+      csv << virus_production.attributes.values_at(*column_names)
+    end
+  end
+end
  
  #validations
  validates :date_of_production, :presence => true

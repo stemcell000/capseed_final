@@ -4,14 +4,14 @@
               xmlns:x="urn:schemas-microsoft-com:office:excel"
               xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
               xmlns:html="http://www.w3.org/TR/REC-html40">
-      <Worksheet ss:Name="Sheet1">
+      <Worksheet ss:Name="Plasmid">
         <Table>
           <Row>
             <Cell><Data ss:Type="String">ID</Data></Cell>
             <Cell><Data ss:Type="String">Name</Data></Cell>
             <Cell><Data ss:Type="String">Number</Data></Cell>
           </Row>
-          <% @clone_batches.each do |cb| %>
+          <% @clone_batches.order(:nb).group(:id).each do |cb| %>
               <Row>
                 <Cell><Data ss:Type="Number"><%= cb.id %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= cb.name %></Data></Cell>

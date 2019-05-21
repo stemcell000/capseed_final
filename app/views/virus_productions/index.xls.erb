@@ -19,7 +19,6 @@
               <Row>
                 <Cell><Data ss:Type="String"><%= vp.number %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= vp.production.id %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= (vp.production.projects.pluck(:name)-["Global project"]).to_sentence unless vp.production.nil? %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= vp.date_of_production.strftime("%b %e, %Y") unless vp.date_of_production.nil? %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= "#{vp.vol} #{vp.vol_unit.name}"unless vp.vol.nil? %> </Data></Cell>
                 <Cell><Data ss:Type="String"><%= "%.2e" %vp.dosages.last.titer_to_atcc+"vg/ml" unless vp.dosages.last.nil? %></Data></Cell>

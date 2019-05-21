@@ -1,0 +1,31 @@
+ <?xml version="1.0"?>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:html="http://www.w3.org/TR/REC-html40">
+      <Worksheet ss:Name="Sheet1">
+        <Table>
+          <Row>
+            <Cell><Data ss:Type="String">Number</Data></Cell>
+            <Cell><Data ss:Type="String">Production</Data></Cell>
+            <Cell><Data ss:Type="String">Projects</Data></Cell>
+            <Cell><Data ss:Type="String">Date of production</Data></Cell>
+            <Cell><Data ss:Type="String">Volume</Data></Cell>
+            <Cell><Data ss:Type="String">Titer to ATCC</Data></Cell>
+            <Cell><Data ss:Type="String">Number of batches</Data></Cell>
+          </Row>
+          <% @vps.each do |vp| %>
+              <Row>
+                <Cell><Data ss:Type="String"><%= vp.number %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= vp.production.id %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= (vp.production.projects.pluck(:name)-["Global project"]).to_sentence unless vp.production.nil? %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= vp.date_of_production.strftime("%b %e, %Y") unless vp.date_of_production.nil? %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= "#{vp.vol} #{vp.vol_unit.name}"unless vp.vol.nil? %> </Data></Cell>
+                <Cell><Data ss:Type="String"><%= "%.2e" %vp.dosages.last.titer_to_atcc+"vg/ml" unless vp.dosages.last.nil? %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= vp.virus_batches.count %></Data></Cell>
+              </Row>
+          <% end %>
+        </Table>
+      </Worksheet>
+    </Workbook>

@@ -263,6 +263,7 @@ Rails.application.routes.draw do
     patch :update_as_plasmid, :on => :member
     get :remove_plasmid_data, :on => :member
     get :add_pb_from_inventory, :on => :member
+    get :export
   end
   
   resources :plasmid_batches do

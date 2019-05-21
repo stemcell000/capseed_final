@@ -145,11 +145,20 @@ class CloneBatchesController < InheritedResources::Base
       
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
       @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil)
-    
+      
     #Config de l'affichage des résultats.
-      @clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [20,30, 50, 100])  
-   
+      @all_clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [20,30, 50, 100])  
+  
+    respond_to do |format|
+      format.html
+      format.text
+      format.js
+      format.csv { send_data CloneBatch.to_csv(@clone_batches) }
+      format.xls
+    end
+    
   end
+  
   
   def edit_from_inventory
       @clone_batch.skip_name_validation = false
@@ -158,7 +167,7 @@ class CloneBatchesController < InheritedResources::Base
       @units = Unit.all
       @users = User.all
    end
-   @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1, :inventory_validation => 1)
+      @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1, :inventory_validation => 1)
   end
   
   def update_from_inventory
@@ -331,5 +340,12 @@ class CloneBatchesController < InheritedResources::Base
       @promoters_all = Promoter.all.order(:name)
       @origins_all = Origin.all.order(:name)
     end
+    
+    def get_clone_batches_scope
+      clone_batches_scope = CloneBatch.all
+      clone_batches_scope = CloneBatch.search(params[:number]) if params[:number].present?
+      clone_batches_scope
+    end
+    
 end
 

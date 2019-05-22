@@ -34,21 +34,20 @@ class VirusProductionsController < InheritedResources::Base
      #Champs promoters
       @promoters_all = Promoter.all.order(name: "asc").uniq
       @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
-      #          
+      #Champs projects
+      @projects_all = Project.all.order(name: "asc").uniq
+      @projects_all = @projects_all.map{ |obj| [obj['name'], obj['id']] }  
+      #Champ Plasmid
+      @clone_batches_all = CloneBatch.all.order(name: "asc").uniq
+      @clone_batches_all = @clone_batches_all.map{ |obj| [obj['name'], obj['id']] }  
+        
       @q = VirusProduction.ransack(params[:q])
       
       @vps = @q.result.includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ])
     
       #Config de l'affichage des résultats.
-      @all_vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [ 20, 30, 50, 100])  
- 
-     respond_to do |format|
-      format.html
-      format.text
-      format.js
-      format.csv { send_data CloneBatch.to_csv(@vps) }
-      format.xls
-    end
+      @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {id: "desc"}, page_sizes: [ 20, 30, 50, 100])  
+
  end
  
  def edit

@@ -169,3 +169,4 @@ gem 'nprogress-rails'
   gem 'derailed', group: :development
   
 #
+gem 'fast_excel'

@@ -8,7 +8,6 @@
         <Table>
           <Row>
             <Cell><Data ss:Type="String">Number</Data></Cell>
-            <Cell><Data ss:Type="String">Production</Data></Cell>
             <Cell><Data ss:Type="String">Projects</Data></Cell>
 			<Cell><Data ss:Type="String">Plasmids </Data></Cell>
             <Cell><Data ss:Type="String">Date of production</Data></Cell>
@@ -20,7 +19,6 @@
           <% @vps.order(:nb).group(:id).each do |vp| %>
               <Row>
                 <Cell><Data ss:Type="String"><%= vp.number %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= vp.production.id %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= (vp.production.projects.pluck(:name)-["Global project"]).to_sentence unless vp.production.nil? %></Data></Cell>
 				<Cell><Data ss:Type="String"><%= vp.production.clone_batches.pluck(:nb).to_sentence%></Data></Cell>	
                 <Cell><Data ss:Type="String"><%= vp.date_of_production.strftime("%b %e, %Y") unless vp.date_of_production.nil? %></Data></Cell>

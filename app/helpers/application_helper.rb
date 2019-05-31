@@ -24,7 +24,7 @@ module ApplicationHelper
      myclass="nav-item"
     end
     return myclass
- end end
+ end 
 
   def title(page_title, show_title = true)
     @show_title = show_title
@@ -168,4 +168,4 @@ def pluralize_without_count(count, noun, text = nil)
   end
 end
 
-
+end

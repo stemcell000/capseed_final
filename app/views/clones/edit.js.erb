@@ -7,6 +7,7 @@
 		$("#inner-assay-modal").html("<%= escape_javascript( render'clones/components/clone_form_new' ) %>")
 		$("#assay-modal").modal("show")
 		$("ul.errors").html("")
+		
 <% if params[:id] %>
 	disableFormInputs(true);
 	console.log("Edit => Form disabled");

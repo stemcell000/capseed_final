@@ -11,9 +11,12 @@ ActiveAdmin.register PlasmidBatch do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-  #Strong parameters
- permit_params :list, :of, :attributes, :on, :model, :trash, :name, :volume
-   
+ 
+ #Strong parameters
+ permit_params :list, :of, :attributes, :on, :model, :trash, :name, :volume, :concentration,
+ :clone_batch_id, :unit_id, :format, :comment, :qc_validation, :strict_validation, :volume,
+ :vol_unit_id, :row_id, :column_id, :format_id, :name, :number, :user_id, :box_id, :date, :trash,
+ :barcode  
  
  #Import csv   
  active_admin_import validate: true,

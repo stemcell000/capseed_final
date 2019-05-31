@@ -34,25 +34,25 @@ ActiveAdmin.register PlasmidBatch do
     link_to "View Site", "/"
   end
   
- <%= semantic_form_for [:admin, @plasmid_batch], builder: ActiveAdmin::FormBuilder do |f| %>
-   <%= f.semantic_errors :state %>
-   <%= f.inputs do %>
-     <%= f.input :name %>
-     <%= f.input :clone_batch, as: :select, collection: CloneBatch.all.map{|cb| cb.nb+'|'+cb.name}, input_html: { class: "select2-select" }%>
-     <%= f.input :format %>
-     <%= f.input :concentration %>
-     <%= f.input :unit %>
-     <%= f.input :volume %>
-     <%= f.input :vol_unit %>
-     <%= f.input :box %>
-     <%= f.input :row %>
-     <%= f.input :column %>
-     <%= f.input :user, as: :select, collection: User.all.map{|u| u.firstname+' '+u.lastname} %>
-     <%= f.input :date %>
-     <%= f.input :trash %>
-     <%= f.input :barcode %>
-  <%end%>
-    <%= f.actions %>
-<%end%>
+  form do |f|
+    f.semantic_errors :state
+    f.inputs do 
+      f.input :name 
+      f.input :clone_batch, as: :select, collection: CloneBatch.all.map{|cb| cb.nb+'|'+cb.name}, input_html: { class: "select2-select" }
+      f.input :format 
+      f.input :concentration 
+      f.input :unit 
+      f.input :volume 
+      f.input :vol_unit 
+      f.input :box 
+      f.input :row 
+      f.input :column 
+      f.input :user, as: :select, collection: User.all.map{|u| u.firstname+' '+u.lastname} 
+      f.input :date 
+      f.input :trash 
+      f.input :barcode 
+    end
+     f.actions 
+  end
 
 end

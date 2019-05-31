@@ -100,7 +100,6 @@ gem 'nprogress-rails'
   
   #Multiselect mise en forme
   gem 'multi-select-rails'
-  
   #upload files
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
   gem "jquery-fileupload-rails"

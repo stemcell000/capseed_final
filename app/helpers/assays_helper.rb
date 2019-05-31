@@ -157,6 +157,12 @@ def formatDateEN(date)
   return date
 end
 
+ def formatDateToGantt(d)
+    if d
+    d.strftime("%Y, %-m, %-d")
+    end
+ end
+
 def detectDuplicates(a)
   pbs.select(:id).group(:id).having("count(*) > 1")
 end

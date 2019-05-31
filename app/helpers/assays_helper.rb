@@ -162,6 +162,10 @@ end
     d.strftime("%Y, %-m, %-d")
     end
  end
+ 
+  def round_up(n)
+   (n.to_f).ceil
+ end
 
 def detectDuplicates(a)
   pbs.select(:id).group(:id).having("count(*) > 1")

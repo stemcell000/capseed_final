@@ -38,7 +38,6 @@ ActiveAdmin.register PlasmidBatch do
     f.semantic_errors :state
     f.inputs do 
       f.input :name 
-      f.input :clone_batch, as: :select, collection: CloneBatch.all.where.not(name: nil).order(:nb).map{|cb| cb.number+" "+cb.name}, input_html: { class: "select2-select" }, value_method: :id
       f.collection_select :clone_batch_id, CloneBatch.all.where.not(name: nil).order(:nb), :id, :number
       f.input :format 
       f.input :concentration 

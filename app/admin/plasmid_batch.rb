@@ -48,7 +48,7 @@ ActiveAdmin.register PlasmidBatch do
       f.input :row 
       f.input :column 
       f.input :user, as: :select, collection: User.all
-      f.collection_select :user_id, User.all, :id, :full_name
+      f.collection_select :user_id, User.all.map{|u| u.full_name}, :id, :full_name
       f.input :date 
       f.input :trash 
       f.input :barcode 

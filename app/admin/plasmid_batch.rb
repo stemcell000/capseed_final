@@ -16,7 +16,7 @@ ActiveAdmin.register PlasmidBatch do
  permit_params :list, :of, :attributes, :on, :model, :trash, :name, :volume, :concentration,
  :clone_batch_id, :unit_id, :format, :comment, :qc_validation, :strict_validation, :volume,
  :vol_unit_id, :row_id, :column_id, :format_id, :name, :number, :user_id, :box_id, :date, :trash,
- :barcode  
+ :barcode, :user_attributes => [:id, :username, :firstname, :lastname, :full_name]  
  
  #Import csv   
  active_admin_import validate: true,
@@ -38,7 +38,7 @@ ActiveAdmin.register PlasmidBatch do
     f.semantic_errors :state
     f.inputs do 
       f.input :name 
-      f.input :clone_batch, as: :select, collection: CloneBatch.all.where.not(name: nil).order(:nb).map{|cb| cb.number+" "+cb.name}, input_html: { class: "select2-select" }
+      f.input :clone_batch, as: :select, collection: CloneBatch.all.where.not(name: nil).order(:nb).map{|cb| cb.number+" "+cb.name}, input_html: { class: "select2-select" }, value_method: :id
       f.input :format 
       f.input :concentration 
       f.input :unit 
@@ -47,7 +47,8 @@ ActiveAdmin.register PlasmidBatch do
       f.input :box 
       f.input :row 
       f.input :column 
-      f.input :user, as: :select, collection: User.all.map{|u| u.firstname+' '+u.lastname} 
+      f.input :user, as: :select, collection: User.all
+      f.collection_select :user_id, User.all, :id, :full_name
       f.input :date 
       f.input :trash 
       f.input :barcode 

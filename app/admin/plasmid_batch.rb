@@ -39,6 +39,7 @@ ActiveAdmin.register PlasmidBatch do
     f.inputs do 
       f.input :name 
       f.input :clone_batch, as: :select, collection: CloneBatch.all.where.not(name: nil).order(:nb).map{|cb| cb.number+" "+cb.name}, input_html: { class: "select2-select" }, value_method: :id
+      f.collection_select :clone_batch_id, CloneBatch.all.where.not(name: nil).order(:nb), :id, :number
       f.input :format 
       f.input :concentration 
       f.input :unit 
@@ -47,8 +48,7 @@ ActiveAdmin.register PlasmidBatch do
       f.input :box 
       f.input :row 
       f.input :column 
-      f.input :user, as: :select, collection: User.all
-      f.collection_select :user_id, User.all.map{|u| u.full_name}, :id, :full_name
+      f.collection_select :user_id, User.all.order(lastname: 'asc'), :id, :full_name
       f.input :date 
       f.input :trash 
       f.input :barcode 

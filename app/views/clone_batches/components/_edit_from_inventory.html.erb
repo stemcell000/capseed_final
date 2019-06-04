@@ -111,16 +111,16 @@
 		</div>
 		
 	</small>
-	<div class="row">
+		<div class="row">
 	 		<div class="btn-group pull-right" role="group" aria-label="...">
 	 			<div class="col-lg-4">
 	    			<%= f.submit "Save", :class => "btn btn-primary btn-sm" %>
 	    		</div>
 	    		<div class="col-lg-4">
-	        		<<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-danger"%>
+	        		<%= link_to "Cancel", :back, :class => "btn btn-default btn-sm", :remote => true %>
 	        	</div>
 	        </div>
-	  </div>
+	 </div>
 	</div>
 
 <%end%>

@@ -2,11 +2,6 @@
 	<%= f.error_notification %>
 	<small>
 	<%= f.input :id, :as => :hidden %>
-	<div class="row">
-		<div class="col-lg-3">
-			<%= f.object.production.id%> <%= "- #{f.object.production.name}" unless f.object.production.name.nil? %>
-		</div>
-	</div>
 				<%=f.simple_fields_for :dosages do |ff|%>
 				<div id="titer_container" class="col-lg-12">
 				<div class="row">

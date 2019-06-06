@@ -46,28 +46,6 @@ module ApplicationHelper
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
-  
-#Format name of step from number (assay only)
-def stepToString(step_id)
- @hash ={}
-  case step_id
-  when 0
-    s = "Clone design"
-  when 1
-    s = "Clone batch"
-  when 2
-    s = "Plasmid design"
-  when 3
-    s = "Plasmid batch"
-   when 4
-    s = "Plasmid batch QC"
-  when 5
-    s = "Closing"
-  when 7
-    s = "Completed"
-   end 
-   return s
-end
 
 #Format name of step from number (production only)
 def stepToStringProd(step_id)
@@ -91,16 +69,6 @@ def formatDate(d)
    end
 end
 
- def formatDateToGantt(d)
-    if d
-    d.strftime("%Y, %-m, %-d")
-    end
- end
- 
- def round_up(n)
-   (n.to_f).ceil
- end
- 
  def cb_display(collection)
   r = ""
   

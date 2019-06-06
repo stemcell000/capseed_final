@@ -81,6 +81,23 @@ def stepToString(step_id)
        end 
       return s
   end
+ 
+ #Format name of step from number (production only)
+
+def stepToStringProd(step_id)
+
+  case step_id
+  when 0
+    s = "Creation"
+  when 1
+    s = "Production design"
+  when 2
+    s = "Virus Production"
+  when 3
+    s = "Closed"
+   end 
+   return s
+end
   
    def stringToStep(label)
     case label

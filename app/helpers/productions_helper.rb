@@ -1,4 +1,5 @@
 module ProductionsHelper
+  
 def top_menu_prod
     [
       "On-going productions" , productions_path,
@@ -95,5 +96,38 @@ def volume_checker(u,v)
   end
   return str
 end
+
+#Format name of step from number (production only)
+
+def stepToStringProd(step_id)
+
+  case step_id
+  when 0
+    s = "Creation"
+  when 1
+    s = "Production design"
+  when 2
+    s = "Virus Production"
+  when 3
+    s = "Closed"
+   end 
+   return s
+end
+
+def formatDate(d)
+   if d
+    d.strftime("%h %e, %Y ")
+   end
+end
+
+ def formatDateToGantt(d)
+    if d
+    d.strftime("%Y, %-m, %-d")
+    end
+ end
+ 
+ def round_up(n)
+   (n.to_f).ceil
+ end
   
 end

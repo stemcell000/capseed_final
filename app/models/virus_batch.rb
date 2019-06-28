@@ -12,7 +12,7 @@ class VirusBatch < ActiveRecord::Base
   
   #validations
   validates :name, :volume, :vol_unit_id, :box_id, :presence => true
-  validates :name, :uniqueness => {message: "This name is already taken."}
+ # validates :name, :uniqueness => {message: "This name is already taken."}
   
 def set_tube_status
   str = self.volume == 0 ? (self.trash? ? "/images/empty-med.png" : "/images/trash.png") : "/images/full-med.png"

@@ -16,12 +16,12 @@ ActiveAdmin.register VirusBatch do
               headers_rewrites: { 'box' => :box_id},
               before_batch_import: ->(importer) {
    
-                VirusBatch.where(id: importer.values_at('id')).delete_all
+                #VirusBatch.where(id: importer.values_at('id')).delete_all
                 
-               # box_names = importer.values_at(:box_id)
-               # boxes   = Box.where(name: box_names).pluck(:name, :id)
-               # options = Hash[*boxes.flatten]
-               # importer.batch_replace(:box_id, options)
+                box_names = importer.values_at(:box_id)
+                boxes   = Box.where(name: box_names).pluck(:name, :id)
+                options = Hash[*boxes.flatten]
+                importer.batch_replace(:box_id, options)
                 
               },
               batch_size: 1000

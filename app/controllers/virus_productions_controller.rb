@@ -20,6 +20,8 @@ class VirusProductionsController < InheritedResources::Base
       end_prod_time = params[:date_of_production_lteq].to_date rescue Date.current
       end_prod_time = end_prod_time.end_of_day # sets to 23:59:59
       
+      @option = current_user.options.first
+      
     #Champ select pour "step" (champ de Production) et "projects" 
     
       @users_all = User.all.order(lastname: "asc").uniq
@@ -44,11 +46,21 @@ class VirusProductionsController < InheritedResources::Base
       @q = VirusProduction.ransack(params[:q])
       
       @vps = @q.result.includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ])
-    
+      
+      if current_user.options.first.display_all_virus
+         @vps = @vps.limit(200)    
+      end
+      
       #Config de l'affichage des résultats.
       @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [ 20, 30, 50, 100])  
 
  end
+ 
+def display_all_virus_switch
+  @option = current_user.options.first
+  @option.toggle!(:display_all_virus)
+  redirect_to :index
+end 
  
  def edit
  end
@@ -119,7 +131,7 @@ class VirusProductionsController < InheritedResources::Base
   private
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :number, :nb, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
+    params.require(:virus_production).permit(:id, :number, :nb, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :hidden,
     :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_name, :_destroy, :remove_dosage,
       :inactivation, :inactivation_atcc, :inactivation_standard, :accepted],

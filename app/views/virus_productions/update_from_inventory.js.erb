@@ -1,4 +1,4 @@
-<%= smart_listing_item :virus_productions, :update, @virus_productionp, @virus_production.valid? ? "virus_productions/smart_listing/vp" : "virus_productions/components/form_inventory" %>
+<%= smart_listing_item :virus_productions, :update, @virus_production, @virus_production.valid? ? "virus_productions/smart_listing/vp" : "virus_productions/components/form_inventory" %>
 
 		$(".select2-select").select2({
 		    theme: "bootstrap",
@@ -20,3 +20,4 @@ $(document).on('nested:fieldAdded', function(event){
 
 //Popover
  $('[data-toggle="popover"]').popover({html:true});
+ $('#virus_production_search').submit();

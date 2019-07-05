@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190423102437) do
+ActiveRecord::Schema.define(version: 20190705074341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20190423102437) do
     t.integer  "nb"
     t.integer  "dismissed",                 default: 0
     t.integer  "plasmid_batches_count",     default: 0,     null: false
+    t.boolean  "hidden"
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
@@ -261,6 +262,16 @@ ActiveRecord::Schema.define(version: 20190423102437) do
   end
 
   add_index "inserts", ["clone_batch_id"], name: "index_inserts_on_clone_batch_id", using: :btree
+
+  create_table "options", force: :cascade do |t|
+    t.integer  "user_id"
+    t.boolean  "display_hidden_virus"
+    t.boolean  "display_all_virus"
+    t.boolean  "display_all_clone_batch"
+    t.boolean  "display_hidden_clone_batch"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "origins", force: :cascade do |t|
     t.string   "name"
@@ -590,6 +601,7 @@ ActiveRecord::Schema.define(version: 20190423102437) do
     t.integer  "nb"
     t.string   "genes_tag"
     t.string   "promoters_tag"
+    t.boolean  "hidden"
   end
 
   add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree

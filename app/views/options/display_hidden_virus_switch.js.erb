@@ -1,0 +1,4 @@
+console.debug('checkbox submitting');
+$('#display-hidden-container').html("<%= escape_javascript( render :partial => "virus_productions/components/toggle_display_hidden" , :locals => { :option => @option }) %>");
+console.debug('refreshing checkbox');
+$('#virus_production_search').submit();

@@ -1,17 +1,22 @@
 class User < ActiveRecord::Base
+  
+  after_create :create_option
+  
   has_many :virus_productions
   has_many :assays
   has_many :plasmid_batches
   has_many :sequencings
   has_many :pcr_colonies
   has_many :dosages
+  has_many :options
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
   accepts_nested_attributes_for :plasmid_batches, :allow_destroy => true
   accepts_nested_attributes_for :sequencings
   accepts_nested_attributes_for :dosages
-
+  accepts_nested_attributes_for :options
+  
   has_many :plasmid_batch_qcs
   accepts_nested_attributes_for :virus_productions
   
@@ -100,5 +105,11 @@ class User < ActiveRecord::Base
    def dependencies
      self.virus_productions.empty? || self.assays.empty? ||self.plasmid_batches.empty? || self.sequencings.empty? || self.pcr_colonies.empty || self.dosages.empty?
    end
+   
+   private
+   
+     def create_option
+      self.options.create(:display_all_virus => false, :display_all_clone_batch => false, :display_hidden_virus => false, :display_hidden_clone_batch => false)
+    end
    
 end

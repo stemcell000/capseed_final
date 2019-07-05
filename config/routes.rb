@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  resources :options do
+   patch :display_all_virus_switch, :on => :member
+   patch :display_hidden_virus_switch, :on => :member
+   patch :display_hidden_clone_batch_switch, :on => :member
+  end
   devise_for :users do
     get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
   end

@@ -39,8 +39,10 @@
 	    <tbody>
 	    	 <% unless smart_listing.empty? %>
 		  	<% smart_listing.collection.to_a.uniq.each do |s| %>
+		  	<% unless s.hidden & !current_user.options.first.display_hidden_clone_batch %>
 	      		<tr class="editable" data-id = "<%= s.id %>">
 	          		<%= smart_listing.render object: s, partial: "clone_batches/smart_listing/clone_batch", locals: {object: s} %>
+	        	<%end%>
 	        		</tr>
 	      	<% end %>
 	     <%end%>

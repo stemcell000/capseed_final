@@ -8,7 +8,8 @@
 			<div class="row">
 				<div class="col-lg-2">
 					<%=f.input :number, :readonly => true %>
-					</div>
+					<%=f.input :hidden, :as => :boolean, :label => "Hide" %>
+				</div>
 				<div class="col-lg-2" >
 							<strong>Associated plasmids :</strong>
 				</div>

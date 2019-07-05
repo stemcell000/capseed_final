@@ -124,6 +124,8 @@ class CloneBatchesController < InheritedResources::Base
         end_time = params[:created_at_lteq].to_date rescue Date.current
         end_time = end_time.end_of_day # sets to 23:59:59
       
+      @option = current_user.options.first
+      
       #Recherche sur tables multiples.
         @q = CloneBatch.ransack(params[:q])
         
@@ -268,7 +270,7 @@ class CloneBatchesController < InheritedResources::Base
     def plasmid_params
       
       params.require(:clone_batch).permit(:id, :name, :number, :qc_validation, :clone_batch_id, :clone_id, :origin_id, :strand_id, :type_id, :assay_id, :plasmid_validation, :target_id ,:_destroy,
-      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name, :nb, :dismissed,
+      :strand_id, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment_as_plasmid, :production_id, :template, :temp_name, :nb, :dismissed, :hidden,
       
       :clone_batch_as_plasmid_attachments_attributes =>[:id,:clone_batch_id, :attachment, :remove_attachment, :_destroy],
      

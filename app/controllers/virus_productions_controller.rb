@@ -1,6 +1,6 @@
 class VirusProductionsController < InheritedResources::Base
  
-   before_action :virus_production_params, only:[:create, :update, :update_from_inventory]
+   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :add_vb_from_inventory, :spawn_dosage, :update, :update_from_inventory]
   
   #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -51,16 +51,14 @@ class VirusProductionsController < InheritedResources::Base
  end
  
  def edit
-   @vp = VirusProduction.find(params[:id])
  end
  
  def update
-   @vp = VirusProduction.find(params[:id])
-   @production = @vp.production
+   @production = @virus_production.production
    @vps = @production.virus_productions
    #
-   @vp.update_attributes(virus_production_params)
-    if @vp.valid?
+   @virus_production.update_attributes(virus_production_params)
+    if @virus_production.valid?
       flash.keep[:success] = "Task completed!"
     else
       render :action => 'edit'
@@ -69,28 +67,25 @@ class VirusProductionsController < InheritedResources::Base
   
   
   def edit_from_inventory
-      @vp = VirusProduction.find(params[:id])
       @users = User.all
   end
   
   def update_from_inventory
-      @vp = VirusProduction.find(params[:id])
-      @vp.update_attributes(virus_production_params)
+      @virus_production.update_attributes(virus_production_params)
   end 
   
   def destroy
-     @vp = VirusProduction.find(params[:id])
      @vps = VirusProduction.all
-     @vp.destroy
+     @virus_production.destroy
   end
   
   def new
-    @vp = VirusProduction.new
+    @virus_production = VirusProduction.new
   end
   
   def create
-        @vp = VirusProduction.create(virus_production_params)
-      if  @vp.valid?
+        @virus_production = VirusProduction.create(virus_production_params)
+      if  @virus_production.valid?
           flash.keep[:success] = "Task completed!"
       else
           render :action => :new
@@ -103,7 +98,6 @@ class VirusProductionsController < InheritedResources::Base
   end
   
   def create_dosage
-    @virus_production = VirusProduction.find(params[:id])
     production = @virus_production.production
     @vps = production.virus_productions
      @virus_production.update_attributes(virus_production_params)
@@ -115,7 +109,6 @@ class VirusProductionsController < InheritedResources::Base
   end
   
   def add_vb_from_inventory
-    @virus_production = VirusProduction.find(params[:id])
     @users = User.all
     @virus_production.virus_batches.build
     @virus_batches = @virus_production.virus_batches
@@ -134,7 +127,9 @@ class VirusProductionsController < InheritedResources::Base
     :virus_batches_attributes => [:id, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id, :date_of_thawing ])
   end
   
-
+ def set_virus_production
+   @virus_production = VirusProduction.find(params[:id])
+ end
  
 end
 

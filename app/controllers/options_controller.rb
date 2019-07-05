@@ -1,6 +1,6 @@
 class OptionsController < InheritedResources::Base
 
-before_action :set_option
+before_action :set_option, :except => []
 
 def display_all_virus_switch
   @option.toggle!(:display_all_virus)

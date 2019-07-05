@@ -1,8 +1,7 @@
 class OptionsController < InheritedResources::Base
 
-before_action :set_option, :only => [:display_all_virus_switch, :display_hidden_virus_switch, :display_hidden_clone_batch_switch]
-
 def display_all_virus_switch
+  @option = current_user.options.first
   @option.toggle!(:display_all_virus)
   respond_to do |format|
     format.js
@@ -10,6 +9,7 @@ def display_all_virus_switch
 end 
 
 def display_hidden_virus_switch
+  @option = current_user.options.first
   @option.toggle!(:display_hidden_virus)
   respond_to do |format|
     format.js
@@ -17,7 +17,8 @@ def display_hidden_virus_switch
 end  
 
 def display_hidden_clone_batch_switch
-  @option.toggle!(:display_hidden_clone_batch)
+  @option = current_user.options.first
+  @option.toggle!(:display_hidden_virus)
   respond_to do |format|
     format.js
   end
@@ -30,7 +31,7 @@ private
   end
     
   def set_option
-    @option = Option.find(params[:id])
+    @option = current_user.options.first
   end
 end
 

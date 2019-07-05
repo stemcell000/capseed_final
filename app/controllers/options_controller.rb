@@ -30,7 +30,7 @@ private
   end
     
   def set_option
-    @option = current_user.options.first
+    @option = Option.find(params[:id])
   end
 end
 

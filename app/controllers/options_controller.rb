@@ -18,7 +18,7 @@ end
 
 def display_hidden_clone_batch_switch
   @option = current_user.options.first
-  @option.toggle!(:display_hidden_virus)
+  @option.toggle!(:display_hidden_clone_batch)
   respond_to do |format|
     format.js
   end

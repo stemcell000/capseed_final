@@ -7,7 +7,7 @@ class CloneBatchesController < InheritedResources::Base
   autocomplete :clone_batch, :name
     
   before_filter :authenticate_user!
-  before_action :set_params, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
+  before_action :set_clone_batch, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
     :edit_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid,
     :update_as_plasmid, :remove_plasmid_data, :edit_from_prod, :remove_from_prod, :select_from_prod, :add_to_prod]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
@@ -245,7 +245,7 @@ class CloneBatchesController < InheritedResources::Base
   
   private
   
-    def set_params
+    def set_clone_batch
       @clone_batch = CloneBatch.find(params[:id])
     end
     

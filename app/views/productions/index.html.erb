@@ -1,17 +1,15 @@
 <% provide(:title, "Production Manager") %>
-
-<% content_for(:sidebar) do%>
-	<%= render :partial => "layout/sidebar" %>
-<%end%>
-
-	<div class="center" >
+	<div class="col-center" >
 		<div class="row expl">
 			
 			<div class="row">
-				<div class="col-lg-6 text-align-left">
+				<div class="col-lg-2 col-md-2 col-sm-3">
 					<%= link_to 'New Production', new_production_path, :class => "btn info prod_btn" %> 
 				</div>
-				<div class="col-lg-2 col-lg-offset-4">
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<%= link_to 'Search', "#", :class => "btn info prod_btn" %> 
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-9 text-right">
 					<%= link_to 'Push!', users_inform_production_path(@user), :class => "btn btn-success" %>
 				</div>
 			</div>

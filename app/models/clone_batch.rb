@@ -1,3 +1,5 @@
+require 'elasticsearch/model'
+
 class CloneBatch < ActiveRecord::Base
     
   #ActiveModel Dirty to track changes
@@ -110,3 +112,5 @@ class CloneBatch < ActiveRecord::Base
   }
 
 end
+
+#CloneBatch.import(force: true) # for auto sync model with elastic search

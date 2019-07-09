@@ -300,4 +300,7 @@ Rails.application.routes.draw do
   
   #Home
   root 'clone_batches#index'
+  
+  #Search
+  get 'search', to: 'search#search'
 end

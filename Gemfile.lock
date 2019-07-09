@@ -156,9 +156,24 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    elasticsearch (7.2.0)
+      elasticsearch-api (= 7.2.0)
+      elasticsearch-transport (= 7.2.0)
+    elasticsearch-api (7.2.0)
+      multi_json
+    elasticsearch-model (6.0.0)
+      activesupport (> 3)
+      elasticsearch (> 1)
+      hashie
+    elasticsearch-rails (6.0.0)
+    elasticsearch-transport (7.2.0)
+      faraday
+      multi_json
     erubis (2.7.0)
     excon (0.62.0)
     execjs (2.7.0)
+    faraday (0.15.4)
+      multipart-post (>= 1.2, < 3)
     fast_excel (0.2.6)
       ffi (> 1.9, < 2)
     ffi (1.11.1)
@@ -208,6 +223,7 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
+    hashie (3.6.0)
     heapy (0.1.4)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
@@ -264,6 +280,7 @@ GEM
     multi-select-rails (0.9.12)
       railties (>= 3.0)
     multi_json (1.12.1)
+    multipart-post (2.1.1)
     nested_form (0.3.2)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -420,6 +437,8 @@ DEPENDENCIES
   date_validator
   derailed
   devise
+  elasticsearch-model
+  elasticsearch-rails
   fast_excel
   figaro
   fog-aws

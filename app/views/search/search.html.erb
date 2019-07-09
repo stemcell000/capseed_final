@@ -1,0 +1,17 @@
+<%= form_for search_path, method: :get do |f| %>
+  <p>
+    <%= f.label "Search for" %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "Go", name: nil %>
+  </p>
+<% end %>
+
+<ul>
+  <% @clone_batches.each do |cb| %>
+    <li>
+      <h3>
+        <%= link_to article.title, controller: "clone_batches", action: "show", id: cb._id%>
+      </h3>
+    </li>
+  <% end %>
+</ul>

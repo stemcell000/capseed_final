@@ -1,7 +1,7 @@
 require 'elasticsearch/model'
 
 class CloneBatch < ActiveRecord::Base
-    
+    include Elasticsearch::Model
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
   

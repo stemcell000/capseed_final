@@ -1,9 +1,13 @@
 require 'elasticsearch/model'
 
 class CloneBatch < ActiveRecord::Base
-    include Elasticsearch::Model
+  
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
+  
   
   #scopes
   scope :from_productions, -> production_array {joins(:clone_batch_production).where(:clone_batch_production => {production_id: production_array}).order(:id)}
@@ -88,6 +92,17 @@ class CloneBatch < ActiveRecord::Base
   end
   
   
+  def as_indexed_json(options={})
+    as_json(
+      only: [:name, :number, :date_as_plasmid, :glyc_stock_box_as_plasmid, :comment, :comment_as_plasmid],
+      include: {
+        origin: {
+          only: [:name]
+        }
+      }
+    )
+  end
+  
   private
   
   def enable_strict_validation?
@@ -113,4 +128,4 @@ class CloneBatch < ActiveRecord::Base
 
 end
 
-#CloneBatch.import(force: true) # for auto sync model with elastic search
+ CloneBatch.__elasticsearch__.import(force: true) # for auto sync model with elastic search

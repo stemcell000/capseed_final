@@ -41,10 +41,12 @@ permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :
 
 
 #FOR DATA ANALYSIS
-csv do
-  column :id
-  column :titer_to_atcc
-  column :accepted
-  column :virus_production_id
-end
+  csv do
+    column :id
+    column :titer
+    column :titer_atcc
+    column :titer_to_atcc
+    column :accepted
+    column :virus_production_id
+  end
 end

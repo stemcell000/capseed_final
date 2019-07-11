@@ -10,7 +10,7 @@
   <% @clone_batches.each do |cb| %>
     <li>
       <h5>
-      <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
+      <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="right"
 			title='
 				<div class="row"> 
 					<div class="col-lg-12 text-left primary">
@@ -73,7 +73,7 @@
 			</small>
 			'
 		>
-			<span class="fa_icon fa fa-eye"></span>
+			<span><%=cb.number%> - <%=cb.name%></span>
 	</a>
 	</h5>
     </li>

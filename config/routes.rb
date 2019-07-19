@@ -180,10 +180,13 @@ Rails.application.routes.draw do
     get :set_pb_volume, :on => :member
     patch :update_pb_volume, :on => :member
     get :reset_volume, :on => :member
-      resources :plasmid_batches do
+    resources :plasmid_batches do
             get :edit_pb_volume, :on => :member
             patch :update_from_inventory, :on => :member 
-      end
+    end
+    
+    get :search, :on => :collection
+    get :search_virus, :on => :collection
     
     resources :projects
     
@@ -195,6 +198,7 @@ Rails.application.routes.draw do
     resources :clone_batches do
       get :edit_from_prod, :on => :member
     end
+    
    end
    
    
@@ -302,8 +306,4 @@ Rails.application.routes.draw do
   
   #Home
   root 'clone_batches#index'
-  
-  #Search
-  get 'search', to: 'search#search'
-  get 'search_virus', to: 'search#search_virus'
 end

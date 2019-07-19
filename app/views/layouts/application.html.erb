@@ -14,6 +14,12 @@
   	<%= include_gon(:watch => true) %>
   	<%= Gon::Base.render_data({}) %>
   	<%= render 'layouts/header' %>
+  	<% if params[:controller] == "productions"%>
+  	<div class="container" id = "searchbar-container">
+		<%= render :partial => 'productions/components/search' %>
+		</div>
+	</div>
+	<%end%>
   	<%= render :partial => 'components/modal_alt' %>
   	<%= render :partial => 'components/modal' %>
   	<%= render :partial => 'components/modal_pb' %>

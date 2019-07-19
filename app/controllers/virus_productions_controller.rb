@@ -1,10 +1,6 @@
 class VirusProductionsController < InheritedResources::Base
  
-<<<<<<< HEAD
-   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :add_vb_from_inventory, :spawn_dosage, :create_dosage, :update, :update_from_inventory]
-=======
-   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :hide_from_inventory, :add_vb_from_inventory, :spawn_dosage, :update, :update_from_inventory]
->>>>>>> sidebar
+   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :hide_from_inventory, :add_vb_from_inventory, :create_dosage, :spawn_dosage, :update, :update_from_inventory]
   
   #Smart_listing
   include SmartListing::Helper::ControllerExtensions

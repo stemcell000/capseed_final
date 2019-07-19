@@ -41,7 +41,7 @@ permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :
 
 
 #FOR DATA ANALYSIS
-<<<<<<< HEAD
+
   csv do
     column :id
     column :titer
@@ -50,7 +50,7 @@ permit_params  :id, :titer, :titer_atcc, :titer_to_atcc, :virus_production_id, :
     column :accepted
     column :virus_production_id
   end
-=======
+
 csv do
   column :id
   column :titer
@@ -59,5 +59,4 @@ csv do
   column :accepted
   column :virus_production_id
 end
->>>>>>> sidebar
 end

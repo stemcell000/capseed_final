@@ -72,9 +72,16 @@
 		>
 			<span class="fa_icon fa fa-eye"></span>
 	</a>
+	<% icon_hide = object.users.where(:id => current_user.id).exists? ? "fa_icon fa fa-eye-slash font-red" : "fa_icon fa fa-eye-slash" %>
+	
 	  	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_from_inventory_clone_batch_path(object),
 	  		title: "Edit"},
+	  	{name: :custom,    url: hide_from_inventory_clone_batch_path(object),
+	  		method: :patch,
+	  		remote: true,
+	  		title: "Hide",
+	  		icon: icon_hide},
 	  	{name: :custom,    url: add_pb_from_inventory_clone_batch_path(object),
 	  		method: :get, 
   			icon: "glyphicon glyphicon-th",

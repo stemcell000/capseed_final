@@ -13,6 +13,14 @@ class ProductionsController < InheritedResources::Base
   
   def index
     @productions = Production.where("last_step <?", 3 ).rank(:row_order).all
+    
+  if params[:q].nil?
+    @clone_batches = []
+    @virus_productions = []
+  else
+    @clone_batches = CloneBatch.search(params[:q]).records
+    @virus_productions = VirusProduction.search(params[:q]).records
+  end
       @productions.each do |p|
         if !p.locked
           p.update_columns(:today_date => Date.today)
@@ -367,6 +375,29 @@ class ProductionsController < InheritedResources::Base
 
   end
   
+def search
+  if params[:q].nil?
+    @clone_batches = []
+     @virus_productions = []
+  else
+    @clone_batches = CloneBatch.search(params[:q]).records
+    @virus_productions = VirusProduction.search(params[:q]).records
+  end
+  
+  respond_to do |format|
+    format.js
+    format.json
+  end
+end
+
+def search_virus
+  if params[:q].nil?
+   
+  else
+    
+  end
+end
+
 
   private
   

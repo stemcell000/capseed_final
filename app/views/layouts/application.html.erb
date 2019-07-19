@@ -9,9 +9,17 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
+  
+  
   	<%= include_gon(:watch => true) %>
   	<%= Gon::Base.render_data({}) %>
   	<%= render 'layouts/header' %>
+  	<% if params[:controller] == "productions"%>
+  	<div class="container" id = "searchbar-container">
+		<%= render :partial => 'productions/components/search' %>
+		</div>
+	</div>
+	<%end%>
   	<%= render :partial => 'components/modal_alt' %>
   	<%= render :partial => 'components/modal' %>
   	<%= render :partial => 'components/modal_pb' %>
@@ -20,68 +28,35 @@
     	<div id='flash-msg-container'>
 			<%= render partial: "layouts/flash_messages", :flash => flash %>
 		</div>
-<% if params[:controller] == "assays"%>
-<h4>Cloning manager</h4>
-<%elsif params[:controller] == "productions"%>
-<h4>Production manager</h4>
-<%end%>
 
 <%case params[:controller] %>
 		<% when "assays" || params[:controller] == "clones"%>
+		<h4>Cloning manager</h4>
 		<nav class="navbar-cloning" role="navigation">
     			<div class="collapse navbar-collapse navbar-cloning">
 				<%= render :partial => 'components/dynamic_menu' %>
 				<% provide(:title, "Cloning Manager") %>
 				</nav>
 				<div class="jumbotron container-fluid cloning-color" >
-					<div class="spinner">
-					  <div class="cube1"></div>
-					  <div class="cube2"></div>
-					</div>
-				     <%= yield %>
-				 </div>
 		<% when "productions" %>
+		<h4>Production manager</h4>
 		<nav class="navbar-production" role="navigation">
     			<div class="collapse navbar-collapse navbar-production">
 				<%= render :partial => 'components/dynamic_menu_prod' %>
 				<% provide(:title, "Production Manager") %>
 				</nav>
 				<div class="jumbotron container-fluid production-color" >
-					<div class="spinner">
-					  <div class="cube1"></div>
-					  <div class="cube2"></div>
-					</div>
-						<%= yield :sidebar%>
-				     	<%= yield %>
-				 </div>
 		<% when "clone_batches" %>
 				<div class="jumbotron container-fluid clone_batch-color" >
-					<div class="spinner">
-					  <div class="cube1"></div>
-					  <div class="cube2"></div>
-					</div>
-				      <%= yield %>
-				 </div>
-		
 		<% when "virus_productions" %>
 				<div class="jumbotron container-fluid virus_production-color" >
-					<div class="spinner">
-					  <div class="cube1"></div>
-					  <div class="cube2"></div>
-					</div>
-				      <%= yield %>
-				 </div>
 		<%else%>
 		<div class="jumbotron container-fluid white-bg" >
-					<div class="spinner">
-					  <div class="cube1"></div>
-					  <div class="cube2"></div>
-					</div>
-				      <%= yield %>
-				 </div>
 		<%end%>
-	
-
+				<div class="spinner">
+					</div>
+						     <%= yield %>
+				 </div>
  	</body>
  	<div>
  		<div class="col-lg-12">

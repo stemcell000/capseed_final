@@ -1,0 +1,15 @@
+<p>
+  <strong>Title:</strong>
+  <%= @clone_batch.number %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @clone_batch.name %>
+  <%= @clone_batch.temp_name %>
+  <%= @clone_batch.number %>
+  <%= @clone_batch.comment %>
+  <%= @clone_batch.comment_as_plasmid %>
+</p>
+
+<%= link_to '<- Back', productions_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190705160442) do
+ActiveRecord::Schema.define(version: 20190718143947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,7 +124,6 @@ ActiveRecord::Schema.define(version: 20190705160442) do
     t.integer  "nb"
     t.integer  "dismissed",                 default: 0
     t.integer  "plasmid_batches_count",     default: 0,     null: false
-    t.boolean  "hidden"
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
@@ -168,6 +167,16 @@ ActiveRecord::Schema.define(version: 20190705160442) do
 
   add_index "clone_batches_sequencings", ["clone_batch_id"], name: "index_clone_batches_sequencings_on_clone_batch_id", using: :btree
   add_index "clone_batches_sequencings", ["sequencing_id"], name: "index_clone_batches_sequencings_on_sequencing_id", using: :btree
+
+  create_table "clone_batches_users", force: :cascade do |t|
+    t.integer  "clone_batch_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clone_batches_users", ["clone_batch_id"], name: "index_clone_batches_users_on_clone_batch_id", using: :btree
+  add_index "clone_batches_users", ["user_id"], name: "index_clone_batches_users_on_user_id", using: :btree
 
   create_table "clones", force: :cascade do |t|
     t.integer  "assay_id"
@@ -265,12 +274,11 @@ ActiveRecord::Schema.define(version: 20190705160442) do
 
   create_table "options", force: :cascade do |t|
     t.integer  "user_id"
-    t.boolean  "display_hidden_virus"
+    t.boolean  "display_limited_virus"
     t.boolean  "display_all_virus"
     t.boolean  "display_all_clone_batch"
-    t.boolean  "display_hidden_clone_batch"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "origins", force: :cascade do |t|
@@ -562,6 +570,16 @@ ActiveRecord::Schema.define(version: 20190705160442) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+
+  create_table "users_virus_productions", force: :cascade do |t|
+    t.integer  "virus_production_id"
+    t.integer  "user_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "users_virus_productions", ["user_id"], name: "index_users_virus_productions_on_user_id", using: :btree
+  add_index "users_virus_productions", ["virus_production_id"], name: "index_users_virus_productions_on_virus_production_id", using: :btree
 
   create_table "virus_batches", force: :cascade do |t|
     t.string   "name"

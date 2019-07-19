@@ -8,26 +8,26 @@ def display_all_virus_switch
   end
 end 
 
-def display_hidden_virus_switch
+def display_all_clone_batch_switch
   @option = current_user.options.first
-  @option.toggle!(:display_hidden_virus)
+  @option.toggle!(:display_all_clone_batch)
   respond_to do |format|
     format.js
   end
-end  
+end
 
-def display_hidden_clone_batch_switch
+def display_limited_virus_switch
   @option = current_user.options.first
-  @option.toggle!(:display_hidden_clone_batch)
+  @option.toggle!(:display_limited_virus)
   respond_to do |format|
     format.js
   end
-end 
+end
 
 private
 
   def option_params
-    params.require(:option).permit(:id, :display_all_virus, :display_hidden_virus, :display_hidden_clone_batch)
+    params.require(:option).permit(:id, :display_all_virus, :display_all_clone_batch)
   end
     
   def set_option

@@ -20,8 +20,6 @@ class VirusProductionsController < InheritedResources::Base
       end_prod_time = params[:date_of_production_lteq].to_date rescue Date.current
       end_prod_time = end_prod_time.end_of_day # sets to 23:59:59
       
-      @option = current_user.options.first
-      
     #Champ select pour "step" (champ de Production) et "projects" 
     
       @users_all = User.all.order(lastname: "asc").uniq

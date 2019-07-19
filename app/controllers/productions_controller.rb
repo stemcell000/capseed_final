@@ -14,13 +14,30 @@ class ProductionsController < InheritedResources::Base
   def index
     @productions = Production.where("last_step <?", 3 ).rank(:row_order).all
     
-  if params[:q].nil?
-    @clone_batches = []
-    @virus_productions = []
+   #Plasmids cachés
+  unless current_user.options.first.display_all_clone_batch
+    hidden_plasmids_ids = CloneBatch.hidden_cbs(current_user).pluck(:id)
   else
-    @clone_batches = CloneBatch.search(params[:q]).records
-    @virus_productions = VirusProduction.search(params[:q]).records
+    hidden_plasmids_ids = []
   end
+  
+  #virus cachés
+  unless current_user.options.first.display_all_virus
+    hidden_virus_ids = VirusProduction.hidden_vps(current_user).pluck(:id)
+  else
+    hidden_virus_ids = []
+  end
+  
+if params[:q].blank?
+    @clone_batches = []
+     @virus_productions = []
+  else
+     @q = CloneBatch.ransack(params[:q])
+    @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil).where.not(:id => hidden_plasmids_ids).limit(10)
+    @p = VirusProduction.ransack(params[:q])
+    @virus_productions = @p.result.includes([:users, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ]).where.not(:id => hidden_virus_ids).limit(10)
+  end
+  
       @productions.each do |p|
         if !p.locked
           p.update_columns(:today_date => Date.today)
@@ -376,18 +393,30 @@ class ProductionsController < InheritedResources::Base
   end
   
 def search
+  #Plasmids cachés
+  unless current_user.options.first.display_all_clone_batch
+    hidden_plasmids_ids = CloneBatch.hidden_cbs(current_user).pluck(:id)
+  else
+    hidden_plasmids_ids = []
+  end
+  
+  #virus cachés
+  unless current_user.options.first.display_all_virus
+    hidden_virus_ids = VirusProduction.hidden_vps(current_user).pluck(:id)
+  else
+    hidden_virus_ids = []
+  end
+  
   if params[:q].nil?
     @clone_batches = []
      @virus_productions = []
   else
-    @clone_batches = CloneBatch.search(params[:q]).records
-    @virus_productions = VirusProduction.search(params[:q]).records
+     @q = CloneBatch.ransack(params[:q])
+    @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil).where.not(:id => hidden_plasmids_ids).limit(20)
+    @p = VirusProduction.ransack(params[:q])
+    @virus_productions = @p.result.includes([:users, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ]).where.not(:id => hidden_virus_ids).limit(20)
   end
   
-  respond_to do |format|
-    format.js
-    format.json
-  end
 end
 
 def search_virus

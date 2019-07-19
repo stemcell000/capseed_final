@@ -124,14 +124,12 @@ class CloneBatchesController < InheritedResources::Base
         end_time = params[:created_at_lteq].to_date rescue Date.current
         end_time = end_time.end_of_day # sets to 23:59:59
       
-      @option = current_user.options.first
-      
      
        #Plasmids cachés
       unless current_user.options.first.display_all_clone_batch
         hidden_plasmids_ids = CloneBatch.hidden_cbs(current_user).pluck(:id)
       else
-        hidden_plasmid_ids = []
+        hidden_plasmids_ids = []
       end
       
        #Recherche sur tables multiples.

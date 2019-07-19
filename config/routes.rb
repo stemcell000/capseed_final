@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   
   resources :options do
    patch :display_all_virus_switch, :on => :member
-   patch :display_hidden_virus_switch, :on => :member
-   patch :display_hidden_clone_batch_switch, :on => :member
+   patch :display_all_clone_batch_switch, :on => :member
+   patch :display_limited_virus_switch, :on => :member
   end
   devise_for :users do
     get "/users/sign_out" => "devise/sessions#destroy", :as => :destroy_user_session
@@ -202,6 +202,7 @@ Rails.application.routes.draw do
      get :edit_from_inventory, :on => :member
      get :add_vb_from_inventory, :on => :member
      patch :update_from_inventory, :on => :member
+     patch :hide_from_inventory, :on => :member
      resources :dosages, :on => :member
      get :spawn_dosage, :on => :member
      patch :create_dosage, :on => :member
@@ -261,6 +262,7 @@ Rails.application.routes.draw do
     end
     get :edit_as_plasmid, :on => :member
     get :edit_from_inventory, :on => :member
+    patch :hide_from_inventory, :on => :member
     get :new_from_inventory, :on => :new
     post :create_from_inventory, :on => :collection
     delete :destroy_from_inventory, :on => :member
@@ -303,4 +305,5 @@ Rails.application.routes.draw do
   
   #Search
   get 'search', to: 'search#search'
+  get 'search_virus', to: 'search#search_virus'
 end

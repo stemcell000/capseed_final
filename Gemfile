@@ -107,7 +107,7 @@ gem 'nprogress-rails'
   gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
   gem 'carrierwave-aws'
   gem 'remotipart'
-  gem 'mini_magick'
+  gem 'mini_magick','~> 4.9.4'
   gem 'date_validator'
   gem 'fog-aws'
   #Nécessaire pour installer AngularJS

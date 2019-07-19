@@ -1,6 +1,6 @@
 class VirusProductionsController < InheritedResources::Base
  
-   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :add_vb_from_inventory, :spawn_dosage, :update, :update_from_inventory]
+   before_action :set_virus_production, only:[:edit, :destroy, :edit_from_inventory, :hide_from_inventory, :add_vb_from_inventory, :spawn_dosage, :update, :update_from_inventory]
   
   #Smart_listing
   include SmartListing::Helper::ControllerExtensions
@@ -33,7 +33,7 @@ class VirusProductionsController < InheritedResources::Base
     #Champs genes
       @genes_all = Gene.all.order(name: "asc").uniq
       @genes_all = @genes_all.map{ |obj| [obj['name'], obj['id']] }
-     #Champs promoters
+    #Champs promoters
       @promoters_all = Promoter.all.order(name: "asc").uniq
       @promoters_all = @promoters_all.map{ |obj| [obj['name'], obj['id']] }
       #Champs projects
@@ -42,14 +42,20 @@ class VirusProductionsController < InheritedResources::Base
       #Champ Plasmid
       @clone_batches_all = CloneBatch.all.order(name: "asc").uniq
       @clone_batches_all = @clone_batches_all.map{ |obj| [obj['name'], obj['id']] }  
+      
+      #virus cachés
+      unless current_user.options.first.display_all_virus
+        hidden_virus_ids = VirusProduction.hidden_vps(current_user).pluck(:id)
+      else
+        hidden_virus_ids = []
+      end
         
       @q = VirusProduction.ransack(params[:q])
       
-      @vps = @q.result.includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ])
+      @vps = @q.result.includes([:users, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ]).where.not(:id => hidden_virus_ids)
       
-      if current_user.options.first.display_all_virus
-         @vps = @vps.limit(200)    
-      end
+      @vps  = @vps.limit(100) if current_user.options.first.display_limited_virus
+        
       
       #Config de l'affichage des résultats.
       @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [ 20, 30, 50, 100])  
@@ -128,13 +134,21 @@ end
           @nb = (n +1).to_s
   end
   
+  def hide_from_inventory
+    unless @virus_production.users.where(:id => current_user.id).exists?
+      @virus_production.users << current_user
+    else
+      @virus_production.users.destroy(current_user)
+    end
+  end
+  
   private
  
   def virus_production_params
     params.require(:virus_production).permit(:id, :number, :nb, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :hidden,
     :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_name, :_destroy, :remove_dosage,
-      :inactivation, :inactivation_atcc, :inactivation_standard, :accepted],
+    :inactivation, :inactivation_atcc, :inactivation_standard, :accepted],
     :sterilitytests_attributes => [:id, :virus_production_id, :sterility, :date, :_destroy, :remove_sterilitytest],
     :virus_batches_attributes => [:id, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id, :date_of_thawing ])
   end

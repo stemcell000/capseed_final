@@ -8,7 +8,7 @@ class CloneBatchesController < InheritedResources::Base
     
   before_filter :authenticate_user!
   before_action :set_clone_batch, only:[ :edit, :show_exist, :select, :destroy, :add_plasmid_batch, :add_pb_from_inventory, :update,
-    :edit_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid,
+    :edit_from_inventory, :hide_from_inventory, :update_from_inventory, :update_pb_from_inventory, :destroy_from_inventory, :edit_as_plasmid,
     :update_as_plasmid, :remove_plasmid_data, :edit_from_prod, :remove_from_prod, :select_from_prod, :add_to_prod]
   before_action :load_all, only:[:select, :update, :update_as_plasmid, :update_plasmid_batch, :add_plasmid_batch, :destroy]
   before_action :load_assay, only:[:show_exist, :select]
@@ -126,8 +126,16 @@ class CloneBatchesController < InheritedResources::Base
       
       @option = current_user.options.first
       
-      #Recherche sur tables multiples.
-        @q = CloneBatch.ransack(params[:q])
+     
+       #Plasmids cachés
+      unless current_user.options.first.display_all_clone_batch
+        hidden_plasmids_ids = CloneBatch.hidden_cbs(current_user).pluck(:id)
+      else
+        hidden_plasmid_ids = []
+      end
+      
+       #Recherche sur tables multiples.
+        @q = CloneBatch.ransack(params[:q]) 
         
     #Champ targets
       @targets_all = Target.all.order(name: "asc").uniq
@@ -144,10 +152,11 @@ class CloneBatchesController < InheritedResources::Base
      #Champs origins
       @origins_all = Origin.all.order(name: "asc").uniq
       @origins_all = @origins_all.map{ |obj| [obj['name'], obj['id']] }
-      
+     
+
     #variable global utilisé par la méthode 'listing' pour eviter l'initialisation de la recherche à la fermeture de la fenêtre modale (edit-from-inventory)
-      @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil)
-      
+      @clone_batches = @q.result.includes(:clone, :target, :type, :strand, :genes, :promoters, :origin, :plasmid_batches).where.not(:nb => nil).where.not(:id => hidden_plasmids_ids)
+    
     #Config de l'affichage des résultats.
       @all_clone_batches = smart_listing_create(:clone_batches, @clone_batches, partial: "clone_batches/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [20,30, 50, 100])  
   
@@ -170,6 +179,14 @@ class CloneBatchesController < InheritedResources::Base
       @users = User.all
    end
       @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1, :inventory_validation => 1)
+  end
+  
+  def hide_from_inventory
+    unless @clone_batch.users.where(:id => current_user.id).exists?
+      @clone_batch.users << current_user
+    else
+      @clone_batch.users.destroy(current_user)
+    end
   end
   
   def update_from_inventory
@@ -278,6 +295,7 @@ class CloneBatchesController < InheritedResources::Base
       :plasmid_batch_attachments_attributes =>[:id,:plasmid_batch_id, :attachment, :remove_attachment, :_destroy]],
       
       :clone_attributes => [:id, :name, :assay_id, :clone_id],
+      :clone_batch_users => [:id, :user_id, :clone_batch_id],
       :assay_attributes => [:id, :name ],
       :type_attributes => [:id, :name ],
       :insert_attributes => [:id, :name, :number ],
@@ -285,11 +303,11 @@ class CloneBatchesController < InheritedResources::Base
       :origin_attributes => [:id, :name],
       :genes_attributes => [:id, :name],
       :promoters_attributes => [:id, :name],
-      :user_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
+      :users_attributes => [:id, :username, :firstname, :lastname, :full_name, :_destroy],
       :box_attributes => [:id, :name],
       :row_attributes => [:id, :name],
       :column_attributes => [:id, :name],
-      gene_ids: [], promoter_ids: [],
+      gene_ids: [], promoter_ids: [], user_ids: [],
       :productions_attributes => [:id])
     end
     

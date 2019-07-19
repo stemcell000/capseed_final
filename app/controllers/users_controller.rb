@@ -113,8 +113,4 @@ end
       params.require(:user).permit(:id, :email, :firstname, :lastname, :username, :role, :cloning_notify, :production_notify, :password, :password_confirmation, :current_password, :actual_member)
     end
     
-    def user_notic_params
-      params.require(:user).permit(:id, :cloning_notify, :production_notify, :firstname, :lastname, :email)
-    end
-  
 end

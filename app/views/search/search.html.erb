@@ -1,9 +1,10 @@
 <%= form_for search_path, method: :get do |f| %>
-  <p>
-    <%= f.label "Search for" %>
-    <%= text_field_tag :q, params[:q] %>
-    <%= submit_tag "Go", name: nil %>
-  </p>
+  	<span>
+	    <%= f.label "Search for plasmids" %>
+	    <%= text_field_tag :q, params[:q] %>
+	    <%= submit_tag "Go", name: nil %>
+    </span>
+  
 <% end %>
 
 <ul>

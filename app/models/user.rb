@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :pcr_colonies
   has_many :dosages
   has_many :options
+  has_many :clone_batch_users, :dependent => :destroy
+  has_many :clone_batches, through: :clone_batch_users
+  has_many :virus_productions, through: :user_virus_productions
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays
@@ -18,7 +21,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :options
   
   has_many :plasmid_batch_qcs
-  accepts_nested_attributes_for :virus_productions
   
   validates :username, :firstname, :lastname,
   :presence => true,

@@ -1,0 +1,4 @@
+<%= simple_nested_form_for @option, url: display_limited_virus_switch_option_path(@option),  html: { class: 'form-inline' }, :remote=> true do |f| %>
+  	Display 100 last productions <%= f.input :display_limited_virus, :as => :boolean, :label =>false, :input_html => {:onclick => "$('#option_display_limited_virus*').submit();"}%>
+<%end%>
+

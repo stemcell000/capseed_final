@@ -27,7 +27,7 @@ end
 private
 
   def option_params
-    params.require(:option).permit(:id, :display_all_virus, :display_all_clone_batch)
+    params.require(:option).permit(:id, :display_all_virus, :display_all_clone_batch, :hidden_vp, :hidden_cb)
   end
     
   def set_option

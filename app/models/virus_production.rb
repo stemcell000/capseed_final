@@ -6,8 +6,9 @@ class VirusProduction < ActiveRecord::Base
  include Elasticsearch::Model::Callbacks
   
  belongs_to :production
- has_many :user_virus_productions
- has_many :users, through: :user_virus_productions
+ #has_many :user_virus_productions
+ #has_many :users, through: :user_virus_productions
+ belongs_to :user
  belongs_to :vol_unit
  has_many :clone_batches, :through => :production
  has_many :genes, :through => :clone_batches
@@ -17,7 +18,7 @@ class VirusProduction < ActiveRecord::Base
  has_many :plasmid_batches, :through => :production
  has_many :virus_batches, -> { uniq }, :dependent => :destroy
  
- scope :hidden_vps, lambda {|user| joins(:user_virus_productions).where('users_virus_productions.user_id = ?', user.id) }
+ #scope :hidden_vps, lambda {|user| joins(:user_virus_productions).where('users_virus_productions.user_id = ?', user.id) }
  
  before_save :titer_to_atcc
  
@@ -26,7 +27,7 @@ include PgSearch
 multisearchable :against => [ :comment, :id, :user, :clone_batches],
 :if => lambda { |record| record.id > 0 }
   
- accepts_nested_attributes_for :users
+ accepts_nested_attributes_for :user
  accepts_nested_attributes_for :vol_unit
  accepts_nested_attributes_for :production
  accepts_nested_attributes_for :dosages, :allow_destroy => true, reject_if: :all_blank

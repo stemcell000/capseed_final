@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190718143947) do
+ActiveRecord::Schema.define(version: 20190722074350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,8 +277,10 @@ ActiveRecord::Schema.define(version: 20190718143947) do
     t.boolean  "display_limited_virus"
     t.boolean  "display_all_virus"
     t.boolean  "display_all_clone_batch"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "hidden_vp",               default: [],              array: true
+    t.integer  "hidden_cb",               default: [],              array: true
   end
 
   create_table "origins", force: :cascade do |t|

@@ -40,17 +40,17 @@ class VirusProductionsController < InheritedResources::Base
       #Champ Plasmid
       @clone_batches_all = CloneBatch.all.order(name: "asc").uniq
       @clone_batches_all = @clone_batches_all.map{ |obj| [obj['name'], obj['id']] }  
-      
+      @option = current_user.options.first
       #virus cachés
       unless current_user.options.first.display_all_virus
-        hidden_virus_ids = VirusProduction.hidden_vps(current_user).pluck(:id)
+        hidden_virus_ids = current_user.options.first.hidden_vp
       else
         hidden_virus_ids = []
       end
         
       @q = VirusProduction.ransack(params[:q])
       
-      @vps = @q.result.includes([:users, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ]).where.not(:id => hidden_virus_ids)
+      @vps = @q.result.includes([:user, :production, :plasmid_batches, :clone_batches, :sterilitytests, :genes ]).where.not(:id => hidden_virus_ids)
       
       @vps  = @vps.limit(100) if current_user.options.first.display_limited_virus
         
@@ -133,17 +133,19 @@ end
   end
   
   def hide_from_inventory
-    unless @virus_production.users.where(:id => current_user.id).exists?
-      @virus_production.users << current_user
-    else
-      @virus_production.users.destroy(current_user)
-    end
+    hidden_vp = current_user.options.first.hidden_vp
+      unless hidden_vp.include?(@virus_production.id)
+        current_user.options.first.update_attribute(:hidden_vp, hidden_vp << @virus_production.id)
+      else
+        current_user.options.first.update_attribute(:hidden_vp, hidden_vp.drop(@virus_production.id))
+      end
+              current_user.options.first.save
   end
   
   private
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :number, :nb, :user_id, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :hidden,
+    params.require(:virus_production).permit(:id, :number, :nb, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :hidden,
     :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :user_id, :date, :plate_name, :_destroy, :remove_dosage,
     :inactivation, :inactivation_atcc, :inactivation_standard, :accepted],

@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   
   after_create :create_option
   
-  has_many :virus_productions
   has_many :assays
   has_many :plasmid_batches
   has_many :sequencings
@@ -10,8 +9,8 @@ class User < ActiveRecord::Base
   has_many :dosages
   has_many :options
   has_many :clone_batch_users, :dependent => :destroy
-  has_many :clone_batches, through: :clone_batch_users
-  has_many :virus_productions, through: :user_virus_productions
+  has_many :clone_batches
+  has_many :virus_productions
 
   accepts_nested_attributes_for :virus_productions
   accepts_nested_attributes_for :assays

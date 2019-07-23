@@ -10,13 +10,12 @@ class CloneBatch < ActiveRecord::Base
   
   #scopes
   scope :by_production,  ->(production_id) { joins(:productions).where(productions: { id: production_id }) }
-  scope :hidden_cbs, lambda {|user| joins(:clone_batch_users).where('clone_batches_users.user_id = ?', user.id) }
+
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
   belongs_to :clone
-  has_many :clone_batch_users, :dependent => :destroy
-  has_many :users, through: :clone_batch_users
+  has_and_belongs_to_many :options
   has_and_belongs_to_many :sequencings, :dependent => :destroy
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
   has_many :plasmid_batches, -> { uniq }, :dependent => :destroy
@@ -51,9 +50,7 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :genes, :allow_destroy => false, :reject_if => :all_blank
   accepts_nested_attributes_for :promoters, :allow_destroy => false, :reject_if => :all_blank
   accepts_nested_attributes_for :origin
-  accepts_nested_attributes_for :users
-  accepts_nested_attributes_for :clone_batch_users
-  
+  accepts_nested_attributes_for :options
   
   #Validations
   

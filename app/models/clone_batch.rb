@@ -123,9 +123,26 @@ class CloneBatch < ActiveRecord::Base
      query: {
         multi_match: {
           query: query,
-          fields: ['name^4', 'number^5', 'comment', 'comment_as_plasmid', 'origin.name', 'type.name', 'genes.name', 'promoter.name', 'strand.name', 'target.name']
+          fields: ['name']
         }
       },
+         highlight: {
+          pre_tags: ['<mark>'],
+          post_tags: ['</mark>'],
+          fields: {
+            name: {}
+          }
+                  },
+                  
+          suggest: {
+          text: query,
+          name: {
+            term: {
+              size: 1,
+              field: :name
+            }
+          }
+                  }
    }
    )
   end

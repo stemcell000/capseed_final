@@ -42,7 +42,7 @@ class VirusProductionsController < InheritedResources::Base
       @clone_batches_all = @clone_batches_all.map{ |obj| [obj['name'], obj['id']] }  
       
       #virus cachés
-      unless current_user.options.first.display_all_virus
+      unless @option.display_all_virus
         hidden_virus_ids = @option.virus_productions.pluck(:id)
       else
         hidden_virus_ids = []
@@ -50,7 +50,7 @@ class VirusProductionsController < InheritedResources::Base
         
       @q = VirusProduction.ransack(params[:q])
       
-      @vps = @q.result.includes([:production, :plasmid_batches, :clone_batches, :sterilitytests, :genes, :users ]).where.not(:id => hidden_virus_ids)
+      @vps = @q.result.includes([:production, :plasmid_batches, :clone_batches, :sterilitytests, :genes, :user ]).where.not(:id => hidden_virus_ids)
       
       @vps  = @vps.limit(100) if current_user.options.first.display_limited_virus
         
@@ -133,10 +133,10 @@ end
   end
   
   def hide_from_inventory
-    unless @options.virus_productions.where(:id => @virus_production.id).exists?
+    unless @option.virus_productions.where(:id => @virus_production.id).exists?
       @option.virus_productions << @virus_production
     else
-      @virus_production.users.destroy(current_user)
+      @option.virus_productions.destroy(@virus_production)
     end
   end
   

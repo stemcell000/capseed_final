@@ -1,5 +1,5 @@
 console.log("start refreshing search results")
 $('#search-results').html("<%= escape_javascript(render :partial => "productions/components/search_results") %>");
-console.log("end refreshing search results")
+console.log("end refreshing search results (index)")
 //Recharge de  Popover si on click sur "cancel" depuis une form (:back)
  $('[data-toggle="popover"]').popover({html:true});

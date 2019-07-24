@@ -1,0 +1,179 @@
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<ul>
+		  <% @clone_batches.each do |cb| %>
+		    <li>
+		      <h5>
+		      <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="right"
+					title='
+						<div class="row"> 
+							<div class="col-lg-12 text-left plasmiddesign">
+								<strong><%=cb.name%></strong>
+							</div>
+						</div>'
+					data-content='		
+					<small>
+										<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= cb.number.nil? ? "-" : cb.number %><br />
+										<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.nil? ? "-" : cb.date_as_plasmid %><br />
+										<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid.nil? ? "No data" : cb.glyc_stock_box_as_plasmid %><br />
+										<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin.nil? ? "-" : cb.origin.name %><br />
+										<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "-" : cb.type.name %><br />
+										<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= cb.plasmid_batches.empty? ? "-" : cb.plasmid_batches.length %><br />
+										<strong>Clone: </strong><%= cb.clone.nil? ? "-" : cb.clone.name %><br />
+										<strong>Target: </strong> <%= cb.target.nil? ? "-" : cb.target.name %><br />
+										<strong>Strand: </strong><%= cb.strand.nil? ? "-" : cb.strand.name %><br />
+										<strong>Promoter: </strong><%= cb.promoters.nil? ? "-" : cb.promoters.uniq.map {|promoter| promoter.name}.to_sentence %><br />
+										<strong>Gene: </strong><%= cb.genes.nil? ? "-" : cb.genes.uniq.map {|gene| gene.name}.to_sentence %><br />
+										<% if !cb.comment_as_plasmid.blank? %>
+											<strong>Comment: </strong><%= cb.comment_as_plasmid %><br />
+										<%end%>
+										<% unless cb.plasmid_batches.empty? %>
+										<table class="table table-bordered">
+											<thead>
+												<th>Batch</th>
+												<th>Box</th>
+												<th>Location</th>
+												<th>Conc.</th>
+												<th>Date of production</th>
+												<th>Volume</th>
+											</thead>
+											<%cb.plasmid_batches.each do |pb|%>
+											<tr>
+												<% involved = pb.productions.where('last_step < ?', 3).any?  %>
+												<td><%= pb.name %></td>
+												<td><%= pb.box.nil? ? "Unknown" : pb.box.name %></td>
+												<td><%= pb.row.nil? ? "Unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+												<td><%= pb.concentration.nil? ? "Unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+												<td><%= pb.date.nil? ? "Unknown" : pb.date.strftime("%B %e, %Y") %></td>
+												<td class = <%= "dismissed" if involved %>><%= pb.volume.nil? ? "Unknown":"#{pb.volume} #{pb.vol_unit.name}" %></td>
+											</tr>
+											<%end%>
+										</table>
+									<%else%>
+									no batch
+									<%end%>
+										<div class="col-lg-12">
+										<% if !cb.clone_batch_as_plasmid_attachments.empty? %>
+										<% if cb.clone_batch_as_plasmid_attachments.length>1%>
+											<strong>Attached files:</strong><br />
+											<%else%>
+											<strong>Attached file:</strong><br />
+										<%end%>	
+											<% cb.clone_batch_as_plasmid_attachments.each do |a|%>
+												<small><%= link_to File.basename(a.attachment.path ), a.attachment.to_s %></small> <br />
+											<%end%>
+										<%end%>
+									</div>
+					</small>
+					'
+				>
+					<span class="plasmiddesign"><%=cb.number%> - <%=cb.name%></span>
+			</a>
+			</h5>
+		    </li>
+		  <% end %>
+		</ul>
+	</div>
+<div class="col-lg-6 col-md-6 col-sm-6">
+<ul>
+  <% @virus_productions.each do |vp| %>
+    <li>
+      <h5>
+      <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="right"
+			title='
+				<div class="row"> 
+					<div class="col-lg-12 text-left primary">
+						<strong><%=vp.number%></strong>
+					</div>
+				</div>'
+			data-content='	
+				<small>
+								
+								<strong>Associated plasmids: </strong>
+								<% if vp.clone_batches.empty? %>
+										No plasmid<br />
+									<%else%>
+									<table>
+										<% vp.clone_batches.each do |cb| %> 
+										<tr>
+											<td><%=cb.number%></td>
+											<td><%= cb.name%></td>
+										<tr>
+										<%end%>
+									</table>
+								<%end%>
+								<strong>Date of prod.: </strong> <%= vp.date_of_production.nil? ? "none" : vp.date_of_production.strftime("%b %e, %Y") %><br />
+								<strong>Project: </strong> <%= vp.production.nil? ? "none" : "#{vp.production.projects.pluck(:name).to_sentence}" %><br />
+								<strong>Volume: </strong> <%= vp.vol.nil? ? "none" : "#{vp.vol} #{vp.vol_unit.name}" %><br />
+								<%unless vp.sterilitytests.nil? %>
+								<% last_st = vp.sterilitytests.last %>
+								<%if last_st%>
+								<%=last_st.date.nil? ? "none" : last_st.date.strftime("%b %e, %Y") %><br />
+									<strong>Last result for sterility: </strong><%= last_st.sterility.nil? ? ">on-going" : int_to_string(last_st.sterility) %><br />
+								<%end%>
+								<%end%>
+								<strong>Gel (Prot.): </strong> <%= vp.gel_prot.nil? ? "none" : vp.gel_prot %><br />
+								<strong>User: </strong><%= vp.user.nil? ? "none" : "#{vp.user.full_name}" %><br />
+								<% unless vp.hek_result.blank? %>
+									<strong>HEK results: </strong><%= vp.hek_result %><br />
+								<%end%>
+								<% unless vp.comment.blank? %>
+									<strong>Comment: </strong><%= vp.comment %><br />
+								<%end%>
+								<% last_dosage = vp.dosages.last %>
+								<% if last_dosage %>
+									<strong> <%= pluralize_without_count(vp.dosages.count, 'Inactivation' , ' :')%> </strong><%= vp.dosages.map {|dosage| dosage.inactivation.nil? ? "Unknown" : dosage.inactivation.strftime("%b %e, %Y")}.to_sentence %><br />
+									
+										<strong> Date of the last titration: </strong><%= last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y") %><br />
+										<ul>	
+											<li><strong> Titer: </strong> <%= last_dosage.titer.nil? ? "none" : "%.2e" %last_dosage.titer+"vg/ml" %></li>
+											<li><strong> Titer ATCC: </strong> <%= last_dosage.titer_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_atcc+"vg/ml" %></li>
+											<li><strong> Titer to ATCC: </strong> <%= last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml" %></li>
+										</ul>
+								<%else%>
+									<strong>Titer :</strong>None<br />
+								<%end%>
+
+			<div>								
+			<h6><strong> Virus batches: </strong></h6>
+			<% unless vp.virus_batches.empty? %>
+			<small>
+				<table class="table table-bordered">
+					<thead>
+						<th>Batch</th>
+						<th>Barcode</th>
+						<th>Box</th>
+						<th>row/col.</th>
+						<th>Volume</th>
+						<th>Date of production</th>
+						<th>Date of thawing</th>
+						<th>Trash</th>
+					</thead>
+					<%vp.virus_batches.each do |vb|%>
+					<tr>
+						<td><%= vb.name.nil? ? "Unknown" :vb.name %></td>
+						<td><%= vb.barcode.nil? ? "Unknown" :vb.number %></td>
+						<td><%= vb.box.nil? ? "Unknown" : vb.box.name %></td>
+						<td><%= vb.row.nil? ? "Unknown" : vb.row.name %><%= vb.column_id.nil? ? "" : pb.column.name %></td>
+						<td class="col-lg-2"><%= vb.volume.nil? ? "Unknown" : "#{vb.volume} #{vb.vol_unit.name}" %></td>
+						<td><%= vb.virus_production.date_of_production.nil? ? "Unknown" : vb.virus_production.date_of_production.strftime("%B %e, %Y") %></td>
+						<td><%= vb.date_of_thawing.nil? ? "Unknown" : vb.date_of_thawing.strftime("%B %e, %Y") %></td>
+						<td><%= vb.trash? ? "Yes" : "No" %></td>
+					</tr>
+					<%end%>
+				</table>
+			<%else%>
+			No batch
+			<%end%>
+			</div>
+		</small>	
+			'
+		>
+		<span><%=vp.number%></span>
+	</a>
+	</h5>
+    </li>
+  <% end %>
+</ul>
+</div>
+</div>

@@ -7,7 +7,7 @@ class VirusProduction < ActiveRecord::Base
   
  belongs_to :production
  has_and_belongs_to_many :options
- belongs_to :users
+ belongs_to :user
  belongs_to :vol_unit
  has_many :clone_batches, :through => :production
  has_many :genes, :through => :clone_batches
@@ -26,7 +26,7 @@ include PgSearch
 multisearchable :against => [ :comment, :id, :user, :clone_batches],
 :if => lambda { |record| record.id > 0 }
   
- accepts_nested_attributes_for :users
+ accepts_nested_attributes_for :user
  accepts_nested_attributes_for :vol_unit
  accepts_nested_attributes_for :production
  accepts_nested_attributes_for :dosages, :allow_destroy => true, reject_if: :all_blank
@@ -99,6 +99,14 @@ end
           fields: ['number^5', 'comment', 'plasmid_tag', 'plasmid_batch_tag', 'gene_tag', 'promoter_tag']
         }
       },
+        highlight: {
+          pre_tags: ['<mark>'],
+          post_tags: ['</mark>'],
+          fields: {
+            number: {},
+            comment: {}
+          }
+                  }
    }
    )
   end

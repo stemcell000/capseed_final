@@ -49,6 +49,11 @@
 			</div>
 			
 			<div class="row">
+				<div class="col-lg-3">
+								<%= f.association :user, :label => "Contact name",
+												:collection => User.all, :label_method => :full_name, :value_method => :id,
+												:input_html => { class:"select2-select" } %>
+									</div>
 				<div class="col-lg-2">
 					<%= f.input :vol, :label => "Volume" %>
 				</div>

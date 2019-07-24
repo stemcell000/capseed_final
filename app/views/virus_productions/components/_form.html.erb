@@ -15,6 +15,15 @@
 					<%=f.input :invoice , :label => "Invoice"%>
 				</div>
 			</div>
+			
+			<div class="row">
+				<div class="col-lg-5">
+								<%= f.association :user, :label => "Contact name",
+												:collection => User.all, :label_method => :full_name, :value_method => :id,
+												:input_html => { class:"select2-select" } %>
+									</div>
+			</div>
+			
 			<div class="row">
 				<div class="col-lg-4">
 					<%= f.input :vol, :label => "Volume" %>

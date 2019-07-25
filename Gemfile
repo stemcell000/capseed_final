@@ -169,6 +169,3 @@ gem 'nprogress-rails'
   
 #
 gem 'fast_excel'
-#
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'

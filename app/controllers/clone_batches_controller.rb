@@ -261,6 +261,7 @@ class CloneBatchesController < InheritedResources::Base
       end
   end
   
+  
   private
   
     def set_clone_batch

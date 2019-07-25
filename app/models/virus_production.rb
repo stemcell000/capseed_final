@@ -1,9 +1,5 @@
-require 'elasticsearch/model'
 
 class VirusProduction < ActiveRecord::Base
-  
- include Elasticsearch::Model
- include Elasticsearch::Model::Callbacks
   
  belongs_to :production
  has_and_belongs_to_many :options
@@ -76,40 +72,4 @@ end
    end
  end
    
- def as_indexed_json(options={})
-    as_json(
-      only: [:number, :comment, :plasmid_tag, :plasmid_batch_tag, :gene_tag, :promoter_tag],
-      include: {
-        clone_batch: {
-          only: [:name, :comment, :comment_as_plasmid, :number]
-         },
-        production: {
-          only: [:name, :comment]
-         }
-             }
-    )
-  end
-  
-  def self.search(query)
-   __elasticsearch__.search(
-   {
-     query: {
-        multi_match: {
-          query: query,
-          fields: ['number^5', 'comment', 'plasmid_tag', 'plasmid_batch_tag', 'gene_tag', 'promoter_tag']
-        }
-      },
-        highlight: {
-          pre_tags: ['<mark>'],
-          post_tags: ['</mark>'],
-          fields: {
-            number: {},
-            comment: {}
-          }
-                  }
-   }
-   )
-  end
 end
- VirusProduction.__elasticsearch__.create_index! force: true
- VirusProduction.__elasticsearch__.import(force: true) # for auto sync model with elastic search

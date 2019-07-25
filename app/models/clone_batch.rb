@@ -1,9 +1,4 @@
-require 'elasticsearch/model'
-
 class CloneBatch < ActiveRecord::Base
-  
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
   
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
@@ -90,63 +85,6 @@ class CloneBatch < ActiveRecord::Base
     end
   end
   
-  
-  def as_indexed_json(options={})
-    as_json(
-      only: [:name, :number, :glyc_stock_box_as_plasmid, :comment, :comment_as_plasmid],
-      include: {
-        origin: {
-          only: [:name]
-        },
-        type: {
-          only: [:name]
-        },
-        promoters: {
-          only: [:name]
-        },
-        genes: {
-          only: [:name]
-        },
-        strand: {
-          only: [:name]
-        },
-        target: {
-          only: [:name]
-        }
-      }
-    )
-  end
-  
-  def self.search(query)
-   __elasticsearch__.search(
-   {
-     query: {
-        multi_match: {
-          query: query,
-          fields: ['name']
-        }
-      },
-         highlight: {
-          pre_tags: ['<mark>'],
-          post_tags: ['</mark>'],
-          fields: {
-            name: {}
-          }
-                  },
-                  
-          suggest: {
-          text: query,
-          name: {
-            term: {
-              size: 1,
-              field: :name
-            }
-          }
-                  }
-   }
-   )
-  end
-  
   private
   
   def enable_strict_validation?
@@ -171,5 +109,3 @@ class CloneBatch < ActiveRecord::Base
   }
 
 end
- CloneBatch.__elasticsearch__.create_index! force: true
- CloneBatch.__elasticsearch__.import(force: true) # for auto sync model with elastic search

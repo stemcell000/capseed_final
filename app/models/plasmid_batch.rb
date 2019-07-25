@@ -36,11 +36,7 @@ class PlasmidBatch < ActiveRecord::Base
   validates :volume, :presence => true, :numericality => { :greater_than_or_equal_to => 0 }
   validates :concentration, numericality: true
   validates :name, :uniqueness => {message: "This name is already taken."}
-  #validates_associated :plasmid_batch_productions
   
- #pg_search
- #include PgSearch
- #multisearchable :against => [:name, :comment, :id], :if => lambda { |record| record.id > 0 }
  
 def without_box
   includes(:box).where(box: {plasmid_batch_id: nil})

@@ -1,10 +1,10 @@
   	$("#flash-msg-container").html("");
   	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
-  	//$('#assay-modal').modal("hide");
-  	$('.modal').modal("hide");
-	
   	$("#info-container").html("<%= escape_javascript( render :partial => "plasmid_batches/components/content_inventory", :locals => {:cb => @clone_batch, :plasmid_batches => @plasmid_batches } ) %>")
 console.log("Refreshing plasmid info.")
 
   	//Popover
   $('[data-toggle="popover"]').popover({html:true});
+  
+  	$('#assay-modal').modal("hide");
+  	//$('.modal').modal("hide");

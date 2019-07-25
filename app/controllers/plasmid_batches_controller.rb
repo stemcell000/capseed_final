@@ -110,6 +110,9 @@ def update_from_inventory
   else
     render :action => 'edit_from_inventory'
    end
+   respond_to do |format|
+     format.js
+   end
 end 
 
  ##Permettre d'indiquer la boite et les coordonnées du tube 

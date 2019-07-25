@@ -107,9 +107,6 @@ def update_from_inventory
     @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume) 
     end
     flash.keep[:success] = "Task completed!"
-    respond_to do |format|
-     format.js { render :action => 'update_form_inventory' }
-   end
   else
     render :action => 'edit_from_inventory'
    end

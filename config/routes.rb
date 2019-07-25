@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   put 'user/confirmation', to: 'confirmations#update'
   end
   
-    ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self)
     
   resources :virus_batches
   resources :origins
@@ -180,13 +180,11 @@ Rails.application.routes.draw do
     get :set_pb_volume, :on => :member
     patch :update_pb_volume, :on => :member
     get :reset_volume, :on => :member
+    get :search, :on => :collection
     resources :plasmid_batches do
             get :edit_pb_volume, :on => :member
             patch :update_from_inventory, :on => :member 
     end
-    
-    get :search, :on => :collection
-    get :search_virus, :on => :collection
     
     resources :projects
     
@@ -275,6 +273,7 @@ Rails.application.routes.draw do
     get :remove_plasmid_data, :on => :member
     get :add_pb_from_inventory, :on => :member
     get :export
+    post :search, :on => :collection
   end
   
   resources :plasmid_batches do
@@ -303,7 +302,6 @@ Rails.application.routes.draw do
   resources :primers do
    patch  :availability_switch, :on => :member
   end
-  
   #Home
   root 'clone_batches#index'
 end

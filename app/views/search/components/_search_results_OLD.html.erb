@@ -113,7 +113,7 @@
 								<%end%>
 								<%end%>
 								<strong>Gel (Prot.): </strong> <%= vp.gel_prot.nil? ? "none" : vp.gel_prot %><br />
-								<strong>User: </strong><%= vp.users.nil? ? "none" : vp.users.map{|user| user.full_name}.to_sentence %><br />
+								<strong>User: </strong><%= vp.user.nil? ? "none" : "#{vp.user.full_name}" %><br />
 								<% unless vp.hek_result.blank? %>
 									<strong>HEK results: </strong><%= vp.hek_result %><br />
 								<%end%>

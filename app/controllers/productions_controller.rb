@@ -3,7 +3,7 @@ class ProductionsController < InheritedResources::Base
   before_filter :authenticate_user!
   before_action :ranked_productions, only: [:index]
   before_action :production_params, only:[:create, :update_row_order, :update, :add_pbs, :update_pb_volumes]
-  before_action :production_position_params, only:[:move_higher, :move_lower, :move_highest, :move_lowest]
+  before_action :production_position_params, only:[:move_higher, :move_lower, :move_highest, :move_lowest ]
   before_action :set_production, only:[:edit, :edit_pb_volumes, :update, :add_plasmid, :virus_production, :select_pbs, :add_pbs, :destroy, :reset_volume, :close, :create_vp, :update_pb_volume, :set_pb_volume,
     :add_pbs, :move_higher, :move_lower, :move_highest, :move_lowest]
   
@@ -14,13 +14,6 @@ class ProductionsController < InheritedResources::Base
   def index
     @productions = Production.where("last_step <?", 3 ).rank(:row_order).all
     
-  if params[:q].nil?
-    @clone_batches = []
-    @virus_productions = []
-  else
-    @clone_batches = CloneBatch.search(params[:q]).records
-    @virus_productions = VirusProduction.search(params[:q]).records
-  end
       @productions.each do |p|
         if !p.locked
           p.update_columns(:today_date => Date.today)
@@ -374,26 +367,7 @@ class ProductionsController < InheritedResources::Base
     gon.rabl "app/views/productions/scheduler.json.rabl", as: "productions"
 
   end
-  
-def search
-  if params[:q].nil?
-    @clone_batches = []
-     @virus_productions = []
-  else
-    @clone_batches = CloneBatch.search(params[:q]).records
-    @virus_productions = VirusProduction.search(params[:q]).records
-  end
-  
-  respond_to do |format|
-    format.js
-    format.json
-  end
-end
-
-end
-
-
-  private
+ 
   
   def set_production
     @production = Production.find(params[:id])
@@ -488,3 +462,4 @@ end
     d = d.strftime('%Y-%m-%d')
   end
 
+end

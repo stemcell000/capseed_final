@@ -14,6 +14,7 @@ class CloneBatchesController < InheritedResources::Base
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
   before_action :load_lists, only: [:edit_as_plasmid, :edit_from_inventory, :new_from_inventory, :update_from_inventory, :update_as_plasmid]
+  before_action :set_option, only:[:index_from_inventory, :hide_from_inventory]
 
   def edit
     @clone_batch = CloneBatch.find(params[:id])
@@ -127,8 +128,8 @@ class CloneBatchesController < InheritedResources::Base
       @option = current_user.options.first
      
        #Plasmids cachés
-      unless current_user.options.first.display_all_clone_batch
-        hidden_plasmids_ids = CloneBatch.hidden_cbs(current_user).pluck(:id)
+     unless @option.display_all_clone_batch
+        hidden_plasmids_ids = @option.clone_batches.pluck(:id)
       else
         hidden_plasmids_ids = []
       end
@@ -181,10 +182,10 @@ class CloneBatchesController < InheritedResources::Base
   end
   
   def hide_from_inventory
-    unless @clone_batch.users.where(:id => current_user.id).exists?
-      @clone_batch.users << current_user
+    unless @option.clone_batches.where(:id => @clone_batch.id).exists?
+      @option.clone_batches << @clone_batch
     else
-      @clone_batch.users.destroy(current_user)
+      @option.clone_batches.destroy(@clone_batch)
     end
   end
   
@@ -258,6 +259,7 @@ class CloneBatchesController < InheritedResources::Base
           render :action => :new_from_inventory
       end
   end
+  
   
   private
   
@@ -365,6 +367,10 @@ class CloneBatchesController < InheritedResources::Base
       clone_batches_scope = CloneBatch.search(params[:number]) if params[:number].present?
       clone_batches_scope
     end
+    
+  def set_option
+   @option = current_user.options.first
+ end
     
 end
 

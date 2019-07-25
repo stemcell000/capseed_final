@@ -1,22 +1,16 @@
-require 'elasticsearch/model'
-
 class CloneBatch < ActiveRecord::Base
-  
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
   
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
   
   #scopes
   scope :by_production,  ->(production_id) { joins(:productions).where(productions: { id: production_id }) }
-  scope :hidden_cbs, lambda {|user| joins(:clone_batch_users).where('clone_batches_users.user_id = ?', user.id) }
+
   #Set to nil blank fields values (utile pour effacer le final name à l'étape CBQC - rename)
   before_save :normalize_blank_values
   
   belongs_to :clone
-  has_many :clone_batch_users, :dependent => :destroy
-  has_many :users, through: :clone_batch_users
+  has_and_belongs_to_many :options
   has_and_belongs_to_many :sequencings, :dependent => :destroy
   has_and_belongs_to_many :pcr_colonies, :dependent => :destroy
   has_many :plasmid_batches, -> { uniq }, :dependent => :destroy
@@ -51,9 +45,7 @@ class CloneBatch < ActiveRecord::Base
   accepts_nested_attributes_for :genes, :allow_destroy => false, :reject_if => :all_blank
   accepts_nested_attributes_for :promoters, :allow_destroy => false, :reject_if => :all_blank
   accepts_nested_attributes_for :origin
-  accepts_nested_attributes_for :users
-  accepts_nested_attributes_for :clone_batch_users
-  
+  accepts_nested_attributes_for :options
   
   #Validations
   
@@ -93,46 +85,6 @@ class CloneBatch < ActiveRecord::Base
     end
   end
   
-  
-  def as_indexed_json(options={})
-    as_json(
-      only: [:name, :number, :glyc_stock_box_as_plasmid, :comment, :comment_as_plasmid],
-      include: {
-        origin: {
-          only: [:name]
-        },
-        type: {
-          only: [:name]
-        },
-        promoters: {
-          only: [:name]
-        },
-        genes: {
-          only: [:name]
-        },
-        strand: {
-          only: [:name]
-        },
-        target: {
-          only: [:name]
-        }
-      }
-    )
-  end
-  
-  def self.search(query)
-   __elasticsearch__.search(
-   {
-     query: {
-        multi_match: {
-          query: query,
-          fields: ['name^4', 'number^5', 'comment', 'comment_as_plasmid', 'origin.name', 'type.name', 'genes.name', 'promoter.name', 'strand.name', 'target.name']
-        }
-      },
-   }
-   )
-  end
-  
   private
   
   def enable_strict_validation?
@@ -157,5 +109,3 @@ class CloneBatch < ActiveRecord::Base
   }
 
 end
- CloneBatch.__elasticsearch__.create_index! force: true
- CloneBatch.__elasticsearch__.import(force: true) # for auto sync model with elastic search

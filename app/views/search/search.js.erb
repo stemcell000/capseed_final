@@ -1,0 +1,3 @@
+console.log("start refreshing search results")
+$('#search-results').html("<%= escape_javascript(render :partial => "clone_batches/components/search_results") %>");
+console.log("end refreshing search results (search plasmids)")

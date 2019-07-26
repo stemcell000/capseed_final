@@ -4,8 +4,8 @@ autocomplete :plasmid_batch, :number, :extra_data => [:id, :name], :display_valu
 
   before_action :set_params, only:[:create, :add_to_prod, :create_from_inventory]
   before_action :load_plasmid_batch, only:[ :edit, :edit_from_inventory, :destroy, :update, :update_from_inventory, :send_to_production,:destroy_from_inventory, :destroy_confirm, :update_and_sort, :remove_box_row_column,
-                                            :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod,:send_to_production ]
-  before_action :load_all, only:[ :edit, :edit_and_sort, :update, :destroy, :create, :destroy_from_list]
+                                            :load_box, :load_row, :load_column, :edit_to_prod, :add_to_prod,:send_to_production, :show ]
+  before_action :load_all, only:[ :edit, :edit_and_sort, :destroy, :create, :destroy_from_list]
   before_action :load_all_for_close, only:[ :update_and_sort, :load_box, :load_row, :load_column, :remove_box_row_column]
   before_action :load_all_for_prod, only:[ :edit_to_prod ]
   before_filter :listing, only: [:update_from_inventory, :edit_from_inventory, :create_from_inventory, :destroy_from_inventory]
@@ -105,10 +105,10 @@ def update_from_inventory
     @units = Unit.all
      unless @plasmid_batch.plasmid_batch_productions.empty?
     @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume) 
-    @plasmid = @plasmid_batch.clone_batch
-    #redirect_to add_pb_from_inventory_clone_batch_path(@plasmid)
     end
+    @plasmid = @plasmid_batch.clone_batch
     flash.keep[:success] = "Task completed!"
+    redirect_to add_pb_from_inventory_clone_batch_path(:id => @plasmid.id)
   else
     render :action => 'edit_from_inventory'
    end

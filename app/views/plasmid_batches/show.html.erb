@@ -1,0 +1,18 @@
+<h4>Batch <%=@plasmid_batch.name %></h4>							
+							
+							<div class="col-lg-12 text-left">
+								<strong>Date of prod.: </strong><%= @plasmid_batch.date.nil? ?  "unknown" : @plasmid_batch.date.strftime("%h %e, %Y ") %><br />
+								<strong>Format: </strong><%= @plasmid_batch.format.name.nil? ? "unknown" : @plasmid_batch.format.name %><br />
+								<strong>Concentration: </strong><%= @plasmid_batch.concentration.nil? ? "unknown" : @plasmid_batch.concentration %> <%= @plasmid_batch.unit_id.blank? ? "" : @plasmid_batch.unit.name %><br />
+								<strong>Volume: </strong><%= @plasmid_batch.volume.nil? ? "unknown" : @plasmid_batch.volume %> <%= @plasmid_batch.vol_unit_id.blank? ? "" : @plasmid_batch.vol_unit.name %><br />
+								<strong>Comments: </strong><br /><%= @plasmid_batch.comment.blank? ? "No comment" : @plasmid_batch.comment %><br />
+								<strong>Contact: </strong><%= @plasmid_batch.user.firstname %> <%= @plasmid_batch.user.lastname %><br />
+								<% if @plasmid_batch.plasmid_batch_attachments.length>0 %>
+									<strong>Attached file(s): </strong><br />
+										<% @plasmid_batch.plasmid_batch_attachments.each do |a|%>
+											<%= link_to File.basename(a.attachment.path ).truncate(25), a.attachment.to_s, :target => "_blank" %><br />
+										<%end%>
+								<%end%>
+							</div>
+							
+<%= link_to 'Back to inventory', clone_batch_add_pb_from_inventory_url(@plasmid) %>

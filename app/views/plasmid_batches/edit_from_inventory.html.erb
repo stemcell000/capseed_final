@@ -1,5 +1,5 @@
 <h4>Edit batch : <%=@plasmid_batch.name %></h4>
-<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), url: update_from_inventory_clone_batch_plasmid_batch_path, :remote => true, html: {class: 'vertical-form', multipart: true } do |f|  %>
+<%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path, html: {class: 'vertical-form', multipart: true } do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">

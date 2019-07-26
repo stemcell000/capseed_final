@@ -105,6 +105,8 @@ def update_from_inventory
     @units = Unit.all
      unless @plasmid_batch.plasmid_batch_productions.empty?
     @plasmid_batch.plasmid_batch_productions.update_all(:starting_volume => @plasmid_batch.volume) 
+    @plasmid = @plasmid_batch.clone_batch
+    #redirect_to add_pb_from_inventory_clone_batch_path(@plasmid)
     end
     flash.keep[:success] = "Task completed!"
   else

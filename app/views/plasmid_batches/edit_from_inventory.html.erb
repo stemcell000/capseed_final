@@ -1,93 +1,100 @@
 <h4>Edit batch : <%=@plasmid_batch.name %></h4>
+<div class="panel panel-default">
+	<div class="panel-body">
+
 <%= simple_nested_form_for @plasmid_batch, url: update_from_inventory_plasmid_batch_path, html: {class: 'vertical-form', multipart: true } do |f|  %>
 	<%= f.error_notification %>
 	<ul class="errors"></ul>
 	<div class="container">
   <small>
   	<div class="row">
-		<div class="col-lg-3 col-md-5 col-sm-3 ">
-			<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
-		</div>
-		<div class="col-lg-3 col-md-5 col-sm-3">
-			<%=f.input :date, :label => "Date", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
+  		<div class="col-lg-6 col-md-6 col-sm-6">
+		  	<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 ">
+					<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<%=f.input :date, :label => "Date", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-sm-4 col-md-4">
+					<%=f.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
+				</div>
+		  		<div class="col-lg-4 col-sm-4 col-md-4">
+		  			<%= f.input :concentration, :label => "Concentration: " %>
+		  		</div>
+		  		<div class="col-lg-4 col-sm-4 col-md-4">
+		  			<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
+				</div>
+			</div>
+			<div class="row">
+		  		<div class="col-lg-4 col-sm-4 col-md-4">
+		  			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 2).any? %>
+		  				<%= f.input :volume, :readonly => isInvolvedinOpenProds %>
+		  		</div>
+		  		<div class="col-lg-4 col-sm-4 col-md-4">
+		  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all,
+		  			:placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1',
+		  			:disabled => isInvolvedinOpenProds %>
+				</div>
+				<div class="col-lg-4 col-sm-4 col-md-4 dismissed">
+				<% if isInvolvedinOpenProds %>
+		  			<small> CAUTION: This batch is involved in one or more productions.</small>
+		  		<%end%>
+		  		</div>
+			</div>
+			<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<%= f.input :comment, :label => "Comment:" %>
+			</div>
 		</div>
 	</div>
+	
+<div class="col-lg-6 col-md-6 col-sm-6" >
 	<div class="row">
-		<div class="col-lg-2 col-sm-2 col-md-2">
-			<%=f.association :format, :label => "Format", :collection => Format.all, :placeholder => "Select format.", input_html: { class: 'select2-select' }%>
-		</div>
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%= f.input :concentration, :label => "Concentration: " %>
-  		</div>
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%=f.association :unit, :label => "Units", :collection => Unit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
-		</div>
-	</div>
-	<div class="row">
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<% isInvolvedinOpenProds = f.object.productions.where("last_step <?", 2).any? %>
-  				<%= f.input :volume, :readonly => isInvolvedinOpenProds %>
-  		</div>
-  		<div class="col-lg-2 col-sm-2 col-md-2">
-  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all,
-  			:placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1',
-  			:disabled => isInvolvedinOpenProds %>
-		</div>
-		<div class="col-lg-2 col-sm-2 col-md-2 dismissed">
-		<% if isInvolvedinOpenProds %>
-  			<small> CAUTION: This batch is involved in one or more productions.</small>
-  		<%end%>
-  		</div>
-	</div>
-	<div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6">
-		<%= f.input :comment, :label => "Comment:" %>
-	</div>
-</div>
-<div id = "attachments_container" >
+		<%= f.label 'Upload files'%>
+		<div class="col-lg-6 col-md-6 col-sm-6">	
 		<%= f.simple_fields_for :plasmid_batch_attachments do |a| %>
 							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">	
+								
 									<%= File.basename(a.object.attachment.to_s).truncate(25) %>
 									<% if a.object.id.nil? %>
-								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+								       		<%= a.input_field :attachment, :as => :file, :title => "Browse" %>
 							       	<%end%>
+							 	</div>
+							       		<%= a.link_to_remove "remove", :class => 'btn btn-xs btn-danger' %>
 							 </div>
-							 </div>
-							 <div class="row">
-							       	<div class="col-lg-2">
-							       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
-							       	</div>
-	</div>
+						
+	
 <%end%>
-
 </div>
-		<div class="row">
-			<div class="col-lg-2 col-md-12 col-sm-2">
-				<%= f.link_to_add "Add a file", :plasmid_batch_attachments ,:class => 'btn btn-sm btn-success' %>
+	<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-3 pull-right">
+				<%= f.link_to_add "Add a file", :plasmid_batch_attachments ,:class => 'btn btn-xs btn-success' %>
 			</div>
 		</div>
 		<div class ="row">
-							<div class="col-lg-5 col-md-5 col-sm-5">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								   <%= f.association :user, :label => "Contact name",
 										:collection => User.all, :label_method => :full_name, :value_method => :id,
 										:input_html => { class:"select2-select" } %>
 							</div>
 		</div>
 		<div class="row">
-							<div class="col-lg-2 col-md-2 col-sm-3">
+							<div class="col-lg-4 col-md-4 col-sm-4">
 								<%= f.association :box, :label=> "Box #",
 								:collection => @boxes,
 								:input_html => { class: "select2-select" } %>
 							</div>
 							
-							<div class="col-lg-2 col-md-2 col-sm-3">
+							<div class="col-lg-4 col-md-4 col-sm-4">
 								<%= f.association :row, :label=> "Row",
 								:collection => @rows, 
 								:input_html => { class: "select2-select" } %>
 							</div>
 							
-							<div class="col-lg-2 col-md-2 col-sm-3">
+							<div class="col-lg-4 col-md-4 col-sm-4">
 								<%= f.association :column, :label=> "Column",
 								:collection => @columns, 
 								:input_html => { class: "select2-select" } %>
@@ -101,12 +108,16 @@
 				</div>
 			<%end%>
 		</div>
+		</div>
+		</div>
+	</div>
 	
-</small>
-<div class="panel-footer">
- 		<div class="btn-group" role="group" aria-label="...">
-    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
-        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
-        </div>
-</div>
+				</div><!--End of panel body-->
+			</div><!--End of panel-->
+			
+	 		<div class="btn-group pull-right" role="group" aria-label="...">
+	    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+	        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+	        </div>
+	  </small>
 <% end %>

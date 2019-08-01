@@ -143,7 +143,7 @@ end
   private
  
   def virus_production_params
-    params.require(:virus_production).permit(:id, :number, :nb, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :user_id
+    params.require(:virus_production).permit(:id, :number, :nb, :plate_name, :vol, :sterility, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production, :user_id,
     :gel_prot, :invoice,  :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :_destroy, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :plate_name, :_destroy, :remove_dosage,
     :inactivation, :inactivation_atcc, :inactivation_standard, :accepted],

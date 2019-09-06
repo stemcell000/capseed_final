@@ -6,22 +6,34 @@
   <body>
     <h3>Hey |subme|! The production # <%=@assay.id%> is finished! </h3>
     <table>
+	<tr><th>Cloning<th></tr>
     	<tr>
-    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">ID</th>
-    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@assay.id%></td>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Cloning ID</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%= @assay.id%></td>
     	</tr>
     	<tr>
-    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Name</th>
-    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@assay.clones.name %></td>
-		</tr>
-    	<tr>
-			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Date of order</th>
-    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Clone</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%= @assay.clones.map{|clone| clone.name}.to_sentence %></td>
+	</tr>
+	<tr>
+	<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Date of order</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;">
     			<%= @assay.created_at.strftime("%B %e, %Y") %>		
     		</td>
     	</tr>
+ </table>
+ <table>
+    	<tr><th>Plasmids</th></tr>
     	<tr>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Number</th>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Name</th>
     	</tr>
+    	<% @assay.clone_batches.each do |plasmid| %>
+    	<tr>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%=plasmid.nb%></td>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%=plasmid.name %></td>
+    	</tr>
+    	<%end%>
     </table>
   </body>
 </html>

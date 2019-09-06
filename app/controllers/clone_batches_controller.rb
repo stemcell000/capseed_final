@@ -181,6 +181,21 @@ class CloneBatchesController < InheritedResources::Base
       @clone_batch.update_columns(:strict_validation => 1, :plasmid_validation => 1, :inventory_validation => 1)
   end
   
+  def update_from_inventory
+     @clone_batch.update_attributes(plasmid_params)
+      if @clone_batch.valid?
+        flash.keep[:success] = "Task completed!"
+         #
+         if @clone_batch.insert.nil?
+          @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.nb.to_s)
+          @clone_batch.insert = @insert
+         end
+         #
+        else
+        render :action => 'edit_from_inventory'
+      end
+  end
+  
   def hide_from_inventory
     unless @option.clone_batches.where(:id => @clone_batch.id).exists?
       @option.clone_batches << @clone_batch

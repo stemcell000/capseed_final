@@ -1,7 +1,6 @@
-class ProcessRecap < ActiveRecord::Migration
+class CloneBatchRecapProcess < ActiveRecord::Migration
   def change
-        CloneBatch.all.each do |object|
-      
+      CloneBatch.all.each do |object|
       number= object.number.nil? ? '-' : object.number 
       date_as_plasmid = object.date_as_plasmid.nil? ? '-' : object.date_as_plasmid.strftime('%b %e, %Y')
       glyc_stock_box_as_plasmid = object.glyc_stock_box_as_plasmid.nil? ? 'No data' : object.glyc_stock_box_as_plasmid
@@ -27,7 +26,6 @@ class ProcessRecap < ActiveRecord::Migration
        <strong>Promoter: </strong> #{ promoters } <br />
        <strong>Gene: </strong> #{ genes }<br />
        <strong>Comments: </strong> #{ comment } <br />"
-      
       
       object.update_columns(:recap => block)
     end

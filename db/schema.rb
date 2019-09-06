@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20190723093307) do
+ActiveRecord::Schema.define(version: 20190906123039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +124,7 @@ ActiveRecord::Schema.define(version: 20190723093307) do
     t.integer  "nb"
     t.integer  "dismissed",                 default: 0
     t.integer  "plasmid_batches_count",     default: 0,     null: false
+    t.text     "recap"
   end
 
   add_index "clone_batches", ["target_id"], name: "index_clone_batches_on_target_id", using: :btree
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(version: 20190723093307) do
 
   add_index "clone_batches_sequencings", ["clone_batch_id"], name: "index_clone_batches_sequencings_on_clone_batch_id", using: :btree
   add_index "clone_batches_sequencings", ["sequencing_id"], name: "index_clone_batches_sequencings_on_sequencing_id", using: :btree
+
+  create_table "clone_batches_users", force: :cascade do |t|
+    t.integer  "clone_batch_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clone_batches_users", ["clone_batch_id"], name: "index_clone_batches_users_on_clone_batch_id", using: :btree
+  add_index "clone_batches_users", ["user_id"], name: "index_clone_batches_users_on_user_id", using: :btree
 
   create_table "clones", force: :cascade do |t|
     t.integer  "assay_id"
@@ -623,6 +633,7 @@ ActiveRecord::Schema.define(version: 20190723093307) do
     t.string   "genes_tag"
     t.string   "promoters_tag"
     t.boolean  "hidden"
+    t.text     "recap"
   end
 
   add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree

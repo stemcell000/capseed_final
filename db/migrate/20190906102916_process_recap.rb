@@ -30,5 +30,6 @@ class ProcessRecap < ActiveRecord::Migration
       
       
       object.update_columns(:recap => block)
+    end
   end
 end

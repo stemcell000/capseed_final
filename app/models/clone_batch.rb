@@ -85,6 +85,40 @@ class CloneBatch < ActiveRecord::Base
     end
   end
   
+   def generate_recap
+    
+      number= self.nb.nil? ? '-' : self.nb 
+      date_as_plasmid = self.date_as_plasmid.nil? ? '-' : self.date_as_plasmid.strftime('%b %e, %Y')
+      glyc_stock_box_as_plasmid = self.glyc_stock_box_as_plasmid.nil? ? 'No data' : self.glyc_stock_box_as_plasmid
+      origin = self.origin.nil? ? '-' : self.origin.name
+      type = self.type.nil? ? '-' : self.type.name
+      nb_of_batches = self.plasmid_batches.empty? ? '-' : self.plasmid_batches.length
+      clone = self.clone.nil? ? '-' : self.clone.name
+      target = self.target.nil? ? '-' : self.target.name
+      strand  = self.strand.nil? ? '-' : self.strand.name
+      promoters = self.promoters.nil? ? '-' : self.promoters.uniq.map {|promoter| promoter.name}.to_sentence
+      genes = self.genes.nil? ? '-' : self.genes.uniq.map {|gene| gene.name}.to_sentence
+      comment = self.comment_as_plasmid.nil? ? '' : ' '+self.comment_as_plasmid
+      
+       block = "<i class='glyphicon glyphicon-inbox'></i> <strong>Number: </strong> #{ number } <br />
+       <i class='glyphicon glyphicon-calendar'></i> <strong> Date: </strong> #{ date_as_plasmid} <br />
+       <i class='glyphicon glyphicon-inbox'></i> <strong>Glycerol stock box: </strong> #{glyc_stock_box_as_plasmid } <br />
+       <i class='glyphicon glyphicon-home'></i> <strong>Origin: </strong> #{ origin } <br />
+       <i class='glyphicon glyphicon-inbox'></i> <strong>Type: </strong> #{ type }<br />
+       <i class='glyphicon glyphicon-th'></i> <strong>Number of batches: </strong> #{ nb_of_batches }<br />
+       <strong>Clone: </strong> #{clone } <br />
+       <strong>Target: </strong> #{ target } <br />
+       <strong>Strand: </strong> #{ strand } <br />
+       <strong>Promoter: </strong> #{ promoters } <br />
+       <strong>Gene: </strong> #{ genes }<br />
+       <strong>Comments: </strong> #{ comment } <br />"
+      
+      
+      self.update_columns(:recap => block)
+      
+  end
+  
+  
   private
   
   def enable_strict_validation?

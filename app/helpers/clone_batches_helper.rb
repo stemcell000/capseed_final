@@ -10,5 +10,4 @@ def dismissedOrNot(d)
      "alert alert-danger"
    end
 end
-  
 end

@@ -53,7 +53,7 @@ class CloneBatchesController < InheritedResources::Base
       @clone_batch.update_attributes(plasmid_params)
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
-        generate_recap
+        @clone_batch.generate_recap
          #
          if @clone_batch.insert.nil?
           @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.nb.to_s)
@@ -186,7 +186,7 @@ class CloneBatchesController < InheritedResources::Base
      @clone_batch.update_attributes(plasmid_params)
       if @clone_batch.valid?
         flash.keep[:success] = "Task completed!"
-        generate_recap
+        @clone_batch.generate_recap
          #
          if @clone_batch.insert.nil?
           @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.nb.to_s)
@@ -275,40 +275,6 @@ class CloneBatchesController < InheritedResources::Base
       else
           render :action => :new_from_inventory
       end
-  end
-  
-  
-  def generate_recap
-    
-      number= @clone_batch.number.nil? ? '-' : @clone_batch.number 
-      date_as_plasmid = @clone_batch.date_as_plasmid.nil? ? '-' : @clone_batch.date_as_plasmid.strftime('%b %e, %Y')
-      glyc_stock_box_as_plasmid = @clone_batch.glyc_stock_box_as_plasmid.nil? ? 'No data' : @clone_batch.glyc_stock_box_as_plasmid
-      origin = @clone_batch.origin.nil? ? '-' : @clone_batch.origin.name
-      type = @clone_batch.type.nil? ? '-' : @clone_batch.type.name
-      nb_of_batches = @clone_batch.plasmid_batches.empty? ? '-' : @clone_batch.plasmid_batches.length
-      clone = @clone_batch.clone.nil? ? '-' : @clone_batch.clone.name
-      target = @clone_batch.target.nil? ? '-' : @clone_batch.target.name
-      strand  = @clone_batch.strand.nil? ? '-' : @clone_batch.strand.name
-      promoters = @clone_batch.promoters.nil? ? '-' : @clone_batch.promoters.uniq.map {|promoter| promoter.name}.to_sentence
-      genes = @clone_batch.genes.nil? ? '-' : @clone_batch.genes.uniq.map {|gene| gene.name}.to_sentence
-      comment = @clone_batch.comment_as_plasmid.nil? ? '' : ' '+@clone_batch.comment_as_plasmid
-      
-       block = "<i class='glyphicon glyphicon-inbox'></i> <strong>Number: </strong> #{ number } <br />
-       <i class='glyphicon glyphicon-calendar'></i> <strong> Date: </strong> #{ date_as_plasmid} <br />
-       <i class='glyphicon glyphicon-inbox'></i> <strong>Glycerol stock box: </strong> #{glyc_stock_box_as_plasmid } <br />
-       <i class='glyphicon glyphicon-home'></i> <strong>Origin: </strong> #{ origin } <br />
-       <i class='glyphicon glyphicon-inbox'></i> <strong>Type: </strong> #{ type }<br />
-       <i class='glyphicon glyphicon-th'></i> <strong>Number of batches: </strong> #{ nb_of_batches }<br />
-       <strong>Clone: </strong> #{clone } <br />
-       <strong>Target: </strong> #{ target } <br />
-       <strong>Strand: </strong> #{ strand } <br />
-       <strong>Promoter: </strong> #{ promoters } <br />
-       <strong>Gene: </strong> #{ genes }<br />
-       <strong>Comments: </strong> #{ comment } <br />"
-      
-      
-      @clone_batch.update_columns(:recap => block)
-      
   end
   
   private

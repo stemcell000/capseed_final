@@ -21,7 +21,6 @@ ActiveAdmin.register VirusProduction do
     column :plasmid_batch_tag
     column :rev_plasmid_tag
     column :rev_plasmid_batch_tag
-    column :recap
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_virus_production_path(p)

@@ -45,5 +45,21 @@ end
   #  column :name
   #  column :type_id 
   #end
+  
+ index do
+    column :id, sortable: :id do |cb|
+      link_to cb.id, admin_virus_production_path(cp)
+    end
+    column :nb
+    column :number
+    column :name
+    column :temp_name
+    column :comment
+    column :gel_prot
+   #actions
+    actions defaults: false do |p|
+    link_to "Edit", edit_admin_clone_batch_path(p)
+  end
+end 
 
 end

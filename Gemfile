@@ -164,6 +164,7 @@ gem 'nprogress-rails'
   gem "font-awesome-rails"
   
   gem 'acts_as_list'
+  gem "puma_worker_killer"
   
   gem 'derailed', group: :development
   

@@ -287,10 +287,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.boolean  "display_limited_virus"
     t.boolean  "display_all_virus"
     t.boolean  "display_all_clone_batch"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.integer  "hidden_vp",               default: [],              array: true
-    t.integer  "hidden_cb",               default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "options_virus_productions", force: :cascade do |t|
@@ -630,7 +628,6 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.integer  "nb"
     t.string   "genes_tag"
     t.string   "promoters_tag"
-    t.boolean  "hidden"
     t.text     "recap"
   end
 

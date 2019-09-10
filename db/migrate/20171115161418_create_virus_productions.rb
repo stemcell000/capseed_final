@@ -8,8 +8,6 @@ class CreateVirusProductions < ActiveRecord::Migration
       t.text :comment
       t.string :gel_prot
       t.boolean :invoice
-      t.string :batch_end
-      t.boolean :l2
       t.text :hek_result
       t.string :animal
       t.timestamps null: false

@@ -391,7 +391,7 @@ class ProductionsController < InheritedResources::Base
     plasmid_batch_ids: [],
     :assay_attributes => [:id, :name],
     :virus_production_attributes => [:id, :number, :production_id, :date_order, :date_production, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment,
-    :gel_prot, :invoice, :bach_end, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id,
+    :gel_prot, :invoice, :bach_end, :hek_result, :created_at, :updated_at, :vol_unit_id,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]],
     virus_production_ids: []
     )
@@ -422,7 +422,7 @@ class ProductionsController < InheritedResources::Base
   def production_vp_params
     params.require(:production).permit(:id,
     :virus_productions_attributes => [:id, :nb, :number, :user_id, :plate_name, :vol, :sterility, :plate_id, :titer_atcc, :titer, :titer_to_atcc, :comment, :date_of_production,
-    :gel_prot, :invoice, :l2, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag, :genes_tag, :promoters_tag,
+    :gel_prot, :invoice, :hek_result, :created_at, :updated_at, :vol_unit_id, :production_id, :plasmid_tag, :plasmid_batch_tag, :rev_plasmid_tag, :rev_plasmid_batch_tag, :genes_tag, :promoters_tag,
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :user_id, :_destroy, :inactivation]])
   end
   

@@ -14,7 +14,6 @@ class CreateCloneBatches < ActiveRecord::Migration
       t.date :date_as_plasmid
       t.decimal :glyc_stock_as_plasmid
       t.string :glyc_stock_box_as_plasmid
-      t.string :origin_as_plasmid
       t.string :type_as_plasmid
       t.text :comment_as_plasmid
       t.string :promoter_as_plasmid

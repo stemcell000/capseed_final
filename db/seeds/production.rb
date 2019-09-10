@@ -224,7 +224,7 @@
     end
     
     User.all.each do |u|
-     if u.options.nil?
-        u.create_option
+     if u.options.empty?
+        u.options.create(:display_all_virus => false, :display_all_clone_batch => false)
      end
     end

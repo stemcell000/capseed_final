@@ -105,10 +105,10 @@ class User < ActiveRecord::Base
      self.virus_productions.empty? || self.assays.empty? ||self.plasmid_batches.empty? || self.sequencings.empty? || self.pcr_colonies.empty || self.dosages.empty?
    end
    
-   private
-   
      def create_option
-      self.options.create(:display_all_virus => false, :display_all_clone_batch => false, :display_hidden_virus => false, :display_hidden_clone_batch => false)
+       if self.options.empty?
+        self.options.create(:display_all_virus => false, :display_all_clone_batch => false)
+      end
     end
    
 end

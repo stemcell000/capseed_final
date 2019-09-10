@@ -222,3 +222,9 @@
         u.password    = 'E2tah3Y7'
         u.role = 'guest'
     end
+    
+    User.all.each do |u|
+     if u.options.nil?
+        u.create_option
+     end
+    end

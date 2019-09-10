@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20190906102739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
-  enable_extension "unaccent"
   enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -268,7 +268,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   end
 
   create_table "genes", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "inserts", force: :cascade do |t|
@@ -467,7 +468,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   end
 
   create_table "promoters", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "qc_attachments", force: :cascade do |t|

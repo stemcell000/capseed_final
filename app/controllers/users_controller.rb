@@ -46,6 +46,7 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
         flash.keep[:success] = "User created!"
+        @user.create_option
      else
         render action: :new
     end

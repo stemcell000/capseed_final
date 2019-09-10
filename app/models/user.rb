@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
   
-  after_create :create_option
-  
   has_many :assays
   has_many :plasmid_batches
   has_many :sequencings

@@ -45,6 +45,7 @@ gem 'nprogress-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   group :development do
     gem 'web-console', '~> 2.0'
+   #Utilitaire pour routage
     gem 'sextant'
   end
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -105,13 +106,14 @@ gem 'nprogress-rails'
   gem 'multi-select-rails'
   #upload files
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
+  gem "jquery-fileupload-rails"
   gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
   gem 'carrierwave-aws'
   gem 'remotipart'
   gem 'mini_magick','~> 4.9.4'
   gem 'date_validator'
   gem 'fog-aws'
-  
+
   #Pagination
   #gem 'will_paginate-bootstrap'
   gem 'kaminari'

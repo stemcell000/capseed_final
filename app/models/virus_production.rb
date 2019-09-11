@@ -142,7 +142,7 @@ end
            last_dosage_atcc = last_dosage.titer_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_atcc+"vg/ml"
            last_dosage_to_atcc = last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml"
            last_inactivation_dates = last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y")
-           block10 ="<strong> #{inactivation_count} </strong> #{inactivation_dates} #{inactivation_dates} <br />
+           block10 ="<strong> #{inactivation_count} </strong> #{inactivation_dates} <br />
                         <strong> Date of the last titration: </strong> #{last_inactivation_dates} <br />
                         <ul>  
                           <li><strong> Titer: </strong> #{last_dosage_titer} </li>

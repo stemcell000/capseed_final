@@ -22,7 +22,6 @@
 //= require nprogress
 //= require nprogress-ajax
 //= loader
-//= require d3.min
 //= require d3pie.min
 //= require_tree .
 

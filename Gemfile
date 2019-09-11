@@ -8,6 +8,8 @@ gem 'rails', '4.2.2'
 #gem 'sqlite3'
 gem 'pg', '0.20.0'
 
+gem 'rack-cache'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -43,6 +45,7 @@ gem 'nprogress-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views
   group :development do
     gem 'web-console', '~> 2.0'
+    gem 'sextant'
   end
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -102,20 +105,12 @@ gem 'nprogress-rails'
   gem 'multi-select-rails'
   #upload files
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
-  gem "jquery-fileupload-rails"
-  #gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
   gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
   gem 'carrierwave-aws'
   gem 'remotipart'
   gem 'mini_magick','~> 4.9.4'
   gem 'date_validator'
   gem 'fog-aws'
-  #Nécessaire pour installer AngularJS
-  gem 'bower-rails'
-  
-  #Utilitaires pour routage
-    gem 'sextant'
-    gem 'traceroute'
   
   #Pagination
   #gem 'will_paginate-bootstrap'
@@ -143,7 +138,6 @@ gem 'nprogress-rails'
   
   #nécessaire pour deploiement su Heroku
   group :production do
-    gem 'rack-cache'
     gem 'rails_12factor'
     ruby '2.3.0'
     gem 'foreman'
@@ -169,4 +163,5 @@ gem 'nprogress-rails'
   gem 'derailed', group: :development
   
 #
-gem 'fast_excel'
+  gem 'fast_excel'
+  

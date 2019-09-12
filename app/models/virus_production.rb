@@ -104,8 +104,8 @@ end
         last_st = self.sterilitytests.last 
                   if last_st
                     last_st_date = last_st.date.nil? ? "none" : last_st.date.strftime("%b %e, %Y")
-                    sterility_result = last_st.sterility.nil? ? ">on-going" : int_to_string(last_st.sterility)
-                    block5 = "#{last_st_date} <br /><strong>Last result for sterility: </strong> #{ sterility_result} <br />"
+                    sterility_result = last_st.sterility.nil? ? "on-going" : int_to_string(last_st.sterility)
+                    block5 = "#{last_st_date} <br /><strong>Last result for sterility : </strong> #{ sterility_result} <br />"
                   end
        else
                     block5=""
@@ -118,23 +118,24 @@ end
                  
        gel_prot = self.gel_prot.nil? ? "none" : self.gel_prot
   
-       block7= "<strong>Gel (Prot.): #{gel_prot} </strong> <br />"
+       block7= "<strong>Gel (Prot.) : #{gel_prot} </strong> <br />"
        
        hek_result = self.hek_result 
        comment = self.comment
           unless self.hek_result.blank?
-       block8 = "<strong>HEK results: </strong> #{hek_result} <br />"
+       block8 = "<strong>HEK results : </strong> #{hek_result} <br />"
        else
          block8=""
           end
           unless self.comment.blank?
-           block9 = "<strong>Comment: </strong> #{comment}<br />"
+           block9 = "<strong>Comment : </strong> #{comment}<br />"
         else
           block9=""
           end
            last_dosage = self.dosages.last
            inactivation_count = pluralize_without_count(self.dosages.count, 'Inactivation' , ' :')
-           inactivation_dates = self.dosages.map {|dosage| dosage.inactivation.nil? ? "Unknown" : dosage.inactivation.strftime("%b %e, %Y")}.to_sentence
+           inactivation_dates = self.dosages.pluck(:inactivation).uniq
+           inactivation_dates = inactivation_dates.map {|i| i.nil? || i.strftime("%b %e, %Y")}.join(",")
            
            if last_dosage
            last_inactivation_dates = last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y")
@@ -143,15 +144,15 @@ end
            last_dosage_to_atcc = last_dosage.titer_to_atcc.nil? ? "none" : "%.2e" %last_dosage.titer_to_atcc+"vg/ml"
            last_inactivation_dates = last_dosage.date.nil? ? "none" : last_dosage.date.strftime("%b %e, %Y")
            block10 ="<strong> #{inactivation_count} </strong> #{inactivation_dates} <br />
-                        <strong> Date of the last titration: </strong> #{last_inactivation_dates} <br />
+                        <strong> Date of the last titration : </strong> #{last_inactivation_dates} <br />
                         <ul>  
-                          <li><strong> Titer: </strong> #{last_dosage_titer} </li>
-                          <li><strong> Titer ATCC: </strong> #{last_dosage_atcc} </li>
-                          <li><strong> Titer to ATCC: </strong> #{last_dosage_to_atcc} </li>
+                          <li><strong> Titer : </strong> #{last_dosage_titer} </li>
+                          <li><strong> Titer ATCC : </strong> #{last_dosage_atcc} </li>
+                          <li><strong> Titer to ATCC : </strong> #{last_dosage_to_atcc} </li>
                         </ul>"
            else
 
-               block10 = "<strong>Titer :</strong>None<br />"                
+               block10 = "<strong>Titer : </strong>None<br />"                
            end
 
       block11 = "<div>"

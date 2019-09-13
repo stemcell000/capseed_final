@@ -167,3 +167,5 @@ gem 'nprogress-rails'
 #
   gem 'fast_excel'
   
+ gem 'scout_apm'
+  

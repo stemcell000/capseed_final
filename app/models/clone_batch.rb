@@ -61,10 +61,6 @@ class CloneBatch < ActiveRecord::Base
   validates :glyc_stock_box_as_plasmid, :strand, :presence => true unless :skip_batch_validation
   validates_format_of :name, :with => /(\w|\s)/, :multiline => true unless :skip_name_validation
    
-  #pg_search
-  include PgSearch
-  multisearchable :against => [:name, :id, :comment_as_plasmid]
- 
   #scope pour limiter la liste affichée par l'autocomplete du formulaire de plasmid_design
   scope :plasmid_allow,-> {where.not(:strand_id=> nil)}
   

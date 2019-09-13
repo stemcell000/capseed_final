@@ -18,11 +18,6 @@ class VirusProduction < ActiveRecord::Base
  
  
  before_save :titer_to_atcc
- 
-#pg_search
-include PgSearch
-multisearchable :against => [ :comment, :id, :user, :clone_batches],
-:if => lambda { |record| record.id > 0 }
   
  accepts_nested_attributes_for :user
  accepts_nested_attributes_for :vol_unit

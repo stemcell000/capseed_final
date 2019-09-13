@@ -11,13 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190906102739) do
+ActiveRecord::Schema.define(version: 20190909125107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_trgm"
   enable_extension "fuzzystrmatch"
-  enable_extension "unaccent"
   enable_extension "pg_stat_statements"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -268,7 +266,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   end
 
   create_table "genes", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "inserts", force: :cascade do |t|
@@ -287,8 +286,10 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.boolean  "display_limited_virus"
     t.boolean  "display_all_virus"
     t.boolean  "display_all_clone_batch"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "hidden_vp",               default: [],              array: true
+    t.integer  "hidden_cb",               default: [],              array: true
   end
 
   create_table "options_virus_productions", force: :cascade do |t|
@@ -330,16 +331,6 @@ ActiveRecord::Schema.define(version: 20190906102739) do
 
   add_index "pcr_colonies_qc_attachments", ["pcr_colony_id"], name: "index_pcr_colonies_qc_attachments_on_pcr_colony_id", using: :btree
   add_index "pcr_colonies_qc_attachments", ["qc_attachment_id"], name: "index_pcr_colonies_qc_attachments_on_qc_attachment_id", using: :btree
-
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "searchable_id"
-    t.string   "searchable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "plasmid_batch_attachments", force: :cascade do |t|
     t.integer  "plasmid_batch_id"
@@ -384,7 +375,6 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   create_table "plasmid_batches", force: :cascade do |t|
     t.integer  "clone_batch_id"
     t.integer  "unit_id"
-    t.string   "name"
     t.string   "format"
     t.decimal  "concentration"
     t.text     "comment"
@@ -397,6 +387,7 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.integer  "row_id"
     t.integer  "column_id"
     t.integer  "format_id"
+    t.string   "name"
     t.string   "number"
     t.integer  "user_id"
     t.integer  "box_id"
@@ -465,7 +456,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   end
 
   create_table "promoters", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "clone_batch_id"
   end
 
   create_table "qc_attachments", force: :cascade do |t|
@@ -547,9 +539,9 @@ ActiveRecord::Schema.define(version: 20190906102739) do
   end
 
   create_table "types", force: :cascade do |t|
-    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
     t.integer  "order_set"
   end
 
@@ -628,6 +620,7 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.integer  "nb"
     t.string   "genes_tag"
     t.string   "promoters_tag"
+    t.boolean  "hidden"
     t.text     "recap"
   end
 

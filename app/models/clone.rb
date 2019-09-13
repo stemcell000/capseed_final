@@ -1,6 +1,4 @@
 class Clone < ActiveRecord::Base 
- #pg_search
- include PgSearch
  
   #ActiveModel Dirty to track changes
   include ActiveModel::Dirty
@@ -52,10 +50,6 @@ amoeba do
   include_association :projects
 end
 
-#pg_search
-include PgSearch
-multisearchable :against => [ :name, :id, :created_at ]
-  
 def self.search(query)
   if query.present?
     search(query)

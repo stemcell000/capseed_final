@@ -47,16 +47,12 @@ gem 'nprogress-rails'
     gem 'web-console', '~> 2.0'
    #Utilitaire pour routage
     gem 'sextant'
+    gem "better_errors"
   end
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   
-  #Full text search
-  gem 'pg_search'
-  #gem 'textacular', '~> 3.0'
-  
   gem 'devise'
-  
   
   #gem 'activeadmin', github: 'gregbell/active_admin'
   gem 'activeadmin'
@@ -65,8 +61,6 @@ gem 'nprogress-rails'
   #gem 'activeadmin', '~> 1.0.0.pre4'
   
   gem 'jquery-turbolinks'
-  
-  gem "better_errors"
   
   gem 'binding_of_caller'
   

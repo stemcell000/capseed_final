@@ -5,11 +5,6 @@ class Production < ActiveRecord::Base
   scope :all_except, ->(production) { where.not(id: production) }
   scope :from_plasmid_batches, -> pb_array {joins(:plasmid_batch_productions).where(:plasmid_batches_productions => {plasmid_batch_id: pb_array})}
   
-  #pg_search
-  include PgSearch
-  multisearchable :against => [:name, :id, :step, :projects],
-  :if => lambda { |record| record.id > 0 }
-  
   scope :on_going,-> {where("last_step < ?", 3)}
   
   #order

@@ -81,7 +81,7 @@ gem 'nprogress-rails'
   gem "select2-rails"
   
   #Nested form
-  #gem "nested_form"
+  gem "nested_form"
   
   gem 'ranked-model'
  

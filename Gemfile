@@ -81,7 +81,7 @@ gem 'nprogress-rails'
   gem "select2-rails"
   
   #Nested form
-  gem "nested_form"
+  #gem "nested_form"
   
   gem 'ranked-model'
  
@@ -107,7 +107,8 @@ gem 'nprogress-rails'
   #upload files
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
   gem "jquery-fileupload-rails"
-  gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+  #gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+  gem 'carrierwave'
   gem 'carrierwave-aws'
   gem 'remotipart'
   gem 'mini_magick','~> 4.9.4'

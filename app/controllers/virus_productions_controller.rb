@@ -41,6 +41,7 @@ class VirusProductionsController < InheritedResources::Base
       @clone_batches_all = CloneBatch.all.order(name: "asc").uniq
       @clone_batches_all = @clone_batches_all.map{ |obj| [obj['name'], obj['id']] }  
       @option = current_user.options.first
+      
       #virus cachés
       unless @option.display_all_virus
         hidden_virus_ids = @option.virus_productions.pluck(:id)
@@ -54,22 +55,21 @@ class VirusProductionsController < InheritedResources::Base
       
       @vps  = @vps.limit(100) if current_user.options.first.display_limited_virus
         
-      
       #Config de l'affichage des résultats.
       @vps = smart_listing_create(:virus_productions, @vps, partial: "virus_productions/smart_listing/list", default_sort: {nb: "desc"}, page_sizes: [ 20, 30, 50, 100])  
 
- end
+  end
  
-def display_all_virus_switch
-  @option = current_user.options.first
-  @option.toggle!(:display_all_virus)
-  redirect_to :index
-end 
+  def display_all_virus_switch
+    @option = current_user.options.first
+    @option.toggle!(:display_all_virus)
+    redirect_to :index
+  end 
+   
+  def edit
+  end
  
- def edit
- end
- 
- def update
+  def update
    @production = @virus_production.production
    @vps = @production.virus_productions
    #

@@ -270,7 +270,6 @@ GEM
       railties (>= 3.0)
     multi_json (1.12.1)
     multipart-post (2.1.1)
-    nested_form (0.3.2)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     nprogress-rails (0.2.0.2)
@@ -428,7 +427,7 @@ DEPENDENCIES
   byebug
   cancan
   cancancan (~> 2.0)
-  carrierwave (>= 1.0.0.rc, < 2.0)
+  carrierwave
   carrierwave-aws
   coffee-rails (~> 4.1.0)
   date_validator
@@ -453,7 +452,6 @@ DEPENDENCIES
   mini_magick (~> 4.9.4)
   momentjs-rails
   multi-select-rails
-  nested_form
   nprogress-rails
   pg (= 0.20.0)
   pg_search

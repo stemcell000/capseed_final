@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
   
  def index
-    @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:username => "asc"},  page_sizes: [20, 30, 50, 100])   
+    @users = smart_listing_create(:users, User.all, partial: "users/list", default_sort: {:id => "asc"},  page_sizes: [20, 30, 50, 100])   
   end
 
   def show

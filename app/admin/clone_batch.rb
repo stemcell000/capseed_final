@@ -38,18 +38,9 @@ action_item do
   link_to "View Site", "/"
 end
 
-#FOR DATA ANALYSIS 
-  #csv do
-  #  column :id
-  #  column :nb
-  #  column :name
-  #  column :type_id 
-  #end
   
  index do
-    column :id, sortable: :id do |cb|
-      link_to cb.id, admin_virus_production_path(cp)
-    end
+    column :id
     column :nb
     column :number
     column :name

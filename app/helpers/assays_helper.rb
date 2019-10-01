@@ -4,10 +4,21 @@ module AssaysHelper
     [
       "On-going clonings" , assays_path,
       "Scheduler", scheduler_assays_path
-    ].each_slice(2).map do |name, path| content_tag(:li, link_to(name, path, :class => "navbar-link"), :class =>(cp(path)))
+    ].each_slice(2).map do |name, path| content_tag(:li, link_to(name, path, :class => "navbar-link"))
     end.join('').html_safe
    end
 end
+
+  
+  #Current page helper
+  def cp(path)
+   if current_page?(path)
+    myclass= " nav-item active"
+   else
+     myclass="nav-item"
+    end
+    return myclass
+ end 
 
 # Alternative message when an assay is not yet started 
  def date_missing_msg(d)

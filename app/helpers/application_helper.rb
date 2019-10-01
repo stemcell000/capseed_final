@@ -16,16 +16,6 @@ module ApplicationHelper
    end
   end
   
-  #Current page helper
-  def cp(path)
-   if current_page?(path)
-    myclass= " nav-item active"
-   else
-     myclass="nav-item"
-    end
-    return myclass
- end 
-
   #def title(page_title, show_title = true)
    # @show_title = show_title
    # @content_for_title = page_title.to_s

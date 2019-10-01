@@ -14,7 +14,7 @@ class CloneBatchesController < InheritedResources::Base
   before_action :load_assay, only:[:show_exist, :select]
   before_action :load_clone, only:[:show_exist, :select, :update_as_plasmid]
   before_action :load_lists, only: [:edit_as_plasmid, :edit_from_inventory, :new_from_inventory, :update_from_inventory, :update_as_plasmid]
-  before_action :set_option, only:[:index_from_inventory, :hide_from_inventory, :update_from_inventory ]
+  before_action :set_option, only:[:index_from_inventory, :hide_from_inventory, :update_from_inventory, :create_from_inventory ]
   
   def edit
     @clone_batch = CloneBatch.find(params[:id])

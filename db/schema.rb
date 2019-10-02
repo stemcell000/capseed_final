@@ -11,12 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190909125107) do
+ActiveRecord::Schema.define(version: 20190906102739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "fuzzystrmatch"
   enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -331,6 +333,16 @@ ActiveRecord::Schema.define(version: 20190909125107) do
 
   add_index "pcr_colonies_qc_attachments", ["pcr_colony_id"], name: "index_pcr_colonies_qc_attachments_on_pcr_colony_id", using: :btree
   add_index "pcr_colonies_qc_attachments", ["qc_attachment_id"], name: "index_pcr_colonies_qc_attachments_on_qc_attachment_id", using: :btree
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
 
   create_table "plasmid_batch_attachments", force: :cascade do |t|
     t.integer  "plasmid_batch_id"

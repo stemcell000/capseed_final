@@ -1,8 +1,31 @@
 ActiveAdmin.register VirusBatch do
+ index do
+   selectable_column
+    column :id
+    column :name
+    column "Virus production", (:virus_production_id) do |vb| 
+            vb.virus_production_id? ? vb.virus_production.nb : ""
+    end
+    column :volume
+    column :vol_unit_name
+    column :trash
+    column :barcode
+    column :date_of_thawing
+    column :barcode
+    column :box
+    column :row
+    column :column
+   #actions
+    actions 
+end 
+  
+  
+  
  csv do
    column :id
    column :name
    column :virus_production_id
+   column :virus_production_nb
    column :box_id
    column :volume
    column :date 
@@ -30,5 +53,6 @@ ActiveAdmin.register VirusBatch do
 action_item do
   link_to "View Site", "/"
 end
+
 
 end

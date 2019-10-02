@@ -291,6 +291,7 @@ class ProductionsController < InheritedResources::Base
      if @production.valid?
        @production.virus_productions.each do |vp|
          vp.update_columns(:number => vp.nb.to_s)
+         vp.generate_recap
        end
        flash.keep[:success] = "Task completed!"
      else

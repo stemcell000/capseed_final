@@ -5,6 +5,6 @@
 <td class="actions center">
 	<%= smart_listing_item_actions [
 	  	{name: :edit,    url: edit_primer_path(object), title: "Edit"},
-	  	{name: :custom, url: availability_switch_primer_path(object), method: :patch, icon: object.available? ? "fa fa-check":"fa fa-times", remote: true},
+	  	{name: :destroy, url: availability_switch_primer_path(object), method: :patch, remote: true},
 	]%>
 </td>

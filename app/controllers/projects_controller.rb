@@ -27,7 +27,7 @@ before_action :project_params, only:[:create, :update]
   end
  
  def index
-    @projects = smart_listing_create(:projects, Project.all, partial: "projects/list", default_sort: {name: "asc"},  page_sizes: [20, 40,100])   
+    @projects = smart_listing_create(:projects, Project.all, partial: "projects/list", default_sort: {id: "asc"},  page_sizes: [20, 40,100])   
  end
  
  def destroy

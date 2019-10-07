@@ -58,7 +58,7 @@ class UsersController < ApplicationController
         flash.keep[:success] = "User updated!"
      else
         render action: :new
-    end
+     end
   end
 
   def destroy

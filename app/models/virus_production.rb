@@ -62,6 +62,11 @@ end
  validates :date_of_production, :presence => true
  validates :user, :presence => true
  
+ enum status: {
+    yes: 1,
+    no: 0
+  }
+ 
   def generate_recap
    
       block1 = "<strong>Associated plasmids: </strong>"

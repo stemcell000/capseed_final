@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190906102739) do
+ActiveRecord::Schema.define(version: 20191014101848) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "fuzzystrmatch"
-  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
+  enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -621,8 +621,8 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.boolean  "invoice"
     t.text     "hek_result"
     t.string   "animal"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.date     "date_of_production"
     t.string   "number"
     t.string   "plasmid_tag"
@@ -634,6 +634,7 @@ ActiveRecord::Schema.define(version: 20190906102739) do
     t.string   "promoters_tag"
     t.boolean  "hidden"
     t.text     "recap"
+    t.integer  "dismissed",             default: 0
   end
 
   add_index "virus_productions", ["production_id"], name: "index_virus_productions_on_production_id", using: :btree

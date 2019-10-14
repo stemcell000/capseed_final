@@ -1,7 +1,7 @@
-  <td class="col-lg-1 col-md-1 col-sm-1 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "alert alert-warning" %>"><%= object.nb %></td>
-  <td class="col-lg-1 col-md-1 col-sm-1 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "alert alert-warning" %>"> <small><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></small></td>
-  <td class="col-lg-1 col-md-1 col-sm-1 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "alert alert-warning" %>"> <small><%= object.production.nil? ? "-" : object.production.name %></small></td>
-  <td class="col-lg-4 col-md-4 col-sm-4 text-left <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "text-warning" %>"><%= object.nb %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "text-warning" %>"> <small><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></small></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "text-warning" %>"> <%= object.production.nil? ? "-" : object.production.name %> </small></td>
+  <td class="text-left <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"text-warning" %>">
   	
   	<% unless object.production.nil? %>
   	<% object.production.clone_batches.joins(:type).order('order_set').each do |cb| %>
@@ -10,8 +10,8 @@
 	<%else%>
 			<span>Unknown set of plasmids</span>
 	<%end%>
-	<td class="col-lg-2 col-md-2 col-sm-2 center <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>"><%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
-  <td class="col-lg-3 col-md-2 col-sm-2 actions text-right <%= object.virus_batches.where('volume > ?', 0).any? ? "" :"alert alert-warning" %>">
+	<td class="text-center <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "text-warning" %>"> <%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
+  	<td class="text-center <%= dismissedOrNot(object.dismissed) %> <%= object.virus_batches.where('volume > ?', 0).any? ? "" : "text-warning" %>">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
 			title='

@@ -16,4 +16,10 @@ module VirusProductionsHelper
     end
     return b
   end
+  
+  def dismissedOrNot(d)
+  if d == 1
+     "alert alert-danger"
+   end
+end
 end

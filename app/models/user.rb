@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :pcr_colonies
   has_many :dosages
   has_many :options
-  has_many :clone_batch_users, :dependent => :destroy
+  has_many :clone_batch_users
   has_many :clone_batches
   has_many :virus_productions
 

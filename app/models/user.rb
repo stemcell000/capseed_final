@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   has_many :dosages
   has_many :options
   has_many :clone_batch_users
-  has_many :clone_batches
   has_many :virus_productions
 
   accepts_nested_attributes_for :virus_productions

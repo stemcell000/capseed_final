@@ -13,7 +13,6 @@
 			<Cell><Data ss:Type="String">Plasmids names</Data></Cell>
             <Cell><Data ss:Type="String">Date of production</Data></Cell>
             <Cell><Data ss:Type="String">Titer to ATCC (last validated)</Data></Cell>
-            <Cell><Data ss:Type="String">Titer to ATCC (last unvalidated)</Data></Cell>
             <Cell><Data ss:Type="String">Number of batches</Data></Cell>
           </Row>
           <% @vps.order(:nb).group(:id).each do |vp| %>
@@ -24,7 +23,6 @@
 				<Cell><Data ss:Type="String"><%= vp.production.clone_batches.pluck(:name).join(", ")%></Data></Cell>	
                 <Cell><Data ss:Type="String"><%= vp.date_of_production.strftime("%b %e, %Y") unless vp.date_of_production.nil? %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= "%.2e" %vp.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" unless vp.dosages.where(:accepted => true).last.nil? %></Data></Cell>
-                <Cell><Data ss:Type="String"><%= "%.2e" %vp.dosages.where(:accepted => false).last.titer_to_atcc+"vg/ml" unless vp.dosages.where(:accepted => false).last.nil? %></Data></Cell>
                 <Cell><Data ss:Type="String"><%= vp.virus_batches.count %></Data></Cell>
               </Row>
           <% end %>

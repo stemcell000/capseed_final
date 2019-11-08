@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  
   has_many :assays
   has_many :plasmid_batches
   has_many :sequencings

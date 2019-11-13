@@ -28,7 +28,7 @@
     		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Number</th>
     		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: center;">Name</th>
     	</tr>
-    	<% @assay.clone_batches.each do |plasmid| %>
+    	<% @assay.clone_batches.where.not(name: nil).each do |plasmid| %>
     	<tr>
     		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%=plasmid.nb%></td>
     		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: right;"><%=plasmid.name %></td>

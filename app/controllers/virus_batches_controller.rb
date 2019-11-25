@@ -76,7 +76,7 @@ end
   
   private
     def virus_batch_params
-      params.require(:virus_batch).permit(:id, :name, :volume, :virus_production_id, :box_id, :row_id, :column_id, :vol_unit_id, :comment, :date, :date_of_thawing,
+      params.require(:virus_batch).permit(:id, :name, :volume, :virus_production_id, :box_id, :trash, :row_id, :column_id, :vol_unit_id, :comment, :date, :date_of_thawing,
       virus_production_ids: [],
       :virus_production_attributes =>[:id, :nb])
     end

@@ -35,7 +35,7 @@ class Production < ActiveRecord::Base
     
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"
-  #validates_associated :clone_batches, :if => :enable_strict_validation?
+  validates_associated :clone_batches, :if => :enable_strict_validation?
     
   def self.count_by_step (label)
     Production.where(:step => label ).count

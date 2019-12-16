@@ -80,16 +80,14 @@ class ProductionsController < InheritedResources::Base
                 flash.keep[:warning] = "You did this before! This combination of plasmids already exists (virus # #{@vps}) . Are you sure you want to do it again?"
               else
                flash.discard(:success) 
-               flash[:success] = "Task completed."                
+               flash[:success] = "Task completed."  
+              end
+             else
+               flash[:notice] = "Add plasmids please."  
+                render :action => :new              
              end
             end
-            
-     else
-        flash[:notice] = "Add plasmids please."  
-        render :action => :new
-     end
- end
- 
+end 
  def edit
    @production.update_columns(:step => 0)
  end
@@ -399,7 +397,7 @@ class ProductionsController < InheritedResources::Base
   end
   
     def production_create_params
-      params.require(:production).permit(:order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
+      params.require(:production).permit(:id, :order_date, :production_id, :name, :display, :step, :comment, :created_at , :updated_at , :row_order_position, :locked, :percentage, :pool, :cbtag, :pbtag,
       project_ids: [],
       :projects_attributes => [:id, :name],
       :clone_attributes => [:id, :name, :assay_id],

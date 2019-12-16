@@ -29,7 +29,7 @@ class Production < ActiveRecord::Base
   # validations
   # validates :projects, :presence => true
   # validates :clone_batches, :presence => true
-  validates_presence_of :clone_batches
+  #validates_presence_of :clone_batches
   # validates_associated :plasmid_batch_productions
   # validates_associated :plasmid_batches
     
@@ -55,6 +55,7 @@ class Production < ActiveRecord::Base
     )
   end
   
+  self.primary_key = 'id'
   
   private
   

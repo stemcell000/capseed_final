@@ -1,5 +1,5 @@
 class Assay < ActiveRecord::Base
-  
+  self.primary_key = 'id'
   scope :on_going,-> {where("last_step < ?", 8)}
   
   #order

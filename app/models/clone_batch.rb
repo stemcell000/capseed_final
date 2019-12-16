@@ -33,7 +33,7 @@ class CloneBatch < ActiveRecord::Base
     end
   end
   
-  accepts_nested_attributes_for :clone
+  #accepts_nested_attributes_for :clone
   accepts_nested_attributes_for :sequencings, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :pcr_colonies, :allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :clone_batch_attachments, :allow_destroy => true

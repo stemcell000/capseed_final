@@ -80,7 +80,8 @@ class ProductionsController < InheritedResources::Base
                 flash.keep[:warning] = "You did this before! This combination of plasmids already exists (virus # #{@vps}) . Are you sure you want to do it again?"
               else
                flash.discard(:success) 
-               flash[:success] = "Task completed."  
+               flash[:success] = "Task completed."
+               redirect_to @production
               end
              else
                flash[:notice] = "Add plasmids please."  

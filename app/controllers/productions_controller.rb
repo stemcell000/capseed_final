@@ -81,7 +81,6 @@ class ProductionsController < InheritedResources::Base
               else
                flash.discard(:success) 
                flash[:success] = "Task completed."
-               redirect_to @production
               end
              else
                flash[:notice] = "Add plasmids please."  

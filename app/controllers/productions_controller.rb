@@ -8,8 +8,8 @@ class ProductionsController < InheritedResources::Base
     :add_pbs, :move_higher, :move_lower, :move_highest, :move_lowest]
   
 #Smart_listing
-  include SmartListing::Helper::ControllerExtensions
-  helper  SmartListing::Helper 
+  #include SmartListing::Helper::ControllerExtensions
+  #helper  SmartListing::Helper 
   
   def index
     @productions = Production.where("last_step <?", 3 ).rank(:row_order).all

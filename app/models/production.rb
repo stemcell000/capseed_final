@@ -27,11 +27,11 @@ class Production < ActiveRecord::Base
   accepts_nested_attributes_for :virus_productions, :allow_destroy => true, :reject_if => :all_blank
   
   # validations
-  # validates :projects, :presence => true
-  # validates :clone_batches, :presence => true
-  #validates_presence_of :clone_batches
-  # validates_associated :plasmid_batch_productions
-  # validates_associated :plasmid_batches
+   validates :projects, :presence => true
+   validates :clone_batches, :presence => true
+   validates_presence_of :clone_batches
+   validates_associated :plasmid_batch_productions
+   validates_associated :plasmid_batches
     
   
   #TRES IMPORTANT: indispensable pour la validation du modèle imbriqué (nested) dans les formulaire non "modal"

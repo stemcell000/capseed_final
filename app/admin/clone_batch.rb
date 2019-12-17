@@ -47,6 +47,7 @@ end
     column :temp_name
     column :comment
     column :gel_prot
+    column :strand
    #actions
     actions defaults: false do |p|
     link_to "Edit", edit_admin_clone_batch_path(p)

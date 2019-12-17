@@ -223,7 +223,7 @@ class CloneBatchesController < InheritedResources::Base
     @users = User.all
     @clone_batch.plasmid_batches.build
     @clone_batch.update_columns(:strict_validation => 0, :plasmid_validation => 0)
-    @plasmid_batches = @clone_batch.plasmid_batches
+    @plasmid_batches = @clone_batch.plasmid_batches.reorder(number: :asc)
     
   end
   

@@ -17,12 +17,6 @@ module VirusProductionsHelper
     return b
   end
   
-  def dismissedOrNot(obj)
-  if obj.dismissed == 1
-     "alert alert-danger"
-   end
-  end
-  
   def isavailable(obj)
     if obj.virus_batches.pluck(:trash) == [true]
       "info"

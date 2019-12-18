@@ -6,9 +6,13 @@ def number_generator
 end 
 
 def dismissedOrNot(d)
+  #  
   if d == 1
-     "alert alert-danger"
+     "danger"
+   else
+     "default"
    end
+  #
 end
 
     #Dynamic menu

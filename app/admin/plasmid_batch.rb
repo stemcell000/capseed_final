@@ -54,5 +54,16 @@ ActiveAdmin.register PlasmidBatch do
     end
      f.actions 
   end
+  
+   index do
+    column :id
+    column :number
+    column :name
+    column :box
+   #actions
+    actions defaults: false do |p|
+      link_to "Edit", edit_admin_clone_batch_path(p)
+    end
+end 
 
 end

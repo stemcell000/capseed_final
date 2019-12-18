@@ -50,8 +50,8 @@ end
     column :strand
    #actions
     actions defaults: false do |p|
-    link_to "Edit", edit_admin_clone_batch_path(p)
-  end
+      link_to "Edit", edit_admin_clone_batch_path(p)
+    end
 end 
 
 end

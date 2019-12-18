@@ -18,7 +18,7 @@ module VirusProductionsHelper
   end
   
   def dismissedOrNot(obj)
-  if d == 1
+  if obj.dismissed == 1
      "alert alert-danger"
    end
   end

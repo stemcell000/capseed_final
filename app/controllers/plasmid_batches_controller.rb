@@ -21,8 +21,7 @@ def new
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
     @clone = Clone.find(params[:clone_id])
     @assay = Assay.find(params[:assay_id])
-    @number = @clone_batch.plasmid_batches.maximum('number')+1
- 
+    @number = @clone_batch.plasmid_batches.length + 1
     @name = @name = @clone_batch.number+"."+@number.to_s
 end
 
@@ -31,7 +30,7 @@ def new_from_inventory
     @plasmid_batch = PlasmidBatch.new
     @user = User.all
     @clone_batch = CloneBatch.find(params[:clone_batch_id])
-    @number = @clone_batch.plasmid_batches.maximum('number')+1
+    @number = @clone_batch.plasmid_batches.length + 1
     @boxes = Box.all
     @columns = Column.all
     @rows = Row.all

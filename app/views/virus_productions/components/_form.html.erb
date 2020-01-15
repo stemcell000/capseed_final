@@ -4,7 +4,7 @@
 		
 			<%= f.input :id, :as => :hidden %>
 			<% unless VirusProduction.nil? %>
-				<% n = VirusProduction.maximum("nb")+1 %>
+				<% n = VirusProduction.size+1 %>
 			<%else%>
 				<% n = 1 %>
 			<%end%>

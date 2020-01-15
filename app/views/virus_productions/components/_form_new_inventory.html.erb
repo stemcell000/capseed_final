@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-lg-2">
 					<% unless VirusProduction.nil? %>
-						<% n = VirusProduction.maximum("nb")+1 %>
+						<% n = VirusProduction.size+1 %>
 					 <%else%>
 					     <% n = 1 %>
 					 <%end%>

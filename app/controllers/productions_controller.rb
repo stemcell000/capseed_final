@@ -243,7 +243,7 @@ end
       @missing_plasmids = 'batch'.pluralize(@a.size)+' for '+@str+"."
       
     if !@a.empty?
-      flash.keep[:warning] = "Add each  corresponding plasmid batches please: missing #@missing_plasmids"
+      flash.keep[:warning] = "Add each corresponding plasmid batches please: missing #@missing_plasmids"
       redirect_to :action => :add_plasmid
     elsif @production.plasmid_batch_productions.any? { |pbp| pbp.volume <= 0 }
       flash.keep[:warning] = "Complete the  production volumes, please."

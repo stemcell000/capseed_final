@@ -3,11 +3,11 @@
 	<small>
 		
 			<%= f.input :id, :as => :hidden %>
-			<% unless VirusProduction.nil? %>
-				<% n = VirusProduction.size+1 %>
-			<%else%>
-				<% n = 1 %>
-			<%end%>
+			<% unless VirusProduction.all.nil? %>
+				<% n = VirusProduction.last.nb+1 %>
+			 <%else%>
+			     <% n = 1 %>
+			 <%end%>
 			<%= f.input :nb, :input_html => { :value => n }, :as => :hidden%>
 			<div class="row">
 				<div class="col-lg-4">

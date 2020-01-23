@@ -40,7 +40,7 @@ action_item do
 end
 
 permit_params :vol_unit, :number, :nb, :plate_id, :vol, :sterility, :plate_id, :titer, :titer_atcc, :titer_to_atcc, :comment,
-:gel_prot, :invoice, :hek_result, :target, :animal, :user_id
+:gel_prot, :invoice, :hek_result, :target, :animal, :user_id, :date_of_production
 
 #FOR DATA ANALYSIS 
   csv do

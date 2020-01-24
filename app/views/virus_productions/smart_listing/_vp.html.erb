@@ -1,16 +1,16 @@
-  <td class="text-center <%= invcolor(object) %> "><%= object.nb %></td>
-  <td class="text-center <%= invcolor(object) %> "> <small><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></small></td>
-  <td class="text-center <%= invcolor(object) %> "> <%= object.production.nil? ? "-" : object.production.name %> </small></td>
-  <td class="text-left <%= invcolor(object) %>
-  	
-  	<% unless object.production.nil? %>
-  	<% object.production.clone_batches.joins(:type).order('order_set').each do |cb| %>
+  <td class="text-center "><%= object.nb %></td>
+  <td class="text-center "> <small><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></small></td>
+  <td class="text-center "> <%= object.production.nil? ? "-" : object.production.name %> </small></td>
+  <td class="text-left" >
+  	<% if object.production.nil? %>
+  		Unknown set of plasmids
+  	<% else %>
+  		<% object.production.clone_batches.joins(:type).order('order_set').each do |cb| %>
 												  				<small><span class="text-primary"><strong><%=cb.nb %></strong></span> <span> <%=cb.name %> </span></small><br />
 												  	<%end%>
-	<%else%>
-			<span>Unknown set of plasmids</span>
 	<%end%>
-	<td class="text-center <%= invcolor(object) %>"> <%= object.dosages.where(:accepted => true).last.titer_to_atcc.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
+	</td>
+	<td class="text-center <%= invcolor(object) %>"> <%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
   	<td class="text-center <%= invcolor(object) %>">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"

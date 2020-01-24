@@ -11,7 +11,6 @@ ActiveAdmin.register Production do
   #filter
   filter :name
   filter :id
-  
    #index columns
   index do
     selectable_column
@@ -22,9 +21,17 @@ ActiveAdmin.register Production do
     column :cbtag
     column :position
     column :name
+    column :step
     column :last_step
     column :row_order
     column :row_order_position
+    column :name
+    column :display
+    column :comment
+    column :row_order_position
+    column :locked
+    column :percentage
+    column :pool
     actions
 end
 

@@ -10,7 +10,7 @@
 	<%else%>
 			<span>Unknown set of plasmids</span>
 	<%end%>
-	<td class="text-center <%= invcolor(object) %>"> <%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
+	<td class="text-center <%= invcolor(object) %>"> <%= object.dosages.where(:accepted => true).nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
   	<td class="text-center <%= invcolor(object) %>">
   	
 	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"

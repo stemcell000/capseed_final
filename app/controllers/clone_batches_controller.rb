@@ -271,6 +271,7 @@ class CloneBatchesController < InheritedResources::Base
           @insert = Insert.new(:name => @clone_batch.name, :number => @clone_batch.number, :dismissed => @clone_batch.dismissed)
           @clone_batch.insert = @insert
           flash.keep[:success] = "Task completed!"
+          @clone_batch.generate_recap
       else
           render :action => :new_from_inventory
       end

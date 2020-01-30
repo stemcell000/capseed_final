@@ -1,0 +1,68 @@
+  <strong>Name:</strong>
+  <%= @production.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @production.last_step %>
+</p>
+
+<p>
+	
+<strong>Project:</strong>
+  <%= @production.last_step %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @production.comment %>
+</p>
+
+<% unless @production.plasmid_batches.empty? %>
+<table class="table table-bordered " id="plasmid-table">
+			<thead>
+				<th>Name</th>
+				<th>Plasmid</th>
+				<th>Type</th>
+				<th>Remaining volume</th>
+				<th>Prod. volume</th>
+			</thead>
+		<% @production.plasmid_batch_productions.order(:id).each do |pbp| %>
+				<tr>
+					<%if pbp.starting_volume.nil? %>
+						<%remaining_volume = pbp.plasmid_batch.volume %>
+					<%else%>
+						<% remaining_volume =  pbp.starting_volume - pbp.volume %>
+					<%end%>
+						<td class="col-lg-1 col-md-1 col-sm-1 center" > <strong><%=pbp.plasmid_batch.name%></strong></td>
+						<td class="col-lg-3 col-md-3 col-sm-4 center"></strong><%= pbp.plasmid_batch.clone_batch.nb %></strong> <%= pbp.plasmid_batch.clone_batch.name %></td>
+						<td class="col-lg-1 col-md-1 col-sm-2center"><%= pbp.plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-4"><%= remaining_volume %> <%= pbp.plasmid_batch.vol_unit.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-4"><%= pbp.volume %> <%= pbp.plasmid_batch.vol_unit.name %></td>
+			<%end%>
+					</tr>
+</table>
+
+<div class="row pull-right">
+	<div class="col-lg-12 col-sm-12 col-md-12">
+		
+	<%unless @production.last_step > 1%>
+        
+        	<% busy_batches =[] %>
+        	
+			<% busy_batches = @production.plasmid_batches.pluck(:id).uniq unless @production.plasmid_batches.nil? %>
+			<% busy_prods = Production.where(:last_step => 1).from_plasmid_batches(busy_batches) %>
+			<% busy_prods_a = busy_prods.pluck(:id).uniq %>
+		
+		<% if (busy_prods_a-[@production.id]).count > 0 %>
+		
+		<% disable_switch = @production != busy_prods.first %>
+		
+		<div class="col-lg-12 text-justify dismissed <%=disable_switch ? "":"hidden" %>">
+			This production is blocked. Please, release the previous <%="one".pluralize(busy_prods.count)%> (<%= (busy_prods_a-[@production.id]).sort.map{|x| 'Prod.'+x.to_s}.join(',') %>)
+		</div>
+<p>
+<%=@production.virus_production.first.recap%>
+</p>
+
+<%= link_to 'Back', virus_productions_path %>

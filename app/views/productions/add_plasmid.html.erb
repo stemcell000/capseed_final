@@ -21,7 +21,7 @@
 		<div class="panel-footer">
 		    <div class="btn-group" role="group" aria-label="...">
 		    		<%= link_to 'Previous', edit_production_path(@production.id), :class => "btn btn-default btn-sm" %>
-				<% unless @production.clone_batches.empty? %>
+				<% unless @production.clone_batches.empty? || @production.last_step == 3 %>
 					<%= link_to 'Add/Modify Plasmids', select_pbs_production_path(@production), :remote => true, :class => "btn btn-default btn-sm" %>
 		  		<%end%>	
 		  			<%= link_to 'Next', virus_production_production_path, :class => "btn btn-default btn-sm" %>

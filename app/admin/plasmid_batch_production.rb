@@ -25,5 +25,8 @@ index do
     column :starting_volume
     actions
 end
+#
+
+permit_params :list, :of, :attributes, :on, :model, :volume, :starting_volume
 
 end

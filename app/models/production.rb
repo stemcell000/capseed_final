@@ -60,7 +60,7 @@ class Production < ActiveRecord::Base
   private
   
   def enable_strict_validation?
-    self.strict_validation == 1
+    self.last_step == 3
   end
   
   def set_starting_volumes

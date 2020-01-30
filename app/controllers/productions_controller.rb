@@ -95,7 +95,7 @@ end
  def update
       @projects_all = Project.all
       #@production.update_attributes(production_params)
-      @production.attributes = params[:production]
+      @production.attributes = production_params
       @production.save(@production.last_step < 2)
      if @production.valid?
             redirect_to @production

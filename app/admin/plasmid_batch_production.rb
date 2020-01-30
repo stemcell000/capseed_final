@@ -12,4 +12,18 @@ action_item do
   link_to "View Site", "/"
 end
 
+#
+
+index do
+    selectable_column
+    column :id
+    column :created_at
+    column :updated_at
+    column :production_id
+    column :plasmid_batch_id
+    column :volume
+    column :starting_volume
+    actions
+end
+
 end

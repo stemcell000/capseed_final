@@ -100,7 +100,7 @@ end
       if @production.last_step < 2
         validate = false
       end
-      @production.save(do_val)
+      @production.save!(validate: do_val)
      if @production.valid?
             redirect_to @production
             @production.update_columns(:step => 0)

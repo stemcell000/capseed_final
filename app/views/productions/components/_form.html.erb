@@ -30,7 +30,7 @@
 							<%= f.association :projects, :label => "Projects",
 							:collection => Project.all.order(:name),
 							:input_html => { class:"select2-select" },
-							:disabled => :disabled => f.object.last_step == 3 %>
+							:disabled => f.object.last_step == 3 %>
 						</div>
 					<% else %>
 						<div class="col-lg-12">

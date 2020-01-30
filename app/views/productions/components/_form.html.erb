@@ -48,7 +48,7 @@
 	      		    <% unless f.object.last_step == 3 %>
 	  		        		<%= f.submit("Submit", class: "btn btn-default", title: "Save the changes.") %>
 	  		        	<%else%>
-	  		        		<%= link_to "Next", add_plasmid_production_path(@production)%>
+	  		        		<%= link_to "Next", add_plasmid_production_path(@production), class: "btn btn-default"%>
 	  		        	<%end%>
 	  		    </div>
 	  	

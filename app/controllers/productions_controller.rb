@@ -312,7 +312,6 @@ end
     else
       @production.update_columns(:step => 3)
       @production.update_columns(:last_step => 3)
-      update_last_step(@production, 3)
       @production.update_columns(:percentage => 100)
       redirect_to :action => :index
     #

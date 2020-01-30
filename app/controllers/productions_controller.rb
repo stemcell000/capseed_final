@@ -204,11 +204,12 @@ end
         flash.keep[:success] = "Task completed!"
         
         #Actuallisation des volumes de chaque plasmid batch
+       if @production.last_step < 3
             @production.plasmid_batch_productions.each do |pbp|
               remaining_volume = pbp.starting_volume - pbp.volume
               pbp.plasmid_batch.update_columns(:volume => remaining_volume)
             end
-            
+         end   
         #Actualisation du status de la production au cas ou un volume serait égal à zéro
         if @production.plasmid_batch_productions.where(:volume=>0).any?
           @production.update_column(:last_step => 1)
@@ -222,11 +223,6 @@ end
   def virus_production
     #Collection des plasmids batches
     @plasmid_batches = @production.plasmid_batches.order(:id)
-    
-    #@production.plasmid_batch_productions.each do |pbp|
-    # remaining_volume = pbp.starting_volume - pbp.volume
-    # pbp.plasmid_batch.update_columns(:volume => remaining_volume)
-    # end
     
     #Collection de virus (en fait un virus seulement par production)
     @vps = @production.virus_productions

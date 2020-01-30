@@ -81,7 +81,7 @@
   		<%if object.production_id?%>
   		
   		<%= smart_listing_item_actions [
-  			{name: :custom,    url: production_path(object.production_id),
+  			{name: :custom,    url: edit_production_path(object.production_id),
 	  		method: :get, 
   			icon: object.production.last_step < 3 ? "fa fa-cog":"fa fa-industry", 
   			title: "View production"}

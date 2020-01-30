@@ -32,9 +32,15 @@ ActiveAdmin.register Production do
     column :locked
     column :percentage
     column :pool
+    column :target
+    column :order_date
+    column :strict_validation
+    column :production_volume
+    column :cbtag
+    column :pbtag
+    column :disable_switch
     actions
 end
-
 
   #Import csv   
  active_admin_import validate: true,

@@ -94,13 +94,7 @@ end
  
  def update
       @projects_all = Project.all
-      #@production.update_attributes(production_params)
-      @production.attributes = production_params
-      do_val = true
-      if @production.last_step < 2
-        validate = false
-      end
-      @production.save!(validate: do_val)
+      @production.update_attributes(production_params)
      if @production.valid?
             redirect_to @production
             @production.update_columns(:step => 0)

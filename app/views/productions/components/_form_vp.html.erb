@@ -7,11 +7,11 @@
 			<% if ff.object.id.nil? %>
 			
 				<div class="row">
-							<% unless VirusProduction.last.nil?%>
-						     	<% n = VirusProduction.maximum("nb")+1 %>
-					     	<%else%>
-					     		<% n = 1 %>
-					     	<%end%>
+						<% unless VirusProduction.all.nil? %>
+							<% n = VirusProduction.last.nb+1 %>
+						 <%else%>
+						     <% n = 1 %>
+						 <%end%>
 					<div class="col-lg-4">
 						<%= ff.input :nb, :input_html => { :value => n }, :readonly => true%>
 						<%= ff.input :nb, :input_html => { :value => n }, :as => :hidden%>

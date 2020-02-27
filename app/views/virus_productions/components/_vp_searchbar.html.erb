@@ -27,15 +27,19 @@
     <div id="collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
       	<div class="panel-body">
 <div class="row">
-	<div class="col-lg-4 col-md-3 col-sm-4">
+	<div class="col-lg-3 col-md-3 col-sm-3">
 			<%= f.label "Number" %>
   			<%= f.search_field :number_has_any_term, :class => "col-lg-5" %>
   	</div>
-  	<div class="col-lg-4 col-md-3 col-sm-4">
+  	<div class="col-lg-3 col-md-3 col-sm-3">
+			<%= f.label "Barcode" %>
+  			<%= f.search_field :virus_batches_barcode_has_any_term, :class => "col-lg-5" %>
+  	</div>
+  	<div class="col-lg-3 col-md-3 col-sm-3">
 			<%= f.label "Project" %>
   			<%= f.select(:production_projects_id_eq, @projects_all, {:include_blank=>" "}, {:class => "select2-select col-lg-3"}) %>
   	</div>
-	<div class="col-lg-4 col-md-3 col-sm-3">
+	<div class="col-lg-3 col-md-3 col-sm-3">
 			<%= f.label 'Invoice'%>
 			<%= f.select(:invoice_eq ,[['', ''],['True', true], ['False', false]],{:include_blank => " "}, {:class => "select2-select"}) %>
 	</div>

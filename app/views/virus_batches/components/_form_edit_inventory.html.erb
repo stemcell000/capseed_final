@@ -7,9 +7,6 @@
 		<div class="col-lg-3 col-md-3 col-sm-3 ">
 			<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-3 ">
-			<%=f.input :barcode %>
-		</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-4 col-md-4 col-sm-4">
@@ -53,6 +50,12 @@
 							</div>
 		</div>
 </small>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-3 ">
+			<%=f.input :barcode %>
+		</div>
+	</div>
+
 <div class="panel-footer">
  		<div class="btn-group" role="group" aria-label="...">
     		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>

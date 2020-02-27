@@ -152,7 +152,7 @@ class VirusProductionsController < InheritedResources::Base
     :dosages_attributes => [:id, :virus_production_id, :titer, :titer_atcc, :titer_to_atcc, :date, :plate_name, :_destroy, :remove_dosage,
     :inactivation, :inactivation_atcc, :inactivation_standard, :accepted, :user_id],
     :sterilitytests_attributes => [:id, :virus_production_id, :sterility, :date, :_destroy, :remove_sterilitytest],
-    :virus_batches_attributes => [:id, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id, :date_of_thawing ],
+    :virus_batches_attributes => [:id, :barcode, :name, :box_id, :volume, :vol_unit_id, :row_id, :column_id, :date_of_thawing ],
     :users_attributes =>[:id, :firstname, :lastname], user_ids: [])
   end
   

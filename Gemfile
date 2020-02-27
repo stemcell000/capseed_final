@@ -144,7 +144,7 @@ gem 'nprogress-rails'
   #Ici, lié à l'utilisation du mailer
   gem "figaro"
   #Utilisation du mailer
-  gem 'sendgrid'
+  gem 'sendgrid-ruby'
   
   #Popover
   gem 'bootstrap-popover-rails'

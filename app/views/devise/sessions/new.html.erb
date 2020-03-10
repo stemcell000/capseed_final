@@ -1,4 +1,4 @@
-<h2>Log in</h2>
+<h2><%=t('.log_in')%></h2>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), :validate => true ) do |f| %>
 <div class="row">
@@ -10,7 +10,7 @@
  </div>
 <div class="row">
   <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    <%= f.button :submit, t('.log_in') %>
   </div>
 <% end %>
   </div>

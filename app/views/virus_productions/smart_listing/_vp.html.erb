@@ -45,7 +45,7 @@
 						<td><%= vb.name.nil? ? "Unknown" :vb.name %></td>
 						<td><%= vb.barcode.nil? ? "Unknown" :vb.barcode %></td>
 						<td><%= vb.box.nil? ? "Unknown" : vb.box.name %></td>
-						<td><%= vb.row.nil? ? "Unknown" : vb.row.name %><%= vb.column_id.nil? ? "" : pb.column.name %></td>
+						<td><%= vb.row.nil? ? "Unknown" : vb.row.name %><%= vb.column_id.nil? ? "" : vb.column.name %></td>
 						<td class="col-lg-2"><%= vb.volume.nil? ? "Unknown" : "#{vb.volume} #{vb.vol_unit.name}" %></td>
 						<td><%= vb.virus_production.date_of_production.nil? ? "Unknown" : vb.virus_production.date_of_production.strftime("%B %e, %Y") %></td>
 						<td><%= vb.date_of_thawing.nil? ? "Unknown" : vb.date_of_thawing.strftime("%B %e, %Y") %></td>

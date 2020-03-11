@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rb-readline'
- gem  'bcrypt'
+gem  'bcrypt'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

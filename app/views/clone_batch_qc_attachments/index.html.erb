@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Clone Batch Qc Attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attachment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @qc_attachments.each do |qc_attachment| %>
+      <tr>
+        <td><%= qc_attachment.attachment %></td>
+        <td><%= link_to 'Show', qc_attachment %></td>
+        <td><%= link_to 'Edit', edit_qc_attachment_path(qc_attachment) %></td>
+        <td><%= link_to 'Destroy', qc_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Clone batch qc attachment', new_qc_attachment_path %>

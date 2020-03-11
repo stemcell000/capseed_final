@@ -1,0 +1,92 @@
+  <td class="text-center "><%= object.nb %></td>
+  <td class="text-center "> <small><%= object.date_of_production.nil? ? "No data" : object.date_of_production.strftime("%b %e, %Y") %></small></td>
+  <td class="text-center "> <%= object.production.nil? ? "-" : object.production.name %> </small></td>
+  <td class="text-left" >
+  	<% if object.production.nil? %>
+  		Unknown set of plasmids
+  	<% else %>
+  		<% object.production.clone_batches.joins(:type).order('order_set').each do |cb| %>
+												  				<small><span class="text-primary"><strong><%=cb.nb %></strong></span> <span> <%=cb.name %> </span></small><br />
+												  	<%end%>
+	<%end%>
+	</td>
+	<td class="text-center <%= invcolor(object) %>"> <%= object.dosages.where(:accepted => true).last.nil? ? "-" : "%.2e"%object.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" %></td>
+  	<td class="text-center <%= invcolor(object) %>">
+  	
+	  <a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
+			title='
+				<div class="row"> 
+					<div class="col-lg-12 text-left primary <%if object.id%>">
+						<strong>ID: <%=object.nb%></strong><br />
+						<strong>Created on: <%=object.created_at.strftime("%b %e, %Y")%></strong>
+					</div>
+				</div>'
+				data-content='	
+				<small>
+						<%=object.recap%>
+
+			<div>								
+			<h6><strong> Virus batches: </strong></h6>
+			<% unless object.virus_batches.empty? %>
+			<small>
+				<table class="table table-bordered">
+					<thead>
+						<th>Batch</th>
+						<th>Barcode</th>
+						<th>Box</th>
+						<th>row/col.</th>
+						<th>Volume</th>
+						<th>Date of production</th>
+						<th>Date of thawing</th>
+						<th>Trash</th>
+					</thead>
+					<%object.virus_batches.each do |vb|%>
+					<tr>
+						<td><%= vb.name.nil? ? "Unknown" :vb.name %></td>
+						<td><%= vb.barcode.nil? ? "Unknown" :vb.barcode %></td>
+						<td><%= vb.box.nil? ? "Unknown" : vb.box.name %></td>
+						<td><%= vb.row.nil? ? "Unknown" : vb.row.name %><%= vb.column_id.nil? ? "" : vb.column.name %></td>
+						<td class="col-lg-2"><%= vb.volume.nil? ? "Unknown" : "#{vb.volume} #{vb.vol_unit.name}" %></td>
+						<td><%= vb.virus_production.date_of_production.nil? ? "Unknown" : vb.virus_production.date_of_production.strftime("%B %e, %Y") %></td>
+						<td><%= vb.date_of_thawing.nil? ? "Unknown" : vb.date_of_thawing.strftime("%B %e, %Y") %></td>
+						<td><%= vb.trash? ? "Yes" : "No" %></td>
+					</tr>
+					<%end%>
+				</table>
+			<%else%>
+			No batch
+			<%end%>
+			</div>
+		</div>
+		</small>	
+			'
+		>
+			<span class="fa_icon fa fa-eye"></span>
+	</a>
+	<% icon_hide = object.options.where(:id => current_user.options.first.id).exists? ? "fa_icon fa fa-eye-slash font-red" : "fa_icon fa fa-eye-slash" %>
+	  <%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_from_inventory_virus_production_path(object),
+	  		title: "Edit"},
+	  	{name: :custom,    url: hide_from_inventory_virus_production_path(object),
+	  		method: :patch,
+	  		remote: true,
+	  		title: "Hide",
+	  		icon: icon_hide},
+	  	{name: :custom,    url: add_vb_from_inventory_virus_production_path(object),
+	  		method: :get, 
+  			icon: "glyphicon glyphicon-th",
+  			title: "Add batches"}
+	  		]%>
+  			
+  		<%if object.production_id?%>
+  		
+  		<%= smart_listing_item_actions [
+  			{name: :custom,    url: edit_production_path(object.production_id),
+	  		method: :get, 
+  			icon: object.production.last_step < 3 ? "fa fa-cog":"fa fa-industry", 
+  			title: "View production"}
+  			]%>
+  			  		
+  		<%end%>
+  	<%end%>
+</td>

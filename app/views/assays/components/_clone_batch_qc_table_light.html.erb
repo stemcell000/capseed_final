@@ -1,0 +1,79 @@
+<div class="row">
+	<small>
+		<div class="col-lg-12">
+		<strong>Selected Batches:</strong><br />
+		<div id = "clone-batches-table-container">
+				<table class="table table-bordered">
+														<thead>
+															<th>Name</th>
+															<th>QC</th>
+															<th>Result</th>
+														</thead>
+														<% clone.clone_batches.order(:id).each do |cb|%>
+															<tr>
+																<td class="col-sm-1 <%= (cb.name.presence)? ("final-name"):("temp-name")%>"><strong><%= (cb.name.presence)? (cb.name+" (final)") : (cb.temp_name+" (temp.)") %></strong><br />
+																</td>
+																
+																<td class="col-sm-5 .well">	
+																						<% cb.clone_batch_qcs.each do |qc| %>
+																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
+																							title='QC created on : <%=qc.created_at.strftime("%h %e, %Y ") %> 
+																							<div class="row pull-right"></div><%= link_to "Edit", edit_clone_batch_clone_batch_qc_path(cb, qc), :class =>"btn btn-primary btn-xs font80pc", :remote => true %></div>' 
+																							data-content='
+																							<small>
+																								<div class="col-sm-12">
+																										<div><strong>Primer name:</strong><%=qc.primer.name%></div>	
+																										<div><strong>Sending date:</strong> <%=qc.date_send.strftime("%h %e, %Y ")%></div>
+																										<div><strong>Contact:</strong> <%=qc.user.firstname%> <%=qc.user.lastname%> </div>
+																										<div><strong>Result:</strong><%=qc.result%></div>
+																										<div><strong>Conclusion:</strong> 
+																											<%if qc.conclusion==false %>
+																											Validated QC
+																											<%else%>
+																											Not validated QC
+																											<%end%>
+																										</div>
+																										<div><strong>Files:</strong></br>
+																											<% if qc.qc_attachments.length>0%>
+																												<% qc.qc_attachments.each do |a|%>
+																													<% mypath= a.attachment.to_s%>
+																													<%= link_to File.basename(a.attachment.path ), a.attachment.to_s, :target => "_blank"%><br />
+																												<%end%>
+																												<%else%>
+																												<em>No attachment.</em>
+																											<%end%>
+																								</div>
+																							<small>
+																								</div>
+																								'
+																							>
+																								<% if qc.conclusion == true %>
+																										<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%else%>
+																										<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%end%>
+																						<%end%>
+																						</a>
+																</td>
+																
+																
+																<td class="col-sm-2">
+																		<div class="row">
+																			<div class="col-md-2">
+																				<strong>
+																				<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == true} %>
+																						<div class="font-success">Validated</div>
+																				<% else %>
+																						<div class="font-warning">Pending</div>
+																						</strong>
+																				<% end %>
+																			</div>
+																		</div>
+																</td>
+															</tr>
+														<%end%>
+						</table>
+			</small>
+		</div>
+	</div>
+	</div>

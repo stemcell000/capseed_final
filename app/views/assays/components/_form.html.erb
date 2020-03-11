@@ -1,0 +1,18 @@
+	<h4>Start Cloning</h4>
+		<%= simple_form_for @assay, html: { class: 'form-vertical' }  do |f| %>
+			
+			<%= f.error_notification %>
+			
+			<div class="form-group">
+				    <%= f.input :user_id, :input_html => {:value=> current_user.id}, :as => :hidden %>
+				    <div id="clone-table-container" class="col-md-6">
+						<%= render :partial => "clones/components/table" , :locals => {:assay => @assay, :clones => @clones}%>
+					</div>
+				</div>	
+					
+	 				<div class="btn-group" role="group" aria-label="...">
+	      		     	<%= link_to "Cancel", root_path, class: "btn btn-default", :title => "Cancel the changes and return to the Home page." %>
+	  		        	<%= f.submit("Start", class: "btn btn-default", title: "Save the changes.") %>
+	  		        </div>
+	  			
+			<% end %>

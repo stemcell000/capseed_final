@@ -1,0 +1,8 @@
+  	console.log("add virus_production.")
+  	$("#pb-modal").modal("hide");
+
+	
+	$("#vp-container").html("<%= escape_javascript( render :partial => "productions/components/table_vp", :locals => {:collection => @vps}) %>");
+	console.log("Refreshing Virus table.");
+	
+

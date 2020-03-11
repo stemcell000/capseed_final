@@ -1,0 +1,5 @@
+$("#myModalLabel").html("Delete cloning")
+$("#myModalButtons").html("<%= escape_javascript( render'components/modal_delete_btn' ) %>")
+
+$("#inner-assay-modal").html("Are you sure you wish to delete this cloning?")
+$("#assay-modal").modal("show")

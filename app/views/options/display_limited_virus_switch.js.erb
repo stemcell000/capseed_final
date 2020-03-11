@@ -1,0 +1,4 @@
+console.debug('checkbox submitting');
+$('#display-limited-container').html("<%= escape_javascript( render :partial => "virus_productions/components/toggle_display_limited" , :locals => { :option => @option }) %>");
+console.debug('refreshing checkbox');
+$('#virus_production_search').submit();

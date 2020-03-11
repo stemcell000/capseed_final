@@ -1,0 +1,59 @@
+<% if !collection.empty? %>
+<table class="table table-bordered" id="plasmid-table">
+			<thead>
+				<th>Data</th>
+				<th>Actions</th>
+			</thead>
+				<% collection.each do |vp| %>
+					<tr>
+						<td class="col-lg-9">
+							<div class="row">
+								<div class="col-lg-6">
+									<strong># <%= vp.number.blank? ? "No data" : vp.number %></strong><br />
+									<strong>User: </strong><%= vp.user.nil? ? "No data" : vp.user.full_name %><br />
+									<strong>Invoice: </strong><%= vp.invoice.nil? ? "No data" : vp.invoice %><br />
+									<strong>Volume: </strong><%= vp.vol.nil? ? "No data" : vp.vol %> <%=vp.vol_unit.nil? ? "" : vp.vol_unit.name%><br />
+									<strong>Date of prod.:</strong> <%=vp.date_of_production.nil? ? "No Data" : formatDate(vp.date_of_production)%><br />
+								</div>
+								<div class="col-lg-6">
+									<strong>Gel (prot.): </strong><%= vp.gel_prot.nil? ? "No data" : vp.gel_prot %><br />
+									<strong>HEK results: </strong><%= vp.hek_result.nil? ? "No data" : vp.hek_result %><br />
+									<strong>Comment: </strong><%= vp.comment.nil? ? "No data" : vp.comment %><br />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div id="dosage-container<%=vp.id%>" class="col-lg-12">
+										<%= render :partial => "productions/components/table_titer" , :locals => { :dosages => vp.dosages }%>
+									</div>								
+								</div>
+							</div>
+						</td>
+						<td class="col-lg-3 text-center">
+							<% if vp.production.last_step<3%>
+							<%= link_to "Remove", 
+										remove_vp_from_prod_production_path(@production, @vp, :virus_production_id =>vp.id, :id => vp.id),
+										:class =>"btn btn-danger btn-xs",
+										:title=>"Remove virus production from list.",
+										:remote => true
+							%>
+							<%end%>
+							<%= link_to "Edit", 
+										 edit_production_virus_production_path(:id =>vp.id, :production_id => vp.production_id),
+										:class =>"btn btn-success btn-xs",
+										:title=>"Edit virus production.",
+										:remote => true
+							%>
+							<%= link_to "Add/Modify Titers", 
+										 spawn_dosage_virus_production_path(:id =>vp.id, :production_id => vp.production_id),
+										:class =>"btn btn-primary btn-xs",
+										:title=>"Add dosage.",
+										:remote => true
+							%>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<%else%>
+			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No virus.</div></div>
+<% end %>

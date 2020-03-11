@@ -1,0 +1,12 @@
+		$(".select2-select").select2({
+		    theme: "bootstrap",
+		    tag: true,
+		    placeholder: "Select",
+		    tokenSeparators: [',', ' '],
+		    allowClear: true
+		});
+		
+//Reload du script des popovers
+  $(function () {
+  $('[data-toggle="popover"]').popover({html:true});
+});

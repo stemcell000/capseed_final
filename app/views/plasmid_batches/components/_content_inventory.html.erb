@@ -1,0 +1,67 @@
+	<% pbl = @plasmid_batches.length %>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-lg-6">
+							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
+							
+							
+							<table>
+								<tr>
+									<% @plasmid_batches.each_with_index do |b, index|%>
+									<td>
+										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
+											title='
+												<div class="row"> 
+													<div class="col-lg-2 col-md-2 col-sm-2  text-left">
+														<%=b.name%>
+													</div>
+													<div class="col-lg-10 col-md-10 col-sm-10 right">
+														<% unless b.trash %>
+															<%= link_to "Edit", edit_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-primary btn-xs font80pc"%>
+															<%= link_to "Remove", destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%else%>
+															<%= link_to "Rescue", destroy_from_inventory_clone_batch_plasmid_batch_path(@clone_batch, b), :class =>"btn btn-warning btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%end%>	
+													</div>	
+												</div>'
+											data-content='
+												<div class="col-lg-12 text-left">
+													<strong>Barcode: </strong><%= b.barcode.nil? ? "Unknown" : b.barcode %><br />
+													<strong>Date of prod.: </strong><%= b.date.nil? ?  "Unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name.nil? ? "Unknown" : b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration.nil? ? "Unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
+													<strong>Volume: </strong><%= b.volume.nil? ? "Unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
+													<strong>Comments: </strong><br /><%= b.comment.blank? ? "No comment" : b.comment %><br />
+													<strong>Contact: </strong><%= b.user.nil? ? "Unknown": "#{b.user.firstname} #{b.user.lastname}<br />" %><br />
+													<strong>Box: </strong><%= b.box.nil? ? "Unknown" : b.box.name %> <br />
+													<% if b.plasmid_batch_attachments.length > 0 %>
+														<strong>Attached file(s): </strong><br />
+															<% b.plasmid_batch_attachments.each do |a|%>
+																<%= link_to File.basename(a.attachment.path ).truncate(25), a.attachment.to_s, :target => "_blank" %><br />
+															<%end%>
+													<%end%>
+												</div>
+											'
+										>
+											<div class="col-lg-2 center">
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><strong><%= b.name %></strong></p>
+											</div>
+										</a>	
+									</td>
+									<% if index == 12 %>
+										</tr>
+									<%end%>
+								<%end%>
+							</table>
+						</div><!--End of col-lg-3-->
+						<div class="row">
+							<div class="col-lg-11 right">
+									<%= link_to "Add plasmid batch", new_from_inventory_new_clone_batch_plasmid_batch_path( :clone_batch_id => @clone_batch.id ), :class =>"btn btn-default btn-sm", :remote => true %>
+							</div><!--End of Btn_col-->
+						</div><!--End of row-->
+					
+					</div><!--End pf row-->
+				</div><!--End of panel body-->
+			</div><!--End of panel-->
+

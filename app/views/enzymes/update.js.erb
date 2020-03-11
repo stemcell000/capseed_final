@@ -1,0 +1,4 @@
+  	$("#flash-msg-container").html("")
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$('#assay-modal').modal("hide");
+  	<%= smart_listing_item :enzymes, :update, @enzyme, @enzyme.valid? ? "enzymes/enz" : "enzymes/form" %>

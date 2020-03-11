@@ -1,0 +1,10 @@
+<%= smart_listing_item :virus_productions, :create, @virus_production, @virus_production.valid? ? "virus_productions/smart_listing/vp" : "virus_productions/components/edit_from_inventory" %>
+
+//Flash messages
+$("#flash-msg-container").html("")
+$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" ); 
+
+//Popover
+ $('[data-toggle="popover"]').popover({html:true});
+ 
+ $('#virus_production_search').submit();

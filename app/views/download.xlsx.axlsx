@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Plasmids") do |sheet|
+    sheet.add_row ["ID", "number"]
+    @payments.each do |payment|
+        sheet.add_row [clone_batch.id, number]
+    end
+end

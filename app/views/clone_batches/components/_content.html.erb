@@ -1,0 +1,38 @@
+<td class="col-lg-1 text-center"><%= cb.name %></td>
+						<td class="col-lg-1 text-center"><%= cb.number %></td>
+						<td class="col-lg-3">
+							<div class="col-lg-12">
+							<% if !cb.strand_id.nil?%>
+								<i class="glyphicon glyphicon-barcode"></i> <strong>Number: </strong> <%= cb.number.blank? ? "None" : cb.number %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= cb.date_as_plasmid.blank? ? "None" : cb.date_as_plasmid.strftime("%B %e, %Y") %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= cb.glyc_stock_box_as_plasmid.blank? ? "None" : cb.glyc_stock_box_as_plasmid %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= cb.origin.nil? ? "None" : cb.origin.name %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= cb.type.nil? ? "None" : cb.type.name %><br />
+								<strong>Strand: </strong><%= cb.strand.nil? ? "None" : cb.strand.name %><br />
+								<strong>Promoter: </strong><%= cb.promoters.empty? ? "None" : cb.promoters.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= cb.genes.empty? ? "None" : cb.genes.map {|gene| gene.name}.to_sentence %><br />
+							</div>
+							<div class="col-lg-12">
+							<% if !cb.clone_batch_as_plasmid_attachments.empty? %>
+								<% if cb.clone_batch_as_plasmid_attachments.length>1%>
+									<strong>Attached files:</strong><br />
+									<%else%>
+									<strong>Attached file:</strong><br />
+								<%end%>	
+									<% cb.clone_batch_as_plasmid_attachments.each do |a|%>
+										<%= link_to File.basename(a.attachment.path), a.attachment.to_s, :target => "_blank"%> <br />
+									<%end%>
+								<%end%>
+							</div>
+					<% else %>						
+						<div class="font-orange"><em>Missing plasmid info </em></div>
+					<% end %>
+						</td>
+						<td class="col-lg-2 text-center">
+							<% if cb.strand_id.nil?%>
+								<%= link_to "Add info", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-primary btn-sm", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked %>
+							<%else%>
+								<%= link_to "Edit", edit_as_plasmid_clone_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :id => cb.id), :class =>"btn btn-success btn-xs", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked %>
+								<%= link_to "Remove", remove_plasmid_data_clone_batch_path( :assay_id => @assay.id, :clone_id => clone.id, :id => cb.id) , :class =>"btn btn-danger btn-xs", :title=>"Clear plasmid data." ,:remote => true, :disabled => @assay.locked %>
+							<%end%>
+						</td>

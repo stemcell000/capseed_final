@@ -1,0 +1,8 @@
+  	console.debug("add/modify dosage.")
+  	$("#pb-modal").modal("hide");
+
+	
+	$("#vp-container").html("<%= escape_javascript( render :partial => "productions/components/table_vp", :locals => {:collection => @vps}) %>");
+	console.debug("Refreshing dosage table.dosage-container<%=@virus_production.id%>");
+	
+

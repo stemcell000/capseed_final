@@ -1,0 +1,15 @@
+  	console.log("add plasmids.")
+	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	
+  	$("#pb-modal").modal("hide");
+	
+	
+	$("#cb-container").html("<%= escape_javascript( render :partial => "productions/components/table", :locals => {:collection => @clone_batches}) %>");
+	console.log("Refreshing plasmids.");
+	
+	$("#pool-container").html("<%= escape_javascript( render :partial => "productions/components/pool", :locals => {:collection => @clone_batches}) %>");
+	console.log("Refreshing pool.");
+	
+	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+	
+

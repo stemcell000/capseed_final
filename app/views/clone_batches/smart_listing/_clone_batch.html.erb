@@ -1,0 +1,123 @@
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.nb %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.name || object.temp_name %></small></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.clone.nil? ? "-" : object.clone.name %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.promoters.empty? ? "-" : object.promoters.map {|promoter| promoter.name}.to_sentence%></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.genes.empty? ? "-" : object.genes.map {|gene| gene.name}.to_sentence %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><%= object.plasmid_batches_count %></td>
+  <td class="text-center <%= dismissedOrNot(object.dismissed) %>"><small><%= object.created_at.strftime("%b %e, %Y") %></small></td>
+<td class="actions text-right <%= dismissedOrNot(object.dismissed) %>">
+		 
+	<a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
+			title='
+				<div class="row"> 
+					<div class="col-lg-12 text-left primary">
+						<strong><%=object.name%></strong>
+					</div>
+				</div>'
+			data-content='		
+			<small>
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Number: </strong> <%= object.number.nil? ? "-" : object.number %><br />
+								<i class="glyphicon glyphicon-calendar"></i> <strong>Date: </strong> <%= object.date_as_plasmid.nil? ? "-" : object.date_as_plasmid.strftime("%b %e, %Y") %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Glycerol stock box: </strong><%= object.glyc_stock_box_as_plasmid.nil? ? "No data" : object.glyc_stock_box_as_plasmid %><br />
+								<i class="glyphicon glyphicon-home"></i> <strong>Origin: </strong><%= object.origin.nil? ? "-" : object.origin.name %><br />
+								<i class="glyphicon glyphicon-inbox"></i> <strong>Type: </strong> <%= object.type.nil? ? "-" : object.type.name %><br />
+								<i class="glyphicon glyphicon-th"></i> <strong>Number of batches: </strong> <%= object.plasmid_batches.empty? ? "-" : object.plasmid_batches.length %><br />
+								<strong>Clone: </strong><%= object.clone.nil? ? "-" : object.clone.name %><br />
+								<strong>Target: </strong> <%= object.target.nil? ? "-" : object.target.name %><br />
+								<strong>Strand: </strong><%= object.strand.nil? ? "-" : object.strand.name %><br />
+								<strong>Promoter: </strong><%= object.promoters.nil? ? "-" : object.promoters.uniq.map {|promoter| promoter.name}.to_sentence %><br />
+								<strong>Gene: </strong><%= object.genes.nil? ? "-" : object.genes.uniq.map {|gene| gene.name}.to_sentence %><br />
+								<% if !object.comment_as_plasmid.blank? %>
+									<strong>Comment: </strong><%= object.comment_as_plasmid %><br />
+								<%end%>
+								<% unless object.plasmid_batches.empty? %>
+								<table class="table table-bordered">
+									<thead>
+										<th>Batch</th>
+										<th>Box</th>
+										<th>Location</th>
+										<th>Conc.</th>
+										<th>Date of production</th>
+										<th>Volume</th>
+									</thead>
+									<%object.plasmid_batches.each do |pb|%>
+									<tr>
+										<% involved = pb.productions.where('last_step < ?', 3).any?  %>
+										<td><%= pb.name %></td>
+										<td><%= pb.box.nil? ? "Unknown" : pb.box.name %></td>
+										<td><%= pb.row.nil? ? "Unknown" : pb.row.name %><%= pb.column_id.nil? ? "" : pb.column.name %></td>
+										<td><%= pb.concentration.nil? ? "Unknown" : "#{pb.concentration} #{pb.unit.name}" %></td>
+										<td><%= pb.date.nil? ? "Unknown" : pb.date.strftime("%B %e, %Y") %></td>
+										<td class = <%= "dismissed" if involved %>><%= pb.volume.nil? ? "Unknown":"#{pb.volume} #{pb.vol_unit.name}" %></td>
+									</tr>
+									<%end%>
+								</table>
+							<%else%>
+							no batch
+							<%end%>
+								<div class="col-lg-12">
+								<% if !object.clone_batch_as_plasmid_attachments.empty? %>
+								<% if object.clone_batch_as_plasmid_attachments.length>1%>
+									<strong>Attached files:</strong><br />
+									<%else%>
+									<strong>Attached file:</strong><br />
+								<%end%>	
+									<% object.clone_batch_as_plasmid_attachments.each do |a|%>
+										<small><%= link_to File.basename(a.attachment.path ), a.attachment.to_s %></small> <br />
+									<%end%>
+								<%end%>
+							</div>
+			</small>
+			'
+		>
+			<span class="fa_icon fa fa-eye"></span>
+	</a>
+	<% icon_hide = object.options.where(:id => @option.id).exists? ? "fa_icon fa fa-eye-slash font-red" : "fa_icon fa fa-eye-slash" %>
+	
+	  	<%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_from_inventory_clone_batch_path(object),
+	  		title: "Edit"},
+	  	{name: :custom,    url: hide_from_inventory_clone_batch_path(object),
+	  		method: :patch,
+	  		remote: true,
+	  		title: "Hide",
+	  		icon: icon_hide},
+	  	{name: :custom,    url: add_pb_from_inventory_clone_batch_path(object),
+	  		method: :get, 
+  			icon: "glyphicon glyphicon-th",
+  			title: "Add batches"}]%>
+  			
+  		<% if object.clone %>
+  			<%if object.clone.assay %>
+		  		<%= smart_listing_item_actions [
+		  		{name: :custom,    url: clone_design_assay_path(:id => object.clone.assay.id),
+			  		method: :get, 
+		  			icon: "fa fa-industry", 
+		  			title: "View cloning"}
+		  			]%>
+		  	<%else%>
+		<a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="left"
+			title='
+				<div class="row"> 
+					<div class="col-lg-12 text-left primary">
+						<strong><%=object.clone.name%>(<%=object.clone.id%>)</strong>
+					</div>
+				</div>'
+			data-content='		
+			<small>
+								<strong>Backbone: </strong> <%= object.clone.backbones.nil? ? "No data" : object.clone.backbones.pluck(:number).to_sentence %><br />
+								<strong>Restriction: </strong> <%= object.clone.enzymes.nil? ? "No data" : object.clone.enzymes.pluck(:name).to_sentence %><br />
+								<strong>Insert: </strong> <%= object.clone.inserts.nil? ? "No data" : object.clone.inserts.pluck(:number).to_sentence %><br />
+								<strong>Primer forward: </strong> <%= object.clone.primer_f.nil? ? "No data" : object.clone.primer_f.name %><br />
+								<strong>Primer reverse: </strong> <%= object.clone.primer_r.nil? ? "No data" : object.clone.primer_r.name %><br />
+								<strong>Cloning method: </strong> <%= object.clone.cmeth.nil? ? "No data" : object.clone.cmeth.name %><br />
+								<strong>Comment: </strong> <%= object.clone.comment? ? "No data" : object.clone.comment %><br />
+								
+			</small>
+			'
+		>
+			<i class="fa_icon fa fa-circle"></i>
+	</a>
+	  		<%end%>
+	  	<%end%>
+</td>

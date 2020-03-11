@@ -1,0 +1,75 @@
+<script>
+
+var i = 0, prod = [];
+while(i < gon.productions.length){
+    prod.push([]);
+    for(var key in gon.productions[i].production){
+        prod[prod.length-1].push(gon.productions[i].production[key]);	
+    }
+    i++;
+}
+function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+   }
+   
+for(var i in prod){
+	
+			prod[i][3] = new Date(prod[i][3]);
+			prod[i][4] = new Date(prod[i][4]);
+			if(prod[i][3] == prod[i][4]){
+				prod[i][5] = daysToMilliseconds(1);
+			}else{
+				prod[i][5] = null;
+			};
+				prod[i][7] = null;
+};
+console.log("prod:"+prod);
+console.log("gon.prod:"+gon.productions);
+
+google.charts.load('current', {'packages':['gantt']});
+google.charts.setOnLoadCallback(drawChart);
+
+
+function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+	  data.addColumn('string', 'Task Name');
+	  data.addColumn('string', 'Resource');
+	  data.addColumn('date', 'Start Date');
+	  data.addColumn('date', 'End Date');
+	  data.addColumn('number', 'Duration');
+	  data.addColumn('number', 'Percent Complete');
+	  data.addColumn('string', 'Dependencies');
+
+ 	data.addRows(prod);
+
+  var options = {
+    height: 600,
+    width: 1050,
+    gantt: {
+      trackHeight: 30,
+      labelStyle: {
+      fontName: "Arial",
+      fontSize: 12,
+  				},
+ 	barHeight: 20,
+  	criticalPathEnabled: false,
+  	barCornerRadius: 2,
+  	innerGridTrack: {fill: 'white'},
+    innerGridDarkTrack: {fill: 'white'},
+    }
+  };
+
+  var chart = new google.visualization.Gantt(document.getElementById('chart_prod_div'));
+
+  chart.draw(data, options);
+  
+      function selectHandler() {
+        console.log(selectedItem);
+        document.getElementById('result').innerHTML = selectedItem.row + " row has been selected"; 
+    }
+}
+</script>
+<div id="chart_prod_div"></div>
+

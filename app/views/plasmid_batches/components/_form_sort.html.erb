@@ -1,0 +1,26 @@
+<%= simple_nested_form_for ([@assay, @clone, @clone_batch, @plasmid_batch]), url: update_and_sort_plasmid_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	<div class="container">
+		<div class="row"><strong><%= f.object.name %></strong></div>
+  <small>
+	<div class="row">
+				<div class="col-xs-3">
+  					<%=f.association :box, :label => "Box# :", :collection => Box.all, :placeholder => "Select box#.", input_html: { class: 'select2-select', id: 'box' }%>
+  				</div>
+  	</div>
+  	<div class="row">
+				<div class="col-xs-2">
+					<%=f.association :row, :label => "Row :", :collection => Row.all, :placeholder => "Select column.", input_html: { class: 'select2-select', id: 'row' }%>
+  				</div>
+				<div class="col-xs-2">
+					<%=f.association :column, :label => "Column :", :collection => Column.all, :placeholder => "Select row.", input_html: { class: 'select2-select', id: 'column' }%>
+  				</div>
+	</div>
+  </div>
+</small>
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<% end %>

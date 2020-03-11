@@ -1,0 +1,19 @@
+%h1 Listing inserts
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @inserts.each do |insert|
+      %tr
+        %td= link_to 'Show', insert
+        %td= link_to 'Edit', edit_insert_path(insert)
+        %td= link_to 'Destroy', insert, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Insert', new_insert_path

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Clone:</strong>
+  <%= @clone_attachment.clone_id %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @clone_attachment.filename %>
+</p>
+
+<%= link_to 'Edit', edit_clone_attachment_path(@clone_attachment) %> |
+<%= link_to 'Back', clone_attachments_path %>

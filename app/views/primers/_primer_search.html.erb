@@ -1,0 +1,15 @@
+<%= search_form_for @q, :url =>primers_path, :class=>"form-horizontal", :remote => true do |f| %>
+<small>	
+		<div class="row">
+			<div class="col-lg-12">
+				<%= f.search_field :name_or_sequence_or_comment_cont, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any term"%>
+			</div>
+		</div>
+		<div class="row">	
+			<div class="form-group pull-right">
+					<%= f.submit class:"cancel-button btn btn-default" %>
+					<%= link_to "Clear Search", primers_path, class:"cancel-button btn btn-default" %>
+			</div>
+		</div>
+</small>
+<%end%>

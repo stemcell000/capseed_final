@@ -1,0 +1,16 @@
+<%= render 'components/process_pills'%>
+	<div class="panel panel-primary">
+		<div class="panel-heading"> Cloning: <%= @assay.id %></div>
+		<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
+		<div id="clone-table-container" class="col-md-6">
+						<%= render :partial => "clones/components/table" , :locals => {:clones => @clones}%>
+		</div>
+			<div class="panel-footer row">
+			    <div class="btn-group col-md-7" role="group" aria-label="...">
+			    	<%= link_to 'Add Cloning',new_assay_clone_path(@assay), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Add Backbone Enzymes', new_enzyme_path(@enzyme), :class => 'btn btn-default btn-sm', :remote => true %>
+			    	<%= link_to 'Previous', edit_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+				<%= link_to 'Next', clone_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+			  	</div>
+		  	</div>
+		</div>

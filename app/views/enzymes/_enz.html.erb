@@ -1,0 +1,9 @@
+<td class="center"><%= object.id%></td>
+<td class="center"><%= object.name%></td>
+<td class="center"><%= object.created_at.strftime("%b %e, %Y")%></td>
+<td class="actions center">
+	<%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_enzyme_path(object), title: "Edit"},
+		{name: :destroy, url: enzyme_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this?"}
+		]%>
+</td>

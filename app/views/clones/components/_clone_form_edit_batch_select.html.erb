@@ -1,0 +1,32 @@
+<%= simple_nested_form_for ([@assay,@clone]), url: update_record_batch_select_assay_clone_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	<div class="container">
+		<small>
+		<% @clone.clone_batches.each_with_index do |clone_batch, index| %>
+		
+			<%= f.simple_fields_for :clone_batches, clone_batch do |b, index| %>
+				<div class="row">
+					<div class="col-md-6">
+							<div class="panel panel-default unit-panel lightblue">
+								<% if b.object.name?%>
+										<%= b.input :name,:label => "Final name:", :disabled => true %>
+								<%end%>
+								       	<%= b.input :temp_name, :label => "Temporary name: ", :input_html => {:value=> @clone.name+'_'+index.to_s}, :readonly => true %>
+								       	<%= b.input :comment, :label => "Notes: " %>
+							</div> 
+						</div>
+				</div>
+			<% end %>
+		<% end %>
+		</small>	
+			
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit("Clear form", :class => "btn btn-default", :type => "reset", :title => "Clear input fields.", :id => "reset-btn") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+        </div>
+<%end%>
+
+

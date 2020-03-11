@@ -1,0 +1,82 @@
+<%= simple_nested_form_for @virus_production, url: create_dosage_virus_production_path(:id => @virus_production.id), html: { class: 'form-vertical' }, :remote => true  do |f| %>
+	<%= f.error_notification %>
+	<small>
+	<%= f.input :id, :as => :hidden %>
+				<%=f.simple_fields_for :dosages do |ff|%>
+				<div id="titer_container" class="col-lg-12">
+				<div class="row">
+					<div class="col-lg-5">
+						<%= ff.input :id, :as => :hidden %>
+						<%= ff.association :user, :label => "Contact name",
+						:collection => @users, :label_method => :full_name, :value_method => :id,
+						:input_html => { class:"select2-select" } %>
+					</div>
+					<div class="col-lg-3">
+						<%= ff.input :date, :label => "Date", :as => :string, :input_html => { :value => (ff.object.date.strftime("%B %e, %Y") if ff.object.date), "data-behaviour" => "datepicker" } %>
+					</div>
+					<div class="col-lg-2">
+						<%= ff.input :plate_name, :label => "Plate#" %>
+						<div class="help-block">As Year + number (yy-##)</div>
+					</div>
+				</div>
+					<div class="row">
+							<div class="form-group ui-front well">
+								<div class="row">
+								<div class="col-lg-3">
+									<%=ff.input :inactivation, :label => "Date of inactivation", :as => :string, :input_html => { :value => (ff.object.inactivation.strftime("%b %e, %Y") if ff.object.inactivation), "data-behaviour" => "datepicker" } %>
+								</div>
+								<div class="col-lg-3">
+									<%=ff.input :inactivation_atcc, :label => "Date of inact. ATCC)", :as => :string, :input_html => { :value => (ff.object.inactivation_atcc.strftime("%b %e, %Y") if ff.object.inactivation_atcc), "data-behaviour" => "datepicker" } %>
+								</div>
+								<div class="col-lg-3">
+									<%=ff.input :inactivation_standard, :label => "Date of inact. standard", :as => :string, :input_html => { :value => (ff.object.inactivation_standard.strftime("%b %e, %Y") if ff.object.inactivation_standard), "data-behaviour" => "datepicker" } %>
+								</div>
+							</div>
+							<div class="row">
+								<%= ff.input :id, :as => :hidden %>
+								<div class ="col-lg-3">
+								<% if ff.object.titer.nil? %>
+									<%= ff.input :titer, :label => "Titer (vg/mL)", as: :string %>
+									<div class="help-block">Example of titer: 4.2e13 (please use a dot for decimals).</div>
+								<%else%>
+									<%= ff.input :titer, :label => "Titer (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer } %>
+								<%end%>
+								</div>
+								<div class ="col-lg-4">
+								<% if ff.object.titer_atcc.nil? %>
+									<%= ff.input :titer_atcc , :label => "Titer ATCC (vg/mL)", as: :string %>
+								<%else%>
+									<%= ff.input :titer_atcc, :label => "Titer ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_atcc } %>
+								<%end%>
+								</div>
+								<div class ="col-lg-4">
+								<% if !ff.object.id.nil? %>
+									<%= ff.input :titer_to_atcc, :label => "Titer to ATCC (vg/mL)", as: :string, :input_html => { :value => "%.2e" %ff.object.titer_to_atcc }, :readonly => true %>
+								<%end%>
+								</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-3">
+										<%=ff.input :accepted, :label => "Validated"%>
+										<div class="help-block">Validated if the ATCC titer is between  8e+9 and 8e+10 vg/ml.</div>
+									</div>
+								</div>
+								<%= ff.link_to_remove "Remove titer" %>
+							</div>
+						</div>
+							
+						</div>
+								
+				<%end%>
+								<%= f.link_to_add "Add titers", :dosages %>
+				</div>
+		
+		      <div class="modal-footer" id="myPbButtons">
+      
+				<div class="btn-group" role="group" aria-label="...">
+			    		<%= f.submit("Save", :class => "btn btn-default") %>
+			        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+			</div>
+			</div>
+	</small>
+<%end%>

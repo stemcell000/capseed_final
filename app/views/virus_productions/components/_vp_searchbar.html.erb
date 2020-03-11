@@ -1,0 +1,153 @@
+ <%= search_form_for @q, :url => virus_productions_path, :class => "form-inline" ,:remote => true do |f| %>
+<small>
+ <div class="row">
+			<div class="col-lg-12">
+				<h3><i class="fa_icon fa fa-search"></i> Virus Inventory</h3>
+			</div>
+		</div>
+		
+<div class="row">
+		<div class="col-lg-12">
+				<%= f.search_field :number_or_recap_or_plasmid_tag_or_plasmid_batch_tag_or_rev_plasmid_tag_or_rev_plasmid_batch_tag_or_production_name_or_virus_batches_barcode_has_any_term, class: "col-lg-12 col-md-12 col-sm-12", placeholder: "Search any terms."%>
+		</div>
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	
+  <div class="panel panel-default">
+  	
+    <div class="panel-heading" role="tab" id="heading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">
+        Fine search
+        <i class="indicator glyphicon glyphicon-chevron-right  pull-right"></i></a>
+      </h4>
+    </div>
+    
+    <div id="collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading">
+      	<div class="panel-body">
+<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-3">
+			<%= f.label "Number" %>
+  			<%= f.search_field :number_has_any_term, :class => "col-lg-5" %>
+  	</div>
+  	<div class="col-lg-3 col-md-3 col-sm-3">
+			<%= f.label "Barcode" %>
+  			<%= f.search_field :virus_batches_barcode_has_any_term, :class => "col-lg-5" %>
+  	</div>
+  	<div class="col-lg-3 col-md-3 col-sm-3">
+			<%= f.label "Project" %>
+  			<%= f.select(:production_projects_id_eq, @projects_all, {:include_blank=>" "}, {:class => "select2-select col-lg-3"}) %>
+  	</div>
+	<div class="col-lg-3 col-md-3 col-sm-3">
+			<%= f.label 'Invoice'%>
+			<%= f.select(:invoice_eq ,[['', ''],['True', true], ['False', false]],{:include_blank => " "}, {:class => "select2-select"}) %>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-lg-6">
+			<%= f.label "Comment" %>
+  			<%= f.search_field :comment_cont, :class => "col-lg-12" %>
+  	</div>
+	<div class="col-lg-6">
+			<%= f.label 'Contact'%>
+			<%= f.select(:user_id_eq, @users_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3">
+			<%= f.label "Any terms in plasmid number" %>
+  			<%= f.search_field :plasmid_tag_or_rev_plasmid_tag_has_any_term %>
+  	</div>
+  		<div class="col-lg-6">
+			<%= f.label "Plasmid name" %>
+  			<%= f.select(:clone_batches_id_eq, @clone_batches_all,{:include_blank => " "}, {:class => "select2-select col-lg-4"}) %>
+  	</div>
+  	<div class="col-lg-3">
+			<%= f.label "Any terms in plasmid batch number" %>
+  			<%= f.search_field :plasmid_batch_tag_or_rev_plasmid_batch_tag_cont%>
+  	</div>
+ </div>
+ <div class="row">
+ 	  	<div class="col-lg-6">
+			<%= f.label "Promoter" %>
+  			<%= f.select(:clone_batches_promoters_id_eq, @promoters_all, {:include_blank => " "}, {:class => "select2-select col-lg-6"}) %>
+  	</div>
+	<div class="col-lg-6">
+			<%= f.label "Genes" %>
+  			<%= f.select(:clone_batches_genes_id_eq, @genes_all, {:include_blank => " "}, {:class => "select2-select col-lg-6"}) %>
+
+	</div>
+</div> 
+<div class="row">
+	<div class="col-lg-4">
+			<%= f.label 'plate#'%>
+			<%= f.search_field :dosages_plate_name_cont, :class=>"col-lg-12"%>
+	</div>
+	<div class="col-lg-4">
+			<%= f.label 'Titer'%>
+			<%= f.search_field :dosages_titer_cont, :class=>"col-lg-12" %>
+	</div>
+	<div class="col-lg-4">
+			<%= f.label 'Contact (titer)'%>
+			<%= f.select(:dosages_user_id_eq, @users_all,{:include_blank => " "}, {:class => "select2-select col-lg-12"}) %>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4">
+		<h5 class="text-primary"><em>Search by ranges of date of <mark>creation</mark> : </em></h5>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+					
+						<%= f.label "Start date ", :class=>"control-label"  %>
+						<%= f.search_field :created_at_gteq, value: @created_at_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+						<%= f.label "End date ", :class=>"control-label" %>
+						<%= f.search_field :created_at_lteq, value: @created_at_date_lteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-4">
+		<h5 class="text-primary"><em>Search by ranges of date of <mark>production</mark> : </em></h5>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+					
+						<%= f.label "Start date ", :class=>"control-label"  %>
+						<%= f.search_field :date_of_production_gteq, value: @date_of_production_date_gteq_with_proper_format, 'data-behaviour' => 'datepicker'%>
+				</div>
+	</div>
+	<div class="col-lg-4">
+				<div class="form-group" >
+						<%= f.label "End date ", :class=>"control-label" %>
+						<%= f.search_field :date_of_production_lteq, value: @date_of_production_date_lteq_with_proper_format, input_html: { class: "datepicker"}%>
+				</div>
+	</div>
+</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<span class="help-block"><em>*Enter all or part of the value.</em></span>
+		</div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row">
+	<div class="form-group pull-right">
+  			<%= f.submit class:"btn btn-default" %>
+  			<%= link_to "Clear Search", request.path, class:"btn btn-default" %>
+  </div>
+</div>
+</small>
+<% end %>

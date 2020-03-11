@@ -1,0 +1,18 @@
+<% if @production.plasmid_batches.exists?%>
+
+	<% if @production.pool == true %>
+		<% st = "Production from pooled plasmids." %>
+	<%else%>
+		<% st = "The plasmids are not pooled." %>
+	<%end%>
+	
+	
+		<%= simple_form_for @production, url: production_pool_path(@production), :remote=> true do |f| %>
+			<div class="form-group">
+				<div class=" pull-right">
+		  		<%= f.input :pool, :as => :boolean, :label =>false, :inline_label => st, :input_html => {:onclick => "$('#production_pool*').submit();"}%>
+		  		</div>
+	  		</div>
+		<%end%>
+
+<%end%>

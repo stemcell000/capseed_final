@@ -1,0 +1,65 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<% @clones.each_with_index do |clone, index| %>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading<%=index.to_s%>">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index.to_s%>" aria-expanded="true" aria-controls="collapse<%=index.to_s%>">
+          <%=clone.name%>
+        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+      </h4>
+    </div>
+    <div id="collapse<%=index.to_s%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=index.to_s%>">
+      <small> 
+    <div class="panel-body">
+	<div class="row">
+		<div class="col-md-2">
+				<strong>Clone name: </strong><%= clone.name %><br />
+				<strong>Clone#: </strong><%= clone.id %><br />
+				<strong>Backbone nb:</strong> <%= clone.bbnb%><br />
+									<strong>Primer ins.fwd:</strong> <%= clone.primerinsfor.name%><br />
+									<strong>Primer ins.rev:</strong> <%= clone.primerinsrev.name%><br />
+		</div>
+		
+		<div class="col-md-6 text-justify">		
+				<strong>Comments:</strong>
+									<%= clone.comment.presence || 'no comment' %><br />
+		</div>
+		<div class="col-md-3">
+				<strong>Total batches: </strong>
+									<%= clone.batch_nb.presence || 'none' %><br />
+				<strong>Notes: </strong>
+									<%= clone.comment_batch.presence || 'none'%><br />
+									<% if clone.clone_attachments.empty? %>
+										<strong>Attached files: </strong>none<br />
+									<% else %>
+									<strong>Attached files: </strong><br />	
+										<% clone.clone_attachments.each do |clone_attachment|%>
+												<%= link_to File.basename(clone_attachment.attachment.path ), clone_attachment.attachment.to_s, :target => "_blank"%><br />
+									<%end%>
+									<%end%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 right">
+				<% if clone.clone_batches.empty? || clone.clone_batches.all.size < clone.batch_nb %>
+					<%= link_to "Select batch(es)", edit_batch_select_assay_clone_path(@assay, clone), :class =>"btn btn-danger btn-xs", :title=>"Update clone's parameters." ,:remote => true %>		
+				<% else %>
+					<%= link_to "Modify or add batches", edit_batch_select_assay_clone_path(@assay, clone), :class =>"btn btn-primary btn-xs", :title=>"Update clone's parameters." ,:remote => true %>		
+				<% end %>
+		</div>
+		</small>
+	</div>
+	<div id="clone_batch_select_table">
+	<% if !clone.clone_batches.empty? %>
+	<%= render :partial => "assays/components/clone_batch_select_table", :locals => {:clone => clone}%>
+	<%else%>
+	 <em>No Batch yet.</em>
+	<%end%>
+	</div>
+  </div>
+</div>
+  </div>
+  <%end%>
+  </div>
+  
+

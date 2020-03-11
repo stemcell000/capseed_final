@@ -1,0 +1,21 @@
+<%unless @users.empty?%>
+<table class=" table-striped table-bordered">
+		<th class="center">User</th>
+		<th class="center">status</th>
+		<th class="center">Actions</th>
+	<% @users.order(:role).each do |user|%>
+	<tr>
+		<td class="col-lg-3 col-md-4 col-sm-5"><%=user.full_name %></td>
+		<td class="col-lg-2 col-md-4 col-sm-5 center"><%= user.role%></td>
+		<td class="col-lg-2 col-md-2 col-sm-2 center">
+		<%= link_to 'Edit', edit_user_user_path(user), :remote => true %>
+		<% if user.dependencies %>
+			<%= link_to 'Destroy', user, :method => :delete, data: {confirm: "Are you sure?"} %>
+		<%end%>
+	</td>
+	<%end%>
+	</tr>
+</table>
+<%else%>
+<p>No users yet</p>
+<%end%>

@@ -1,0 +1,11 @@
+<%= smart_listing_item :clone_batches, :create, @clone_batch, @clone_batch.valid? ? "clone_batches/smart_listing/clone_batch" : "clone_batches/components/new_from_inventory" %>
+
+//Flash messages
+$("#flash-msg-container").html("")
+$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" ); 
+
+//Popover
+ $('[data-toggle="popover"]').popover({html:true});
+ 
+  $('#clone_batch_search').submit();
+ 

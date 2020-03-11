@@ -1,0 +1,10 @@
+<td ><%= object.id%></td>
+<td ><small><%= object.name%></small></td>
+<td ><small><%= object.sequence.nil? ? "":object.sequence.upcase%></small></td>
+<td ><small><%= object.comment%></small></td>
+<td class="actions center">
+	<%= smart_listing_item_actions [
+	  	{name: :edit,    url: edit_primer_path(object), title: "Edit"},
+	  	{name: :destroy, url: availability_switch_primer_path(object), method: :patch, remote: true},
+	]%>
+</td>

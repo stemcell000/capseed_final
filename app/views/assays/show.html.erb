@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+	<div class="panel-heading"> Cloning: <%= @assay.id %></div>
+	<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
+		<div id="clone-table-container">
+				<%= render :partial => "assays/components/assay_clone_table" , :locals => {:clones => @clones}%>
+		</div>
+	    <div class="btn-group" role="group" aria-label="...">
+	    	<%= link_to 'Add Cloning',new_assay_clone_path(@assay), :class => 'btn btn-default btn-sm', :remote => true %>
+	  	</div>
+	    <div class="btn-group" role="group" aria-label="...">
+	    	<%= link_to 'Previous', edit_assay_path, :class => "btn btn-default btn-sm" %>
+			<%= link_to 'Next', '#', :class => "btn btn-default btn-sm" %>
+			<%= link_to 'Cancel', root_path, :class => "btn btn-default btn-sm" %>
+	  	</div>
+</div>

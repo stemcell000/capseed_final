@@ -1,0 +1,9 @@
+//Les donnees dans les champs du formulaire form_clone sont testées d'après les critères de validation
+//definis dans le model. Si ces criteres sont verifies, les donnees sont sauvees. Sinon, le formulaire
+//dans sa fenetre modale reste ouvert et les message d'erreur s'affichent en haut du formulaire.
+	$("#myModalLabel").html("Edit Project")
+	$("#flash-msg-container").html("")
+	$("#inner-assay-modal").html("<%= escape_javascript( render'projects/form' ) %>")
+	$("#assay-modal").modal({ backdrop: 'static', keyboard: false})
+	$("#assay-modal").modal("show")
+	$("ul.errors").html("")

@@ -1,0 +1,50 @@
+<% if @assays.empty?%>
+			<p>No cloning to display!</p>
+<%else%>
+<table class="table table-bordered table-hover" id="sortable">
+  <thead>
+    <tr>
+      <th>
+        Construction
+      </th>
+       <th>
+        Step
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @assays.each do |assay| %>
+      <tr data-item-id=<%= assay.id %> class="item">
+        <td class="text-align-left">
+          <small><strong>
+			  <% unless assay.clones.empty? %>
+			    <% assay.clones.order(:id).each do |c|%>
+			    <span class="text-primary"><%= c.id%></span> | <%= c.name%><br />
+			    	<%end%>
+			  <%else%>
+			    "Add a construction!"
+			  <%end%>
+			  </strong>
+          </small>
+        </td>
+         <td>
+          <%= link_to formatStep(assay.last_step, assay.id)[:step_name], formatStep(assay.last_step, assay.id)[:step_path] %>
+        </td>
+        <td>
+        		<%= link_to clone_design_assay_path(assay.id)  do %>
+				    <i class="glyphicon glyphicon-pencil"></i>
+			<% end %>
+          <% if can? :inform_cloning, @user %>
+          	<%= link_to assay, :method => :delete, :remote => true  do %>
+          		<i class="glyphicon glyphicon-trash"></i>
+          	<%end%>
+        <%end%>	
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%end%>
+

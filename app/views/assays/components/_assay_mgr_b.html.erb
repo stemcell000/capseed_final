@@ -1,0 +1,49 @@
+<% if @assays.empty?%>
+			<p>No cloning to display!</p>
+<%else%>
+	
+<table class="table table-bordered table-striped table-hover" id="sortable">
+  <thead>
+    <tr>
+      <th class="col-name col">
+        Construction
+      </th>
+      <th class="col-startdate">
+        Start date
+      </th>
+      <th  class="col-step">
+        Current step
+      </th>
+       <th  class="col-step">
+        Last validated step
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @assays.each do |assay| %>
+      <tr data-item-id=<%= assay.id %> class="item">
+        <td id="clone_collection" class="col-lg-3">
+          <small><%= clone_display(assay.clones) %></small>
+        </td>
+      	<td id="startdate" class="col-lg-2"%>
+          <%= assay.created_at.strftime("%d %b %y at %H:%M") %>
+         </td>
+        <td id="step" class=<%= formatStep(assay.step, assay.id)[:step_class] %>>
+          <%= link_to formatStep(assay.step, assay.id)[:step_name], formatStep(assay.step, assay.id)[:step_path] %>
+        </td>
+         <td id="laststep" class=<%= formatStep(assay.last_step, assay.id)[:step_class] %>>
+          <%= link_to formatStep(assay.last_step, assay.id)[:step_name], formatStep(assay.last_step, assay.id)[:step_path] %>
+        </td>
+        <td id="Action" class="col-lg-2">
+          <%= link_to 'Edit', clone_design_assay_path(assay.id) , class: "btn btn-default btn-xs" %>
+          <% if can? :inform_cloning, @user %>
+          	<%= link_to "Remove", assay, :method => :delete, :class =>"btn btn-danger btn-xs", :title=>"Remove clone from list.", :remote => true  %> 
+        <%end%>	
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%end%>

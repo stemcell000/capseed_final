@@ -1,0 +1,59 @@
+<small>
+<% cb_collection = clone.clone_batches.where.not(:name => nil).order(:id) %>
+<% cb_collection.each do |cb| %><!--loop1-->
+
+	<% pbl = cb.plasmid_batches.length %>
+	
+					<div class="row">
+						<div class="row" >
+							<div class="col-lg-10">
+								<strong>Plasmid: <span class="text-success"><%= cb.name %></span></strong><br />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<% puts case pbl %>
+								<% when 0 %>
+									<em>No batch.</em><br />
+								<% when 1%>
+									<strong>Plasmid batch:</strong><br />
+								<%else%>
+									<strong>Plasmid batches:</strong><br />
+								<%end%>
+							</div>
+						</div>
+						<div class="row">
+								<div class="col-lg-1">
+									<%if !cb.plasmid_batches.empty?%>
+										<%= link_to "Add QC protocol for all", new_qc_protocol_new_assay_clone_clone_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id ), :class => "btn btn-info btn-xs", :remote => true, :disabled => @assay.locked %>
+									<%end%>
+								</div>
+						</div>
+						</div>
+						
+								<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%><!--loop2-->
+												<div class="row">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<div class="row" id="batch-container">
+																<div class="col-lg-2">
+																	<span class="text-primary"><strong><%= b.name %></strong></span>
+																</div>
+																<div class="col-lg-8">
+																	<%= render :partial => "plasmid_batch_qcs/components/table", :locals => {:b => b, :cb => cb, :clone => clone, :assay => @assay}%>
+																</div><!--End of col-lg-10-->
+																<div class="col-lg-1">
+																		<%= link_to "Add single QC", new_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id, :plasmid_batch_id => b.id), :class =>"btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
+																</div><!--End of col-lg-3-->
+															</div><!--End of batch container-->
+														</div><!--End of panel-body-->
+													</div><!--End of panel-->
+												</div><!--End of row-->
+											<%end%><!--End of loop2-->
+											
+											
+
+										
+
+	<% end %><!--End of loop1-->
+</small>

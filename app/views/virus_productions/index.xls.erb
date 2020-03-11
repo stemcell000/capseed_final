@@ -1,0 +1,31 @@
+ <?xml version="1.0"?>
+    <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+              xmlns:html="http://www.w3.org/TR/REC-html40">
+      <Worksheet ss:Name="virus production">
+        <Table>
+          <Row>
+            <Cell><Data ss:Type="String">Number</Data></Cell>
+            <Cell><Data ss:Type="String">Projects</Data></Cell>
+			<Cell><Data ss:Type="String">Plasmids numbers</Data></Cell>
+			<Cell><Data ss:Type="String">Plasmids names</Data></Cell>
+            <Cell><Data ss:Type="String">Date of production</Data></Cell>
+            <Cell><Data ss:Type="String">Titer to ATCC (last validated)</Data></Cell>
+            <Cell><Data ss:Type="String">Number of batches</Data></Cell>
+          </Row>
+          <% @vps.order(:nb).group(:id).each do |vp| %>
+              <Row>
+                <Cell><Data ss:Type="String"><%= vp.number %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= (vp.production.projects.pluck(:name)-["Global project"]).to_sentence unless vp.production.nil? %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= vp.production.clone_batches.pluck(:nb).join(", ")%></Data></Cell>	
+				<Cell><Data ss:Type="String"><%= vp.production.clone_batches.pluck(:name).join(", ")%></Data></Cell>	
+                <Cell><Data ss:Type="String"><%= vp.date_of_production.strftime("%b %e, %Y") unless vp.date_of_production.nil? %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= "%.2e" %vp.dosages.where(:accepted => true).last.titer_to_atcc+"vg/ml" unless vp.dosages.where(:accepted => true).last.nil? %></Data></Cell>
+                <Cell><Data ss:Type="String"><%= vp.virus_batches.count %></Data></Cell>
+              </Row>
+          <% end %>
+        </Table>
+      </Worksheet>
+    </Workbook>

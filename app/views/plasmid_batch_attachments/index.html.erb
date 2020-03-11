@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Plasmid Batch Attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plasmid_batch_attachments.each do |plasmid_batch_attachment| %>
+      <tr>
+        <td><%= link_to 'Show', plasmid_batch_attachment %></td>
+        <td><%= link_to 'Edit', edit_plasmid_batch_attachment_path(plasmid_batch_attachment) %></td>
+        <td><%= link_to 'Destroy', plasmid_batch_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plasmid batch attachment', new_plasmid_batch_attachment_path %>

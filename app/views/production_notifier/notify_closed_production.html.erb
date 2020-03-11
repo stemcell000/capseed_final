@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Hey |subme|! The production # <%=@production.virus_productions.first.number%> is closed! </h3>
+    <table>
+    	<tr>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">ID</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.virus_productions.first.number %></td>
+    	</tr>
+    	<tr>
+    		<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Name</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.name%></td>
+		</tr>
+		<% unless @production.virus_productions.first.vol.nil? %>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Volume</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.virus_productions.first.vol%> <%=@production.virus_productions.first.vol_unit.name%> </td>
+		</tr>
+		<%end%>
+		<% unless @production.virus_productions.first.dosages.last.nil? %>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Titre</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">
+					Titer to ATCC: <%= "%.2e" %@production.virus_productions.first.dosages.last.titer_to_atcc+" vg/ml"%>
+			</td>
+		</tr>
+		<%end%>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Comment</th>
+			<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"><%=@production.comment%></td>
+		</tr>
+		<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Plasmids</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">
+    			<%@production.clone_batches.each do |plasmid|%>
+    				<%=plasmid.type.name%>: <%= plasmid.name %><br>
+    			<%end%>   			
+    		</td>
+    	</tr>
+    	<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Expected end date</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;"">
+    			<%= @production.virus_productions.first.date_of_production.strftime("%B %e, %Y") %>		
+    		</td>
+    	</tr>
+    	<tr>
+			<th style="border: 1px solid black; border-collapse: collapse; padding: 15px;text-align: left;">Projects</th>
+    		<td style="border: 1px solid black; border-collapse: collapse; padding: 15px;">
+    			<%@production.projects.each do |project|%>
+    				<%= project.name %>  
+    			<%end%>   			
+    		</td>
+    	</tr>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<div class="col-lg-12 text-left">
+													<strong>Created on: </strong><%= b.created_at.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration %> <%= Unit.find(b.unit_id).name %><br />
+													<% if !b.comment.blank? %>
+														<strong>Comments: </strong><br /><%=b.comment%><br />
+													<%end%>
+													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
+													<% if b.plasmid_batch_attachments.length>0 %>
+														<strong>Attached file(s): </strong><br />
+															<% b.plasmid_batch_attachments.each do |a|%>
+																<%= link_to File.basename(a.attachment.path), a.attachment.to_s, rel=”noopener noreferrer”, :target => "_blank" %><br />
+															<%end%>
+													<%end%>
+												</div>

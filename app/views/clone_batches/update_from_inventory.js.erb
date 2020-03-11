@@ -1,0 +1,6 @@
+<%= smart_listing_item :clone_batches, :update, @clone_batch, @clone_batch.valid? ? "clone_batches/smart_listing/clone_batch" : "clone_batches/components/edit_from_inventory" %>
+
+//Popover
+ $('[data-toggle="popover"]').popover({html:true});
+ 
+ $('#clone_batch_search').submit();

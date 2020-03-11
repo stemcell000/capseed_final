@@ -1,0 +1,22 @@
+<% if @assay.clones.empty?%>
+			<p>No cloning to display</p>
+<%end%>
+<% if !@assay.clones.empty?%>
+<table class="table table-striped table-bordered" id="clone-table">
+			<thead>
+				<th>Name</th>
+				<th>Clone number</th>
+				<th>Actions</th>
+			</thead>
+				<% @assay.clones.each do |clone| %>
+					<tr>
+						<td class="col-md-3"><%= clone.name %></td>
+						<td class="col-sm-2"><%= clone.id %></td>
+						<td class="col-sm-2">
+						<%= link_to "Edit", edit_record_assay_clone_path(@assay, clone), :class =>"btn btn-primary btn-xs", :title=>"Update clone's parameters." ,:remote => true, :disabled => @assay.locked %>
+						<%= link_to "Remove", [@assay,clone], :method => :delete, :class =>"btn btn-danger btn-xs", :title=>"Remove clone from list.", :confirm => "Do really want to remove this clone?", :remote => true, :disabled => @assay.locked  %>
+						</td>
+					</tr>
+				<% end %>
+</table>
+<% end %>

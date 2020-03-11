@@ -1,0 +1,61 @@
+<header>
+	<div class="navbar navbar-default navbar-fixed-top navbar">
+  <div class="container-fluid">
+  	<div class="navbar-header">
+  		      <%=link_to(image_tag("/images/Logo-1200.png", size: "150x33", alt: "CapSeed"), root_path, class: "navbar-brand")%>
+      </div>
+      <% if signed_in? %>
+      <div class="collapse navbar-collapse" id="myNavbar">
+		      <ul class="nav navbar-nav ">
+		      	<% if can? :manage, :all %>
+		      	<li><%=link_to "Constructions", clones_path %></li>
+		      	<%end%>
+		      	<li><%= link_to "Plasmid inventory", root_path %></li>
+		      	<li><%= link_to "Virus inventory", virus_productions_path %></li>
+		        <li><%= link_to "Cloning", assays_path %></li>
+		        <li><%= link_to "Production", productions_path %></li>
+		         <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Utilities <span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			            <li><%=link_to "Primers", primers_path %></li>
+            				<li><%=link_to "Promoters", promoters_path %></li>
+            				<li><%=link_to "Genes", genes_path %></li>
+			            <li><%=link_to "Enzymes", enzymes_path %></li>
+			            <% if can? :manage, @user %>
+			            <li role="separator" class="divider"></li>
+			            <li><%=link_to "User management", users_path %></li>
+			            <li><%=link_to "Projects", projects_path %></li>
+			            <%end%>
+			          </ul>
+			        </li>
+		      </ul>
+		       <ul class="nav navbar-nav navbar-right">
+		        <li><a href="/">Help</a></li>
+		    		<li id="session_msg"><a class="inactivelink">Logged in as <%= "#{current_user.firstname}  #{current_user.lastname}" %></a></li>
+		    		<li>
+		    			<%= link_to destroy_user_session_path, method: :delete do %>
+		    			<span class="glyphicon glyphicon-log-out"></span>
+		    			<%end%>
+		    		</li>
+		    		<li><% if can? :update, @user %>
+		   			<%= link_to  admin_root_path do %>
+		   				<span class="glyphicon glyphicon-tower"></span> Administration
+		   			<%end%>
+		    			<% end %></li>
+					<% else %>
+		    		<li>
+		    			<%= link_to new_user_session_path do %>
+		    			<span class="glyphicon glyphicon-log-in"></span>
+		    			<%end%>
+		    		</li>
+		    		<li>	<%= link_to edit_notif_user_path(current_user) do %>
+	    					<span class="glyphicon glyphicon-bell"></span>
+		    			<%end%>
+		    		</li>
+					<% end %>
+			
+				</ul>
+			</div>
+			</div>
+		</div>
+</header>

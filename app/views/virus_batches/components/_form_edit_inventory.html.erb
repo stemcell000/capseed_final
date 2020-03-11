@@ -1,0 +1,65 @@
+<%= simple_nested_form_for ([@virus_production, @virus_batch]), url: update_from_inventory_virus_production_virus_batch_path, remote: true, html: {class: 'vertical-form'} do |f|  %>
+	
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+  <small>
+  	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-3 ">
+			<%=f.input :name, :input_html => { :value => f.object.name || @name } %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<%=f.input :date, :label => "Date of production", :as => :string, :input_html => { :value => (f.object.date.strftime("%B %e, %Y") if f.object.date), "data-behaviour" => "datepicker" } %>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<%=f.input :date_of_thawing, :label => "Date of thawing", :as => :string, :input_html => { :value => (f.object.date_of_thawing.strftime("%B %e, %Y") if f.object.date_of_thawing), "data-behaviour" => "datepicker" } %>
+		</div>
+	</div>
+	<div class="row">
+  		<div class="col-lg-4 col-sm-4 col-md-4">
+  			<%= f.input :volume, :label => "Volume: " %>
+  		</div>
+  		<div class="col-lg-4 col-sm-4 col-md-4">
+  			<%=f.association :vol_unit, :label => "Volume Units", :collection => VolUnit.all, :placeholder => "Select units.", input_html: { class: 'select2-select' }, :selected => '1'%>
+		</div>
+	</div>
+	<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<%= f.input :comment, :label => "Comment:" %>
+	</div>
+</div>
+		
+		<div class="row">
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								<%= f.association :box, :label=> "Box #",
+								:collection => @boxes,
+								:input_html => { class: "select2-select" } %>
+							</div>
+							
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								<%= f.association :row, :label=> "Row",
+								:collection => @rows, 
+								:input_html => { class: "select2-select" } %>
+							</div>
+							
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								<%= f.association :column, :label=> "Column",
+								:collection => @columns, 
+								:input_html => { class: "select2-select" } %>
+							</div>
+		</div>
+</small>
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-3 ">
+			<%=f.input :barcode %>
+		</div>
+	</div>
+
+<div class="panel-footer">
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+</div>
+<% end %>

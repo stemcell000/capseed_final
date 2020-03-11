@@ -1,0 +1,61 @@
+<% cb_collection = clone.clone_batches.where.not(:name => nil).order(:id) %>
+<% cb_collection.each do |cb| %>
+	<% pbl = cb.plasmid_batches.length %>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row" >
+						<div class="col-lg-3">
+							<strong>Plasmid: <span class="text-success"><%= cb.name %> #<%=cb.number%></span></strong><br />
+						</div>
+						<div class="col-lg-6">
+							<strong><%= pbl > 1 ?  "Plasmid batches:" : "Plasmid batch:" %></strong><br />
+									<% cb.plasmid_batches.order(:id).each_with_index do |b, index|%>
+										<a tabindex="0" data-toggle="popover" data-trigger="focus" data-html = "true"
+											title='
+												<div class="row"> 
+													<div class="col-lg-4 text-left">
+														<%=b.name%>
+													</div>
+													<div class="col-lg-8 right">
+														<%if b.trash%>
+															<%= link_to "Edit", edit_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-primary btn-xs font80pc", :remote => true, :disabled => @assay.locked %>
+															<%= link_to "Remove",destroy_from_list_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%else%>
+															<%= link_to "Rescue",destroy_from_list_clone_batch_plasmid_batch_path(cb, b, :clone_id => clone.id, :assay_id => @assay.id), :class =>"btn btn-warning btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>
+														<%end%>	
+													</div>	
+												</div>'
+											data-content='
+												<div class="col-lg-12 text-left">
+													<strong>Date of prod.: </strong><%= b.date.nil? ?  "unknown" : b.date.strftime("%h %e, %Y ") %><br />
+													<strong>Format: </strong><%= b.format.name.nil? ? "unknown" : b.format.name %><br />
+													<strong>Concentration: </strong><%= b.concentration.nil? ? "unknown" : b.concentration %> <%= b.unit_id.blank? ? "" : b.unit.name %><br />
+													<strong>Volume: </strong><%= b.volume.nil? ? "unknown" : b.volume %> <%= b.vol_unit_id.blank? ? "" : b.vol_unit.name %><br />
+													<strong>Comments: </strong><br /><%= b.comment.blank? ? "No comment" : b.comment %><br />
+													<strong>Contact: </strong><%= b.user.firstname %> <%= b.user.lastname %><br />
+													<% if b.plasmid_batch_attachments.length>0 %>
+														<strong>Attached file(s): </strong><br />
+															<% b.plasmid_batch_attachments.each do |a|%>
+																<%= link_to File.basename(a.attachment.path ).truncate(25), a.attachment.to_s, :target => "_blank" %><br />
+															<%end%>
+													<%end%>
+												</div>
+											'
+										>
+											<div class="col-lg-1">
+												<img src= <%=b.set_tube_status %> alt="not-empty" /><p class="font12"><strong><%= b.name %></strong></p>
+											</div>
+										</a>	
+								<%end%>
+						</div><!--End of col-lg-3-->
+						<div class="row">
+							<div class="col-lg-11 right">
+									<%= link_to "Add plasmid batch", new_assay_clone_clone_batch_plasmid_batch_path(:assay_id => @assay.id, :clone_id => clone.id, :clone_batch_id => cb.id), :class =>"btn btn-danger btn-xs", :remote => true, :readonly => @assay.locked, :disabled => @assay.locked %>
+							</div><!--End of Btn_col-->
+						</div><!--End of row-->
+					
+					</div><!--End pf row-->
+				</div><!--End of panel body-->
+			</div><!--End of panel-->
+	<% end %>
+

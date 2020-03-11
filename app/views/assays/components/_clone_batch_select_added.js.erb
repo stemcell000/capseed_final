@@ -1,0 +1,7 @@
+  	$("#flash-msg-container").html("")
+  	$('#clone-list-container').html("<%= escape_javascript(render :partial => "assays/components/assay_clone_batch_select_list", locals: {:clones => @clones, :assay=> @assay}) %>");
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  	$('#assay-modal').modal("hide");
+  	  	$('#assay-modal').modal("hide");
+  		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();

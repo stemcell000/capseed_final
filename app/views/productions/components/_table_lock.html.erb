@@ -1,0 +1,32 @@
+<% if !collection.empty? %>
+<table class="table table-bordered " id="plasmid-table">
+			<thead>
+				<th>Name</th>
+				<th>Plasmid</th>
+				<th>Type</th>
+				<th>Clone</th>
+			</thead>
+				<% collection.order(:name).each do |plasmid_batch| %>
+					<tr>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.name %></td>
+						<td class="col-lg-6 col-md-6 col-sm-6"></strong><%= plasmid_batch.clone_batch.nb %></strong><%= plasmid_batch.clone_batch.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.type.nil? ? "None" : plasmid_batch.clone_batch.type.name %></td>
+						<td class="col-lg-2 col-md-2 col-sm-2"><%= plasmid_batch.clone_batch.clone.nil? ? "None" : plasmid_batch.clone_batch.clone.name %></td>
+					</tr>
+				<% end %>
+</table>
+<%else%>
+			<div class="row"><div class="col-lg-12"> <i class = "glyphicon glyphicon-arrow-right"></i> No plasmid.</div></div>
+<% end %>
+
+<% if @production.pool == true %>
+	<% st = "Production from pooled plasmids." %>
+<%else%>
+	<% st = "The plasmids are not pooled." %>
+<%end%>
+
+<div class="row">
+	<div class="col-lg-12 pull-right">
+	<%=st%>
+	</div>
+</div>

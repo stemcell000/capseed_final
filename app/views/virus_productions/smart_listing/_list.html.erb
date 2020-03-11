@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-lg-1 col-md-1 col-sm-2 pull-right">
+		<%= link_to "Export to xlsx", virus_productions_path({format: 'xls'}.merge(params)), class:"btn btn-success btn-sm" %>
+	</div>
+</div>
+<div class="container-fluid">
+	  <table class="table table-striped">
+	    <thead>
+	    <th class="col-lg-1 center">
+			<%= smart_listing.sortable "number", :nb %>
+	  	</th>
+	  	<th class="col-lg-1 center">
+			<%= smart_listing.sortable "date of prod.", :date_of_production %>
+	  	</th>
+	  	<th class="col-lg-1 center">
+	  		<%= sort_link(@q, :production_name, 'production') %>
+	  	</th>
+	   <th class="col-lg-4 center">
+	    		<%= sort_link(@q, :clone_batches_nb, 'plasmids') %>
+	    </th>
+	    	 <th class="col-lg-3 center">
+		<%= sort_link(@q, :dosages_accepted, 'titer to ATCC (validated)') %>
+	  	</th>
+	    <th class="col-lg-3 text-left"></th>
+	    </thead>
+	    <tbody>
+	    	 <% unless smart_listing.empty? %>
+		  	<% smart_listing.collection.to_a.uniq.each do |s| %>
+	      		<tr class="editable <%= invcolor(s) %>" data-id = "<%= s.id %>">
+	          			<%= smart_listing.render object: s, partial: "virus_productions/smart_listing/vp", locals: {object: s} %>
+	        		</tr>
+	        	<%end%>
+		 <%end%>
+		 <%= smart_listing.item_new colspan: 9, link: new_virus_production_path(:object) %>
+	    </tbody>
+	  </table>
+	  <%= smart_listing.paginate %>
+	  <%= smart_listing.pagination_per_page_links %>	
+	 </div>

@@ -1,0 +1,50 @@
+<td colspan="9">
+<%= simple_form_for @user, :remote => true do |f| %>
+
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    	<div class="row">
+    		<div class="col-lg-4 col-md-4 col-sm-4">
+    			<%= f.input :username, required: true, autofocus: true %>
+    		</div>
+    		<div class="col-lg-4 col-md-4 col-sm-4">
+    			<%= f.input :firstname, required: true %>
+    		</div>
+    		<div class="col-lg-4 col-md-4 col-sm-4">
+    			<%= f.input :lastname, required: true %>
+    		</div>
+    	</div>
+    <div class="row">
+    		<div class="col-lg-4 col-md-4 col-sm-4">
+    			<%= f.input :email, required: true %> 
+    		</div>
+    </div>
+    <div class="row">
+    		<div class="col-lg-4 col-md-4 col-sm-5">
+    			<% unless f.object.role == "administrator" %>
+    				<%= f.input :role, :collection => [ "administrator", "guest", "user" ], required: true, :input_html => {:class => "select2-select"} %>
+			<%else%>
+				<%= f.input :role, :collection => [ "administrator", "guest", "user" ], required: true, :input_html => {:class => "select2-select"}, :disabled => true %>
+			<%end%>
+   		</div>
+   	</div>
+   	
+   	<div class="row">
+	   	<div class="col-lg-3 col-md-3 col-sm-3">
+	    		<%= f.input :cloning_notify %>
+	    </div>
+	    <div class="col-lg-3 col-md-3 col-sm-4">
+	    		<%= f.input :production_notify %>
+	    </div>
+	    <div class="col-lg-3 col-md-3 col-sm-3">
+	    		<%= f.input :actual_member %>
+		</div>
+  </div>
+<div class="form-actions">
+    <%= f.button :submit, "Save" %>
+    <%= link_to "Cancel", :back, :class => "btn btn-default", :remote => true %>
+  </div>
+ </div>
+<% end %>
+</td>

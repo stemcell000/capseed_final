@@ -1,0 +1,9 @@
+<%= render 'components/prod_process_pills'%>
+<div class="panel panel-info">
+			<div class="panel-heading"><strong>Editing Prod.-<%=@production.id%> <%= "| Virus-#{@production.virus_productions.last.number}" unless @production.virus_productions.empty? %></strong>
+				<br />Name : <%= @production.name %>
+			</div>
+		<%= render :partial=> "productions/components/form"%>
+</div>
+
+<%= render 'components/modal'%>

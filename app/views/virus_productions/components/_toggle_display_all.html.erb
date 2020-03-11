@@ -1,0 +1,4 @@
+<%= simple_nested_form_for @option, url: display_all_virus_switch_option_path(@option),  html: { class: 'form-inline' }, :remote=> true do |f| %>
+  					Display all virus <%= f.input :display_all_virus, :as => :boolean, :label =>false, :input_html => {:onclick => "$('#option_display_all_virus*').submit();"}%>
+<%end%>
+

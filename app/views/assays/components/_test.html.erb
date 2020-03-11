@@ -1,0 +1,97 @@
+<div class="row">
+	<small>
+		<div class="col-lg-12">
+		<strong>Selected Batches:</strong><br />
+		<div id = "clone-batches-table-container">
+				<table class="table table-bordered">
+														<thead>
+															<th>Name</th>
+															<th>QC</th>
+															<th>Result</th>
+															<th>Action</th>
+														</thead>
+														<% cb.plasmid_batches.order(:id).each do |pb|%>
+															<tr>
+																<td class="col-sm-1> <%= pb.name %><br />
+																</td>
+																
+																<td class="col-sm-5 .well">	
+																						<% pb.plasmid_batch_qcs.each do |qc| %>
+																						<a tabindex="0" data-toggle="popover" data-trigger="focus"
+																							title='QC created on : <%=qc.created_at.strftime("%h %e, %Y ") %>
+																							<%= link_to "Edit", edit_assay_clone_clone_batch_plasmid_batch_plasmid_batch_qc_path(:assay_id => @assay.id, :clone_id => c.id, :clone_batch_id => cb.id, :plasmid_batch_id => pb.id, :id => qc.id), :remote => true, :class =>"btn btn-success btn-xs" %>
+																							<%= link_to "Remove", [cb,qc], :method => :delete, :class =>"btn btn-danger btn-xs font80pc", :title=>"Remove clone from list.", :remote => true %>	
+																							data-content='
+																							<small>
+																								<div class="col-sm-12">
+																										<div></div><strong>Dig. SMA1: </strong><%=qc.dig_smal%><br /></li>
+																										<div><strong>Dig. other: </strong><%=qc.dig_other%><br /></div>
+																										<div><strong>Comment: </strong>><%=qc.comments%></div>
+																										<div><strong>Contact:</strong> <%=qc.user.firstname%> <%=qc.user.lastname%> </div>
+																										<div><strong>Result:</strong><%=qc.result%></div>
+																										<div><strong>Conclusion:</strong> 
+																											<%if qc.conclusion==false %>
+																											Validated QC
+																											<%else%>
+																											Not validated QC
+																											<%end%>
+																										</div>
+																										<div><strong>Files:</strong></br>
+																											<% if qc.qc_attachment.length>0%>
+																												<% qc.qc_attachment.each do |a|%>
+																													<% mypath= a.attachment.to_s%>
+																													<%= link_to File.basename(a.attachment.path), a.attachment.to_s, :target => "_blank"%><br />
+																												<%end%>
+																												<%else%>
+																												<em>No attachment.</em>
+																											<%end%>
+																								</div>
+																							<small>
+																								</div>
+																								'
+																							>
+																								<% if qc.conclusion == true %>
+																										<span class="font-success"><%= qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%else%>
+																										<span class="font-grey"><%=qc.created_at.strftime("%h %e, %Y ") %></span>
+																								<%end%>
+																						<%end%>
+																						</a>
+																</td>
+																
+																
+																<td class="col-sm-2">
+																		<div class="row">
+																			<div class="col-md-2">
+																				<strong>
+																				<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == true} %>
+																						<div class="font-success">Validated</div>
+																				<% else %>
+																						<div class="font-warning">Pending</div>
+																						</strong>
+																				<% end %>
+																			</div>
+																		</div>
+																</td>
+																
+																<td class="col-sm-1">
+																	<div class="row">
+																		<div class="col-xs-2">
+																			<%= link_to "Add QC", new_clone_batch_clone_batch_qc_path(cb), :class => "btn btn-success btn-xs", :remote => true %>
+																		</div>
+																	</div>
+																																	<% if cb.clone_batch_qcs.any? {|qc| qc.conclusion == true} %>
+																	<div class="row">
+																		<div class="col-xs-2">
+																			<%= link_to "Edit batch", edit_clone_batch_path(cb), :class => "btn btn-primary btn-xs", :remote => true %>
+																		</div>
+																	</div>
+																<%end%>
+																</td>
+															</tr>
+														<%end%>
+						</table>
+			</small>
+		</div>
+	</div>
+	</div>

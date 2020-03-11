@@ -1,0 +1,9 @@
+	//Les donnees dans les champs du formulaire form_clone sont testé d'apres les criteres de validation
+	//definis dans le model. Si ces criteres sont verifies, les donnees sont sauvees. Si non, le formulaire
+	//dans sa fenetre modale reste ouvert et les message d'erreur s'affichent en haut du formulaire.
+		$("#myModalLabel").html("Edit batch")
+		$("#myModalButtons").html("<%= escape_javascript( render'components/modal_close_btn' ) %>")
+		$("#flash-msg-container").html("")
+		$("#inner-assay-modal").html("<%= escape_javascript( render :partial => 'virus_batches/components/form') %>")
+		$("#assay-modal").modal("show")
+		$("ul.errors").html("")

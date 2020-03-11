@@ -1,0 +1,27 @@
+<small>
+	<% clone.clone_batches.order(:id).each do |cb| %>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3">
+							<strong>Name: <span class="text-success"><%= cb.name %></span></strong><br />
+						</div>
+						<div class="col-md-9">
+							<div class="row"><strong>Plasmid batches:</strong></div>
+							<div class="row">
+							<div class="col-md-12">
+											<%= render :partial => "assays/components/assay_close_list", :locals => {:clone => clone, :assay => @assay, :cb => cb} %>
+							</div><!--End of col-md-4-->
+					</div><!--End pf row-->
+					
+				</div><!--End of panel body-->
+				
+			</div><!--End of row-->
+	
+		</div><!--End of panel-body-->
+		
+	</div><!--End of panel-->
+	
+	<%end%>
+
+</small>

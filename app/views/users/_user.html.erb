@@ -1,0 +1,19 @@
+<td ><%= object.id%></td>
+<td ><%= object.full_name%></td>
+<td ><%= object.created_at.strftime("%b %e, %Y")%></td>
+<td ><%= object.role%></td>
+<td class="actions">
+	<%= smart_listing_item_actions [
+	  	{name: :custom, url: edit_user_user_path(object), :remote=> true, icon: "fa fa-user", title: "Edit user"},
+]%>
+<i class = "<%= object.actual_member? ? 'fa fa-check':'fa fa-times' %>"></i>
+<%if can? :manage, :all %>
+	<% unless object.role === 'administrator' %>
+		<% unless object.virus_productions.exists? || object.plasmid_batches.exists? || object.sequencings.exists? || object.pcr_colonies.exists? || object.dosages.exists?%>
+			<%= smart_listing_item_actions [
+					{name: :destroy, url: user_path(object), title: "Destroy", :confirmation => "Are you sure you want to delete this user?"}
+			]%>
+		<%end%>
+	<%end%>
+<%end%>
+</td>

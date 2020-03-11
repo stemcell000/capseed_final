@@ -1,0 +1,33 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <% @clones.each_with_index do |clone, index| %>
+  <div id="info-container<%=clone.id%>">
+  	
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="heading<%=index.to_s%>">
+	      <h4 class="panel-title">
+	        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index.to_s%>" aria-expanded="true" aria-controls="collapse<%=index.to_s%>">
+	          <%=clone.name%>
+	        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+	      </h4>
+	    </div>
+	    <div id="collapse<%=index.to_s%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<%=index.to_s%>">
+	      <div class="panel-body">
+<% if !clone.clone_batches.empty? %>
+		<div id= "clone_batch_qc_table_container<%=clone.id%>">
+			<% assay_id = @assay.id %>
+			<div class="row">
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<%= link_to "Add sequencing for all", new_sequencing_protocol_new_assay_clone_sequencing_path(@assay, clone), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<%= link_to "Add PCR colony for all", new_pcr_colony_protocol_new_assay_clone_pcr_colony_path(@assay, clone), :class => "btn btn-default btn-xs", :remote => true, :disabled => @assay.locked %>
+				</div>
+			</div>
+			<%= render :partial => "clone_batches/components/clone_batch_qc_table", :locals => { :clone => clone, :assay => @assay }%>
+		<%end%>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>
+<%end%>

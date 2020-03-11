@@ -1,0 +1,11 @@
+  //$('#clone-list-container').html("")
+  	$("#flash-msg-container").html("")
+  	$('#info-container<%=@clone.id%>').html("<%= escape_javascript(render "plasmid_batch_qcs/components/list", locals: {:plasmid_batch_id => @plasmid_batch_id, :clone_batch_id => @clone_batch.id, :clone_id => @clone.id, :assay_id => @assay.id}) %>");
+  	$('#flash-msg-container').html("<%= escape_javascript(render partial: "components/flash_messages", :flash => flash ) %>" );
+  console.log("Validate QC/Update plasmid Batch table");	
+  	
+
+//Reload du script des popovers
+  $(function () {
+  $('[data-toggle="popover"]').popover({html:true});
+});

@@ -1,0 +1,14 @@
+<% provide(:title, "Virus : Add batch(es)") %>
+
+<div class="container well">
+	<div class= "row">
+		<div class="col-lg-9">
+			<h5> Virus production: <%= @virus_production.number %> </h5>
+		</div>
+	</div>
+</div>
+
+		<div id="info-container" class="col-md-12" >
+					<%= render :partial => "virus_batches/components/content_inventory", :locals => {:virus_batches => @virus_batches} %>
+		</div>
+

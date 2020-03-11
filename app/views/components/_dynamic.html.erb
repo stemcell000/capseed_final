@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped table-condensed" id="custom_table">
+	  <thead>
+	    <tr>
+	       <th>
+	        <%= sortable "id" , "Number" %>
+	      </th>
+	      <th>
+	        <%= sortable "created_at" , "Start date" %>
+	      </th>
+	      <th>
+	      </th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @assays.each do |assay| %>
+	      <tr data-item-id=<%= "#{assay.id}" %> class="item">
+	         <td>
+	          <%= assay.id %>
+	      	<td>
+	          <%= assay.created_at.strftime("%m/%d/%Y")%>
+	        </td>
+	        <td>
+	        <%= link_to 'Edit', edit_assay_path(assay.id), :class => 'btn btn-warning btn-xs' , :remote => true %> 
+	        <%= link_to 'Delete', get_line_assay_path(assay.id) , :class => 'btn btn-danger btn-xs' , :remote=> true %> 
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-offset-9">
+	<%= paginate @assays, :theme => 'twitter-bootstrap-3', :pagination_class => "pagination-sm"%>
+</div>
+</div>
+

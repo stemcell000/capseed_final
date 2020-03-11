@@ -1,0 +1,10 @@
+= form_for @clone_batch_as_plasmid_attachment do |f|
+  - if @clone_batch_as_plasmid_attachment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@clone_batch_as_plasmid_attachment.errors.count, "error")} prohibited this clone_batch_as_plasmid_attachment from being saved:"
+      %ul
+        - @clone_batch_as_plasmid_attachment.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

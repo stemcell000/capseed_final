@@ -1,0 +1,34 @@
+<div class="container">
+<div class="row">
+	<% if @assays.empty?%>
+								<p>No cloning to be scheduled...</p>
+	<%else%>
+		<h6>Clonings:</h6>
+		<div class="row">
+
+			<div id='chart-container' class="col-lg-5">
+					<%= render :partial => "assays/components/cloning_pie_chart", :locals => {:assays => @assays}  %>
+			</div>
+			
+			<div class="col-lg-7">
+				<div class="row">
+					<div class="col-lg-2 pull-right">
+						<%= link_to "Reset", reset_cloning_table_assays_path, :class =>"btn btn-default btn-xs", :remote => true %>
+					</div>
+				</div>
+				<div class="row">
+					<div id='table_container' class="col-lg-12">
+						<%= render :partial => "assays/components/assay_table", :locals => {:assays => @assays}  %>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<h6>Cloning Gantt-chart:</h6>
+		<div id='gantt-container' class="row">
+					<%= render :partial => "assays/components/cloning_gantt_chart", :locals => {:assays => @assays}  %>
+		</div>
+		<%end%>
+	</div>
+</div>

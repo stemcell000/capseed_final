@@ -1,0 +1,22 @@
+<div class="row">
+	<small>
+		<div class="col-lg-12">
+
+		<strong>Selected Batches:</strong><br />
+				<table class="table table-bordered" id="clone-batches-table">
+														<thead>
+															<th class="col-md-2"> Name </th>
+															<th class="col-md-10"> Notes </th>
+														</thead>
+														<% clone.clone_batches.each do |cb|%>
+															<tr>
+																<td><%= (cb.name.presence)? (cb.name + " (final)") : (cb.temp_name + " (temp.)") %> </td>
+																<td><%= cb.comment.presence || 'no comment' %></td>
+															</tr>
+														<%end%>
+											</table>
+										
+						
+		</div>
+	</small>
+</div>

@@ -1,0 +1,60 @@
+<%= simple_nested_form_for ([@assay,@clone]), url: update_record_batch_assay_clone_path, remote: true, :multipart => true, html: {class: 'vertical-form'} do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	<small>
+			<div class="form-group ui-front">
+				<div class="row">
+					<div class="col-lg-7">
+						<%= f.input :batch_nb, :label => "Total number of batches:" %>
+					</div>
+				</div>
+			<div class="row">
+				<div class="col-lg-12">
+		 			<span class="help-block"><em>*Be careful! All past operations will be reset if you change this number!</em></span>
+		 		</div>
+		 	</div>
+				<div class="row">
+					<div class="col-lg-7">
+						<%= f.input :comment_batch, :label => "Comment" %>
+					</div>
+					
+				</div>
+				<% if !@clone.clone_attachments.nil? %>
+				<hr />
+				<div class="row">
+					<div class="col-md-3">
+						<strong>Attached files</strong>
+					</div>
+				</div>
+				<% end %>
+					<%= f.simple_fields_for :clone_attachments do |a| %>
+							<div class="row">	
+								<div class="col-sm-12">	
+									<%= File.basename(a.object.attachment.to_s)%>
+									<% if a.object.id.nil? %>
+								       		<%= a.input_field :attachment, :as => :file, :title => "Search for a file to add" %>
+							       	<%end%>
+							     </div>
+							 </div>
+							 <div class="row">
+							       	<div class="col-md-2">
+							       		<%= a.link_to_remove "remove", :class => "btn btn-xs btn-danger"%>
+							       	</div>
+					       	</div>
+					<% end %>
+				<div class="row">
+					<div class="col-md-2">
+						<%= f.link_to_add "Add a file", :clone_attachments ,:class => 'btn btn-sm btn-success' %>
+					</div>
+				</div>
+			</div>
+			</small>
+			<hr />
+ 		<div class="btn-group" role="group" aria-label="...">
+    		<%= f.submit("Save", :class => "btn btn-default", :title => "Save the changes to this clone.") %>
+        	<%= f.submit("Clear form", :class => "btn btn-default", :type => "reset", :title => "Clear input fields.", :id => "reset-btn") %>
+        	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+<%end%>
+
+

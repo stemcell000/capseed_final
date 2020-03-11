@@ -1,0 +1,29 @@
+<%= simple_form_for @production, url: add_pbs_production_path, remote: true do |f|  %>
+	<%= f.error_notification %>
+	<ul class="errors"></ul>
+	
+  	<!--Attention: la div form-group ui-front est indispensable au fonctionnement du champ autocomplete -->
+<div class="form-group ui-front col-lg-12">
+	<%= f.input :id , :as => :hidden %>
+	
+
+	<div class="row">
+	 	<div class="col-lg-12 col-md-12 col-sm-12">
+	 	<% @production.clone_batches.each do |a|%>
+			<%= f.association :plasmid_batches, :label => "Add #{a.type.name}", :collection => PlasmidBatch.all.includes(:clone_batch).where(:clone_batch => a).where(:trash => false).where('volume > 0'),
+			input_html: { class: 'select2-select' },
+			:label_method => lambda { |plasmid_batch| "#{plasmid_batch.name} | #{plasmid_batch.clone_batch.name} - #{plasmid_batch.clone_batch.type.name}  | volume: #{plasmid_batch.volume} #{plasmid_batch.vol_unit.name} | Conc.: #{plasmid_batch.concentration} #{plasmid_batch.unit.name}"}%>
+		<%end%>
+	 	</div>
+	 </div>
+</div>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="btn-group" role="group" aria-label="...">
+			<%= f.submit("Save", class: "btn btn-default", title: "Save the changes.") %>
+	     	<%= f.submit 'Cancel', :type => :reset, :class => "btn btn-default", "data-dismiss" => "modal", "aria-hidden" => "true" %>
+        </div>
+  </div>
+</div>
+<% end %>
+

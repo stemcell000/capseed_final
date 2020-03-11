@@ -1,0 +1,18 @@
+<%= render :partial => 'components/process_pills' %>
+<div id="mainPanel">
+	<div class="panel panel-primary">
+		<div class="panel-heading"> Cloning: <%= @assay.id %></div>
+			<div class="panel-body" <%= "data-params-id=#{params[:id]}" if params.has_key?(:id) %> >
+					<div id="clone-list-container">
+							<%= render :partial => "clone_batches/components/plasmid_design_list" , :locals => {:clones => @clones, :assay => @assay}%>
+					</div>
+			</div>
+			<div class="panel-footer">
+				    	<%= link_to 'Add new gene', new_gene_path(@gene), :class => 'btn btn-default btn-sm', :remote => true %>
+				    	<%= link_to 'Add new promoter', new_promoter_path(@promoter), :class => 'btn btn-default btn-sm', :remote => true %>
+				    	<%= link_to 'Add new origin', new_origin_path(@origin), :class => 'btn btn-default btn-sm', :remote => true %>
+				    	<%= link_to 'Previous', clone_batch_qc_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+					<%= link_to 'Next', plasmid_batch_assay_path(@assay.id), :class => "btn btn-default btn-sm" %>
+			</div>
+</div>
+</div>

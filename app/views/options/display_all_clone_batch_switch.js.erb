@@ -1,0 +1,4 @@
+console.debug('checkbox submitting');
+$('#display-hidden-container').html("<%= escape_javascript( render :partial => "clone_batches/components/toggle_display_hidden" , :locals => { :option => @option }) %>");
+console.debug('refreshing checkbox');
+$('#clone_batch_search').submit();

@@ -1,0 +1,9 @@
+<%= form_tag display_all_assays_path, remote: true , class: "form-inline", id:"theform" , :method => 'get' do %>
+			<label for="assay_search">Text</label>
+				<%= text_field_tag :query , params[:query] , placeholder: "Search by name, status, clone name, number, project..." , id: "assay_search" , class: "input-small"%>				
+			<label for="date_search">Date</label>
+				<%= text_field_tag :query_date , params[:query_date] , placeholder: "Date" , class:"datepicker form-control" , id: "date_search", remote: true %>
+			<%= submit_tag("Search", :name => nil, :class => "btn btn-default" ) %>
+			<%= link_to "clear" , display_all_assays_path, :class => "btn btn-default" , id: "clear_btn" %>
+<% end %>
+

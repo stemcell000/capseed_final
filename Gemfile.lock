@@ -106,9 +106,9 @@ GEM
       kaminari (>= 0.13)
       rails (>= 3.1)
     bootstrap-popover-rails (0.1.0)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     bootstrap-select-rails (1.13.8)
     builder (3.2.4)
     byebug (11.0.1)
@@ -426,7 +426,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
   bootstrap-popover-rails
-  bootstrap-sass (~> 3.3.5)
+  bootstrap-sass (~> 3.4.1)
   bootstrap-select-rails
   byebug
   cancan

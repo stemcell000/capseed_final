@@ -81,7 +81,7 @@ gem 'nprogress-rails'
  
   gem 'gon'
   
-  gem 'rabl'
+  gem 'rabl', '0.14.2'
   
   gem 'bootstrap-datepicker-rails'
   gem 'momentjs-rails'

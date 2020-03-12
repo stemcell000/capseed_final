@@ -461,7 +461,7 @@ DEPENDENCIES
   pg (= 0.20.0)
   puma
   puma_worker_killer
-  rabl
+  rabl (= 0.14.2)
   rack-cache
   rails (= 4.2.2)
   rails4-autocomplete

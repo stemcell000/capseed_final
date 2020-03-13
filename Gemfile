@@ -1,7 +1,7 @@
 #source 'https://rubygems.org' changé pour source 'http://rubygems.org' parceque bundler trop long:
 source 'http://rubygems.org'
 
-
+#gem 'bundler', '1.3.0' 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use sqlite3 as the database for Active Record
@@ -38,7 +38,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-gem 'byebug'
+#gem 'byebug'
   
 gem 'nprogress-rails'
 
@@ -46,19 +46,18 @@ gem 'nprogress-rails'
   group :development do
     gem 'web-console', '~> 2.0'
    #Utilitaire pour routage
-    gem 'sextant'
     gem "better_errors"
   end
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '2.0.2'
   
   gem 'devise'
   
   #gem 'activeadmin', github: 'gregbell/active_admin'
   gem 'activeadmin'
-  #Select2 pour activeadmin
-  gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
   #gem 'activeadmin', '~> 1.0.0.pre4'
+  
+  gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
   
   gem 'jquery-turbolinks'
   
@@ -81,7 +80,7 @@ gem 'nprogress-rails'
  
   gem 'gon'
   
-  gem 'rabl', '0.14.2'
+  gem 'rabl'
   
   gem 'bootstrap-datepicker-rails'
   gem 'momentjs-rails'
@@ -154,7 +153,7 @@ gem 'nprogress-rails'
   
   gem "font-awesome-rails"
   
-  gem 'acts_as_list'
+  gem 'acts_as_list', '0.9.17'
   gem "puma_worker_killer"
   
   gem 'derailed', group: :development
@@ -163,4 +162,5 @@ gem 'nprogress-rails'
   gem 'fast_excel'
   
  gem 'scout_apm'
+ gem 'rails-ujs'
   

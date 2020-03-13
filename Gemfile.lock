@@ -66,7 +66,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
-    acts_as_list (0.9.19)
+    acts_as_list (0.9.17)
       activerecord (>= 3.0)
     amoeba (3.1.0)
       activerecord (>= 3.2.6)
@@ -111,7 +111,6 @@ GEM
       sassc (>= 2.0.0)
     bootstrap-select-rails (1.13.8)
     builder (3.2.4)
-    byebug (11.0.1)
     cancan (1.6.10)
     cancancan (2.3.0)
     carrierwave (1.3.1)
@@ -312,6 +311,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
+    rails-ujs (0.1.0)
+      railties (>= 3.1)
     rails4-autocomplete (1.1.1)
       rails (>= 3.0)
     rails_12factor (0.0.3)
@@ -373,8 +374,6 @@ GEM
     sendgrid (1.2.4)
       json
     sexp_processor (4.14.1)
-    sextant (0.2.4)
-      rails (>= 3.2)
     simple_form (4.0.0)
       actionpack (> 4)
       activemodel (> 4)
@@ -418,7 +417,7 @@ DEPENDENCIES
   activeadmin
   activeadmin-select2!
   acts-as-taggable-on (~> 3.4)
-  acts_as_list
+  acts_as_list (= 0.9.17)
   amoeba
   bcrypt
   better_errors
@@ -428,7 +427,6 @@ DEPENDENCIES
   bootstrap-popover-rails
   bootstrap-sass (~> 3.4.1)
   bootstrap-select-rails
-  byebug
   cancan
   cancancan (~> 2.0)
   carrierwave
@@ -461,9 +459,10 @@ DEPENDENCIES
   pg (= 0.20.0)
   puma
   puma_worker_killer
-  rabl (= 0.14.2)
+  rabl
   rack-cache
   rails (= 4.2.2)
+  rails-ujs
   rails4-autocomplete
   rails_12factor
   ranked-model
@@ -475,10 +474,9 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   select2-rails
   sendgrid
-  sextant
   simple_form
   smart_listing
-  spring
+  spring (= 2.0.2)
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

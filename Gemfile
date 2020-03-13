@@ -57,8 +57,8 @@ gem 'nprogress-rails'
   gem 'activeadmin'
   #gem 'activeadmin', '~> 1.0.0.pre4'
   
-  gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
-  
+  #gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
+
   gem 'jquery-turbolinks'
   
   gem 'binding_of_caller'

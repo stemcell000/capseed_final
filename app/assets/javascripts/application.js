@@ -12,7 +12,6 @@
 //= require bootstrap/bootstrap-rails-popover
 //= require autocomplete
 //= update_assays_row_position
-//= require active_admin/select2
 //= require moment
 //= require fetch_clone_data
 //= require fetch_pb_data

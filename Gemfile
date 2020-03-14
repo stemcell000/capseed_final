@@ -12,6 +12,7 @@ gem 'rack-cache'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'rails-ujs'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -81,10 +82,9 @@ gem 'nprogress-rails'
  
   gem 'gon'
   
-  gem 'rabl'
+  gem 'rabl', '0.13.0'
   
   gem 'bootstrap-datepicker-rails'
-  gem 'momentjs-rails'
   gem 'bootstrap-select-rails'
   
   
@@ -98,6 +98,7 @@ gem 'nprogress-rails'
   
   #Multiselect mise en forme
   gem 'multi-select-rails'
+  gem 'multiselect'
   #upload files
   #Attention: dans application.js, placer jquery.remotipart juste au dessous de jquery_ujs.
   gem "jquery-fileupload-rails"
@@ -163,4 +164,6 @@ gem 'nprogress-rails'
   gem 'fast_excel'
   
  gem 'scout_apm'
+ 
+ 
   

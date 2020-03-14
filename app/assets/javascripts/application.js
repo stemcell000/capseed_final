@@ -2,7 +2,6 @@
 //= require rails-ujs
 //= require jquery.tokeninput
 //= require jquery.remotipart
-//= require jquery.ui.all
 //= require jquery-fileupload
 //= require jquery.iframe-transport
 //= require jquery_nested_form

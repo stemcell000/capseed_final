@@ -1,19 +1,18 @@
 #source 'https://rubygems.org' changé pour source 'http://rubygems.org' parceque bundler trop long:
 source 'http://rubygems.org'
 
-#gem 'bundler', '1.3.0' 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 gem 'pg', '0.20.0'
-
-gem 'rack-cache'
+gem 'rake','13.0.1'
+#gem 'rack-cache'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -28,8 +27,8 @@ gem 'rb-readline'
 # gem 'capistrano-rails', group: :development
 
 # Use SCSS for stylesheets
-gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -49,7 +48,7 @@ gem 'nprogress-rails'
     gem "better_errors"
   end
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring', '2.0.2'
+  gem 'spring'
   
   gem 'devise'
   
@@ -67,7 +66,7 @@ gem 'nprogress-rails'
 
   gem 'rails4-autocomplete'
   
-  gem 'jquery-ui-rails', '~>4.2.0'
+  gem 'jquery-ui-rails'
   
   #Alternative à Chosen pour les sélections multiples car pb d'affichage avec Chosen mais même problème avec select2.
   #J'ai choisi select2 parcequ'il est plus facile à paramétrer (ex. placeholder)
@@ -80,7 +79,7 @@ gem 'nprogress-rails'
  
   gem 'gon'
   
-  gem 'rabl'
+  gem 'rabl', '0.13.0'
   
   gem 'bootstrap-datepicker-rails'
   gem 'momentjs-rails'
@@ -116,9 +115,8 @@ gem 'nprogress-rails'
   #Sortable table
   gem "smart_listing"
   
-  
   #recherche
-  gem 'acts-as-taggable-on', '~> 3.4'
+  gem 'acts-as-taggable-on'
   
   #Mise en forme de masques de saisie pour bootstrap
   gem 'jasny-bootstrap-rails'
@@ -150,7 +148,7 @@ gem 'nprogress-rails'
   
   #import CSV via activeadmin
   gem "active_admin_import" , '3.0.0.pre'
-  
+  gem 'activeadmin-select2', github: 'mfairburn/activeadmin-select2'
   gem "font-awesome-rails"
   
   gem 'acts_as_list', '0.9.17'

@@ -1,5 +1,5 @@
-//= require rails-ujs
 //= require jquery
+//= require Jquery-ujs
 //= require bootstrap-datepicker
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover

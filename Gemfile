@@ -7,7 +7,7 @@ gem 'rails', '4.2.2'
 #gem 'sqlite3'
 gem 'pg', '0.20.0'
 gem 'rake','13.0.1'
-#gem 'rack-cache'
+gem 'rack-cache'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

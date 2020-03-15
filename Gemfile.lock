@@ -469,6 +469,7 @@ DEPENDENCIES
   rails-ujs
   rails4-autocomplete
   rails_12factor
+  rake
   ranked-model
   ransack
   rb-readline

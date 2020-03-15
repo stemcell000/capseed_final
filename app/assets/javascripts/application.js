@@ -1,5 +1,5 @@
+//= require rails-ujs
 //= require jquery
-//= require Jquery-ujs
 //= require bootstrap-datepicker
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover
@@ -14,7 +14,6 @@
 //= loader
 //= require d3pie.min
 //= require_tree .
-//= require multiselect
 //= require smart_listing
 
 NProgress.configure({

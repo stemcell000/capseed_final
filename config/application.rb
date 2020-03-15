@@ -32,5 +32,6 @@ module Capseed
     config.exceptions_app = self.routes
     
     config.serve_static_files = true
+    config.assets.initialize_on_precompile = false
   end
 end

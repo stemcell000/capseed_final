@@ -1,0 +1,53 @@
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/puma-4.3.3/ext/puma_http11
+/Users/marc/.rbenv/versions/2.3.0/bin/ruby -r ./siteconf20200312-42547-1vgccyd.rb extconf.rb
+Ignoring bcrypt-3.1.12 because its extensions are not built.  Try: gem pristine bcrypt --version 3.1.12
+Ignoring byebug-11.0.1 because its extensions are not built.  Try: gem pristine byebug --version 11.0.1
+Ignoring cups-0.1.10 because its extensions are not built.  Try: gem pristine cups --version 0.1.10
+Ignoring ffi-1.11.1 because its extensions are not built.  Try: gem pristine ffi --version 1.11.1
+Ignoring ffi-1.9.25 because its extensions are not built.  Try: gem pristine ffi --version 1.9.25
+Ignoring nokogiri-1.10.8 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.8
+Ignoring nokogiri-1.10.4 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.4
+Ignoring nokogiri-1.10.3 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.3
+Ignoring pg-1.2.2 because its extensions are not built.  Try: gem pristine pg --version 1.2.2
+Ignoring puma-4.3.1 because its extensions are not built.  Try: gem pristine puma --version 4.3.1
+Ignoring puma-3.12.1 because its extensions are not built.  Try: gem pristine puma --version 3.12.1
+Ignoring sassc-1.12.1 because its extensions are not built.  Try: gem pristine sassc --version 1.12.1
+checking for BIO_read() in -lcrypto... yes
+checking for SSL_CTX_new() in -lssl... yes
+checking for openssl/bio.h... yes
+checking for DTLS_method() in openssl/ssl.h... yes
+checking for TLS_server_method() in openssl/ssl.h... no
+checking for SSL_CTX_set_min_proto_version in openssl/ssl.h... no
+creating Makefile
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /Users/marc/ws/labmate/vendor/ruby/2.3.0/extensions/x86_64-darwin-19/2.3.0-static/puma-4.3.3/mkmf.log
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/puma-4.3.3/ext/puma_http11
+make "DESTDIR=" clean
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/puma-4.3.3/ext/puma_http11
+make "DESTDIR="
+compiling io_buffer.c
+compiling mini_ssl.c
+mini_ssl.c:145:7: warning: unused variable 'min' [-Wunused-variable]
+  int min, ssl_options;
+      ^
+1 warning generated.
+compiling puma_http11.c
+puma_http11.c:203:22: warning: implicitly declaring library function 'isspace' with type 'int (int)' [-Wimplicit-function-declaration]
+  while (vlen > 0 && isspace(value[vlen - 1])) vlen--;
+                     ^
+puma_http11.c:203:22: note: include the header <ctype.h> or explicitly provide a declaration for 'isspace'
+1 warning generated.
+compiling http11_parser.c
+ext/puma_http11/http11_parser.c:44:18: warning: unused variable 'puma_parser_en_main' [-Wunused-const-variable]
+static const int puma_parser_en_main = 1;
+                 ^
+1 warning generated.
+linking shared-object puma/puma_http11.bundle
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/puma-4.3.3/ext/puma_http11
+make "DESTDIR=" install
+/usr/local/bin/ginstall -c -m 0755 puma_http11.bundle ./.gem.20200312-42547-1xe1126/puma

@@ -1,0 +1,90 @@
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/sassc-2.2.1/ext
+/Users/marc/.rbenv/versions/2.3.0/bin/ruby -r ./siteconf20200312-42547-1u9q3tj.rb extconf.rb
+Ignoring bcrypt-3.1.12 because its extensions are not built.  Try: gem pristine bcrypt --version 3.1.12
+Ignoring byebug-11.0.1 because its extensions are not built.  Try: gem pristine byebug --version 11.0.1
+Ignoring cups-0.1.10 because its extensions are not built.  Try: gem pristine cups --version 0.1.10
+Ignoring ffi-1.11.1 because its extensions are not built.  Try: gem pristine ffi --version 1.11.1
+Ignoring ffi-1.9.25 because its extensions are not built.  Try: gem pristine ffi --version 1.9.25
+Ignoring nio4r-2.5.2 because its extensions are not built.  Try: gem pristine nio4r --version 2.5.2
+Ignoring nokogiri-1.10.8 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.8
+Ignoring nokogiri-1.10.4 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.4
+Ignoring nokogiri-1.10.3 because its extensions are not built.  Try: gem pristine nokogiri --version 1.10.3
+Ignoring pg-1.2.2 because its extensions are not built.  Try: gem pristine pg --version 1.2.2
+Ignoring pg-0.20.0 because its extensions are not built.  Try: gem pristine pg --version 0.20.0
+Ignoring puma-4.3.3 because its extensions are not built.  Try: gem pristine puma --version 4.3.3
+Ignoring puma-4.3.1 because its extensions are not built.  Try: gem pristine puma --version 4.3.1
+Ignoring puma-3.12.1 because its extensions are not built.  Try: gem pristine puma --version 3.12.1
+Ignoring sassc-1.12.1 because its extensions are not built.  Try: gem pristine sassc --version 1.12.1
+creating Makefile
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/sassc-2.2.1/ext
+make "DESTDIR=" clean
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/sassc-2.2.1/ext
+make "DESTDIR="
+compiling ./libsass/src/c99func.c
+compiling ./libsass/src/cencode.c
+compiling ./libsass/src/units.cpp
+compiling ./libsass/src/fn_miscs.cpp
+compiling ./libsass/src/util.cpp
+compiling ./libsass/src/ast_selectors.cpp
+compiling ./libsass/src/environment.cpp
+compiling ./libsass/src/memory/SharedPtr.cpp
+compiling ./libsass/src/ast_sel_unify.cpp
+compiling ./libsass/src/ast.cpp
+compiling ./libsass/src/emitter.cpp
+compiling ./libsass/src/bind.cpp
+compiling ./libsass/src/sass_functions.cpp
+compiling ./libsass/src/ast2c.cpp
+compiling ./libsass/src/base64vlq.cpp
+compiling ./libsass/src/context.cpp
+compiling ./libsass/src/remove_placeholders.cpp
+compiling ./libsass/src/node.cpp
+compiling ./libsass/src/fn_colors.cpp
+compiling ./libsass/src/sass_values.cpp
+compiling ./libsass/src/constants.cpp
+compiling ./libsass/src/ast_values.cpp
+compiling ./libsass/src/lexer.cpp
+compiling ./libsass/src/color_maps.cpp
+compiling ./libsass/src/fn_selectors.cpp
+compiling ./libsass/src/fn_numbers.cpp
+compiling ./libsass/src/operators.cpp
+compiling ./libsass/src/output.cpp
+compiling ./libsass/src/source_map.cpp
+compiling ./libsass/src/sass.cpp
+compiling ./libsass/src/listize.cpp
+compiling ./libsass/src/ast_fwd_decl.cpp
+compiling ./libsass/src/sass_util.cpp
+compiling ./libsass/src/fn_strings.cpp
+compiling ./libsass/src/fn_utils.cpp
+compiling ./libsass/src/ast_sel_cmp.cpp
+compiling ./libsass/src/fn_maps.cpp
+compiling ./libsass/src/file.cpp
+compiling ./libsass/src/ast_supports.cpp
+compiling ./libsass/src/check_nesting.cpp
+compiling ./libsass/src/inspect.cpp
+compiling ./libsass/src/extend.cpp
+compiling ./libsass/src/plugins.cpp
+compiling ./libsass/src/cssize.cpp
+compiling ./libsass/src/sass2scss.cpp
+compiling ./libsass/src/to_value.cpp
+compiling ./libsass/src/prelexer.cpp
+compiling ./libsass/src/subset_map.cpp
+compiling ./libsass/src/utf8_string.cpp
+compiling ./libsass/src/backtrace.cpp
+compiling ./libsass/src/json.cpp
+compiling ./libsass/src/parser.cpp
+compiling ./libsass/src/util_string.cpp
+compiling ./libsass/src/error_handling.cpp
+compiling ./libsass/src/sass_context.cpp
+compiling ./libsass/src/eval.cpp
+compiling ./libsass/src/values.cpp
+compiling ./libsass/src/fn_lists.cpp
+compiling ./libsass/src/position.cpp
+compiling ./libsass/src/expand.cpp
+compiling ./libsass/src/c2ast.cpp
+linking shared-object sassc/libsass.bundle
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/sassc-2.2.1/ext
+make "DESTDIR=" install
+/usr/local/bin/ginstall -c -m 0755 libsass.bundle ./.gem.20200312-42547-1qasesn/sassc

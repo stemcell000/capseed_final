@@ -1,0 +1,19 @@
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.6.0/gems/byebug-11.1.1/ext/byebug
+/Users/marc/.rvm/rubies/ruby-2.6.3/bin/ruby -I /Users/marc/.rvm/rubies/ruby-2.6.3/lib/ruby/site_ruby/2.6.0 -r ./siteconf20200214-78537-hjn5bt.rb extconf.rb
+creating Makefile
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.6.0/gems/byebug-11.1.1/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.6.0/gems/byebug-11.1.1/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.6.0/gems/byebug-11.1.1/ext/byebug
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 byebug.bundle ./.gem.20200214-78537-1gvkmby/byebug

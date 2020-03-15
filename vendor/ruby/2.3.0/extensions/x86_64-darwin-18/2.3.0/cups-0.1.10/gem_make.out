@@ -1,0 +1,58 @@
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/cups-0.1.10/ext
+/Users/marc/.rvm/rubies/ruby-2.3.0/bin/ruby -I /Users/marc/.rvm/rubies/ruby-2.3.0/lib/ruby/site_ruby/2.3.0 -r ./siteconf20191007-6569-i4znuc.rb extconf.rb
+checking for main() in -lcups... yes
+checking for cups-config... yes
+cups version:
+2.2.9
+creating Makefile
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/cups-0.1.10/ext
+make "DESTDIR=" clean
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/cups-0.1.10/ext
+make "DESTDIR="
+compiling cups.c
+In file included from cups.c:1:
+In file included from ./ruby_cups.h:8:
+/Users/marc/.rvm/rubies/ruby-2.3.0/include/ruby-2.3.0/ruby/backward/st.h:2:2: warning: use "ruby/st.h" instead of bare "st.h" [-W#warnings]
+#warning use "ruby/st.h" instead of bare "st.h"
+ ^
+cups.c:240:23: warning: logical not is only applied to the left hand side of this comparison [-Wlogical-not-parentheses]
+ if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                      ^                ~~
+cups.c:240:23: note: add parentheses after the '!' to evaluate the comparison first
+ if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                      ^
+                       (                   )
+cups.c:240:23: note: add parentheses around left hand side expression to silence this warning
+ if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                      ^
+                      (               )
+cups.c:257:24: warning: logical not is only applied to the left hand side of this comparison [-Wlogical-not-parentheses]
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^                ~~
+cups.c:257:24: note: add parentheses after the '!' to evaluate the comparison first
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^
+                        (                   )
+cups.c:257:24: note: add parentheses around left hand side expression to silence this warning
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^
+                       (               )
+cups.c:275:24: warning: logical not is only applied to the left hand side of this comparison [-Wlogical-not-parentheses]
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^                ~~
+cups.c:275:24: note: add parentheses after the '!' to evaluate the comparison first
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^
+                        (                   )
+cups.c:275:24: note: add parentheses around left hand side expression to silence this warning
+  if (NIL_P(job_id) || !NUM2INT(job_id) == 0) {
+                       ^
+                       (               )
+4 warnings generated.
+linking shared-object cups.bundle
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/cups-0.1.10/ext
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cups.bundle ./.gem.20191007-6569-l6t6be

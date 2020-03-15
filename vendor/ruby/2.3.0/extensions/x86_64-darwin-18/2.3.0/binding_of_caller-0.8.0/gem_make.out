@@ -1,0 +1,16 @@
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+/Users/marc/.rvm/rubies/ruby-2.3.0/bin/ruby -I /Users/marc/.rvm/rubies/ruby-2.3.0/lib/ruby/site_ruby/2.3.0 -r ./siteconf20190927-2181-4moqpv.rb extconf.rb
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" clean
+make: *** No rule to make target `clean'.  Stop.
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR="
+echo "Nada."
+Nada.
+
+current directory: /Users/marc/ws/labmate/vendor/ruby/2.3.0/gems/binding_of_caller-0.8.0/ext/binding_of_caller
+make "DESTDIR=" install
+echo "Nada."
+Nada.

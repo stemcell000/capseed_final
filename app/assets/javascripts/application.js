@@ -3,6 +3,7 @@
 //= require bootstrap-datepicker
 //= require bootstrap/bootstrap-rails-tooltip
 //= require bootstrap/bootstrap-rails-popover
+//= require bootstrap/modal
 //= require jquery_nested_form
 //= update_assays_row_position
 //= require autocomplete

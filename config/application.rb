@@ -31,6 +31,6 @@ module Capseed
     config.assets.precompile << %r(.*.(?:eot|svg|ttf|woff|woff2)$)
     config.exceptions_app = self.routes
     
-
+    config.serve_static_assets = true
   end
 end
